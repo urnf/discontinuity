@@ -1,0 +1,31 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Discontinuity">
+    <output-path>$PROJECT_DIR$/out/artifacts/Discontinuity</output-path>
+    <root id="archive" name="Desktop.jar">
+      <element id="module-output" name="Desktop" />
+      <element id="module-output" name="Main" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Desktop/libs/gdx-natives.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Desktop/libs/gdx-freetype.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Desktop/libs/gdx-backend-lwjgl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Desktop/libs/gdx-freetype-natives.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Desktop/libs/gdx-backend-lwjgl-natives.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Main/libs/gdx.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Main/libs/gdx-sources.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Main/libs/gdx-freetype.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Main/libs/snakeyaml-1.13.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Main/libs/gdx-freetype-natives.jar" path-in-jar="/" />
+      <element id="directory" name="cell">
+        <element id="dir-copy" path="$PROJECT_DIR$/Main/cell" />
+      </element>
+      <element id="directory" name="dialog">
+        <element id="dir-copy" path="$PROJECT_DIR$/Main/dialog" />
+      </element>
+      <element id="directory" name="fonts">
+        <element id="dir-copy" path="$PROJECT_DIR$/Main/fonts" />
+      </element>
+      <element id="directory" name="img">
+        <element id="dir-copy" path="$PROJECT_DIR$/Main/img" />
+      </element>
+    </root>
+  </artifact>
+</component>
