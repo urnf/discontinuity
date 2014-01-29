@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class DealPower extends Entity {
     int dp;
-    final int CONSUME_PENALTY = 100;
+    static int consume_penalty_coeff = -3;
 
     public DealPower (int x, int y) {
         super(x, y, 0, 0);
@@ -23,7 +23,7 @@ public class DealPower extends Entity {
     public void update(int dp_change, boolean isPlayer, boolean isConsumed) {
         dp = isPlayer ? (dp += dp_change) : (dp -= dp_change);
         if (isConsumed) {
-            dp = isPlayer ? (dp -= CONSUME_PENALTY * 3) : (dp += CONSUME_PENALTY);
+            dp -= dp_change * consume_penalty_coeff;
         }
     }
 }

@@ -80,6 +80,7 @@ public class Board {
     }
 
     public void move_arlene() {
+        /*
         // TODO : Fake AI for now - move Arlene in a random direction
         // TODO: Also doesn't respect rule of not moving onto opponent's current argument
         // Set up arrays of directions in this order: Move Left, Move Right, Move Up, Move Down
@@ -133,7 +134,8 @@ public class Board {
         }
         // Update Arlene's position
         int i = new Random().nextInt(arlene_moves.length);
-        DiscGame.arlene.update_position(cells[arlene_moves[i][0]][arlene_moves[i][1]]);
+        DiscGame.arlene.update_position(cells[arlene_moves[i][0]][arlene_moves[i][1]]);*/
+        DiscGame.arlene.update_position(DiscGame.arlene_ai.find_next_move());
     }
 
     public Cell find_cell(int board_x, int board_y) {

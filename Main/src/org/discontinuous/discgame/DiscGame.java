@@ -38,6 +38,7 @@ public class DiscGame extends Game {
     Icon confidence_icon_opponent;
     Icon inspiration_icon_player;
     Icon inspiration_icon_opponent;
+    static AI arlene_ai;
 
     static DialogOption[] dialog_options;
 
@@ -113,6 +114,9 @@ public class DiscGame extends Game {
         arlene.opponent = yi;
         yi.adjacent = yi.cell.find_adjacent_cells();
         yi.update_dialog_options();
+
+        // Setup AI class so Arlene doesn't wander randomly.
+        arlene_ai = new AI(arlene, yi);
 
         DialogProcessor inputProcessor = new DialogProcessor();
         Gdx.input.setInputProcessor(inputProcessor);

@@ -119,7 +119,7 @@ public class Contestant extends Entity {
         this.cell.setImg(Cell.consume);
 
         //give combo bonus if legit combo for character and new cell is not consumed
-        if (this.combo.checkCombo(this.cell.type.toString(), cell.type.toString()) && cell.consumed == false) {
+        if (this.combo.checkCombo(this.cell, cell) && cell.consumed == false) {
             // Get all the benefits of the previous cell except DP
             update_stats(this.cell, true);
             State.combo = true;
@@ -164,44 +164,36 @@ public class Contestant extends Entity {
                 case Intimidate: DiscGame.dealpower.update(inm_stats.get("power"), player, cell.consumed); break;
             }
         }
-        // Update Confidence Gain/Loss
-        switch (cell.type) {
-            case Logical:
-                confidence = Math.min(confidence + log_stats.get("conf_plus"), conf_max);
-                opponent.confidence = Math.max(opponent.confidence - log_stats.get("conf_minus"), 0);
-                break;
-            case Ethical:
-                confidence = Math.min(confidence + eth_stats.get("conf_plus"), conf_max);
-                opponent.confidence = Math.max(opponent.confidence - eth_stats.get("conf_minus"), 0);
-                break;
-            case Interrogate:
-                confidence = Math.min(confidence + ing_stats.get("conf_plus"), conf_max);
-                opponent.confidence = Math.max(opponent.confidence - ing_stats.get("conf_minus"), 0);
-                break;
-            case Intimidate:
-                confidence = Math.min(confidence + inm_stats.get("conf_plus"), conf_max);
-                opponent.confidence = Math.max(opponent.confidence - inm_stats.get("conf_minus"), 0);
-                break;
-        }
-
-        // Update Inspiration Gain/Loss
-        switch (cell.type) {
-            case Logical:
-                inspiration = Math.min(inspiration + log_stats.get("ins_plus"), insp_max);
-                opponent.inspiration = Math.max(opponent.inspiration - log_stats.get("ins_minus"), 0);
-                break;
-            case Ethical:
-                inspiration = Math.min(inspiration + eth_stats.get("ins_plus"), insp_max);
-                opponent.inspiration = Math.max(opponent.inspiration - eth_stats.get("ins_minus"), 0);
-                break;
-            case Interrogate:
-                inspiration = Math.min(inspiration + ing_stats.get("ins_plus"), insp_max);
-                opponent.inspiration = Math.max(opponent.inspiration - ing_stats.get("ins_minus"), 0);
-                break;
-            case Intimidate:
-                inspiration = Math.min(inspiration + inm_stats.get("ins_plus"), insp_max);
-                opponent.inspiration = Math.max(opponent.inspiration - inm_stats.get("ins_minus"), 0);
-                break;
+        // No bonuses for a consumed cell
+        if (!cell.consumed)
+        {
+            // Update Confidence Gain/Loss, Inspiration Gain/Loss
+            switch (cell.type) {
+                case Logical:
+                    confidence = Math.min(confidence + log_stats.get("conf_plus"), conf_max);
+                    opponent.confidence = Math.max(opponent.confidence - log_stats.get("conf_minus"), 0);
+                    inspiration = Math.min(inspiration + log_stats.get("ins_plus"), insp_max);
+                    opponent.inspiration = Math.max(opponent.inspiration - log_stats.get("ins_minus"), 0);
+                    break;
+                case Ethical:
+                    confidence = Math.min(confidence + eth_stats.get("conf_plus"), conf_max);
+                    opponent.confidence = Math.max(opponent.confidence - eth_stats.get("conf_minus"), 0);
+                    inspiration = Math.min(inspiration + eth_stats.get("ins_plus"), insp_max);
+                    opponent.inspiration = Math.max(opponent.inspiration - eth_stats.get("ins_minus"), 0);
+                    break;
+                case Interrogate:
+                    confidence = Math.min(confidence + ing_stats.get("conf_plus"), conf_max);
+                    opponent.confidence = Math.max(opponent.confidence - ing_stats.get("conf_minus"), 0);
+                    inspiration = Math.min(inspiration + ing_stats.get("ins_plus"), insp_max);
+                    opponent.inspiration = Math.max(opponent.inspiration - ing_stats.get("ins_minus"), 0);
+                    break;
+                case Intimidate:
+                    confidence = Math.min(confidence + inm_stats.get("conf_plus"), conf_max);
+                    opponent.confidence = Math.max(opponent.confidence - inm_stats.get("conf_minus"), 0);
+                    inspiration = Math.min(inspiration + inm_stats.get("ins_plus"), insp_max);
+                    opponent.inspiration = Math.max(opponent.inspiration - inm_stats.get("ins_minus"), 0);
+                    break;
+            }
         }
     }
 

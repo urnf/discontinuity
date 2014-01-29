@@ -50,7 +50,7 @@ public class DialogOption extends Entity {
             // if backtracking, highlight red
             if (cell.consumed) { shapes.setColor(dark_red); }
             // if can combo into this option, highlight green
-            else if (DiscGame.yi.combo.checkCombo(DiscGame.yi.cell.type.toString(), cell.type.toString())) { shapes.setColor(dark_green); }
+            else if (DiscGame.yi.combo.checkCombo(DiscGame.yi.cell, cell)) { shapes.setColor(dark_green); }
             else { shapes.setColor(light_grey); }
             shapes.rect(x - 7, y - 3 + dialog_y_offset, width + 14, height + 6);
             shapes.setColor(dark_grey);
