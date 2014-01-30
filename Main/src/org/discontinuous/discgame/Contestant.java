@@ -134,11 +134,6 @@ public class Contestant extends Entity {
 
         update_stats(cell, false);
 
-        // If new cell is already consumed, lose deal power, confidence, AND inspiration
-        if (cell.consumed) {
-           // TODO : FILL ME IN THIS IS THE NEXT PART 1/3/14
-        }
-
         // update image position
         x = DiscGame.screen_width - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
         y = DiscGame.screen_height - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
@@ -194,6 +189,11 @@ public class Contestant extends Entity {
                     opponent.inspiration = Math.max(opponent.inspiration - inm_stats.get("ins_minus"), 0);
                     break;
             }
+        }
+        // lose a load of confidence and inspiration instead if consumed
+        else {
+            confidence = Math.max(confidence - 50, 0);
+            inspiration = Math.max(inspiration - 50, 0);
         }
     }
 

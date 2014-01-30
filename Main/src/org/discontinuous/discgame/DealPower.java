@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class DealPower extends Entity {
     int dp;
-    static int consume_penalty_coeff = -3;
+    static int consume_penalty = 400;
 
     public DealPower (int x, int y) {
         super(x, y, 0, 0);
@@ -23,7 +23,9 @@ public class DealPower extends Entity {
     public void update(int dp_change, boolean isPlayer, boolean isConsumed) {
         dp = isPlayer ? (dp += dp_change) : (dp -= dp_change);
         if (isConsumed) {
-            dp -= dp_change * consume_penalty_coeff;
+            // Penalty needs to be flat, otherwise the AI and to a certain extent, the player will be encouraged to find
+            // an "optimal" path through consumed squares, when in fact, it should be, GTFO ASAP.
+            dp -= consume_penalty;
         }
     }
 }
