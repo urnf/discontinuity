@@ -17,6 +17,8 @@ public class DialogOption extends Entity {
     static Color light_grey = new Color(0.7f, 0.7f, 0.7f, 1);
     static Color dark_green = new Color(0.0664f, 0.4336f, 0.1523f, 1);
     static Color dark_red = new Color(0.4336f, 0.1172f, 0.0664f, 1);
+    // flag to check if will combo, so doesn't run the combo check over and over
+    boolean will_combo;
 
     public DialogOption (int x, int y, int width, int height){
         super(x, y, width, height);
@@ -50,7 +52,7 @@ public class DialogOption extends Entity {
             // if backtracking, highlight red
             if (cell.consumed) { shapes.setColor(dark_red); }
             // if can combo into this option, highlight green
-            else if (DiscGame.yi.combo.checkCombo(DiscGame.yi.cell, cell)) { shapes.setColor(dark_green); }
+            else if (will_combo) { shapes.setColor(dark_green); }
             else { shapes.setColor(light_grey); }
             shapes.rect(x - 7, y - 3 + dialog_y_offset, width + 14, height + 6);
             shapes.setColor(dark_grey);

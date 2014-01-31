@@ -15,14 +15,14 @@ public class AI {
     // This is how many steps ahead the AI looks for pathfinding.
     // Exponentially takes more time the more iterations there are, so keep this low
     // int total is also instantiated each recursion, so space usage will also start adding up.
-    final int iterations = 10;
+    final int iterations = 12;
     Map<Cell, Float> possible_moves;
     Cell max_cell;
     float max_value;
 
     // Current AI weights - may change based on personalities, abilities, etc.
     int dp_weight = 1;
-    int backtrack_dp_weight = 2;
+    int backtrack_dp_weight = 10;
     int conf_plus_weight = 2;
     int conf_minus_weight = 2;
     int ins_plus_weight = 2;
@@ -37,12 +37,12 @@ public class AI {
 
     public Cell find_next_move() {
         // Reset max_value, reset adjacent hashmap
-        // Set max_cell to a legit value later on since we want a fallback to a legit move rather than an exception
+        // Resetting max_cell to null since we want exception rather than hiding with random legal move
         max_value = 0;
+        max_cell = null;
         possible_moves.clear();
 
         opponent.adjacent = opponent.cell.find_adjacent_cells();
-        max_cell = opponent.adjacent.get(0);
         for (Cell cell : opponent.adjacent) {
             ArrayList<Cell> previousCells = new ArrayList<Cell>();
             previousCells.add(opponent.cell);
@@ -58,7 +58,9 @@ public class AI {
         // Fuckit, naive implementation of getting largest value.  Should really be sorting.
         // It's O(n) but on four values, nobuddygiffafuk
         for (Map.Entry<Cell, Float> entry: possible_moves.entrySet()) {
-            if (entry.getValue() > max_value) {
+            // Max_cell null ensures that if values go really negative, as in
+            // when AI is surrounded by backtracking, will still pick best route
+            if (entry.getValue() > max_value || null == max_cell) {
                 max_cell = entry.getKey();
                 max_value = entry.getValue();
             }
@@ -73,12 +75,15 @@ public class AI {
         // System for weighing the potential - if all the potential in a route is backloaded, as in,
         // all the good squares are x down the line, value them less than those available immediately
         // - This can probably be encoded into AI personalities
-        // Current default coefficient is 1 - x/10 where x is number of steps
+        // Current default coefficient is 1 - x/20 where x is number of steps
+
+
         float weight;
         weight = weight(previousCells.size());
 
-        if (previousCells.size() - 1 == iterations) {
-            for (Cell adjacent : cell.find_adjacent_cells()) {
+        ArrayList<Cell> adjacent_cells = cell.find_adjacent_cells();
+        if (previousCells.size() == iterations) {
+            for (Cell adjacent : adjacent_cells) {
 
                 // This is going to suck if multithreaded in terms of space taken
                 ArrayList<Cell> new_cells = new ArrayList<Cell>(previousCells);
@@ -98,11 +103,13 @@ public class AI {
                 total += getBonuses(adjacent, previousCells.contains(adjacent)) * weight;
             }
         }
-        return total;
+        // Attempt to normalize bad moves made by the AI by averaging both success and penalties by number of moves considered
+        // This means that corner/edge positions no longer have an advantage when unconsumed or disadvantage when consumed.
+        return total/adjacent_cells.size();
     }
 
     public float weight(int steps) {
-        return (1 - (steps/10));
+        return (1 - (steps/20));
     }
 
     public float getBonuses(Cell cell, boolean previously_consumed) {

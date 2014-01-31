@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class DealPower extends Entity {
     int dp;
-    static int consume_penalty = 400;
+    static int consume_penalty = 200;
 
     public DealPower (int x, int y) {
         super(x, y, 0, 0);

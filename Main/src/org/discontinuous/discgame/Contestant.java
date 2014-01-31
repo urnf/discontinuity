@@ -96,6 +96,8 @@ public class Contestant extends Entity {
             // Note: this will go out of bounds with a non-rectangular grid (hexes, etc) since it then becomes possible
             // for this to be adjacent to more than 4 cells
             DiscGame.dialog_options[i].cell = adjacent_cell;
+            // Update combo status
+            DiscGame.dialog_options[i].will_combo = DiscGame.yi.combo.checkCombo(DiscGame.yi.cell, cell);
             adjacent_cell.dialog_option = DiscGame.dialog_options[i];
             i++;
         }

@@ -62,34 +62,6 @@ public class State {
                 if (animation_counter <= animation_max * animation_coefficient) {
                     DiscGame.animation_font.setColor(1f, 1f, 1f, 1 - ((float) animation_counter / (animation_coefficient * 100)));
 
-                    //().toString
-                    /*
-                    switch (currentSpeaker.cell.type) {
-                        case Logical:
-                            conf_plus = "+" + currentSpeaker.log_stats.get("conf_plus");
-                            ins_plus = "+" + currentSpeaker.log_stats.get("ins_plus");
-                            conf_minus = "-" + currentSpeaker.log_stats.get("conf_minus");
-                            ins_minus = "-" + currentSpeaker.log_stats.get("ins_minus");
-                            break;
-                        case Ethical:
-                            conf_plus = "+" + currentSpeaker.eth_stats.get("conf_plus");
-                            ins_plus = "+" + currentSpeaker.eth_stats.get("ins_plus");
-                            conf_minus = "-" + currentSpeaker.eth_stats.get("conf_minus");
-                            ins_minus = "-" + currentSpeaker.eth_stats.get("ins_minus");
-                            break;
-                        case Interrogate:
-                            conf_plus = "+" + currentSpeaker.ing_stats.get("conf_plus");
-                            ins_plus = "+" + currentSpeaker.ing_stats.get("ins_plus");
-                            conf_minus = "-" + currentSpeaker.ing_stats.get("conf_minus");
-                            ins_minus = "-" + currentSpeaker.ing_stats.get("ins_minus");
-                            break;
-                        case Intimidate:
-                            conf_plus = "+" + currentSpeaker.inm_stats.get("conf_plus");
-                            ins_plus = "+" + currentSpeaker.inm_stats.get("ins_plus");
-                            conf_minus = "-" + currentSpeaker.inm_stats.get("conf_minus");
-                            ins_minus = "-" + currentSpeaker.inm_stats.get("ins_minus");
-                            break;
-                    }*/
                     if (currentSpeaker.player) {
                         conf_plus_x = 80;
                         ins_plus_x = 122;

@@ -15,7 +15,7 @@ public class Combo {
     public boolean checkCombo (Cell begin, Cell end) {
         // UGH.  I should not have to write my own string tuple comparator here.  I'm doing something wrong.
         for (String[] possible_combo : combo_list) {
-            if (possible_combo[0] == begin.type.toString() && possible_combo[1] == end.type.toString() && !end.consumed) return true;
+            if (possible_combo[0] == begin.type.toString() && possible_combo[1] == end.type.toString() && !end.consumed) { return true; }
         }
         return false;
     }

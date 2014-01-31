@@ -80,61 +80,6 @@ public class Board {
     }
 
     public void move_arlene() {
-        /*
-        // TODO : Fake AI for now - move Arlene in a random direction
-        // TODO: Also doesn't respect rule of not moving onto opponent's current argument
-        // Set up arrays of directions in this order: Move Left, Move Right, Move Up, Move Down
-        int arlene_x = DiscGame.arlene.cell.board_x;
-        int arlene_y = DiscGame.arlene.cell.board_y;
-        int[][] arlene_moves;
-        int[] move_left = new int[]{arlene_x + 1, arlene_y};
-        int[] move_right = new int[]{arlene_x - 1, arlene_y};
-        int[] move_up = new int[]{arlene_x, arlene_y - 1};
-        int[] move_down = new int[]{arlene_x, arlene_y + 1};
-
-        if (arlene_x == DiscGame.BOARD_WIDTH - 1) {
-            if (arlene_y == 0) {
-                // If we're in the upper left corner, only have move down and move right in set of possible moves
-                arlene_moves = new int[][]{move_down, move_right};
-            }
-            else if (arlene_y == DiscGame.BOARD_HEIGHT - 1){
-                // If we're in the lower left corner, only have move up and move right in set of possible moves
-                arlene_moves = new int[][]{move_up, move_right};
-
-            }
-            else {
-                // We're on the left edge, only have move right, move up, and move down in possible moves
-                arlene_moves = new int[][]{move_up, move_down, move_right};
-            }
-        }
-        else if (arlene_x == 0) {
-            if (arlene_y == 0) {
-                // If we're in the upper right corner, only have move down and move left in set of possible moves
-                arlene_moves = new int[][]{move_down, move_left};
-            }
-            else if (arlene_y == DiscGame.BOARD_HEIGHT - 1){
-                // If we're in the lower right corner, only have move up and move left in set of possible moves
-                arlene_moves = new int[][]{move_up, move_left};
-            }
-            else {
-                // We're on the right edge, only have move left, move up, and move down in possible moves
-                arlene_moves = new int[][]{move_up, move_down, move_left};
-            }
-        }
-        else if (arlene_y == 0) {
-            // We're on the top edge, only have move left, move right, and move down in possible moves
-            arlene_moves = new int[][]{move_left, move_right, move_down};
-        }
-        else if (arlene_y == DiscGame.BOARD_HEIGHT - 1) {
-            // We're on the bottom edge, only have move left, move right, and move up in possible moves
-            arlene_moves = new int[][]{move_left, move_right, move_up};
-        }
-        else {
-            arlene_moves = new int[][]{move_up, move_down, move_left, move_right};
-        }
-        // Update Arlene's position
-        int i = new Random().nextInt(arlene_moves.length);
-        DiscGame.arlene.update_position(cells[arlene_moves[i][0]][arlene_moves[i][1]]);*/
         DiscGame.arlene.update_position(DiscGame.arlene_ai.find_next_move());
     }
 

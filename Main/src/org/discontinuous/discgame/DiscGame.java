@@ -14,6 +14,7 @@ import org.yaml.snakeyaml.Yaml;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Actual game code.  Pleased that unlike Slick, libgdx abstracts
@@ -153,6 +154,17 @@ public class DiscGame extends Game {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         drawBatchCore();
+
+        // debug for AI
+        if (!arlene_ai.possible_moves.isEmpty()) {
+            int i = 0;
+            for (Map.Entry<Cell, Float> entry: arlene_ai.possible_moves.entrySet()) {
+                header_font.draw(batch, entry.getKey().type + ": " + entry.getValue(), 700, 500 + i * 30);
+                i++;
+            }
+            header_font.draw(batch, "Max value there was: " + arlene_ai.max_value, 600, 700);
+        }
+
         batch.end();
 
         // FFS, I can't use shape renderer for the bars inside batch.  So it needs to be done outside.
@@ -168,7 +180,6 @@ public class DiscGame extends Game {
         drawBatchCoreTop();
         State.drawStateBatch(batch);
         batch.end();
-
     }
 
     public void dispose() {
