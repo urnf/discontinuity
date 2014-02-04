@@ -28,6 +28,11 @@ public class State {
     private static int ins_plus_x;
     private static int conf_minus_x;
     private static int ins_minus_x;
+    private static String conf_plus_string;
+    private static String conf_minus_string;
+    private static String ins_plus_string;
+    private static String ins_minus_string;
+
     static boolean combo;
 
     public static void drawStateShapes(ShapeRenderer shapes) {
@@ -63,22 +68,30 @@ public class State {
                     DiscGame.animation_font.setColor(1f, 1f, 1f, 1 - ((float) animation_counter / (animation_coefficient * 100)));
 
                     if (currentSpeaker.player) {
-                        conf_plus_x = 80;
-                        ins_plus_x = 122;
-                        conf_minus_x = 844;
-                        ins_minus_x = 886;
+                        conf_plus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 116;
+                        ins_plus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 76;
+                        conf_minus_x =  DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 44;
+                        ins_minus_x = DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 84;
+                        conf_plus_string = Integer.toString(DiscGame.yi.confidence - previousPlayerConf);
+                        ins_plus_string = Integer.toString(DiscGame.yi.inspiration - previousPlayerIns);
+                        conf_minus_string = Integer.toString(DiscGame.arlene.confidence - previousOpponentConf);
+                        ins_minus_string = Integer.toString(DiscGame.arlene.inspiration - previousOpponentIns);
                     }
                     else {
-                        conf_plus_x = 844;
-                        ins_plus_x = 886;
-                        conf_minus_x = 80;
-                        ins_minus_x = 122;
+                        conf_plus_x = DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 44;
+                        ins_plus_x =  DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 84;
+                        conf_minus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 116;
+                        ins_minus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 76;
+                        conf_plus_string = Integer.toString(DiscGame.arlene.confidence - previousOpponentConf);
+                        ins_plus_string = Integer.toString(DiscGame.arlene.inspiration - previousOpponentIns);
+                        conf_minus_string = Integer.toString(DiscGame.yi.confidence - previousPlayerConf);
+                        ins_minus_string = Integer.toString(DiscGame.yi.inspiration - previousPlayerIns);
                     }
-                    DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.dealpower.dp - previousPower), 482, 295 + animation_counter/animation_coefficient, 380);
-                    DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.yi.confidence - previousPlayerConf), conf_plus_x, 420 + animation_counter/animation_coefficient, 380);
-                    DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.yi.inspiration - previousPlayerIns), ins_plus_x, 420 + animation_counter/animation_coefficient, 380);
-                    DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.arlene.confidence - previousOpponentConf), conf_minus_x, 420 + animation_counter/animation_coefficient, 380);
-                    DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.arlene.inspiration - previousOpponentIns), ins_minus_x, 420 + animation_counter/animation_coefficient, 380);
+                    DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.dealpower.dp - previousPower), DiscGame.screen_width/2 - 10, 325 + animation_counter/animation_coefficient, 380);
+                    DiscGame.animation_font.drawWrapped(batch, conf_plus_string, conf_plus_x, 420 + animation_counter/animation_coefficient, 380);
+                    DiscGame.animation_font.drawWrapped(batch, ins_plus_string, ins_plus_x, 420 + animation_counter/animation_coefficient, 380);
+                    DiscGame.animation_font.drawWrapped(batch, conf_minus_string, conf_minus_x, 420 + animation_counter/animation_coefficient, 380);
+                    DiscGame.animation_font.drawWrapped(batch, ins_minus_string, ins_minus_x, 420 + animation_counter/animation_coefficient, 380);
                     if (State.combo) {
                         DiscGame.animation_font.drawWrapped(batch, "COMBO", currentSpeaker.cell.x, currentSpeaker.cell.y + 30 + animation_counter / animation_coefficient, 380);
                     }

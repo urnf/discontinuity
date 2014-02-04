@@ -96,7 +96,7 @@ public class Contestant extends Entity {
             // for this to be adjacent to more than 4 cells
             DiscGame.dialog_options[i].cell = adjacent_cell;
             // Update combo status
-            DiscGame.dialog_options[i].will_combo = DiscGame.yi.combo.checkCombo(DiscGame.yi.cell, cell);
+            DiscGame.dialog_options[i].will_combo = DiscGame.yi.combo.checkCombo(DiscGame.yi.cell, adjacent_cell);
             adjacent_cell.dialog_option = DiscGame.dialog_options[i];
             i++;
         }
@@ -161,8 +161,10 @@ public class Contestant extends Entity {
                 case Intimidate: DiscGame.dealpower.update(inm_stats.get("power"), player, cell.consumed); break;
             }
         }
-        // No bonuses for a consumed cell
-        if (!cell.consumed)
+        // No bonuses for a consumed cell, but ok if it's a combo
+        // Can combo over consumed arguments, the logic being you're taking a penalty to set up for new arguments
+        // TODO: Simplify this logic
+        if ((!cell.consumed) || (cell.consumed && combo))
         {
             // Update Confidence Gain/Loss, Inspiration Gain/Loss
             switch (cell.type) {

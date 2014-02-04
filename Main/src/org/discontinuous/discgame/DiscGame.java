@@ -163,17 +163,6 @@ public class DiscGame extends Game {
         batch.begin();
         drawBatchCore();
 
-        // debug for AI
-        /*
-        if (!arlene_ai.possible_moves.isEmpty()) {
-            int i = 0;
-            for (Map.Entry<Cell, Float> entry: arlene_ai.possible_moves.entrySet()) {
-                header_font.draw(batch, entry.getKey().type + ": " + entry.getValue(), 700, 500 + i * 30);
-                i++;
-            }
-            header_font.draw(batch, "Max value there was: " + arlene_ai.max_value, 600, 700);
-        }*/
-
         batch.end();
 
         // FFS, I can't use shape renderer for the bars inside batch.  So it needs to be done outside.
@@ -330,14 +319,14 @@ public class DiscGame extends Game {
     }
 
     public void setupPortraits() {
-        yi_portrait = new Portrait(new Texture(Gdx.files.internal("img/yi-combos.png")), 0, 0, 300, 375, screen_width/2 - 250, 700, 250, 250, 500, "Zhuge Yi\n" +
+        yi_portrait = new Portrait(new Texture(Gdx.files.internal("img/yi-combos.png")), 0, 0, 300, 375, screen_width/2 - 250, 730, 220, 250, 500, "Zhuge Yi\n" +
                 "This proclaimed traveling businessman seems to have a surprising knack for methodical debate and inquiry.\n\n" +
                 "His arguments are swift as the coursing river;\n" +
                 "laid out with all the force of a great typhoon;\n" +
                 "debated with all the strength of a raging fire;\n" +
                 "and his next move is mysterious as the dark side of the moon.");
         yi_portrait.setImg(new Texture(Gdx.files.internal("img/zhugeyi.png")));
-        arlene_portrait = new Portrait(new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 300, 375, screen_width/2 - 250, 700, screen_width - 250, 250, 520, "Arlene Elecantos\n" +
+        arlene_portrait = new Portrait(new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 300, 375, screen_width/2 - 250, 745, screen_width - 280, 250, 520, "Arlene Elecantos\n" +
                 "J.D. University of New Oxford\n" +
                 "Elecantos Legal Group\n" +
                 "Professor Emeritus, Harvard Mars Law Adjunct\n\n" +
