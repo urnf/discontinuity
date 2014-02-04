@@ -10,7 +10,7 @@ public class State {
     // singleton game state library, drawing state-specific UI elements and transitions to other states
 
     public enum states {
-        SelectDialog, InDialog, PreGame, PostGame
+        SelectDialog, SelectAbility, InDialog, PreGame, PostGame
     }
 
     static states currentState = states.SelectDialog;

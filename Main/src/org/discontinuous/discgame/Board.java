@@ -14,9 +14,13 @@ public class Board {
     int screen_height;
     Cell[][] cells;
 
-    static final int WIDTH_OFFSET = 270;
-    static final int HEIGHT_OFFSET = 5;
-    static final int CELL_EDGE_SIZE = 64;
+    static final int CELL_EDGE_SIZE = 48;
+
+    // Asset texture size, independent of how large we want it
+    static final int TEXTURE_EDGE = 64;
+
+    static final int WIDTH_OFFSET = DiscGame.screen_width/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 10;
+    static final int HEIGHT_OFFSET = 40;
 
     int[] player_position;
     int[] opponent_position;

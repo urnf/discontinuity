@@ -23,6 +23,9 @@ import java.util.Map;
  */
 public class DiscGame extends Game {
     // TODO: Too much casting.  I'm trying to write Java like I'm writing Ruby.  Clean up/reduce casting.
+    // TODO: - Insults/Compliments
+    // TODO: - DP spending
+    // TODO: - Oral Swap Hyper Combos
 
     // TODO: Giant pile of static variables.  OK for prototype, terrible design.
     static Board board;
@@ -39,6 +42,7 @@ public class DiscGame extends Game {
     Icon confidence_icon_opponent;
     Icon inspiration_icon_player;
     Icon inspiration_icon_opponent;
+    Abilities abilities;
     static AI arlene_ai;
 
     static DialogOption[] dialog_options;
@@ -104,7 +108,7 @@ public class DiscGame extends Game {
         setupDialogEntities();
 
         // Setup Deal Power counter
-        dealpower = new DealPower(screen_width/2 - 30, screen_height/2 - 110);
+        dealpower = new DealPower(screen_width/2 - 10, screen_height/2 - 80);
 
         // Initialize stats for each contestant
         setupYi();
@@ -118,6 +122,10 @@ public class DiscGame extends Game {
 
         // Setup AI class so Arlene doesn't wander randomly.
         arlene_ai = new AI(arlene, yi);
+
+        // Setup ability button
+        abilities = new Abilities(100, 100, 64, 64);
+        abilities.setImg(new Texture(Gdx.files.internal("cell/interrogate.jpg")));
 
         DialogProcessor inputProcessor = new DialogProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
@@ -156,6 +164,7 @@ public class DiscGame extends Game {
         drawBatchCore();
 
         // debug for AI
+        /*
         if (!arlene_ai.possible_moves.isEmpty()) {
             int i = 0;
             for (Map.Entry<Cell, Float> entry: arlene_ai.possible_moves.entrySet()) {
@@ -163,7 +172,7 @@ public class DiscGame extends Game {
                 i++;
             }
             header_font.draw(batch, "Max value there was: " + arlene_ai.max_value, 600, 700);
-        }
+        }*/
 
         batch.end();
 
@@ -177,8 +186,8 @@ public class DiscGame extends Game {
 
         // I really hate not drawing all in one spritebatch block - but this hacky solution works for now
         batch.begin();
-        drawBatchCoreTop();
         State.drawStateBatch(batch);
+        drawBatchCoreTop();
         batch.end();
     }
 
@@ -198,6 +207,8 @@ public class DiscGame extends Game {
         yi_portrait.draw(batch);
         arlene_portrait.draw(batch);
 
+        abilities.draw(batch);
+
         // Draw the board
         board.draw(batch, BOARD_WIDTH, BOARD_HEIGHT);
 
@@ -212,7 +223,7 @@ public class DiscGame extends Game {
         arlene.draw(batch);
 
         // TOPIC FOR DEBATE
-        //header_font.draw(batch, "Resolved: That Prof. Elecantos should not horribly murder us and obliterate our souls.", screen_width/2 - 375, screen_height - 12);
+        header_font.draw(batch, "Resolved: That Prof. Elecantos should not horribly murder us and obliterate our souls.", screen_width/2 - 300, screen_height - 12);
 
         // Draw Deal Power
         dealpower.draw(batch);
@@ -266,8 +277,9 @@ public class DiscGame extends Game {
         yi_combo_list.add(new String[]{"Interrogate", "Intimidate"});
         Combo yi_combo = new Combo(yi_combo_list);
 
-        yi = new Contestant(yi_combo, BOARD_WIDTH, BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, 80, true, board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
+        yi = new Contestant(yi_combo, BOARD_WIDTH, BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 120, true, board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
         yi.setImg(new Texture(Gdx.files.internal("img/zhugemini.png")));
+        //yi.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
         yi_portrait.setContestant(yi);
     }
 
@@ -311,20 +323,21 @@ public class DiscGame extends Game {
         arlene_combo_list.add(new String[]{"Intimidate", "Ethical"});
         Combo arlene_combo = new Combo(arlene_combo_list);
 
-        arlene = new Contestant(arlene_combo, 1, 1, log_stats, eth_stats, inm_stats, ing_stats, 200, 200, 840, false, board.cells[0][0]);
+        arlene = new Contestant(arlene_combo, 1, 1, log_stats, eth_stats, inm_stats, ing_stats, 200, 200, screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 40, false, board.cells[0][0]);
         arlene.setImg(new Texture(Gdx.files.internal("img/arlenemini.png")));
+        //arlene.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
         arlene_portrait.setContestant(arlene);
     }
 
     public void setupPortraits() {
-        yi_portrait = new Portrait(new Texture(Gdx.files.internal("img/yi-combos.png")), 0, 0, 300, 375, 250, 650, 30, 80, 500, "Zhuge Yi\n" +
+        yi_portrait = new Portrait(new Texture(Gdx.files.internal("img/yi-combos.png")), 0, 0, 300, 375, screen_width/2 - 250, 700, 250, 250, 500, "Zhuge Yi\n" +
                 "This proclaimed traveling businessman seems to have a surprising knack for methodical debate and inquiry.\n\n" +
                 "His arguments are swift as the coursing river;\n" +
                 "laid out with all the force of a great typhoon;\n" +
                 "debated with all the strength of a raging fire;\n" +
                 "and his next move is mysterious as the dark side of the moon.");
         yi_portrait.setImg(new Texture(Gdx.files.internal("img/zhugeyi.png")));
-        arlene_portrait = new Portrait(new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 300, 375, 250, 650, -500, 60, 520, "Arlene Elecantos\n" +
+        arlene_portrait = new Portrait(new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 300, 375, screen_width/2 - 250, 700, screen_width - 250, 250, 520, "Arlene Elecantos\n" +
                 "J.D. University of New Oxford\n" +
                 "Elecantos Legal Group\n" +
                 "Professor Emeritus, Harvard Mars Law Adjunct\n\n" +
@@ -364,13 +377,13 @@ public class DiscGame extends Game {
         confidence_icon = new Texture(Gdx.files.internal("img/confidence.png"));
         inspiration_icon = new Texture(Gdx.files.internal("img/inspiration.png"));
 
-        confidence_icon_player = new Icon(85, screen_height - 65, 32, 32, 300, 600, 400, 80, confidence);
+        confidence_icon_player = new Icon(screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 115, screen_height - 65, 32, 32, screen_width/2 - 200, 600, 400, 80, confidence);
         confidence_icon_player.setImg(confidence_icon);
-        confidence_icon_opponent = new Icon(screen_width - 180, screen_height - 67, 32, 32, 300, 600, 400, 80, confidence);
+        confidence_icon_opponent = new Icon(screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 45, screen_height - 67, 32, 32, screen_width/2 - 200, 600, 400, 80, confidence);
         confidence_icon_opponent.setImg(confidence_icon);
-        inspiration_icon_player = new Icon(125, screen_height - 65, 32, 32, 300, 600, 400, 80, inspiration);
+        inspiration_icon_player = new Icon(screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 75, screen_height - 65, 32, 32, screen_width/2 - 200, 600, 400, 80, inspiration);
         inspiration_icon_player.setImg(inspiration_icon);
-        inspiration_icon_opponent = new Icon(screen_width - 140, screen_height - 67, 32, 32, 300, 600, 400, 80, inspiration);
+        inspiration_icon_opponent = new Icon(screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 85, screen_height - 67, 32, 32, screen_width/2 - 200, 600, 400, 80, inspiration);
         inspiration_icon_opponent.setImg(inspiration_icon);
         // Assign the movestats texture to be used generally in portraits
         movestats = new Texture(Gdx.files.internal("img/movestats.png"));

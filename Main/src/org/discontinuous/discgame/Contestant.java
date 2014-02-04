@@ -31,8 +31,8 @@ public class Contestant extends Entity {
     public Contestant(Combo combo, int board_x, int board_y, Hashtable log_stats, Hashtable eth_stats, Hashtable inm_stats, Hashtable ing_stats, int conf_max, int insp_max, int coordinate, boolean isPlayer, Cell cell) {
         super(DiscGame.screen_width - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (board_x)),
                 DiscGame.screen_height - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (board_y)),
-                Board.CELL_EDGE_SIZE,
-                Board.CELL_EDGE_SIZE);
+                Board.TEXTURE_EDGE,
+                Board.TEXTURE_EDGE);
         this.cell = cell;
         this.conf_max = conf_max;
         this.insp_max = insp_max;
@@ -46,7 +46,6 @@ public class Contestant extends Entity {
         player = isPlayer;
         adjacent = new ArrayList();
         this.combo = combo;
-
     }
     public void draw(SpriteBatch batch) {
         img.draw(batch);
@@ -119,6 +118,7 @@ public class Contestant extends Entity {
         this.cell.consumed = true;
         this.cell.occupied = false;
         this.cell.setImg(Cell.consume);
+        this.cell.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
 
         //give combo bonus if legit combo for character and new cell is not consumed
         if (this.combo.checkCombo(this.cell, cell) && cell.consumed == false) {

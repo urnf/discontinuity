@@ -28,7 +28,6 @@ public class Entity {
     // I'm assuming that although this is a strong reference, the garbage collector will pick the old one up
     // Can chain this method into the constructor since it returns this
     public Entity setImg(Texture img) {
-
         this.img = new Sprite(img, width, height);
         this.img.setPosition(x, y);
         return this;

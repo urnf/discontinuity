@@ -25,6 +25,7 @@ public class Cell extends Entity {
     int board_x;
     int board_y;
 
+
     // Cell type
     public enum concepts {
         Logical, Ethical, Interrogate, Intimidate
@@ -48,13 +49,15 @@ public class Cell extends Entity {
         super(x, y, length, length);
         try {
             switch (concept_num) {
-                case 1: type = concepts.Logical; img = new Sprite(logical, width, height); break;
-                case 2: type = concepts.Ethical; img = new Sprite(ethical, width, height); break;
-                case 3: type = concepts.Interrogate; img = new Sprite(interrogate, width, height); break;
-                case 4: type = concepts.Intimidate; img = new Sprite(intimidate, width, height); break;
+                case 1: type = concepts.Logical; img = new Sprite(logical, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE); break;
+                case 2: type = concepts.Ethical; img = new Sprite(ethical, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE); break;
+                case 3: type = concepts.Interrogate; img = new Sprite(interrogate, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE); break;
+                case 4: type = concepts.Intimidate; img = new Sprite(intimidate, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE); break;
                 default: throw new Exception();
             }
             img.setPosition(x, y);
+            // TODO: Hack in place for 48x48 for more screen real estate, remove/redo
+            img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
         }
         catch (Exception e) {
             System.err.println("Invalid concept cell type!");
@@ -73,6 +76,13 @@ public class Cell extends Entity {
         //Grab a line of dialog for each character involved
         yi_dialog = DiscGame.topics.get(0).getYiDialog(this);
         arlene_dialog = DiscGame.topics.get(0).getArleneDialog(this);
+    }
+
+    // Override the default setImg in entity, want to use texture_edge instead
+    public Entity setImg(Texture img) {
+        this.img = new Sprite(img, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE);
+        this.img.setPosition(x, y);
+        return this;
     }
 
     public void draw(SpriteBatch batch) {
