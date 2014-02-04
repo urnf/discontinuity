@@ -56,6 +56,7 @@ public class Portrait extends Entity {
         contestant.draw_stats(batch, hover_x + 125, (int) (hover_y - text_height + 95));
         combos.draw(batch);
         movestats.draw(batch);
+        Tooltip.drawDialogWidgets(hover_x, (int) (hover_y - text_height), (int) text_width, (int) text_height, batch);
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {

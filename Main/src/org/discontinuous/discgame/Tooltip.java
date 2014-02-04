@@ -1,7 +1,13 @@
 package org.discontinuous.discgame;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import java.util.ArrayList;
 
 /**
  * Created by Urk on 1/8/14.
@@ -10,10 +16,16 @@ public class Tooltip {
     // No constructor, this is a utility class
     static Color dark_grey = new Color(0.15f, 0.15f, 0.15f, 1);
     static Color light_grey = new Color(0.8f, 0.8f, 0.8f, 1);
+    static Sprite upper_left = new Sprite(new Texture(Gdx.files.internal("img/upper-left.png")), 64, 64);
+    static Sprite upper_right = new Sprite(new Texture(Gdx.files.internal("img/upper-right.png")), 64, 64);
+    static Sprite lower_left = new Sprite(new Texture(Gdx.files.internal("img/lower-left.png")), 64, 64);
+    static Sprite lower_right = new Sprite(new Texture(Gdx.files.internal("img/lower-right.png")), 64, 64);
+    static int dialog_height = 50;
 
     // Draws a tooltip rectangle at the coordinates with width/height, with a pointer pointing to the location noted
     // So far tip is only attached to bottom of tooltip border, may add option later
     public static void newTip (int x, int y, int width, int height, int pointer_x, int pointer_y, Color fill_color, Color border_color, boolean thought, ShapeRenderer shapes) {
+
         shapes.setColor(border_color);
         shapes.rect(x - 20, y - 20, width + 40, height + 40);
         int center_x = x + width/2;
@@ -40,9 +52,21 @@ public class Tooltip {
         }
     }
 
+    //TODO: These two methods do NOT belong here.  Move it.
     // Draw a dialog area tooltip
-    public static void drawDialogTooltip(ShapeRenderer shapes) {
-        Tooltip.newTip(DiscGame.screen_width/2 - 230, 30, 450, 200,
+    public static void drawDialogBox(ShapeRenderer shapes) {
+        Tooltip.newTip(DiscGame.screen_width/2 - 230, dialog_height, 450, 200,
                 200, 250, dark_grey, light_grey, true, shapes);
+    }
+    public static void drawDialogWidgets(int x, int y, int width, int height, SpriteBatch batch) {
+        upper_left.setPosition(x - 30, y + height - 32);
+        upper_right.setPosition(x + width - 21,  y + height - 21);
+        lower_left.setPosition(x - 30, y - 32);
+        lower_right.setPosition(x + width - 32, y - 30);
+        upper_left.draw(batch);
+        upper_right.draw(batch);
+        lower_left.draw(batch);
+        lower_right.draw(batch);
+
     }
 }

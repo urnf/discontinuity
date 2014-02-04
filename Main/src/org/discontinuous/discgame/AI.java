@@ -15,7 +15,7 @@ public class AI {
     // This is how many steps ahead the AI looks for pathfinding.
     // Exponentially takes more time the more iterations there are, so keep this low
     // int total is also instantiated each recursion, so space usage will also start adding up.
-    final int iterations = 7; // Above around 9 and you start seeing a noticeable pause... super inefficient
+    final int iterations = 8; // Above around 9 and you start seeing a noticeable pause... super inefficient
     Map<Cell, Float> possible_moves;
     Cell max_cell;
     float max_value;

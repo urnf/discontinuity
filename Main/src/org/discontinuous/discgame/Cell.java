@@ -90,7 +90,7 @@ public class Cell extends Entity {
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
-        if (DiscGame.yi.is_adjacent_to(this)  && State.checkState(State.states.SelectDialog)) {
+        if (DiscGame.yi.is_adjacent_to(this) && State.checkState(State.states.SelectDialog)) {
             dialog_option.drawShapeHover(shapes);
         }
     }
@@ -106,6 +106,8 @@ public class Cell extends Entity {
                 case Interrogate: DiscGame.text_font_small.draw(batch, type.toString(), x + 2, y + 38); break;
                 case Intimidate: DiscGame.text_font_small.draw(batch, type.toString(), x + 3, y + 38); break;
             }
+            //Redraw so that the shape doesn't cover text
+            dialog_option.drawDialogOption(batch);
         }
         else {
             // Tint it on hover

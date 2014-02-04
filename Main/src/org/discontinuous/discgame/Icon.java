@@ -29,6 +29,7 @@ public class Icon extends Entity  {
 
     public void drawHover(SpriteBatch batch) {
         DiscGame.text_font.drawWrapped(batch, text, tooltip_x, tooltip_y + tooltip_height, tooltip_width - 20);
+        Tooltip.drawDialogWidgets(tooltip_x, tooltip_y, tooltip_width, tooltip_height, batch);
         //DiscGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + DiscGame.hover.toString(), x, y + 30);
     }
 

@@ -62,7 +62,11 @@ public class DialogOption extends Entity {
 
     public void drawHover(SpriteBatch batch) {
         //DiscGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + DiscGame.hover.toString(), x, y + 30);
-        if (null != cell && State.checkState(State.states.SelectDialog)) { cell.drawHover(batch); }
+        if (null != cell && State.checkState(State.states.SelectDialog)) {
+            cell.drawHover(batch);
+            //Redraw so that hover shape doesn't cover
+            drawDialogOption(batch);
+        }
     }
 
     public void clickHandler() {

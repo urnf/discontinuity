@@ -164,6 +164,7 @@ public class DiscGame extends Game {
         drawBatchCore();
 
         // debug for AI
+        /*
         if (!arlene_ai.possible_moves.isEmpty()) {
             int i = 0;
             for (Map.Entry<Cell, Float> entry: arlene_ai.possible_moves.entrySet()) {
@@ -172,6 +173,7 @@ public class DiscGame extends Game {
             }
             header_font.draw(batch, "Max value there was: " + arlene_ai.max_value, 600, 700);
         }
+        */
 
         batch.end();
 
@@ -180,13 +182,22 @@ public class DiscGame extends Game {
         shapes.begin(ShapeRenderer.ShapeType.Filled);
         drawShapesCore();
         State.drawStateShapes(shapes);
-        shape_hover.drawShapeHover(shapes);
         shapes.end();
 
         // I really hate not drawing all in one spritebatch block - but this hacky solution works for now
         batch.begin();
         State.drawStateBatch(batch);
         drawBatchCoreTop();
+        batch.end();
+
+        // Need a separate shape and sprite batch for hovers
+        shapes.begin(ShapeRenderer.ShapeType.Filled);
+        shape_hover.drawShapeHover(shapes);
+        shapes.end();
+
+        batch.begin();
+        // Assumption is that only one entity is allowed to be hovered over at any given moment
+        hover.drawHover(batch);
         batch.end();
     }
 
@@ -232,8 +243,6 @@ public class DiscGame extends Game {
         // Draw confidence/inspiration amounts
         yi.draw_bar_counters(batch);
         arlene.draw_bar_counters(batch);
-        // Same for hovers, in case they need to overlap shapes - assumption is that only one entity is allowed to be hovered over at any given moment
-        hover.drawHover(batch);
     }
 
     public void setupYi() {
@@ -329,14 +338,14 @@ public class DiscGame extends Game {
     }
 
     public void setupPortraits() {
-        yi_portrait = new Portrait(new Texture(Gdx.files.internal("img/yi-combos.png")), 0, 0, 300, 375, screen_width/2 - 250, 730, 220, 250, 500, "Zhuge Yi\n" +
+        yi_portrait = new Portrait(new Texture(Gdx.files.internal("img/yi-combos.png")), 20, 0, 300, 375, screen_width/2 - 250, 700, 220, 250, 500, "Zhuge Yi\n" +
                 "This proclaimed traveling businessman seems to have a surprising knack for methodical debate and inquiry.\n\n" +
                 "His arguments are swift as the coursing river;\n" +
                 "laid out with all the force of a great typhoon;\n" +
                 "debated with all the strength of a raging fire;\n" +
                 "and his next move is mysterious as the dark side of the moon.");
         yi_portrait.setImg(new Texture(Gdx.files.internal("img/zhugeyi.png")));
-        arlene_portrait = new Portrait(new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 300, 375, screen_width/2 - 250, 745, screen_width - 280, 250, 520, "Arlene Elecantos\n" +
+        arlene_portrait = new Portrait(new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 300, 375, screen_width/2 - 250, 700, screen_width - 280, 250, 520, "Arlene Elecantos\n" +
                 "J.D. University of New Oxford\n" +
                 "Elecantos Legal Group\n" +
                 "Professor Emeritus, Harvard Mars Law Adjunct\n\n" +
@@ -391,9 +400,9 @@ public class DiscGame extends Game {
     // Create four new entities for dialog options whose role is solely to be a hover over/click handler and draw a bounding box
     public void setupDialogEntities() {
         dialog_options = new DialogOption[4];
-        dialog_options[0] = new DialogOption(DiscGame.screen_width/2 - 230, 180, 455, 55);
-        dialog_options[1] = new DialogOption(DiscGame.screen_width/2 - 230, 125, 455, 55);
-        dialog_options[2] = new DialogOption(DiscGame.screen_width/2 - 230, 70, 455, 55);
-        dialog_options[3] = new DialogOption(DiscGame.screen_width/2 - 230, 15, 455, 55);
+        dialog_options[0] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height + 150, 455, 55);
+        dialog_options[1] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height + 95, 455, 55);
+        dialog_options[2] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height + 40, 455, 55);
+        dialog_options[3] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height - 15, 455, 55);
     }
 }

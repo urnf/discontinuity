@@ -38,7 +38,7 @@ public class State {
     public static void drawStateShapes(ShapeRenderer shapes) {
         switch(currentState) {
             case SelectDialog:
-                Tooltip.drawDialogTooltip(shapes);
+                Tooltip.drawDialogBox(shapes);
                 break;
             case InDialog:
                 // Find out who is speaking
@@ -62,6 +62,7 @@ public class State {
                 for (DialogOption option : DiscGame.dialog_options) {
                     option.drawDialogOption(batch);
                 }
+                Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 230, 50, 450, 200, batch);
                 break;
             case InDialog:
                 if (animation_counter <= animation_max * animation_coefficient) {
@@ -103,11 +104,14 @@ public class State {
                 if (currentSpeaker.player) {
                     int height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(DiscGame.yi.cell.yi_dialog, 380).height)/2));
                     DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.cell.yi_dialog, 310, 125 + height_offset, 380);
+                    Tooltip.drawDialogWidgets(300, 120, 400, 100, batch);
                 }
                 else {
                     int height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(DiscGame.arlene.cell.arlene_dialog, 380).height)/2));
                     DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.arlene_dialog, DiscGame.screen_width - 740, 125 + height_offset, 380);
+                    Tooltip.drawDialogWidgets(DiscGame.screen_width - 750, 120, 400, 100, batch);
                 }
+
                 //
                 break;
             case PreGame: break;
