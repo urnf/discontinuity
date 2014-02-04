@@ -15,14 +15,14 @@ public class AI {
     // This is how many steps ahead the AI looks for pathfinding.
     // Exponentially takes more time the more iterations there are, so keep this low
     // int total is also instantiated each recursion, so space usage will also start adding up.
-    final int iterations = 12;
+    final int iterations = 7; // Above around 9 and you start seeing a noticeable pause... super inefficient
     Map<Cell, Float> possible_moves;
     Cell max_cell;
     float max_value;
 
     // Current AI weights - may change based on personalities, abilities, etc.
     int dp_weight = 1;
-    int backtrack_dp_weight = 10;
+    int backtrack_dp_weight = 3;
     int conf_plus_weight = 2;
     int conf_minus_weight = 2;
     int ins_plus_weight = 2;
@@ -46,9 +46,9 @@ public class AI {
         for (Cell cell : opponent.adjacent) {
             ArrayList<Cell> previousCells = new ArrayList<Cell>();
             previousCells.add(opponent.cell);
-            // if combo, add in bonus
+            // if combo, add in bonus - regardless of cell consumption state
             if (opponent.combo.checkCombo(opponent.cell, cell)) {
-                possible_moves.put(cell, sum_move_options(cell, previousCells) + (getBonuses(cell, false)));
+                possible_moves.put(cell, sum_move_options(cell, previousCells) + (getBonuses(opponent.cell)));
             }
             else {
                 possible_moves.put(cell, sum_move_options(cell, previousCells));
@@ -75,51 +75,55 @@ public class AI {
         // System for weighing the potential - if all the potential in a route is backloaded, as in,
         // all the good squares are x down the line, value them less than those available immediately
         // - This can probably be encoded into AI personalities
-        // Current default coefficient is 1 - x/20 where x is number of steps
-
+        // Current default coefficient is 1 * 0.8^x where x is number of steps
 
         float weight;
         weight = weight(previousCells.size());
 
         ArrayList<Cell> adjacent_cells = cell.find_adjacent_cells();
-        if (previousCells.size() == iterations) {
+        if (previousCells.size() < iterations) {
             for (Cell adjacent : adjacent_cells) {
 
                 // This is going to suck if multithreaded in terms of space taken
                 ArrayList<Cell> new_cells = new ArrayList<Cell>(previousCells);
                 new_cells.add(adjacent);
 
-                // Factor in combos if not consumed
-                if (opponent.combo.checkCombo(cell, adjacent)) { total += getBonuses(cell, previousCells.contains(adjacent)) * weight ; }
+                // Factor in combos if not consumed and not previously shown up in recursion
+                if (opponent.combo.checkCombo(cell, adjacent) && !previousCells.contains(adjacent)) { total += getBonuses(cell) * weight ; }
 
                 // Recursively add the score in
-                total += sum_move_options(adjacent, new_cells) * weight;
+                total += sum_move_options(adjacent, new_cells);
             }
         }
         else {
-            for (Cell adjacent : cell.find_adjacent_cells()) {
+            for (Cell adjacent : adjacent_cells) {
                 // Factor in combos if not consumed
-                if (opponent.combo.checkCombo(cell, adjacent)) { total += getBonuses(cell, previousCells.contains(adjacent)) * weight ; }
-                total += getBonuses(adjacent, previousCells.contains(adjacent)) * weight;
+                if (opponent.combo.checkCombo(cell, adjacent)) { total += getBonusOrPenalty(cell, previousCells.contains(adjacent)) * weight ; }
+                total += getBonusOrPenalty(adjacent, previousCells.contains(adjacent)) * weight;
             }
         }
         // Attempt to normalize bad moves made by the AI by averaging both success and penalties by number of moves considered
         // This means that corner/edge positions no longer have an advantage when unconsumed or disadvantage when consumed.
-        return total/adjacent_cells.size();
+        // Add the value of the cell itself to the total.
+        return total/adjacent_cells.size() + getBonusOrPenalty(cell, previousCells.contains(cell)) * weight(previousCells.size() - 1);
     }
 
     public float weight(int steps) {
-        return (1 - (steps/20));
+        return (1 * (float) Math.pow(0.8,steps));
     }
 
-    public float getBonuses(Cell cell, boolean previously_consumed) {
-        // Weight conf_plus more if confidence is low, and like so for each of the stats
+    public float getBonusOrPenalty(Cell cell, boolean previously_consumed) {
         // if consumed either in the previous cells list or already marked on board, no bonuses and DP penalty instead.
         if (cell.consumed || previously_consumed) {
             return -1 * DealPower.consume_penalty * backtrack_dp_weight +
                     -50 * conf_plus_weight * (1 - ((float) opponent.confidence/opponent.conf_max)) +
                     -50 * ins_plus_weight * (1 - ((float) opponent.inspiration/opponent.insp_max));
         }
+        return getBonuses(cell);
+    }
+
+    public float getBonuses(Cell cell) {
+        // Weight conf_plus more if confidence is low, and like so for each of the stats
         switch (cell.type) {
             case Logical:
                 return (opponent.log_stats.get("power") * dp_weight +

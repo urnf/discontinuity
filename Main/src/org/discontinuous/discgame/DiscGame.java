@@ -108,7 +108,7 @@ public class DiscGame extends Game {
         setupDialogEntities();
 
         // Setup Deal Power counter
-        dealpower = new DealPower(screen_width/2 - 10, screen_height/2 - 80);
+        dealpower = new DealPower();
 
         // Initialize stats for each contestant
         setupYi();
@@ -162,6 +162,16 @@ public class DiscGame extends Game {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         drawBatchCore();
+
+        // debug for AI
+        if (!arlene_ai.possible_moves.isEmpty()) {
+            int i = 0;
+            for (Map.Entry<Cell, Float> entry: arlene_ai.possible_moves.entrySet()) {
+                header_font.draw(batch, entry.getKey().type + ": " + entry.getValue(), 700, 500 + i * 30);
+                i++;
+            }
+            header_font.draw(batch, "Max value there was: " + arlene_ai.max_value, 600, 700);
+        }
 
         batch.end();
 
@@ -381,9 +391,9 @@ public class DiscGame extends Game {
     // Create four new entities for dialog options whose role is solely to be a hover over/click handler and draw a bounding box
     public void setupDialogEntities() {
         dialog_options = new DialogOption[4];
-        dialog_options[0] = new DialogOption(270, 180, 455, 55);
-        dialog_options[1] = new DialogOption(270, 125, 455, 55);
-        dialog_options[2] = new DialogOption(270, 70, 455, 55);
-        dialog_options[3] = new DialogOption(270, 15, 455, 55);
+        dialog_options[0] = new DialogOption(DiscGame.screen_width/2 - 230, 180, 455, 55);
+        dialog_options[1] = new DialogOption(DiscGame.screen_width/2 - 230, 125, 455, 55);
+        dialog_options[2] = new DialogOption(DiscGame.screen_width/2 - 230, 70, 455, 55);
+        dialog_options[3] = new DialogOption(DiscGame.screen_width/2 - 230, 15, 455, 55);
     }
 }

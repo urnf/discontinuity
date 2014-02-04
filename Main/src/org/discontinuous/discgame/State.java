@@ -46,7 +46,7 @@ public class State {
                     Tooltip.newTip(300, 120, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 }
                 else {
-                    Tooltip.newTip(300, 120, 400, 100, 770, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width - 750, 120, 400, 100, DiscGame.screen_width - 270, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 }
                 //
                 break;
@@ -87,7 +87,7 @@ public class State {
                         conf_minus_string = Integer.toString(DiscGame.yi.confidence - previousPlayerConf);
                         ins_minus_string = Integer.toString(DiscGame.yi.inspiration - previousPlayerIns);
                     }
-                    DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.dealpower.dp - previousPower), DiscGame.screen_width/2 - 10, 325 + animation_counter/animation_coefficient, 380);
+                    DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.dealpower.dp - previousPower), DiscGame.dealpower.x, 325 + animation_counter/animation_coefficient, 380);
                     DiscGame.animation_font.drawWrapped(batch, conf_plus_string, conf_plus_x, 420 + animation_counter/animation_coefficient, 380);
                     DiscGame.animation_font.drawWrapped(batch, ins_plus_string, ins_plus_x, 420 + animation_counter/animation_coefficient, 380);
                     DiscGame.animation_font.drawWrapped(batch, conf_minus_string, conf_minus_x, 420 + animation_counter/animation_coefficient, 380);
@@ -106,7 +106,7 @@ public class State {
                 }
                 else {
                     int height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(DiscGame.arlene.cell.arlene_dialog, 380).height)/2));
-                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.arlene_dialog, 310, 125 + height_offset, 380);
+                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.arlene_dialog, DiscGame.screen_width - 740, 125 + height_offset, 380);
                 }
                 //
                 break;

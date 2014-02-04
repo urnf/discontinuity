@@ -16,8 +16,8 @@ public class Tooltip {
     public static void newTip (int x, int y, int width, int height, int pointer_x, int pointer_y, Color fill_color, Color border_color, boolean thought, ShapeRenderer shapes) {
         shapes.setColor(border_color);
         shapes.rect(x - 20, y - 20, width + 40, height + 40);
-        int center_x = (x + width)/2;
-        int center_y = (y + height)/2;
+        int center_x = x + width/2;
+        int center_y = y + height/2;
         if (thought) {
             //draws ellipses to the pointer x,y from center of x,y
             for (int i = 1; i < 6; i++) {
@@ -42,7 +42,7 @@ public class Tooltip {
 
     // Draw a dialog area tooltip
     public static void drawDialogTooltip(ShapeRenderer shapes) {
-        Tooltip.newTip(275, 30, 450, 200,
+        Tooltip.newTip(DiscGame.screen_width/2 - 230, 30, 450, 200,
                 200, 250, dark_grey, light_grey, true, shapes);
     }
 }

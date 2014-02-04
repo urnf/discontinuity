@@ -9,14 +9,15 @@ public class DealPower extends Entity {
     int dp;
     static int consume_penalty = 200;
 
-    public DealPower (int x, int y) {
-        super(x, y, 0, 0);
+    public DealPower () {
+        super(0, DiscGame.screen_height/2 - 80, 0, 0);
         dp = 0;
     }
     public void draw(SpriteBatch batch) {
         // Deal Power and Deal Power Counter
         if (dp < 0) DiscGame.deal_font.setColor(1, 0, 0, 1);
         if (dp > 0) DiscGame.deal_font.setColor(0, 1, 0, 1);
+        x = (int) (DiscGame.screen_width - DiscGame.deal_font.getBounds(String.valueOf(dp)).width)/2;
         DiscGame.deal_font.draw(batch, String.valueOf(dp), x, y);
     }
 
