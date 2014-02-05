@@ -32,6 +32,8 @@ public class State {
     private static String conf_minus_string;
     private static String ins_plus_string;
     private static String ins_minus_string;
+    private static int yi_dialog_height_offset;
+    private static int arlene_dialog_height_offset;
 
     static boolean combo;
 
@@ -43,10 +45,12 @@ public class State {
             case InDialog:
                 // Find out who is speaking
                 if (currentSpeaker.player) {
-                    Tooltip.newTip(300, 120, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 }
                 else {
-                    Tooltip.newTip(DiscGame.screen_width - 750, 120, 400, 100, DiscGame.screen_width - 270, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width - 270, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 }
                 //
                 break;
@@ -102,14 +106,20 @@ public class State {
                 // If player speaking, print line chosen, centered in the box.
                 // TODO : This is calculated on render at 60Hz.  That's crap.  Move out into Contestant and calculate once there.
                 if (currentSpeaker.player) {
-                    int height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(DiscGame.yi.cell.yi_dialog, 380).height)/2));
-                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.cell.yi_dialog, 310, 125 + height_offset, 380);
-                    Tooltip.drawDialogWidgets(300, 120, 400, 100, batch);
+                    yi_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(DiscGame.yi.cell.yi_dialog, 380).height)/2));
+                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.cell.yi_dialog, DiscGame.screen_width/2 - 190, 200 + yi_dialog_height_offset, 380);
+                    Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 200, 400, 100, batch);
+                    arlene_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(DiscGame.yi.cell.arlene_resp_dialog, 380).height)/2));
+                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.cell.arlene_resp_dialog, DiscGame.screen_width/2 - 190, 40 + arlene_dialog_height_offset, 380);
+                    Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 40, 400, 100, batch);
                 }
                 else {
-                    int height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(DiscGame.arlene.cell.arlene_dialog, 380).height)/2));
-                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.arlene_dialog, DiscGame.screen_width - 740, 125 + height_offset, 380);
-                    Tooltip.drawDialogWidgets(DiscGame.screen_width - 750, 120, 400, 100, batch);
+                    arlene_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(DiscGame.arlene.cell.arlene_dialog, 380).height)/2));
+                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.arlene_dialog, DiscGame.screen_width/2 - 190, 200 + arlene_dialog_height_offset, 380);
+                    Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 200, 400, 100, batch);
+                    yi_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(DiscGame.arlene.cell.yi_resp_dialog, 380).height)/2));
+                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.yi_resp_dialog, DiscGame.screen_width/2 - 190, 40 + yi_dialog_height_offset, 380);
+                    Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 40, 400, 100, batch);
                 }
 
                 //

@@ -18,7 +18,41 @@ logical:
     - Yi Logical Placeholder 14
     - Yi Logical Placeholder 15
     - Yi Logical Placeholder 16
+  Yi_Resp:
+    - We outnumber you three to one.  Your wisest course of action would be to leave.
+    - The ATF can't afford another fight like this.  There's political capital you're going to lose with planetary AIs in the inner core.
+    - Yi Logical Placeholder 3
+    - Yi Logical Placeholder 4
+    - Yi Logical Placeholder 5
+    - Yi Logical Placeholder 6
+    - Yi Logical Placeholder 7
+    - Yi Logical Placeholder 8
+    - Yi Logical Placeholder 9
+    - Yi Logical Placeholder 10
+    - Yi Logical Placeholder 11
+    - Yi Logical Placeholder 12
+    - Yi Logical Placeholder 13
+    - Yi Logical Placeholder 14
+    - Yi Logical Placeholder 15
+    - Yi Logical Placeholder 16
   Arlene:
+    - Arlene Logical Placeholder 1
+    - Arlene Logical Placeholder 2
+    - Arlene Logical Placeholder 3
+    - Arlene Logical Placeholder 4
+    - Arlene Logical Placeholder 5
+    - Arlene Logical Placeholder 6
+    - Arlene Logical Placeholder 7
+    - Arlene Logical Placeholder 8
+    - Arlene Logical Placeholder 9
+    - Arlene Logical Placeholder 10
+    - Arlene Logical Placeholder 11
+    - Arlene Logical Placeholder 12
+    - Arlene Logical Placeholder 13
+    - Arlene Logical Placeholder 14
+    - Arlene Logical Placeholder 15
+    - Arlene Logical Placeholder 16
+  Arlene_Resp:
     - Arlene Logical Placeholder 1
     - Arlene Logical Placeholder 2
     - Arlene Logical Placeholder 3
@@ -53,7 +87,41 @@ ethical:
     - Yi Ethical Placeholder 14
     - Yi Ethical Placeholder 15
     - Yi Ethical Placeholder 16
+  Yi_Resp:
+    - Our fleets are positioned right next to Fal'qz, with 25 billion lives.  It's not a revenant colony. If our fleets fight here, you're going to risk a lot of civilians.
+    - What you're suggesting would be a direct act of aggression against another sovereign galactic nation.
+    - Yi Ethical Placeholder 3
+    - Yi Ethical Placeholder 4
+    - Yi Ethical Placeholder 5
+    - Yi Ethical Placeholder 6
+    - Yi Ethical Placeholder 7
+    - Yi Ethical Placeholder 8
+    - Yi Ethical Placeholder 9
+    - Yi Ethical Placeholder 10
+    - Yi Ethical Placeholder 11
+    - Yi Ethical Placeholder 12
+    - Yi Ethical Placeholder 13
+    - Yi Ethical Placeholder 14
+    - Yi Ethical Placeholder 15
+    - Yi Ethical Placeholder 16
   Arlene:
+    - Arlene Ethical Placeholder 1
+    - Arlene Ethical Placeholder 2
+    - Arlene Ethical Placeholder 3
+    - Arlene Ethical Placeholder 4
+    - Arlene Ethical Placeholder 5
+    - Arlene Ethical Placeholder 6
+    - Arlene Ethical Placeholder 7
+    - Arlene Ethical Placeholder 8
+    - Arlene Ethical Placeholder 9
+    - Arlene Ethical Placeholder 10
+    - Arlene Ethical Placeholder 11
+    - Arlene Ethical Placeholder 12
+    - Arlene Ethical Placeholder 13
+    - Arlene Ethical Placeholder 14
+    - Arlene Ethical Placeholder 15
+    - Arlene Ethical Placeholder 16
+  Arlene_Resp:
     - Arlene Ethical Placeholder 1
     - Arlene Ethical Placeholder 2
     - Arlene Ethical Placeholder 3
@@ -88,7 +156,41 @@ interrogate:
     - Yi Interrogate Placeholder 14
     - Yi Interrogate Placeholder 15
     - Yi Interrogate Placeholder 16
+  Yi_Resp:
+    - Who else is here?  It can't just be yourself and the senators.
+    - No weapons or magical foci.  What sorts of tricks do you have up your sleeve?
+    - Yi Interrogate Placeholder 3
+    - Yi Interrogate Placeholder 4
+    - Yi Interrogate Placeholder 5
+    - Yi Interrogate Placeholder 6
+    - Yi Interrogate Placeholder 7
+    - Yi Interrogate Placeholder 8
+    - Yi Interrogate Placeholder 9
+    - Yi Interrogate Placeholder 10
+    - Yi Interrogate Placeholder 11
+    - Yi Interrogate Placeholder 12
+    - Yi Interrogate Placeholder 13
+    - Yi Interrogate Placeholder 14
+    - Yi Interrogate Placeholder 15
+    - Yi Interrogate Placeholder 16
   Arlene:
+    - Arlene Interrogate Placeholder 1
+    - Arlene Interrogate Placeholder 2
+    - Arlene Interrogate Placeholder 3
+    - Arlene Interrogate Placeholder 4
+    - Arlene Interrogate Placeholder 5
+    - Arlene Interrogate Placeholder 6
+    - Arlene Interrogate Placeholder 7
+    - Arlene Interrogate Placeholder 8
+    - Arlene Interrogate Placeholder 9
+    - Arlene Interrogate Placeholder 10
+    - Arlene Interrogate Placeholder 11
+    - Arlene Interrogate Placeholder 12
+    - Arlene Interrogate Placeholder 13
+    - Arlene Interrogate Placeholder 14
+    - Arlene Interrogate Placeholder 15
+    - Arlene Interrogate Placeholder 16
+  Arlene_Resp:
     - Arlene Interrogate Placeholder 1
     - Arlene Interrogate Placeholder 2
     - Arlene Interrogate Placeholder 3
@@ -123,9 +225,43 @@ intimidate:
     - Yi Intimidate Placeholder 14
     - Yi Intimidate Placeholder 15
     - Yi Intimidate Placeholder 16
+  Yi_Resp:
+    - A contingent of Glaciaural Mercs is with us.  If you try something here, you won't be getting away either.
+    - Multiple coilguns are pointed at this location.  Anything goes wrong here and we're all vaporized.
+    - Yi Intimidate Placeholder 3
+    - Yi Intimidate Placeholder 4
+    - Yi Intimidate Placeholder 5
+    - Yi Intimidate Placeholder 6
+    - Yi Intimidate Placeholder 7
+    - Yi Intimidate Placeholder 8
+    - Yi Intimidate Placeholder 9
+    - Yi Intimidate Placeholder 10
+    - Yi Intimidate Placeholder 11
+    - Yi Intimidate Placeholder 12
+    - Yi Intimidate Placeholder 13
+    - Yi Intimidate Placeholder 14
+    - Yi Intimidate Placeholder 15
+    - Yi Intimidate Placeholder 16
   Arlene:
     - Arlene Intimidate Placeholder 1
-    - Arlene IntimidatePlaceholder 2
+    - Arlene Intimidate Placeholder 2
+    - Arlene Intimidate Placeholder 3
+    - Arlene Intimidate Placeholder 4
+    - Arlene Intimidate Placeholder 5
+    - Arlene Intimidate Placeholder 6
+    - Arlene Intimidate Placeholder 7
+    - Arlene Intimidate Placeholder 8
+    - Arlene Intimidate Placeholder 9
+    - Arlene Intimidate Placeholder 10
+    - Arlene Intimidate Placeholder 11
+    - Arlene Intimidate Placeholder 12
+    - Arlene Intimidate Placeholder 13
+    - Arlene Intimidate Placeholder 14
+    - Arlene Intimidate Placeholder 15
+    - Arlene Intimidate Placeholder 16
+  Arlene_Resp:
+    - Arlene Intimidate Placeholder 1
+    - Arlene Intimidate Placeholder 2
     - Arlene Intimidate Placeholder 3
     - Arlene Intimidate Placeholder 4
     - Arlene Intimidate Placeholder 5

@@ -37,7 +37,7 @@ public class Tooltip {
             }
         }
         else {
-            shapes.triangle(x + width/2 - 50, y, x + width/2 + 50, y, pointer_x, pointer_y);
+            shapes.triangle(x + width/2 - 50, y + height/2 - 25, x + width/2 + 50, y + height/2 + 25, pointer_x, pointer_y);
         }
         shapes.setColor(fill_color);
         shapes.rect(x - 15, y - 15, width + 30, height + 30);
@@ -48,7 +48,7 @@ public class Tooltip {
             }
         }
         else {
-            shapes.triangle(x + width/2 - 30, y, x + width/2 + 30, y, pointer_x, pointer_y);
+            shapes.triangle(x + width/2 - 30, y + height/2 - 15, x + width/2 + 30, y + height/2 + 15, pointer_x, pointer_y);
         }
     }
 

@@ -380,18 +380,18 @@ public class DiscGame extends Game {
     }
 
     public void setupIcons() {
-        String confidence = "Confidence \n At zero confidence, your opponent can force you to concede the match.  This results in the end of the game along with a 1000 DP penalty.";
+        String confidence = "Confidence \n At zero confidence, your opponent forces you to concede the match.  This results in the end of the game along with a 1000 DP penalty.";
         String inspiration = "Inspiration \n This enables you to use special debate techniques.  Using a special ability costs your turn, but you don't take backtracking penalties.";
         confidence_icon = new Texture(Gdx.files.internal("img/confidence.png"));
         inspiration_icon = new Texture(Gdx.files.internal("img/inspiration.png"));
 
-        confidence_icon_player = new Icon(screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 115, screen_height - 65, 32, 32, screen_width/2 - 200, 600, 400, 80, confidence);
+        confidence_icon_player = new Icon(screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 115, screen_height - 65, 32, 32, screen_width/2 - 200, 600, 400, 80, "Your " + confidence);
         confidence_icon_player.setImg(confidence_icon);
-        confidence_icon_opponent = new Icon(screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 45, screen_height - 67, 32, 32, screen_width/2 - 200, 600, 400, 80, confidence);
+        confidence_icon_opponent = new Icon(screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 45, screen_height - 67, 32, 32, screen_width/2 - 200, 600, 400, 80, "Opponent " + confidence);
         confidence_icon_opponent.setImg(confidence_icon);
-        inspiration_icon_player = new Icon(screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 75, screen_height - 65, 32, 32, screen_width/2 - 200, 600, 400, 80, inspiration);
+        inspiration_icon_player = new Icon(screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 75, screen_height - 65, 32, 32, screen_width/2 - 200, 600, 400, 80, "Your " + inspiration);
         inspiration_icon_player.setImg(inspiration_icon);
-        inspiration_icon_opponent = new Icon(screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 85, screen_height - 67, 32, 32, screen_width/2 - 200, 600, 400, 80, inspiration);
+        inspiration_icon_opponent = new Icon(screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 85, screen_height - 67, 32, 32, screen_width/2 - 200, 600, 400, 80, "Opponent " + inspiration);
         inspiration_icon_opponent.setImg(inspiration_icon);
         // Assign the movestats texture to be used generally in portraits
         movestats = new Texture(Gdx.files.internal("img/movestats.png"));

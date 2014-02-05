@@ -25,7 +25,6 @@ public class Cell extends Entity {
     int board_x;
     int board_y;
 
-
     // Cell type
     public enum concepts {
         Logical, Ethical, Interrogate, Intimidate
@@ -42,7 +41,9 @@ public class Cell extends Entity {
     // Dialog, if applicable
     DialogOption dialog_option;
     String yi_dialog;
+    String yi_resp_dialog;
     String arlene_dialog;
+    String arlene_resp_dialog;
 
     // Super basic constructor
     public Cell (int concept_num, boolean consumed, boolean visible, int board_x, int board_y, int x, int y, int length){
@@ -74,8 +75,12 @@ public class Cell extends Entity {
         DiscGame.click_list.add(this);
 
         //Grab a line of dialog for each character involved
-        yi_dialog = DiscGame.topics.get(0).getYiDialog(this);
-        arlene_dialog = DiscGame.topics.get(0).getArleneDialog(this);
+        String[] dialog_temp = DiscGame.topics.get(0).getYiDialog(this);
+        yi_dialog = dialog_temp[0];
+        arlene_resp_dialog = dialog_temp[1];
+        dialog_temp = DiscGame.topics.get(0).getArleneDialog(this);
+        arlene_dialog = dialog_temp[0];
+        yi_resp_dialog = dialog_temp[1];
     }
 
     // Override the default setImg in entity, want to use texture_edge instead
