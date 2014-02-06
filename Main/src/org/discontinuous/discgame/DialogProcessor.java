@@ -48,6 +48,13 @@ public class DialogProcessor implements InputProcessor {
         // If no ability clicked or nothing clicked while in ability select, return to select Dialog
         if (State.checkState(State.states.SelectAbility) && (null == clicked || clicked.getClass() != Ability.class)) {
             State.currentState = State.states.SelectDialog;
+            Ability.remove_ability_response();
+            return false;
+        }
+        // If no cell clicked or nothing clicked while in ability target, return to select ability
+        if (State.checkState(State.states.AbilityTargeting) && (null == clicked || clicked.getClass() != Cell.class)) {
+            State.currentState = State.states.SelectAbility;
+            Ability.add_ability_response();
             return false;
         }
         if (null != clicked) {clicked.clickHandler(); clicked = null;}

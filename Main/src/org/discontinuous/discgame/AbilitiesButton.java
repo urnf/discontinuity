@@ -36,5 +36,7 @@ public class AbilitiesButton extends Entity {
     public void clickHandler() {
         // Clicking activates the ability list - goes to new game state select ability
         State.currentState = State.states.SelectAbility;
+        // Add abilities to hover and click handling
+        Ability.add_ability_response();
     }
 }

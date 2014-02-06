@@ -102,15 +102,16 @@ public class Cell extends Entity {
     public void drawHover(SpriteBatch batch) {
         // If in ability targeting selection
         if (State.checkState(State.states.AbilityTargeting)) {
-            if (DiscGame.yi.ability_selected.target == AbilityTarget.targets.adjacent_square_any) {
-                if (DiscGame.yi.is_adjacent_to(this)) {
+            switch (DiscGame.yi.ability_selected.target) {
+                case adjacent_square_any:
+                    if (DiscGame.yi.is_adjacent_to(this)) { enlargeCell(batch); }
+                    break;
+                case adjacent_square_fresh:
+                    if (DiscGame.yi.is_adjacent_to(this) && !this.consumed) { enlargeCell(batch); }
+                    break;
+                case any_square:
                     enlargeCell(batch);
-                }
-            }
-            if (DiscGame.yi.ability_selected.target == AbilityTarget.targets.adjacent_square_fresh) {
-                if (DiscGame.yi.is_adjacent_to(this) && !this.consumed) {
-                    enlargeCell(batch);
-                }
+                    break;
             }
             return;
         }
@@ -148,17 +149,23 @@ public class Cell extends Entity {
 
         // If in ability targeting selection
         if (State.checkState(State.states.AbilityTargeting)) {
-            if (DiscGame.yi.ability_selected.target == AbilityTarget.targets.adjacent_square_any) {
-                if (DiscGame.yi.is_adjacent_to(this)) {
+            switch (DiscGame.yi.ability_selected.target) {
+                case adjacent_square_any:
+                    if (DiscGame.yi.is_adjacent_to(this)) {
+                        DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, this);
+                        State.currentState = State.states.AbilityDialog;
+                    }
+                    break;
+                case adjacent_square_fresh:
+                    if (DiscGame.yi.is_adjacent_to(this) && !this.consumed) {
+                        DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, this);
+                        State.currentState = State.states.AbilityDialog;
+                    }
+                    break;
+                case any_square:
                     DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, this);
                     State.currentState = State.states.AbilityDialog;
-                }
-            }
-            if (DiscGame.yi.ability_selected.target == AbilityTarget.targets.adjacent_square_fresh) {
-                if (DiscGame.yi.is_adjacent_to(this) && !this.consumed) {
-                    DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, this);
-                    State.currentState = State.states.AbilityDialog;
-                }
+                    break;
             }
             return;
         }

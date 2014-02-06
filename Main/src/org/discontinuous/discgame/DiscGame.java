@@ -72,8 +72,6 @@ public class DiscGame extends Game {
     static final int BOARD_WIDTH = 8;
     static final int BOARD_HEIGHT = 8;
 
-    static State currentState;
-
     public void create() {
         screen_width = Gdx.graphics.getWidth();
         screen_height = Gdx.graphics.getHeight();
@@ -296,6 +294,28 @@ public class DiscGame extends Game {
                 "That's a horrible example.  What you failed to consider is the following situation...");
         strawman.setImg(new Texture(Gdx.files.internal("cell/interrogate.jpg")));
         yi.abilities.add(strawman);
+
+        // Ability tableflip
+        Ability tableflip = new Ability(yi, 64, 64, 30,
+                AbilityTarget.targets.self,
+                new AbilityEffect(AbilityEffect.effects.conf_damage, 60, false),
+                "~ Tableflip ~ (Cost 30)\nFlip a table at your opponent, damaging your opponent's confidence by 60.",
+                "Special case generated in Ability class, you should never see this.");
+        tableflip.setImg(new Texture(Gdx.files.internal("cell/intimidate.jpg")));
+        yi.abilities.add(tableflip);
+
+        // Ability non sequitur
+        Ability nonsequitur = new Ability(yi, 64, 64, 50,
+                AbilityTarget.targets.any_square,
+                new AbilityEffect(AbilityEffect.effects.multiply_all, 1, true),
+                "~ Non Sequitur ~ (Cost 50)\nDiscreetly move the conversation elsewhere; teleport to and consume any square.",
+                "Well, if you think about it, you're really talking about something else, such as this.");
+        nonsequitur.setImg(new Texture(Gdx.files.internal("cell/ethical.jpg")));
+        yi.abilities.add(nonsequitur);
+
+        // Ability reasonable doubt - surrounding AoE opponent squares consumed
+
+        Ability.setup_ability_display(yi);
     }
 
     public void setupArlene() {

@@ -58,6 +58,7 @@ public class State {
                 Tooltip.drawDialogBox(shapes);
                 break;
             case AbilityTargeting:
+                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width/2 - 180, 250, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 break;
             case AbilityDialog:
                 Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
@@ -102,8 +103,23 @@ public class State {
                 for (Ability ability : DiscGame.yi.abilities) {
                     ability.draw(batch);
                 }
+                Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 230, 50, 450, 200, batch);
                 break;
             case AbilityTargeting:
+                String text = "";
+                switch (DiscGame.yi.ability_selected.target) {
+                    case adjacent_square_any:
+                        text = "Select any adjacent square to be the target for this ability";
+                        break;
+                    case adjacent_square_fresh:
+                        text = "Select any adjacent non-consumed square to be the target for this ability";
+                        break;
+                    case any_square:
+                        text = "Select any square on the board to be the target for this ability.";
+                        break;
+                }
+                yi_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 380).height)/2));
+                DiscGame.movestats_font.drawWrapped(batch, text, DiscGame.screen_width/2 - 190, 200 + yi_dialog_height_offset, 380);
                 break;
             case AbilityDialog:
                 animateGain(batch, true);

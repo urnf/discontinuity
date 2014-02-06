@@ -177,48 +177,29 @@ public class Contestant extends Entity {
     }
 
     public void update_stats(Cell cell, boolean combo) {
+        Hashtable<String, Integer> temp_stats;
+        switch (cell.type) {
+            case Logical: temp_stats = log_stats; break;
+            case Ethical: temp_stats = eth_stats; break;
+            case Interrogate: temp_stats = ing_stats; break;
+            case Intimidate: temp_stats = inm_stats; break;
+            // Will lead to exceptions - intentional
+            default: temp_stats = null; break;
+        }
+
         // No DP gain with combos
         if (!combo) {
             // Update Deal Power Gain/Loss
-            switch (cell.type) {
-                case Logical: DiscGame.dealpower.update(log_stats.get("power"), player, cell.consumed); break;
-                case Ethical: DiscGame.dealpower.update(eth_stats.get("power"), player, cell.consumed); break;
-                case Interrogate: DiscGame.dealpower.update(ing_stats.get("power"), player, cell.consumed); break;
-                case Intimidate: DiscGame.dealpower.update(inm_stats.get("power"), player, cell.consumed); break;
-            }
+            DiscGame.dealpower.update(temp_stats.get("power"), player, cell.consumed);
         }
         // No bonuses for a consumed cell, but ok if it's a combo
         // Can combo over consumed arguments, the logic being you're taking a penalty to set up for new arguments
-        // TODO: Simplify this logic
         if ((!cell.consumed) || (cell.consumed && combo))
         {
-            // Update Confidence Gain/Loss, Inspiration Gain/Loss
-            switch (cell.type) {
-                case Logical:
-                    confidence = Math.min(confidence + log_stats.get("conf_plus"), conf_max);
-                    opponent.confidence = Math.max(opponent.confidence - log_stats.get("conf_minus"), 0);
-                    inspiration = Math.min(inspiration + log_stats.get("ins_plus"), insp_max);
-                    opponent.inspiration = Math.max(opponent.inspiration - log_stats.get("ins_minus"), 0);
-                    break;
-                case Ethical:
-                    confidence = Math.min(confidence + eth_stats.get("conf_plus"), conf_max);
-                    opponent.confidence = Math.max(opponent.confidence - eth_stats.get("conf_minus"), 0);
-                    inspiration = Math.min(inspiration + eth_stats.get("ins_plus"), insp_max);
-                    opponent.inspiration = Math.max(opponent.inspiration - eth_stats.get("ins_minus"), 0);
-                    break;
-                case Interrogate:
-                    confidence = Math.min(confidence + ing_stats.get("conf_plus"), conf_max);
-                    opponent.confidence = Math.max(opponent.confidence - ing_stats.get("conf_minus"), 0);
-                    inspiration = Math.min(inspiration + ing_stats.get("ins_plus"), insp_max);
-                    opponent.inspiration = Math.max(opponent.inspiration - ing_stats.get("ins_minus"), 0);
-                    break;
-                case Intimidate:
-                    confidence = Math.min(confidence + inm_stats.get("conf_plus"), conf_max);
-                    opponent.confidence = Math.max(opponent.confidence - inm_stats.get("conf_minus"), 0);
-                    inspiration = Math.min(inspiration + inm_stats.get("ins_plus"), insp_max);
-                    opponent.inspiration = Math.max(opponent.inspiration - inm_stats.get("ins_minus"), 0);
-                    break;
-            }
+            confidence = Math.min(confidence + temp_stats.get("conf_plus"), conf_max);
+            opponent.confidence = Math.max(opponent.confidence - temp_stats.get("conf_minus"), 0);
+            inspiration = Math.min(inspiration + temp_stats.get("ins_plus"), insp_max);
+            opponent.inspiration = Math.max(opponent.inspiration - temp_stats.get("ins_minus"), 0);
         }
         // lose a load of confidence and inspiration instead if consumed
         else {
