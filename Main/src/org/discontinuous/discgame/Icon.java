@@ -13,6 +13,8 @@ public class Icon extends Entity  {
     int tooltip_width;
     int tooltip_height;
     String text;
+    Color dark_grey = new Color(0.15f, 0.15f, 0.15f, 1);
+    Color light_grey = new Color(0.8f, 0.8f, 0.8f, 1);
 
     public Icon(int x, int y, int width, int height, int tooltip_x, int tooltip_y, int tooltip_width, int tooltip_height, String text) {
         super(x, y, width, height);
@@ -34,8 +36,6 @@ public class Icon extends Entity  {
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
-        Color dark_grey = new Color(0.15f, 0.15f, 0.15f, 1);
-        Color light_grey = new Color(0.8f, 0.8f, 0.8f, 1);
         Tooltip.newTip(tooltip_x, tooltip_y,
                 tooltip_width, tooltip_height,
                 x + width/2, y + height/2,

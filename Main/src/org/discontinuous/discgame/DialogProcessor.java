@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputProcessor;
  */
 public class DialogProcessor implements InputProcessor {
     boolean hovered;
+    Entity clicked;
 
     @Override
     public boolean keyDown (int keycode) {
@@ -35,10 +36,21 @@ public class DialogProcessor implements InputProcessor {
             State.advanceDialog();
             return false;
         }
+        if (State.checkState(State.states.AbilityDialog)) {
+            State.currentSpeaker = DiscGame.yi;
+            State.advanceDialog();
+            return false;
+        }
         // Loop over everything in the clickable list and see if it's being clicked.
         for (Entity e : DiscGame.click_list) {
-            if (e.checkArea(x, y)) {e.clickHandler();}
+            if (e.checkArea(x, y)) {clicked = e;}
         }
+        // If no ability clicked or nothing clicked while in ability select, return to select Dialog
+        if (State.checkState(State.states.SelectAbility) && (null == clicked || clicked.getClass() != Ability.class)) {
+            State.currentState = State.states.SelectDialog;
+            return false;
+        }
+        if (null != clicked) {clicked.clickHandler(); clicked = null;}
         return false;
     }
 

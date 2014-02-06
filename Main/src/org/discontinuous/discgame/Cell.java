@@ -100,17 +100,23 @@ public class Cell extends Entity {
         }
     }
     public void drawHover(SpriteBatch batch) {
+        // If in ability targeting selection
+        if (State.checkState(State.states.AbilityTargeting)) {
+            if (DiscGame.yi.ability_selected.target == AbilityTarget.targets.adjacent_square_any) {
+                if (DiscGame.yi.is_adjacent_to(this)) {
+                    enlargeCell(batch);
+                }
+            }
+            if (DiscGame.yi.ability_selected.target == AbilityTarget.targets.adjacent_square_fresh) {
+                if (DiscGame.yi.is_adjacent_to(this) && !this.consumed) {
+                    enlargeCell(batch);
+                }
+            }
+            return;
+        }
         // If the cell is adjacent to the player, scale it up and redraw on top
         if (DiscGame.yi.is_adjacent_to(this)&& State.checkState(State.states.SelectDialog)) {
-            img.scale(0.3f);
-            img.draw(batch);
-            img.scale(-0.3f);
-            switch (type) {
-                case Logical: DiscGame.text_font.draw(batch, type.toString(), x + 8, y + 38); break;
-                case Ethical: DiscGame.text_font.draw(batch, type.toString(), x + 10, y + 38); break;
-                case Interrogate: DiscGame.text_font_small.draw(batch, type.toString(), x + 2, y + 38); break;
-                case Intimidate: DiscGame.text_font_small.draw(batch, type.toString(), x + 3, y + 38); break;
-            }
+            enlargeCell(batch);
             //Redraw so that the shape doesn't cover text
             dialog_option.drawDialogOption(batch);
         }
@@ -139,6 +145,23 @@ public class Cell extends Entity {
         if (DiscGame.yi.is_adjacent_to(this) && State.checkState(State.states.SelectDialog)) {
             DiscGame.yi.update_position(this);
         }
+
+        // If in ability targeting selection
+        if (State.checkState(State.states.AbilityTargeting)) {
+            if (DiscGame.yi.ability_selected.target == AbilityTarget.targets.adjacent_square_any) {
+                if (DiscGame.yi.is_adjacent_to(this)) {
+                    DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, this);
+                    State.currentState = State.states.AbilityDialog;
+                }
+            }
+            if (DiscGame.yi.ability_selected.target == AbilityTarget.targets.adjacent_square_fresh) {
+                if (DiscGame.yi.is_adjacent_to(this) && !this.consumed) {
+                    DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, this);
+                    State.currentState = State.states.AbilityDialog;
+                }
+            }
+            return;
+        }
     }
 
     // Imperative; mark this as consumed
@@ -159,5 +182,17 @@ public class Cell extends Entity {
         if (board_y + 1 < DiscGame.BOARD_HEIGHT && DiscGame.board.cells[board_x][board_y + 1].occupied == false) { adjacent.add(DiscGame.board.cells[board_x][board_y + 1]);}
         if (board_y - 1 >= 0 && DiscGame.board.cells[board_x][board_y - 1].occupied == false) {adjacent.add(DiscGame.board.cells[board_x][board_y - 1]);}
         return adjacent;
+    }
+
+    private void enlargeCell(SpriteBatch batch) {
+        img.scale(0.3f);
+        img.draw(batch);
+        img.scale(-0.3f);
+        switch (type) {
+            case Logical: DiscGame.text_font.draw(batch, type.toString(), x + 8, y + 38); break;
+            case Ethical: DiscGame.text_font.draw(batch, type.toString(), x + 10, y + 38); break;
+            case Interrogate: DiscGame.text_font_small.draw(batch, type.toString(), x + 2, y + 38); break;
+            case Intimidate: DiscGame.text_font_small.draw(batch, type.toString(), x + 3, y + 38); break;
+        }
     }
 }

@@ -14,7 +14,6 @@ import org.yaml.snakeyaml.Yaml;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Actual game code.  Pleased that unlike Slick, libgdx abstracts
@@ -26,6 +25,7 @@ public class DiscGame extends Game {
     // TODO: - Insults/Compliments
     // TODO: - DP spending
     // TODO: - Oral Swap Hyper Combos
+    // TODO: - Fog of war
 
     // TODO: Giant pile of static variables.  OK for prototype, terrible design.
     static Board board;
@@ -42,7 +42,7 @@ public class DiscGame extends Game {
     Icon confidence_icon_opponent;
     Icon inspiration_icon_player;
     Icon inspiration_icon_opponent;
-    Abilities abilities;
+    static AbilitiesButton abilities_button;
     static AI arlene_ai;
 
     static DialogOption[] dialog_options;
@@ -119,13 +119,14 @@ public class DiscGame extends Game {
         arlene.opponent = yi;
         yi.adjacent = yi.cell.find_adjacent_cells();
         yi.update_dialog_options();
+        yi.update_abilities();
 
         // Setup AI class so Arlene doesn't wander randomly.
         arlene_ai = new AI(arlene, yi);
 
         // Setup ability button
-        abilities = new Abilities(100, 100, 64, 64);
-        abilities.setImg(new Texture(Gdx.files.internal("cell/interrogate.jpg")));
+        abilities_button = new AbilitiesButton(100, 40, 64, 64);
+        abilities_button.setImg(new Texture(Gdx.files.internal("cell/interrogate.jpg")));
 
         DialogProcessor inputProcessor = new DialogProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
@@ -217,8 +218,6 @@ public class DiscGame extends Game {
         yi_portrait.draw(batch);
         arlene_portrait.draw(batch);
 
-        abilities.draw(batch);
-
         // Draw the board
         board.draw(batch, BOARD_WIDTH, BOARD_HEIGHT);
 
@@ -289,6 +288,14 @@ public class DiscGame extends Game {
         yi.setImg(new Texture(Gdx.files.internal("img/zhugemini.png")));
         //yi.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
         yi_portrait.setContestant(yi);
+
+        Ability strawman = new Ability(yi, 64, 64, 40,
+                AbilityTarget.targets.adjacent_square_fresh,
+                new AbilityEffect(AbilityEffect.effects.multiply_all, 4, true),
+                "~ Strawman ~ (Cost 40)\nConsume an unconsumed adjacent square for 4x the bonuses (DP, Cf+, Cf-, Ins+, Ins-)",
+                "That's a horrible example.  What you failed to consider is the following situation...");
+        strawman.setImg(new Texture(Gdx.files.internal("cell/interrogate.jpg")));
+        yi.abilities.add(strawman);
     }
 
     public void setupArlene() {
@@ -309,13 +316,13 @@ public class DiscGame extends Game {
         Hashtable<String, Integer> inm_stats = new Hashtable<String, Integer>() {{
             put("power", 80);
             put("conf_plus", 0);
-            put("conf_minus", 40);
+            put("conf_minus", 20);
             put("ins_plus", 0);
             put("ins_minus", 10);
         }};
         Hashtable<String, Integer> ing_stats = new Hashtable<String, Integer>() {{
             put("power", 120);
-            put("conf_plus", 50);
+            put("conf_plus", 30);
             put("conf_minus", 20);
             put("ins_plus", 30);
             put("ins_minus", 10);

@@ -25,6 +25,8 @@ public class Contestant extends Entity {
     boolean player;
     Contestant opponent;
     ArrayList<Cell> adjacent;
+    ArrayList<Ability> abilities;
+    Ability ability_selected;
     Combo combo;
 
     // TODO: pass in a hash or something.  this argument list is getting confusingly gnarly as fuck
@@ -45,6 +47,7 @@ public class Contestant extends Entity {
         bars_coordinate = coordinate;
         player = isPlayer;
         adjacent = new ArrayList();
+        abilities = new ArrayList();
         this.combo = combo;
     }
     public void draw(SpriteBatch batch) {
@@ -106,6 +109,23 @@ public class Contestant extends Entity {
         return (adjacent.contains(origin)) ? true : false;
     }
 
+    public void update_only_position(Cell cell) {
+        // mark current cell as consumed
+        this.cell.consumed = true;
+        this.cell.occupied = false;
+        this.cell.setImg(Cell.consume);
+        this.cell.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
+
+        // set new cell to destination
+        this.cell = cell;
+        cell.occupied = true;
+
+        // update image position
+        x = DiscGame.screen_width - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
+        y = DiscGame.screen_height - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
+        img.setPosition(x, y);
+    }
+
     public void update_position(Cell cell) {
         // Record current values of stats - player and opponent before effects
         State.previousPower = DiscGame.dealpower.dp;
@@ -148,6 +168,12 @@ public class Contestant extends Entity {
         // Show bonus
         State.animation_counter = 0;
         State.animation_max = 30;
+    }
+
+    public void update_abilities() {
+        for (Ability ability : abilities) {
+            ability.update_usability(inspiration);
+        }
     }
 
     public void update_stats(Cell cell, boolean combo) {
@@ -200,13 +226,4 @@ public class Contestant extends Entity {
             inspiration = Math.max(inspiration - 50, 0);
         }
     }
-
-    public void initialize_yi() {
-
-    }
-
-    public void initialize_arlene() {
-
-    }
-
 }

@@ -10,7 +10,7 @@ public class State {
     // singleton game state library, drawing state-specific UI elements and transitions to other states
 
     public enum states {
-        SelectDialog, SelectAbility, InDialog, PreGame, PostGame
+        SelectDialog, SelectAbility, AbilityTargeting, AbilityDialog, InDialog, PreGame, PostGame
     }
 
     static states currentState = states.SelectDialog;
@@ -46,13 +46,21 @@ public class State {
                 // Find out who is speaking
                 if (currentSpeaker.player) {
                     Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 }
                 else {
                     Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width - 270, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, 270, 150, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 }
                 //
+                break;
+            case SelectAbility:
+                Tooltip.drawDialogBox(shapes);
+                break;
+            case AbilityTargeting:
+                break;
+            case AbilityDialog:
+                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 break;
             case PreGame: break;
             case PostGame: break;
@@ -69,39 +77,7 @@ public class State {
                 Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 230, 50, 450, 200, batch);
                 break;
             case InDialog:
-                if (animation_counter <= animation_max * animation_coefficient) {
-                    DiscGame.animation_font.setColor(1f, 1f, 1f, 1 - ((float) animation_counter / (animation_coefficient * 100)));
-
-                    if (currentSpeaker.player) {
-                        conf_plus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 116;
-                        ins_plus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 76;
-                        conf_minus_x =  DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 44;
-                        ins_minus_x = DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 84;
-                        conf_plus_string = Integer.toString(DiscGame.yi.confidence - previousPlayerConf);
-                        ins_plus_string = Integer.toString(DiscGame.yi.inspiration - previousPlayerIns);
-                        conf_minus_string = Integer.toString(DiscGame.arlene.confidence - previousOpponentConf);
-                        ins_minus_string = Integer.toString(DiscGame.arlene.inspiration - previousOpponentIns);
-                    }
-                    else {
-                        conf_plus_x = DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 44;
-                        ins_plus_x =  DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 84;
-                        conf_minus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 116;
-                        ins_minus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 76;
-                        conf_plus_string = Integer.toString(DiscGame.arlene.confidence - previousOpponentConf);
-                        ins_plus_string = Integer.toString(DiscGame.arlene.inspiration - previousOpponentIns);
-                        conf_minus_string = Integer.toString(DiscGame.yi.confidence - previousPlayerConf);
-                        ins_minus_string = Integer.toString(DiscGame.yi.inspiration - previousPlayerIns);
-                    }
-                    DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.dealpower.dp - previousPower), DiscGame.dealpower.x, 325 + animation_counter/animation_coefficient, 380);
-                    DiscGame.animation_font.drawWrapped(batch, conf_plus_string, conf_plus_x, 420 + animation_counter/animation_coefficient, 380);
-                    DiscGame.animation_font.drawWrapped(batch, ins_plus_string, ins_plus_x, 420 + animation_counter/animation_coefficient, 380);
-                    DiscGame.animation_font.drawWrapped(batch, conf_minus_string, conf_minus_x, 420 + animation_counter/animation_coefficient, 380);
-                    DiscGame.animation_font.drawWrapped(batch, ins_minus_string, ins_minus_x, 420 + animation_counter/animation_coefficient, 380);
-                    if (State.combo) {
-                        DiscGame.animation_font.drawWrapped(batch, "COMBO", currentSpeaker.cell.x, currentSpeaker.cell.y + 30 + animation_counter / animation_coefficient, 380);
-                    }
-                    animation_counter++;
-                }
+                animateGain(batch, currentSpeaker.player);
 
                 // If player speaking, print line chosen, centered in the box.
                 // TODO : This is calculated on render at 60Hz.  That's crap.  Move out into Contestant and calculate once there.
@@ -121,8 +97,19 @@ public class State {
                     DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.yi_resp_dialog, DiscGame.screen_width/2 - 190, 40 + yi_dialog_height_offset, 380);
                     Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 40, 400, 100, batch);
                 }
-
-                //
+                break;
+            case SelectAbility:
+                for (Ability ability : DiscGame.yi.abilities) {
+                    ability.draw(batch);
+                }
+                break;
+            case AbilityTargeting:
+                break;
+            case AbilityDialog:
+                animateGain(batch, true);
+                yi_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(DiscGame.yi.ability_selected.dialog, 380).height)/2));
+                DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.ability_selected.dialog, DiscGame.screen_width/2 - 190, 200 + yi_dialog_height_offset, 380);
+                Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 200, 400, 100, batch);
                 break;
             case PreGame: break;
             case PostGame: break;
@@ -136,13 +123,51 @@ public class State {
             // For player character: update the new cells considered adjacent
             DiscGame.yi.adjacent = DiscGame.yi.cell.find_adjacent_cells();
             DiscGame.yi.update_dialog_options();
+            DiscGame.yi.update_abilities();
             // Back to select dialog
             currentState = states.SelectDialog;
+
         }
     }
 
     public static boolean checkState(states checkThis){
         if (currentState == checkThis) {return true;}
         return false;
+    }
+
+    private static void animateGain(SpriteBatch batch, boolean playerSpeaking) {
+        if (animation_counter <= animation_max * animation_coefficient) {
+            DiscGame.animation_font.setColor(1f, 1f, 1f, 1 - ((float) animation_counter / (animation_coefficient * 100)));
+
+            if (playerSpeaking) {
+                conf_plus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 116;
+                ins_plus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 76;
+                conf_minus_x =  DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 44;
+                ins_minus_x = DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 84;
+                conf_plus_string = Integer.toString(DiscGame.yi.confidence - previousPlayerConf);
+                ins_plus_string = Integer.toString(DiscGame.yi.inspiration - previousPlayerIns);
+                conf_minus_string = Integer.toString(DiscGame.arlene.confidence - previousOpponentConf);
+                ins_minus_string = Integer.toString(DiscGame.arlene.inspiration - previousOpponentIns);
+            }
+            else {
+                conf_plus_x = DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 44;
+                ins_plus_x =  DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 84;
+                conf_minus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 116;
+                ins_minus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 76;
+                conf_plus_string = Integer.toString(DiscGame.arlene.confidence - previousOpponentConf);
+                ins_plus_string = Integer.toString(DiscGame.arlene.inspiration - previousOpponentIns);
+                conf_minus_string = Integer.toString(DiscGame.yi.confidence - previousPlayerConf);
+                ins_minus_string = Integer.toString(DiscGame.yi.inspiration - previousPlayerIns);
+            }
+            DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.dealpower.dp - previousPower), DiscGame.dealpower.x, DiscGame.screen_height/2 - 20 + animation_counter/animation_coefficient, 380);
+            DiscGame.animation_font.drawWrapped(batch, conf_plus_string, conf_plus_x, 420 + animation_counter/animation_coefficient, 380);
+            DiscGame.animation_font.drawWrapped(batch, ins_plus_string, ins_plus_x, 420 + animation_counter/animation_coefficient, 380);
+            DiscGame.animation_font.drawWrapped(batch, conf_minus_string, conf_minus_x, 420 + animation_counter/animation_coefficient, 380);
+            DiscGame.animation_font.drawWrapped(batch, ins_minus_string, ins_minus_x, 420 + animation_counter/animation_coefficient, 380);
+            if (State.combo) {
+                DiscGame.animation_font.drawWrapped(batch, "COMBO", currentSpeaker.cell.x, currentSpeaker.cell.y + 30 + animation_counter / animation_coefficient, 380);
+            }
+            animation_counter++;
+        }
     }
 }

@@ -57,6 +57,7 @@ public class Portrait extends Entity {
         combos.draw(batch);
         movestats.draw(batch);
         Tooltip.drawDialogWidgets(hover_x, (int) (hover_y - text_height), (int) text_width, (int) text_height, batch);
+        if (contestant.player) { DiscGame.abilities_button.draw(batch);}
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
