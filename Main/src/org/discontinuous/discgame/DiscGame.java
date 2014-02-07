@@ -123,8 +123,8 @@ public class DiscGame extends Game {
         arlene_ai = new AI(arlene, yi);
 
         // Setup ability button
-        abilities_button = new AbilitiesButton(100, 40, 64, 64);
-        abilities_button.setImg(new Texture(Gdx.files.internal("cell/interrogate.jpg")));
+        abilities_button = new AbilitiesButton(110, 380, 64, 64);
+        abilities_button.setImg(new Texture(Gdx.files.internal("img/abilities.png")));
 
         DialogProcessor inputProcessor = new DialogProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
@@ -292,7 +292,7 @@ public class DiscGame extends Game {
                 new AbilityEffect(AbilityEffect.effects.multiply_all, 4, true),
                 "~ Strawman ~ (Cost 40)\nConsume an unconsumed adjacent square for 4x the bonuses (DP, Cf+, Cf-, Ins+, Ins-)",
                 "That's a horrible example.  What you failed to consider is the following situation...");
-        strawman.setImg(new Texture(Gdx.files.internal("cell/interrogate.jpg")));
+        strawman.setImg(new Texture(Gdx.files.internal("img/strawman.png")));
         yi.abilities.add(strawman);
 
         // Ability tableflip
@@ -301,7 +301,7 @@ public class DiscGame extends Game {
                 new AbilityEffect(AbilityEffect.effects.conf_damage, 60, false),
                 "~ Tableflip ~ (Cost 30)\nFlip a table at your opponent, damaging your opponent's confidence by 60.",
                 "Special case generated in Ability class, you should never see this.");
-        tableflip.setImg(new Texture(Gdx.files.internal("cell/intimidate.jpg")));
+        tableflip.setImg(new Texture(Gdx.files.internal("img/tableflip.png")));
         yi.abilities.add(tableflip);
 
         // Ability non sequitur
