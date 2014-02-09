@@ -111,10 +111,8 @@ public class Contestant extends Entity {
 
     public void update_only_position(Cell cell) {
         // mark current cell as consumed
-        this.cell.consumed = true;
+        this.cell.consume();
         this.cell.occupied = false;
-        this.cell.setImg(Cell.consume);
-        this.cell.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
 
         // set new cell to destination
         this.cell = cell;
@@ -134,11 +132,8 @@ public class Contestant extends Entity {
         State.previousOpponentConf = DiscGame.arlene.confidence;
         State.previousOpponentIns = DiscGame.arlene.inspiration;
 
-        // mark current cell as consumed
-        this.cell.consumed = true;
+        this.cell.consume();
         this.cell.occupied = false;
-        this.cell.setImg(Cell.consume);
-        this.cell.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
 
         //give combo bonus if legit combo for character and new cell is not consumed
         if (this.combo.checkCombo(this.cell, cell) && cell.consumed == false) {

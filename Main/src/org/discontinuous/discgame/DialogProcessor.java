@@ -32,15 +32,19 @@ public class DialogProcessor implements InputProcessor {
     @Override
     public boolean touchUp (int x, int y, int pointer, int button) {
         // If in dialog, advance to the next dialog or exit
-        if (State.checkState(State.states.InDialog)) {
-            State.advanceDialog();
-            return false;
+        switch (State.currentState) {
+            case InDialog:
+                State.advanceDialog();
+                return false;
+            case AbilityDialog:
+                State.currentSpeaker = DiscGame.yi;
+                State.advanceDialog();
+                return false;
+            case PostGameDialog:
+                State.currentState = State.states.PostGameSelect;
+                return false;
         }
-        if (State.checkState(State.states.AbilityDialog)) {
-            State.currentSpeaker = DiscGame.yi;
-            State.advanceDialog();
-            return false;
-        }
+
         // Loop over everything in the clickable list and see if it's being clicked.
         for (Entity e : DiscGame.click_list) {
             if (e.checkArea(x, y)) {clicked = e;}

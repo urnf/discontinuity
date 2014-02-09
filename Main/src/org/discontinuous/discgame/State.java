@@ -10,7 +10,7 @@ public class State {
     // singleton game state library, drawing state-specific UI elements and transitions to other states
 
     public enum states {
-        SelectDialog, SelectAbility, AbilityTargeting, AbilityDialog, InDialog, PreGame, PostGame
+        SelectDialog, SelectAbility, AbilityTargeting, AbilityDialog, InDialog, PostGameDialog, PostGameSelect
     }
 
     static states currentState = states.SelectDialog;
@@ -63,8 +63,22 @@ public class State {
             case AbilityDialog:
                 Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 break;
-            case PreGame: break;
-            case PostGame: break;
+            case PostGameDialog:
+                if (DiscGame.dealpower.dp >= 0) {
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                }
+                else {
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width - 270, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, 270, 150, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                }break;
+            case PostGameSelect:
+                int i = 0;
+                for (EndGameOption option: DiscGame.endgame_options) {
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200 + 75 * i, 400, 50, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, true, shapes);
+                    i++;
+                }
+                break;
         }
     }
 
@@ -106,18 +120,7 @@ public class State {
                 Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 230, 50, 450, 200, batch);
                 break;
             case AbilityTargeting:
-                String text = "";
-                switch (DiscGame.yi.ability_selected.target) {
-                    case adjacent_square_any:
-                        text = "Select any adjacent square to be the target for this ability";
-                        break;
-                    case adjacent_square_fresh:
-                        text = "Select any adjacent non-consumed square to be the target for this ability";
-                        break;
-                    case any_square:
-                        text = "Select any square on the board to be the target for this ability.";
-                        break;
-                }
+                String text = AbilityTarget.target_state_string();
                 yi_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 380).height)/2));
                 DiscGame.movestats_font.drawWrapped(batch, text, DiscGame.screen_width/2 - 190, 200 + yi_dialog_height_offset, 380);
                 break;
@@ -127,8 +130,35 @@ public class State {
                 DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.ability_selected.dialog, DiscGame.screen_width/2 - 190, 200 + yi_dialog_height_offset, 380);
                 Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 200, 400, 100, batch);
                 break;
-            case PreGame: break;
-            case PostGame: break;
+            case PostGameDialog:
+                if (DiscGame.dealpower.dp >= 0) {
+                    String yi_dialog = "Why are we still talking?  I think it's time to resolve this.";
+                    yi_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(yi_dialog, 380).height)/2));
+                    DiscGame.movestats_font.drawWrapped(batch, yi_dialog, DiscGame.screen_width/2 - 190, 200 + yi_dialog_height_offset, 380);
+                    Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 200, 400, 100, batch);
+                    String arlene_dialog = "Definitely.";
+                    arlene_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(arlene_dialog, 380).height)/2));
+                    DiscGame.movestats_font.drawWrapped(batch, arlene_dialog, DiscGame.screen_width/2 - 190, 40 + arlene_dialog_height_offset, 380);
+                    Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 40, 400, 100, batch);
+                }
+                else {
+                    String arlene_dialog = "This discussion is over.";
+                    arlene_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(arlene_dialog, 380).height)/2));
+                    DiscGame.movestats_font.drawWrapped(batch, arlene_dialog, DiscGame.screen_width/2 - 190, 200 + arlene_dialog_height_offset, 380);
+                    Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 200, 400, 100, batch);
+                    String yi_dialog = "That seems so.";
+                    yi_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(yi_dialog, 380).height)/2));
+                    DiscGame.movestats_font.drawWrapped(batch, yi_dialog, DiscGame.screen_width/2 - 190, 40 + yi_dialog_height_offset, 380);
+                    Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 200, 40, 400, 100, batch);
+                }
+                break;
+            case PostGameSelect:
+                int i = 0;
+                for (EndGameOption option: DiscGame.endgame_options) {
+                    DiscGame.movestats_font.drawWrapped(batch, option.dp_cost + option.option_text, DiscGame.screen_width/2 - 190, 200 + arlene_dialog_height_offset  + 75 * i, 380);
+                    i++;
+                }
+                break;
         }
 
     }
@@ -140,7 +170,20 @@ public class State {
             DiscGame.yi.adjacent = DiscGame.yi.cell.find_adjacent_cells();
             DiscGame.yi.update_dialog_options();
             DiscGame.yi.update_abilities();
-            // Back to select dialog
+
+            // Check to see if it's game over
+            if (DiscGame.arlene.confidence <= 0) {
+                DiscGame.dealpower.dp += 1000;
+                currentState = states.PostGameDialog;
+                return;
+            }
+            if (DiscGame.yi.confidence <= 0) {
+                DiscGame.dealpower.dp -= 1000;
+                currentState = states.PostGameDialog;
+                return;
+            }
+
+            // Otherwise back to select dialog
             currentState = states.SelectDialog;
 
         }

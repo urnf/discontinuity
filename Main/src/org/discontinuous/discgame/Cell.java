@@ -102,18 +102,7 @@ public class Cell extends Entity {
     public void drawHover(SpriteBatch batch) {
         // If in ability targeting selection
         if (State.checkState(State.states.AbilityTargeting)) {
-            switch (DiscGame.yi.ability_selected.target) {
-                case adjacent_square_any:
-                    if (DiscGame.yi.is_adjacent_to(this)) { enlargeCell(batch); }
-                    break;
-                case adjacent_square_fresh:
-                    if (DiscGame.yi.is_adjacent_to(this) && !this.consumed) { enlargeCell(batch); }
-                    break;
-                case any_square:
-                    enlargeCell(batch);
-                    break;
-            }
-            return;
+            AbilityTarget.target_cell_hover(this, batch);
         }
         // If the cell is adjacent to the player, scale it up and redraw on top
         if (DiscGame.yi.is_adjacent_to(this)&& State.checkState(State.states.SelectDialog)) {
@@ -149,30 +138,16 @@ public class Cell extends Entity {
 
         // If in ability targeting selection
         if (State.checkState(State.states.AbilityTargeting)) {
-            switch (DiscGame.yi.ability_selected.target) {
-                case adjacent_square_any:
-                    if (DiscGame.yi.is_adjacent_to(this)) {
-                        DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, this);
-                        State.currentState = State.states.AbilityDialog;
-                    }
-                    break;
-                case adjacent_square_fresh:
-                    if (DiscGame.yi.is_adjacent_to(this) && !this.consumed) {
-                        DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, this);
-                        State.currentState = State.states.AbilityDialog;
-                    }
-                    break;
-                case any_square:
-                    DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, this);
-                    State.currentState = State.states.AbilityDialog;
-                    break;
-            }
-            return;
+            AbilityTarget.target_cell_click(this);
         }
     }
 
     // Imperative; mark this as consumed
     public void consume() {
+        // mark current cell as consumed
+        consumed = true;
+        setImg(Cell.consume);
+        img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
 
     }
 
@@ -191,7 +166,7 @@ public class Cell extends Entity {
         return adjacent;
     }
 
-    private void enlargeCell(SpriteBatch batch) {
+    public void enlargeCell(SpriteBatch batch) {
         img.scale(0.3f);
         img.draw(batch);
         img.scale(-0.3f);

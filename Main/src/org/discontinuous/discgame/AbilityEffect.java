@@ -9,12 +9,10 @@ import java.util.Hashtable;
  */
 public class AbilityEffect {
     public enum effects {
-        multiply_self_dp,
-        multiply_self_conf,
-        multiply_self_ins,
         multiply_all,
         conf_damage,
-        conf_gain
+        aoe_consume,
+        refresh_consume
     }
 
     int magnitude;
@@ -63,6 +61,26 @@ public class AbilityEffect {
                 break;
             case conf_damage:
                 contestant.opponent.confidence = Math.max(contestant.opponent.confidence - magnitude, 0);
+                break;
+            case aoe_consume:
+                for (Cell adjacent_cell : contestant.opponent.cell.find_adjacent_cells()) {
+                    adjacent_cell.consume();
+                }
+                break;
+            case refresh_consume:
+                cell.consumed = false;
+
+                //give combo bonus if legit combo for character and new cell is not consumed
+                if (contestant.combo.checkCombo(contestant.cell, cell)) {
+                    // Get all the benefits of the previous cell except DP
+                    contestant.update_stats(contestant.cell, true);
+                    State.combo = true;
+                }
+                else {
+                    State.combo = false;
+                }
+
+                contestant.update_stats(cell, false);
                 break;
             default:
         }

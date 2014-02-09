@@ -66,6 +66,7 @@ public class DiscGame extends Game {
     static ArrayList<Entity> hover_list;
     static ArrayList<Entity> shape_hover_list;
     static ArrayList<Topic> topics;
+    static ArrayList<EndGameOption> endgame_options;
 
     static Texture movestats;
 
@@ -128,6 +129,11 @@ public class DiscGame extends Game {
 
         DialogProcessor inputProcessor = new DialogProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
+
+        // Setup end game options
+        endgame_options = new ArrayList();
+        setupEndgameOptions(endgame_options);
+
 
     }
     // Dialog:
@@ -307,13 +313,29 @@ public class DiscGame extends Game {
         // Ability non sequitur
         Ability nonsequitur = new Ability(yi, 64, 64, 50,
                 AbilityTarget.targets.any_square,
-                new AbilityEffect(AbilityEffect.effects.multiply_all, 1, true),
+                new AbilityEffect(AbilityEffect.effects.multiply_all, 1, false),
                 "~ Non Sequitur ~ (Cost 50)\nDiscreetly move the conversation elsewhere; teleport to and consume any square.",
-                "Well, if you think about it, you're really talking about something else, such as this.");
+                "If you think about it, you're actually talking about something else, such as this.");
         nonsequitur.setImg(new Texture(Gdx.files.internal("cell/ethical.jpg")));
         yi.abilities.add(nonsequitur);
 
         // Ability reasonable doubt - surrounding AoE opponent squares consumed
+        Ability reasonable_doubt = new Ability(yi, 64, 64, 40,
+                AbilityTarget.targets.self,
+                new AbilityEffect(AbilityEffect.effects.aoe_consume, 1, false),
+                "~ Reasonable Doubt ~ (Cost 40)\nSow doubt and make your opponent's adjacent squares consumed.",
+                "Are you sure about that?  I think you're making a bad assumption.");
+        reasonable_doubt.setImg(new Texture(Gdx.files.internal("cell/intimidate.jpg")));
+        yi.abilities.add(reasonable_doubt);
+
+        // Ability double down - refresh and consume an adjacent consumed argument
+        Ability double_down = new Ability(yi, 64, 64, 60,
+                AbilityTarget.targets.adjacent_square_consumed,
+                new AbilityEffect(AbilityEffect.effects.refresh_consume, 1, true),
+                "~ Double Down ~ (Cost 60)\nRefuse to be wrong and repeat an adjacent, consumed square without penalties.",
+                "No.  Let me repeat it again, just slower and louder, until you understand.");
+        double_down.setImg(new Texture(Gdx.files.internal("cell/logical.jpg")));
+        yi.abilities.add(double_down);
 
         Ability.setup_ability_display(yi);
     }
@@ -431,5 +453,10 @@ public class DiscGame extends Game {
         dialog_options[1] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height + 95, 455, 55);
         dialog_options[2] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height + 40, 455, 55);
         dialog_options[3] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height - 15, 455, 55);
+    }
+
+    public void setupEndgameOptions(ArrayList<EndGameOption> endgame_options) {
+        endgame_options.add(new EndGameOption(0, "Looks like this isn't going to end well.  We're leaving, by force if necessary."));
+        endgame_options.add(new EndGameOption(500, "Let us leave.  Pretend you never saw us.  We'll leave now and withdraw our forces."));
     }
 }
