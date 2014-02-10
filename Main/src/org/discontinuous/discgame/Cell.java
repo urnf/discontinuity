@@ -100,6 +100,8 @@ public class Cell extends Entity {
         }
     }
     public void drawHover(SpriteBatch batch) {
+        // Return if in post game select
+        if (State.checkState(State.states.PostGameSelect)) { return; }
         // If in ability targeting selection
         if (State.checkState(State.states.AbilityTargeting)) {
             AbilityTarget.target_cell_hover(this, batch);

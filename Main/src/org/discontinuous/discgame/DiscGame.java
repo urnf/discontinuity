@@ -56,6 +56,7 @@ public class DiscGame extends Game {
     static BitmapFont deal_font;
     static BitmapFont text_font;
     static BitmapFont movestats_font;
+    static BitmapFont nightmare_font;
     static BitmapFont animation_font;
     static BitmapFont dialog_font;
     static BitmapFont text_font_small;
@@ -407,6 +408,7 @@ public class DiscGame extends Game {
     public void setupFonts() {
         FreeTypeFontGenerator sinanova = new FreeTypeFontGenerator(Gdx.files.internal("fonts/SinaNovaReg.otf"));
         FreeTypeFontGenerator ptsans = new FreeTypeFontGenerator(Gdx.files.internal("fonts/PTSans.ttf"));
+        FreeTypeFontGenerator nightmare = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Cinzel-Regular.ttf"));
         header_font = sinanova.generateFont(18);
         deal_font = sinanova.generateFont(24);
         animation_font = sinanova.generateFont(24);
@@ -414,6 +416,7 @@ public class DiscGame extends Game {
         text_font = ptsans.generateFont(16);
         dialog_font = ptsans.generateFont(14);
         text_font_small = ptsans.generateFont(13);
+        nightmare_font = nightmare.generateFont(20);
         sinanova.dispose();
         ptsans.dispose();
     }
@@ -456,7 +459,14 @@ public class DiscGame extends Game {
     }
 
     public void setupEndgameOptions(ArrayList<EndGameOption> endgame_options) {
-        endgame_options.add(new EndGameOption(0, "Looks like this isn't going to end well.  We're leaving, by force if necessary."));
-        endgame_options.add(new EndGameOption(500, "Let us leave.  Pretend you never saw us.  We'll leave now and withdraw our forces."));
+        endgame_options.add(new EndGameOption(2000, movestats_font, "Help us create a place in society rather than perpetuating this constant destruction. (Arlene joins the party)"));
+        endgame_options.add(new EndGameOption(1000, movestats_font, "You should be more worried about your position than whether you can detain us. (+20 Initiative on Fleet Combat)"));
+        endgame_options.add(new EndGameOption(500, movestats_font, "Let us leave.  Pretend you never saw us.  We'll leave now and withdraw our forces."));
+        endgame_options.add(new EndGameOption(0, movestats_font, "Looks like this isn't going to end well.  We're leaving, by force if necessary. (Initiate Fleet Combat)"));
+        endgame_options.add(new EndGameOption(-9999, nightmare_font, "THE NIGHTMARES OF THE PAST CANNOT BE SO EASILY DEFEATED. (Initiate Tactical Combat)"));
+
+
+
+
     }
 }

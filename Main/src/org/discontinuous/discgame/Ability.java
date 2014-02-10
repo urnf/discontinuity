@@ -66,10 +66,12 @@ public class Ability extends Entity {
             if (tooltip.contains("Tableflip")) { dialog = "Please be careful, I am about to flip my shit.\nRargh.\n(Yi hurls the table " + ((int)(Math.random() * 100) + 10) + " meters)"; }
 
             effect.apply_effect(contestant, null);
+            State.set_yi_offset(DiscGame.yi.ability_selected.dialog);
             State.currentState = State.states.AbilityDialog;
         }
         // If ability target is not self, go to ability targeting
         else {
+            State.set_yi_offset(AbilityTarget.target_state_string());
             State.currentState = State.states.AbilityTargeting;
         }
         // Remove abilities from hover and click handling

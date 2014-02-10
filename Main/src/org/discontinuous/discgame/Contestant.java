@@ -157,8 +157,17 @@ public class Contestant extends Entity {
         img.setPosition(x, y);
 
         // Trigger dialog
-        State.currentState = State.states.InDialog;
         State.currentSpeaker = this;
+        if (State.currentSpeaker.player) {
+            State.set_yi_offset(DiscGame.yi.cell.yi_dialog);
+            State.set_arlene_offset(DiscGame.yi.cell.arlene_resp_dialog);
+        }
+        else {
+            State.set_yi_offset(DiscGame.arlene.cell.yi_resp_dialog);
+            State.set_arlene_offset(DiscGame.arlene.cell.arlene_dialog);
+        }
+        State.currentState = State.states.InDialog;
+
 
         // Show bonus
         State.animation_counter = 0;

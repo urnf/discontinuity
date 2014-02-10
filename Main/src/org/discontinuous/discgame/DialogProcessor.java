@@ -41,6 +41,7 @@ public class DialogProcessor implements InputProcessor {
                 State.advanceDialog();
                 return false;
             case PostGameDialog:
+                State.setup_endgame_options();
                 State.currentState = State.states.PostGameSelect;
                 return false;
         }

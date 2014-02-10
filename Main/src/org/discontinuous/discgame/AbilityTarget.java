@@ -15,23 +15,27 @@ public class AbilityTarget {
             case adjacent_square_any:
                 if (DiscGame.yi.is_adjacent_to(cell)) {
                     DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, cell);
+                    State.set_yi_offset(DiscGame.yi.ability_selected.dialog);
                     State.currentState = State.states.AbilityDialog;
                 }
                 break;
             case adjacent_square_fresh:
                 if (DiscGame.yi.is_adjacent_to(cell) && !cell.consumed) {
                     DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, cell);
+                    State.set_yi_offset(DiscGame.yi.ability_selected.dialog);
                     State.currentState = State.states.AbilityDialog;
                 }
                 break;
             case adjacent_square_consumed:
                 if (DiscGame.yi.is_adjacent_to(cell) && cell.consumed) {
                     DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, cell);
+                    State.set_yi_offset(DiscGame.yi.ability_selected.dialog);
                     State.currentState = State.states.AbilityDialog;
                 }
                 break;
             case any_square:
                 DiscGame.yi.ability_selected.effect.apply_effect(DiscGame.yi, cell);
+                State.set_yi_offset(DiscGame.yi.ability_selected.dialog);
                 State.currentState = State.states.AbilityDialog;
                 break;
         }
