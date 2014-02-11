@@ -306,3 +306,39 @@ intimidate:
   Arlene:
     - Arlene Intimidate Placeholder 1
     - Arlene Intimidate Placeholder 2
+---
+name: Law Firm
+logical:
+  Yi:
+    - You're jeopardizing your law firm's reputation if they were to know about this on the matrix.
+  Arlene_Resp:
+    - My firm doesn't have a policy against volunteer work or purging the universe of dangerous extraplanar beings.
+  Arlene:
+    - Come quietly, and I'll see that you get as much support from my law firm as I can offer.  Don't dig this hole any further.
+  Yi_Resp:
+    - I'm not sure I'm entirely comfortable with an offer of legal assistance from my prosecutor.
+ethical:
+  Yi:
+    - I find it ironic that, for someone who has worked with law their whole life, are willing to do things that are ethically bankrupt.
+  Arlene_Resp:
+    - Ethical and legal obligations are not necessarily the same.  In this case, however, they are one and the same.
+  Arlene:
+    - I'm offering you some help here.  You can't run forever.  Given the empire that depends on you all, can you afford not to take it?
+  Yi_Resp:
+    - Because there's an empire that depends on us, I'll have to reject your "help".
+interrogate:
+  Yi:
+    - Your law firm's just a front for your brutal witch hunts, isn't it?
+    - How freaking old are you?  The law firm's over 700 years old and you're still listed as the only proprietor.
+  Arlene_Resp:
+    - No, it's a legitimate firm specializing in first cantos cases.  I do a lot of pro bono work, myself.  No brownie points for trying to make a connection, though.
+    - That's not a nice question to ask.
+  Arlene:
+    -
+  Arlene_Resp:
+    -
+intimidate:
+  Yi:
+    -
+  Arlene:
+    -

@@ -28,12 +28,12 @@ public class DealPower extends Entity {
     }
 
     public void update(int dp_change, boolean isPlayer, boolean isConsumed) {
-        dp = isPlayer ? (dp + dp_change) : (dp - dp_change);
         if (isConsumed) {
             // Penalty needs to be flat, otherwise the AI and to a certain extent, the player will be encouraged to find
             // an "optimal" path through consumed squares, when in fact, it should be, GTFO ASAP.
-            dp = isPlayer ? (dp - consume_penalty) : (dp + consume_penalty);
+            dp = isPlayer ? (dp - consume_penalty) : (dp + consume_penalty); return;
         }
+        dp = isPlayer ? (dp + dp_change) : (dp - dp_change);
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
