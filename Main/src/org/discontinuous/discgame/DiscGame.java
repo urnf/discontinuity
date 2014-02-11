@@ -31,8 +31,8 @@ public class DiscGame extends Game {
     static Board board;
     static Contestant yi;
     static Contestant arlene;
-    Portrait yi_portrait;
-    Portrait arlene_portrait;
+    static Portrait yi_portrait;
+    static Portrait arlene_portrait;
     OrthographicCamera camera;
     SpriteBatch batch;
     ShapeRenderer shapes;
@@ -459,11 +459,26 @@ public class DiscGame extends Game {
     }
 
     public void setupEndgameOptions(ArrayList<EndGameOption> endgame_options) {
-        endgame_options.add(new EndGameOption(2000, movestats_font, "Help us create a place in society rather than perpetuating this constant destruction. (Arlene joins the party)"));
-        endgame_options.add(new EndGameOption(1000, movestats_font, "You should be more worried about your position than whether you can detain us. (+20 Initiative on Fleet Combat)"));
-        endgame_options.add(new EndGameOption(500, movestats_font, "Let us leave.  Pretend you never saw us.  We'll leave now and withdraw our forces."));
-        endgame_options.add(new EndGameOption(0, movestats_font, "Looks like this isn't going to end well.  We're leaving, by force if necessary. (Initiate Fleet Combat)"));
-        endgame_options.add(new EndGameOption(-9999, nightmare_font, "THE NIGHTMARES OF THE PAST CANNOT BE SO EASILY DEFEATED. (Initiate Tactical Combat)"));
+        endgame_options.add(new EndGameOption(2000, movestats_font,
+                "Help us create a place in society rather than perpetuating this constant destruction. (Arlene joins the party)",
+                "Help us create a place in society rather than perpetuating this constant destruction.",
+                "How do you propose going about that?"));
+        endgame_options.add(new EndGameOption(1000, movestats_font,
+                "You should be more worried about your position than whether you can detain us. (+20 Initiative on Fleet Combat)",
+                "You should be more worried about your position than whether you can detain us.",
+                "So this was nothing more than a distraction.  We'll destroy you, regardless."));
+        endgame_options.add(new EndGameOption(500, movestats_font,
+                "Let us leave.  Pretend you never saw us.  We'll leave now and withdraw our forces.",
+                "Let us leave.  Pretend you never saw us.  We'll leave now and withdraw our forces.",
+                "This is not a good place to detain you, regardless.  Go ahead and run.  But you only delay the inevitable."));
+        endgame_options.add(new EndGameOption(0, movestats_font,
+                "Looks like this isn't going to end well.  We're leaving, and by force if necessary. (Initiate Fleet Combat)",
+                "Looks like this isn't going to end well.  We're leaving, and by force if necessary.",
+                "You can't just waltz out of here.  This sector has been on lockdown since we dropped out of tachyspace."));
+        endgame_options.add(new EndGameOption(-9999, nightmare_font,
+                "THE NIGHTMARES OF THE PAST CANNOT BE SO EASILY DEFEATED. (Initiate Tactical Combat)",
+                "THE NIGHTMARES OF THE PAST CANNOT BE SO EASILY DEFEATED.",
+                "SO BE IT.  RETURN TO THE VOID, ABOMINATION."));
 
 
 

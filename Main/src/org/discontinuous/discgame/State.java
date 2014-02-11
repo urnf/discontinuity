@@ -10,7 +10,7 @@ public class State {
     // singleton game state library, drawing state-specific UI elements and transitions to other states
 
     public enum states {
-        SelectDialog, SelectAbility, AbilityTargeting, AbilityDialog, InDialog, PostGameDialog, PostGameSelect
+        SelectDialog, SelectAbility, AbilityTargeting, AbilityDialog, InDialog, PostGameDialog, PostGameSelect, PostGameResult
     }
 
     static states currentState = states.SelectDialog;
@@ -37,6 +37,7 @@ public class State {
     private static int dialog_width_offset =  DiscGame.screen_width/2 - 190;
     private static String yi_text;
     private static String arlene_text;
+    public static EndGameOption selected_endgame_option;
 
     static boolean combo;
 
@@ -66,6 +67,7 @@ public class State {
             case AbilityDialog:
                 Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 break;
+            // TODO: This is lazy.  Clean up the design, integrate with current states.
             case PostGameDialog:
                 if (DiscGame.dealpower.dp >= 0) {
                     Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
@@ -74,13 +76,16 @@ public class State {
                 else {
                     Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width - 270, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                     Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, 270, 150, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                }break;
-            case PostGameSelect:
-                int i = 0;
-                for (EndGameOption option: DiscGame.endgame_options) {
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 600 - 100 * i, 400, 50, DiscGame.screen_width/2 - 200, 600 - 100 * i, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                    i++;
                 }
+                break;
+            case PostGameSelect:
+                for (int i = 0; i < DiscGame.endgame_options.size(); i++) {
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 600 - 100 * i, 400, 50, DiscGame.screen_width/2 - 200, 600 - 100 * i, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                }
+                break;
+            case PostGameResult:
+                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 break;
         }
     }
@@ -144,6 +149,12 @@ public class State {
                     DiscGame.movestats_font.drawWrapped(batch, Integer.toString(option.dp_cost), option.x + 10, option.y + 75, option.width - 40);
                     option.font.drawWrapped(batch, option.option_text, option.x + 70, option.y + 75, option.width - 70);
                 }
+                break;
+            case PostGameResult:
+                selected_endgame_option.font.drawWrapped(batch, yi_text, dialog_width_offset, 200 + yi_dialog_height_offset, 380);
+                Tooltip.drawDialogWidgets(dialog_width_offset - 10, 200, 400, 100, batch);
+                selected_endgame_option.font.drawWrapped(batch, arlene_text, dialog_width_offset, 40 + arlene_dialog_height_offset, 380);
+                Tooltip.drawDialogWidgets(dialog_width_offset - 10, 40, 400, 100, batch);
                 break;
         }
 

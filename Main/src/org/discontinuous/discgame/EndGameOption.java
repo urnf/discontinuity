@@ -1,6 +1,8 @@
 package org.discontinuous.discgame;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -12,15 +14,19 @@ public class EndGameOption extends Entity {
     int dp_cost;
     String option_text;
     BitmapFont font;
+    String arlene_text;
+    String yi_text;
     static Color dark_grey = new Color(0.15f, 0.15f, 0.15f, 1);
     static Color dark_green = new Color(0.0664f, 0.4336f, 0.1523f, 1);
     static Color dark_red = new Color(0.4336f, 0.1172f, 0.0664f, 1);
 
-    public EndGameOption(int dp_cost, BitmapFont font, String option_text) {
+    public EndGameOption(int dp_cost, BitmapFont font, String option_text, String yi_text, String arlene_text) {
         super(0, 0, 0, 0);
         this.dp_cost = dp_cost;
         this.option_text = option_text;
         this.font = font;
+        this.yi_text = yi_text;
+        this.arlene_text = arlene_text;
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
@@ -36,5 +42,31 @@ public class EndGameOption extends Entity {
     public void drawHover(SpriteBatch batch) {
         DiscGame.movestats_font.drawWrapped(batch, Integer.toString(dp_cost), x + 10, y + 75, width - 40);
         font.drawWrapped(batch, option_text, x + 70, y + 75, width - 70);
+    }
+
+    public void clickHandler() {
+        if (DiscGame.dealpower.dp > dp_cost) {
+            State.set_yi_offset(yi_text);
+            State.set_arlene_offset(arlene_text);
+            State.selected_endgame_option = this;
+
+            for (EndGameOption option: DiscGame.endgame_options) {
+                // Entity has action on hover, add to hover list
+                DiscGame.hover_list.remove(option);
+                // Entity may have action on click, add to click list
+                DiscGame.click_list.remove(option);
+            }
+            // Refresh mouse moved to get rid of annoying mouseover
+            // TODO: Hacky as heck, fix
+            Gdx.input.getInputProcessor().mouseMoved(0, 0);
+
+            // TODO: Also hacky, image change for -9999 option
+            if (dp_cost == -9999) {
+                DiscGame.yi_portrait.setImg(new Texture(Gdx.files.internal("cell/consumed.jpg")));
+                DiscGame.arlene_portrait.setImg(new Texture(Gdx.files.internal("cell/consumed.jpg")));
+            }
+
+            State.currentState = State.states.PostGameResult;
+        }
     }
 }
