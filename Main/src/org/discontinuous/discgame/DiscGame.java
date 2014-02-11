@@ -318,7 +318,7 @@ public class DiscGame extends Game {
                 new AbilityEffect(AbilityEffect.effects.multiply_all, 1, true),
                 "~ Non Sequitur ~ (Cost 50)\nDiscreetly move the conversation elsewhere; teleport to and consume any square.",
                 "If you think about it, you're actually talking about something else, such as this.");
-        nonsequitur.setImg(new Texture(Gdx.files.internal("cell/ethical.jpg")));
+        nonsequitur.setImg(new Texture(Gdx.files.internal("img/nonsequitur.png")));
         yi.abilities.add(nonsequitur);
 
         // Ability reasonable doubt - surrounding AoE opponent squares consumed
@@ -327,7 +327,7 @@ public class DiscGame extends Game {
                 new AbilityEffect(AbilityEffect.effects.aoe_consume, 1, false),
                 "~ Reasonable Doubt ~ (Cost 40)\nSow doubt and make your opponent's adjacent squares consumed.",
                 "Are you sure about that?  I think you're making a bad assumption.");
-        reasonable_doubt.setImg(new Texture(Gdx.files.internal("cell/intimidate.jpg")));
+        reasonable_doubt.setImg(new Texture(Gdx.files.internal("img/reasonabledoubt.png")));
         yi.abilities.add(reasonable_doubt);
 
         // Ability double down - refresh and consume an adjacent consumed argument
@@ -336,7 +336,7 @@ public class DiscGame extends Game {
                 new AbilityEffect(AbilityEffect.effects.refresh_consume, 1, true),
                 "~ Double Down ~ (Cost 60)\nRefuse to be wrong and repeat an adjacent, consumed square without penalties.",
                 "No.  Let me repeat it again, just slower and louder, until you understand.");
-        double_down.setImg(new Texture(Gdx.files.internal("cell/logical.jpg")));
+        double_down.setImg(new Texture(Gdx.files.internal("img/doubledown.png")));
         yi.abilities.add(double_down);
 
         Ability.setup_ability_display(yi);
