@@ -56,14 +56,25 @@ public class EndGameOption extends Entity {
                 // Entity may have action on click, add to click list
                 DiscGame.click_list.remove(option);
             }
+            DiscGame.hover_list.remove(DiscGame.yi_portrait);
+            DiscGame.hover_list.remove(DiscGame.arlene_portrait);
+
             // Refresh mouse moved to get rid of annoying mouseover
             // TODO: Hacky as heck, fix
             Gdx.input.getInputProcessor().mouseMoved(0, 0);
 
             // TODO: Also hacky, image change for -9999 option
             if (dp_cost == -9999) {
-                DiscGame.yi_portrait.setImg(new Texture(Gdx.files.internal("cell/consumed.jpg")));
-                DiscGame.arlene_portrait.setImg(new Texture(Gdx.files.internal("cell/consumed.jpg")));
+                DiscGame.arlene_portrait.x = DiscGame.screen_width - 382;
+                DiscGame.arlene_portrait.width = 382;
+                DiscGame.arlene_portrait.height = 700;
+                DiscGame.yi_portrait.x = 0;
+                DiscGame.yi_portrait.width = 382;
+                DiscGame.yi_portrait.height = 700;
+                DiscGame.yi_portrait.setImg(new Texture(Gdx.files.internal("img/YiDemonResize.png")));
+                DiscGame.arlene_portrait.setImg(new Texture(Gdx.files.internal("img/ArleneLichResize.png")));
+
+
             }
 
             State.currentState = State.states.PostGameResult;

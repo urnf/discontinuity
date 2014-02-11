@@ -193,7 +193,8 @@ public class DiscGame extends Game {
         // I really hate not drawing all in one spritebatch block - but this hacky solution works for now
         batch.begin();
         State.drawStateBatch(batch);
-        drawBatchCoreTop();
+        // TODO: Hacky way to hide this in the post game scenario
+        if(State.currentState != State.states.PostGameResult) { drawBatchCoreTop(); }
         batch.end();
 
         // Need a separate shape and sprite batch for hovers
@@ -314,7 +315,7 @@ public class DiscGame extends Game {
         // Ability non sequitur
         Ability nonsequitur = new Ability(yi, 64, 64, 50,
                 AbilityTarget.targets.any_square,
-                new AbilityEffect(AbilityEffect.effects.multiply_all, 1, false),
+                new AbilityEffect(AbilityEffect.effects.multiply_all, 1, true),
                 "~ Non Sequitur ~ (Cost 50)\nDiscreetly move the conversation elsewhere; teleport to and consume any square.",
                 "If you think about it, you're actually talking about something else, such as this.");
         nonsequitur.setImg(new Texture(Gdx.files.internal("cell/ethical.jpg")));
@@ -476,7 +477,7 @@ public class DiscGame extends Game {
                 "Looks like this isn't going to end well.  We're leaving, and by force if necessary.",
                 "You can't just waltz out of here.  This sector has been on lockdown since we dropped out of tachyspace."));
         endgame_options.add(new EndGameOption(-9999, nightmare_font,
-                "THE NIGHTMARES OF THE PAST CANNOT BE SO EASILY DEFEATED. (Initiate Tactical Combat)",
+                "THE NIGHTMARES OF THE PAST CANNOT BE SO EASILY DEFEATED. (Initiate Squad Combat)",
                 "THE NIGHTMARES OF THE PAST CANNOT BE SO EASILY DEFEATED.",
                 "SO BE IT.  RETURN TO THE VOID, ABOMINATION."));
 

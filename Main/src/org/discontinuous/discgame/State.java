@@ -84,7 +84,7 @@ public class State {
                 }
                 break;
             case PostGameResult:
-                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 260, 260, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
                 break;
         }
@@ -155,6 +155,9 @@ public class State {
                 Tooltip.drawDialogWidgets(dialog_width_offset - 10, 200, 400, 100, batch);
                 selected_endgame_option.font.drawWrapped(batch, arlene_text, dialog_width_offset, 40 + arlene_dialog_height_offset, 380);
                 Tooltip.drawDialogWidgets(dialog_width_offset - 10, 40, 400, 100, batch);
+                //Redraw portraits on top of everything else
+                DiscGame.yi_portrait.draw(batch);
+                DiscGame.arlene_portrait.draw(batch);
                 break;
         }
 
