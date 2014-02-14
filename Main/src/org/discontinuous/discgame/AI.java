@@ -87,7 +87,9 @@ public class AI {
         if (previousCells.size() < iterations) {
             for (Cell adjacent : adjacent_cells) {
 
-                // This is going to suck if multithreaded in terms of space taken
+                // Performance is bad since it's generated each path and gets worse with more depth
+                // This is going to suck if multithreaded in terms of heap space taken
+                // TODO: Create a tree structure for this
                 ArrayList<Cell> new_cells = new ArrayList<Cell>(previousCells);
                 new_cells.add(adjacent);
 
