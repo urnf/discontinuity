@@ -22,6 +22,7 @@ import java.util.LinkedHashMap;
  */
 public class DiscGame extends Game {
     // TODO: Too much casting.  I'm trying to write Java like I'm writing Ruby.  Clean up/reduce casting.
+    // TODO: - FIRST CONVERT GRID TO GRAPH ADJACENCY LIST
     // TODO: - Insults/Compliments
     // TODO: - DP spending
     // TODO: - Oral Swap Hyper Combos
@@ -71,8 +72,8 @@ public class DiscGame extends Game {
 
     static Texture movestats;
 
-    static final int BOARD_WIDTH = 8;
-    static final int BOARD_HEIGHT = 8;
+    static final int BOARD_WIDTH = 4;
+    static final int BOARD_HEIGHT = 4;
 
     public void create() {
         screen_width = Gdx.graphics.getWidth();
@@ -117,7 +118,7 @@ public class DiscGame extends Game {
         // TODO: Need a better way of setting up cross references to each other, if we don't do this here there's a null ref
         yi.opponent = arlene;
         arlene.opponent = yi;
-        yi.adjacent = yi.cell.find_adjacent_cells();
+        yi.adjacent = yi.cell.unoccupied_cells();
         yi.update_dialog_options();
         yi.update_abilities();
 

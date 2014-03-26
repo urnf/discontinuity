@@ -72,6 +72,16 @@ public class Board {
                 k++;
             }
         }
+
+        setup_graph(cells);
+    }
+
+    private void setup_graph(Cell[][] cells) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                cells[i][j].createAdjacentList(cells);
+            }
+        }
     }
 
     public void draw(SpriteBatch batch, int board_width, int board_height) {
@@ -85,9 +95,5 @@ public class Board {
 
     public void move_arlene() {
         DiscGame.arlene.update_position(DiscGame.arlene_ai.find_next_move());
-    }
-
-    public Cell find_cell(int board_x, int board_y) {
-        return cells[board_x][board_y];
     }
 }

@@ -63,7 +63,8 @@ public class AbilityEffect {
                 contestant.opponent.confidence = Math.max(contestant.opponent.confidence - magnitude, 0);
                 break;
             case aoe_consume:
-                for (Cell adjacent_cell : contestant.opponent.cell.find_adjacent_cells()) {
+                // Adjacent cells, not unoccupied cells, though no difference in game mechanics
+                for (Cell adjacent_cell : contestant.opponent.cell.adjacent_cells()) {
                     adjacent_cell.consume();
                 }
                 break;

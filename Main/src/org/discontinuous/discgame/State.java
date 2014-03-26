@@ -167,7 +167,7 @@ public class State {
         if (currentSpeaker.player) { DiscGame.board.move_arlene(); }
         else {
             // For player character: update the new cells considered adjacent
-            DiscGame.yi.adjacent = DiscGame.yi.cell.find_adjacent_cells();
+            DiscGame.yi.adjacent = DiscGame.yi.cell.unoccupied_cells();
             DiscGame.yi.update_dialog_options();
             DiscGame.yi.update_abilities();
 

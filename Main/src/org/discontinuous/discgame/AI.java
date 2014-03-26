@@ -45,7 +45,7 @@ public class AI {
         max_cell = null;
         possible_moves.clear();
 
-        opponent.adjacent = opponent.cell.find_adjacent_cells();
+        opponent.adjacent = opponent.cell.unoccupied_cells();
         for (Cell cell : opponent.adjacent) {
             ArrayList<Cell> previousCells = new ArrayList<Cell>();
             previousCells.add(opponent.cell);
@@ -83,7 +83,7 @@ public class AI {
         float weight;
         weight = weight(previousCells.size());
 
-        ArrayList<Cell> adjacent_cells = cell.find_adjacent_cells();
+        ArrayList<Cell> adjacent_cells = cell.unoccupied_cells();
         if (previousCells.size() < iterations) {
             for (Cell adjacent : adjacent_cells) {
 

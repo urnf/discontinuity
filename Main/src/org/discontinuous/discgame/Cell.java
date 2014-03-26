@@ -45,6 +45,9 @@ public class Cell extends Entity {
     String arlene_dialog;
     String arlene_resp_dialog;
 
+    // Adjacent cells
+    ArrayList<Cell> adjacent;
+
     // Super basic constructor
     public Cell (int concept_num, boolean consumed, boolean visible, int board_x, int board_y, int x, int y, int length){
         super(x, y, length, length);
@@ -81,6 +84,14 @@ public class Cell extends Entity {
         dialog_temp = DiscGame.topics.get(0).getArleneDialog(this);
         arlene_dialog = dialog_temp[0];
         yi_resp_dialog = dialog_temp[1];
+    }
+
+    public void createAdjacentList(Cell[][] cells) {
+        adjacent = new ArrayList();
+        if (board_x + 1 < DiscGame.BOARD_WIDTH) {adjacent.add(cells[board_x + 1][board_y]);}
+        if (board_x - 1 >= 0) {adjacent.add(cells[board_x - 1][board_y]);}
+        if (board_y + 1 < DiscGame.BOARD_HEIGHT) { adjacent.add(cells[board_x][board_y + 1]);}
+        if (board_y - 1 >= 0) {adjacent.add(cells[board_x][board_y - 1]);}
     }
 
     // Override the default setImg in entity, want to use texture_edge instead
@@ -158,14 +169,17 @@ public class Cell extends Entity {
         //TODO: IMPLEMENT LINE OF SIGHT CALCULATIONS
     }
 
-    public ArrayList<Cell> find_adjacent_cells() {
-        ArrayList<Cell> adjacent = new ArrayList();
-        // If exists AND opponent is not on it, add adjacent cell to array
-        if (board_x + 1 < DiscGame.BOARD_WIDTH && DiscGame.board.cells[board_x + 1][board_y].occupied == false) {adjacent.add(DiscGame.board.cells[board_x + 1][board_y]);}
-        if (board_x - 1 >= 0 && DiscGame.board.cells[board_x - 1][board_y].occupied == false) {adjacent.add(DiscGame.board.cells[board_x - 1][board_y]);}
-        if (board_y + 1 < DiscGame.BOARD_HEIGHT && DiscGame.board.cells[board_x][board_y + 1].occupied == false) { adjacent.add(DiscGame.board.cells[board_x][board_y + 1]);}
-        if (board_y - 1 >= 0 && DiscGame.board.cells[board_x][board_y - 1].occupied == false) {adjacent.add(DiscGame.board.cells[board_x][board_y - 1]);}
+    public ArrayList<Cell> adjacent_cells() {
         return adjacent;
+    }
+
+    public ArrayList<Cell> unoccupied_cells() {
+        ArrayList<Cell> return_list = new ArrayList<Cell>(adjacent);
+        for (Cell adjacent_cell: adjacent) {
+            // Keep only if opponent is not on it
+            if(adjacent_cell.occupied == true) { return_list.remove(adjacent_cell); }
+        }
+        return return_list;
     }
 
     public void enlargeCell(SpriteBatch batch) {
