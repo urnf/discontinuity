@@ -106,7 +106,7 @@ public class Contestant extends Entity {
     }
 
     public boolean is_adjacent_to(Cell origin) {
-        return (adjacent.contains(origin)) ? true : false;
+        return cell.unoccupied_cells().contains(origin);
     }
 
     public void update_only_position(Cell cell) {

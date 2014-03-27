@@ -164,7 +164,7 @@ public class State {
     }
 
     public static void advanceDialog(){
-        if (currentSpeaker.player) { DiscGame.board.move_arlene(); }
+        if (currentSpeaker.player) { DiscGame.current_board.move_arlene(); }
         else {
             // For player character: update the new cells considered adjacent
             DiscGame.yi.adjacent = DiscGame.yi.cell.unoccupied_cells();

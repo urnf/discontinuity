@@ -50,7 +50,7 @@ public class Cell extends Entity {
 
     // Super basic constructor
     public Cell (int concept_num, boolean consumed, boolean visible, int board_x, int board_y, int x, int y, int length){
-        super(x, y, length, length);
+        super(x + 5, y + 5, length, length);
         try {
             switch (concept_num) {
                 case 1: type = concepts.Logical; img = new Sprite(logical, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE); break;
@@ -72,11 +72,6 @@ public class Cell extends Entity {
         this.board_x = board_x;
         this.board_y = board_y;
 
-        // Entity has action on hover, add to hover list
-        DiscGame.hover_list.add(this);
-        // Entity may have action on click, add to click list
-        DiscGame.click_list.add(this);
-
         //Grab a line of dialog for each character involved
         String[] dialog_temp = DiscGame.topics.get(0).getYiDialog(this);
         yi_dialog = dialog_temp[0];
@@ -92,6 +87,13 @@ public class Cell extends Entity {
         if (board_x - 1 >= 0) {adjacent.add(cells[board_x - 1][board_y]);}
         if (board_y + 1 < DiscGame.BOARD_HEIGHT) { adjacent.add(cells[board_x][board_y + 1]);}
         if (board_y - 1 >= 0) {adjacent.add(cells[board_x][board_y - 1]);}
+    }
+
+    public void add_handlers() {
+        // Entity has action on hover, add to hover list
+        DiscGame.hover_list.add(this);
+        // Entity may have action on click, add to click list
+        DiscGame.click_list.add(this);
     }
 
     // Override the default setImg in entity, want to use texture_edge instead
@@ -131,10 +133,10 @@ public class Cell extends Entity {
             img.setColor(1f, 1f, 1f, 1);
 
             switch (type) {
-                case Logical: DiscGame.text_font.draw(batch, type.toString(), x + 8, y + 38); break;
-                case Ethical: DiscGame.text_font.draw(batch, type.toString(), x + 10, y + 38); break;
-                case Interrogate: DiscGame.text_font_small.draw(batch, type.toString(), x + 2, y + 38); break;
-                case Intimidate: DiscGame.text_font_small.draw(batch, type.toString(), x + 3, y + 38); break;
+                case Logical: DiscGame.text_font.draw(batch, type.toString(), x + 3, y + 33); break;
+                case Ethical: DiscGame.text_font.draw(batch, type.toString(), x + 5, y + 33); break;
+                case Interrogate: DiscGame.text_font_small.draw(batch, type.toString(), x - 3, y + 33); break;
+                case Intimidate: DiscGame.text_font_small.draw(batch, type.toString(), x - 2, y + 33); break;
             }
         }
         //DiscGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + DiscGame.hover.toString(), x, y + 30);
@@ -160,6 +162,7 @@ public class Cell extends Entity {
         // mark current cell as consumed
         consumed = true;
         setImg(Cell.consume);
+        img.setPosition(x - 5, y - 5);
         img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
 
     }
@@ -177,7 +180,7 @@ public class Cell extends Entity {
         ArrayList<Cell> return_list = new ArrayList<Cell>(adjacent);
         for (Cell adjacent_cell: adjacent) {
             // Keep only if opponent is not on it
-            if(adjacent_cell.occupied == true) { return_list.remove(adjacent_cell); }
+            if( adjacent_cell.occupied == true) { return_list.remove(adjacent_cell); break;}
         }
         return return_list;
     }

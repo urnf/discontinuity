@@ -23,13 +23,15 @@ import java.util.LinkedHashMap;
 public class DiscGame extends Game {
     // TODO: Too much casting.  I'm trying to write Java like I'm writing Ruby.  Clean up/reduce casting.
     // TODO: - FIRST CONVERT GRID TO GRAPH ADJACENCY LIST
+    // TODO: - 3x3 grid that can swap around
     // TODO: - Insults/Compliments
     // TODO: - DP spending
     // TODO: - Oral Swap Hyper Combos
     // TODO: - Fog of war
 
     // TODO: Giant pile of static variables.  OK for prototype, terrible design.
-    static Board board;
+    static Board[][] boards;
+    static Board current_board;
     static Contestant yi;
     static Contestant arlene;
     static Portrait yi_portrait;
@@ -103,7 +105,17 @@ public class DiscGame extends Game {
         // Setup board and character entities - may need new entity subclass for characters
         // These are created and added to the hover list in order from top to bottom - so no need for layer.
         setupPortraits();
-        board = new Board(BOARD_HEIGHT, BOARD_WIDTH);
+
+        // Setup a 3x3 board set.
+        // TODO: Move out into constants, but I don't foresee being anything other than 3 x 3
+        boards = new Board[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                boards[i][j] = new Board(BOARD_HEIGHT, BOARD_WIDTH);
+            }
+        }
+        boards[1][1].set_current_board();
+        Board.link_boards(boards);
 
         // Setup dialog option hovers
         setupDialogEntities();
@@ -226,7 +238,7 @@ public class DiscGame extends Game {
         arlene_portrait.draw(batch);
 
         // Draw the board
-        board.draw(batch, BOARD_WIDTH, BOARD_HEIGHT);
+        current_board.draw(batch, BOARD_WIDTH, BOARD_HEIGHT);
 
         // Draw confidence/inspiration icons
         confidence_icon_player.draw(batch);
@@ -291,7 +303,7 @@ public class DiscGame extends Game {
         yi_combo_list.add(new String[]{"Interrogate", "Intimidate"});
         Combo yi_combo = new Combo(yi_combo_list);
 
-        yi = new Contestant(yi_combo, BOARD_WIDTH, BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 120, true, board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
+        yi = new Contestant(yi_combo, BOARD_WIDTH, BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 120, true, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
         yi.setImg(new Texture(Gdx.files.internal("img/zhugemini.png")));
         //yi.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
         yi_portrait.setContestant(yi);
@@ -383,7 +395,7 @@ public class DiscGame extends Game {
         arlene_combo_list.add(new String[]{"Intimidate", "Ethical"});
         Combo arlene_combo = new Combo(arlene_combo_list);
 
-        arlene = new Contestant(arlene_combo, 1, 1, log_stats, eth_stats, inm_stats, ing_stats, 200, 200, screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 40, false, board.cells[0][0]);
+        arlene = new Contestant(arlene_combo, 1, 1, log_stats, eth_stats, inm_stats, ing_stats, 200, 200, screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 40, false, current_board.cells[0][0]);
         arlene.setImg(new Texture(Gdx.files.internal("img/arlenemini.png")));
         //arlene.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
         arlene_portrait.setContestant(arlene);
