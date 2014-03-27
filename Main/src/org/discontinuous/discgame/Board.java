@@ -129,19 +129,19 @@ public class Board {
                 cell = board.cells[i][j];
                 switch(direction) {
                     case LEFT:
-                        cell.x = cell.x - 400 - (board.cells.length/2 - i) * 26;
-                        cell.y = cell.y - (board.cells.length/2 - j) * 26;
+                        cell.x = cell.center_x - 400 - (board.cells.length/2 - i) * 26;
+                        cell.y = cell.center_y - (board.cells.length/2 - j) * 26;
                         break;
                     case RIGHT:
-                        cell.x = cell.x + 400 - (right.cells.length/2 - i) * 26;
-                        cell.y = cell.y - (right.cells.length/2 - j) * 26;
+                        cell.x = cell.center_x + 400 - (right.cells.length/2 - i) * 26;
+                        cell.y = cell.center_y - (right.cells.length/2 - j) * 26;
                         break;
                     case UP:
-                        cell.x = cell.x - (up.cells.length/2 - i) * 26;
-                        cell.y = cell.y + 200 - (up.cells.length/2 - j) * 26;
+                        cell.x = cell.center_x - (up.cells.length/2 - i) * 26;
+                        cell.y = cell.center_y + 200 - (up.cells.length/2 - j) * 26;
                     case DOWN:
-                        cell.x = cell.x - (down.cells.length/2 - i) * 26;
-                        cell.y = cell.y - 200 - (down.cells.length/2 - j) * 26;
+                        cell.x = cell.center_x - (down.cells.length/2 - i) * 26;
+                        cell.y = cell.center_y - 200 - (down.cells.length/2 - j) * 26;
                 }
                 cell.img.setPosition(cell.x, cell.y);
                 cell.img.scale(-0.4f);

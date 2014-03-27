@@ -91,7 +91,7 @@
       <file leaf-file-name="Board.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="110" column="86" selection-start="3721" selection-end="3721" vertical-scroll-proportion="0.13783784" vertical-offset="1734" max-vertical-offset="3672">
+            <state line="103" column="58" selection-start="3474" selection-end="3474" vertical-scroll-proportion="-0.36756757" vertical-offset="1989" max-vertical-offset="3672">
               <folding />
             </state>
           </provider>
@@ -170,9 +170,9 @@
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogProcessor.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Entity.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/State.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Board.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Cell.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Board.java" />
       </list>
     </option>
   </component>
@@ -936,7 +936,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="86" selection-start="3721" selection-end="3721" vertical-scroll-proportion="0.13783784" vertical-offset="1734" max-vertical-offset="3672">
+        <state line="103" column="58" selection-start="3474" selection-end="3474" vertical-scroll-proportion="-0.36756757" vertical-offset="1989" max-vertical-offset="3672">
           <folding />
         </state>
       </provider>
