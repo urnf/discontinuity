@@ -10,7 +10,7 @@ public class State {
     // singleton game state library, drawing state-specific UI elements and transitions to other states
 
     public enum states {
-        SelectDialog, SelectAbility, AbilityTargeting, AbilityDialog, InDialog, PostGameDialog, PostGameSelect, PostGameResult
+        SelectDialog, BoardTransition, SelectAbility, AbilityTargeting, AbilityDialog, InDialog, PostGameDialog, PostGameSelect, PostGameResult
     }
 
     static states currentState = states.SelectDialog;
@@ -45,6 +45,8 @@ public class State {
         switch(currentState) {
             case SelectDialog:
                 Tooltip.drawDialogBox(shapes);
+                break;
+            case BoardTransition:
                 break;
             case InDialog:
                 // Find out who is speaking

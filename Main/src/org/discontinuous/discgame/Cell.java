@@ -25,6 +25,10 @@ public class Cell extends Entity {
     int board_x;
     int board_y;
 
+    // X and Y coordinates when in the center, used for animation to these coordinates
+    int center_x;
+    int center_y;
+
     // Cell type
     public enum concepts {
         Logical, Ethical, Interrogate, Intimidate
@@ -48,9 +52,12 @@ public class Cell extends Entity {
     // Adjacent cells
     ArrayList<Cell> adjacent;
 
+    // Associated board
+    Board board;
+
     // Super basic constructor
-    public Cell (int concept_num, boolean consumed, boolean visible, int board_x, int board_y, int x, int y, int length){
-        super(x + 5, y + 5, length, length);
+    public Cell (int concept_num, boolean consumed, boolean visible, int board_x, int board_y, int x, int y, int length, Board board){
+        super(x, y, length, length);
         try {
             switch (concept_num) {
                 case 1: type = concepts.Logical; img = new Sprite(logical, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE); break;
@@ -71,6 +78,14 @@ public class Cell extends Entity {
         this.visible = visible;
         this.board_x = board_x;
         this.board_y = board_y;
+        this.center_x = x;
+        this.center_y = y;
+        this.board = board;
+
+        // Entity has action on hover, add to hover list
+        DiscGame.hover_list.add(this);
+        // Entity may have action on click, add to click list
+        DiscGame.click_list.add(this);
 
         //Grab a line of dialog for each character involved
         String[] dialog_temp = DiscGame.topics.get(0).getYiDialog(this);
@@ -90,10 +105,7 @@ public class Cell extends Entity {
     }
 
     public void add_handlers() {
-        // Entity has action on hover, add to hover list
-        DiscGame.hover_list.add(this);
-        // Entity may have action on click, add to click list
-        DiscGame.click_list.add(this);
+
     }
 
     // Override the default setImg in entity, want to use texture_edge instead
@@ -144,9 +156,13 @@ public class Cell extends Entity {
     }
 
     public void clickHandler (){
-        //check that mouse is in this area
+        // if not current board, swap in this board
+        if (DiscGame.current_board != board) {
+            board.set_current_board();
+            return;
+        }
 
-        //only time we're going to do something, player can't travel otherwise
+        // player can't travel otherwise if not adjacent
         if (DiscGame.yi.is_adjacent_to(this) && State.checkState(State.states.SelectDialog)) {
             DiscGame.yi.update_position(this);
         }
@@ -162,7 +178,6 @@ public class Cell extends Entity {
         // mark current cell as consumed
         consumed = true;
         setImg(Cell.consume);
-        img.setPosition(x - 5, y - 5);
         img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
 
     }

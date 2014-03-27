@@ -12,7 +12,12 @@ public class Board {
     int height;
     int screen_width;
     int screen_height;
+    String topic;
     Cell[][] cells;
+
+    enum Direction {
+        LEFT, RIGHT, UP, DOWN
+    }
 
     static final int CELL_EDGE_SIZE = 48;
 
@@ -20,7 +25,7 @@ public class Board {
     static final int TEXTURE_EDGE = 64;
 
     static final int WIDTH_OFFSET = DiscGame.screen_width/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 10;
-    static final int HEIGHT_OFFSET = 40;
+    static final int HEIGHT_OFFSET = 120;
 
     int[] player_position;
     int[] opponent_position;
@@ -32,11 +37,12 @@ public class Board {
     Board left;
     Board right;
 
-    public Board (int board_height, int board_width){
+    public Board (int board_height, int board_width, String topic){
         width = board_width;
         height = board_height;
         screen_width = DiscGame.screen_width;
         screen_height = DiscGame.screen_height;
+        this.topic = topic;
 
         // Multiply width by height
         int cell_count = width * height;
@@ -75,7 +81,7 @@ public class Board {
                 cells[i][j] = new Cell(concepts[k], false, false, i, j,
                         screen_width - WIDTH_OFFSET - (CELL_EDGE_SIZE * (i + 1)),
                         screen_height - HEIGHT_OFFSET - (CELL_EDGE_SIZE * (j + 1)),
-                        CELL_EDGE_SIZE);
+                        CELL_EDGE_SIZE, this);
                 k++;
             }
         }
@@ -102,10 +108,45 @@ public class Board {
     public void set_current_board() {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                cells[i][j].add_handlers();
+                cells[i][j].img.setPosition(cells[i][j].center_x, cells[i][j].center_y);
             }
         }
         DiscGame.current_board = this;
+
+        // Make the other boards smaller
+
+        resize_board(Direction.LEFT, left);
+        resize_board(Direction.RIGHT, right);
+        resize_board(Direction.UP, up);
+        resize_board(Direction.DOWN, down);
+
+    }
+
+    private void resize_board(Direction direction, Board board) {
+        Cell cell;
+        for (int i = 0; i < board.cells.length; i++) {
+            for (int j = 0; j < board.cells[i].length; j++) {
+                cell = board.cells[i][j];
+                switch(direction) {
+                    case LEFT:
+                        cell.x = cell.x - 400 - (board.cells.length/2 - i) * 26;
+                        cell.y = cell.y - (board.cells.length/2 - j) * 26;
+                        break;
+                    case RIGHT:
+                        cell.x = cell.x + 400 - (right.cells.length/2 - i) * 26;
+                        cell.y = cell.y - (right.cells.length/2 - j) * 26;
+                        break;
+                    case UP:
+                        cell.x = cell.x - (up.cells.length/2 - i) * 26;
+                        cell.y = cell.y + 200 - (up.cells.length/2 - j) * 26;
+                    case DOWN:
+                        cell.x = cell.x - (down.cells.length/2 - i) * 26;
+                        cell.y = cell.y - 200 - (down.cells.length/2 - j) * 26;
+                }
+                cell.img.setPosition(cell.x, cell.y);
+                cell.img.scale(-0.4f);
+            }
+        }
     }
 
     private void link(Board[][] boards, int x, int y) {
@@ -116,11 +157,51 @@ public class Board {
         right = (x == boards.length - 1) ? boards[0][y] : boards[x + 1][y];
     }
 
-    public void draw(SpriteBatch batch, int board_width, int board_height) {
+    public void draw(SpriteBatch batch) {
         // Draw the space of ideas
-        for (int i = 0; i < board_width; i++) {
-            for (int j = 0; j < board_height; j++) {
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
                 cells[i][ j].draw(batch);
+            }
+        }
+        // Draw topic
+        DiscGame.header_font.draw(batch, topic, screen_width/2 - DiscGame.header_font.getBounds(topic).width/2, screen_height - 12);
+    }
+
+    public void draw_left(SpriteBatch batch) {
+        // Draw the space of ideas
+        for (int i = 0; i < left.cells.length; i++) {
+            for (int j = 0; j < left.cells[i].length; j++) {
+                left.cells[i][j].draw(batch);
+            }
+        }
+        // Draw topic
+        DiscGame.header_font.draw(batch, left.topic, left.cells[0][0].img.getX() - DiscGame.header_font.getBounds(left.topic).width/2, screen_height - 12);
+    }
+
+    public void draw_right(SpriteBatch batch) {
+        // Draw the space of ideas
+        for (int i = 0; i < right.cells.length; i++) {
+            for (int j = 0; j < right.cells[i].length; j++) {
+                right.cells[i][ j].draw(batch);
+            }
+        }
+    }
+
+    public void draw_up(SpriteBatch batch) {
+        // Draw the space of ideas
+        for (int i = 0; i < up.cells.length; i++) {
+            for (int j = 0; j < up.cells[i].length; j++) {
+                up.cells[i][ j].draw(batch);
+            }
+        }
+    }
+
+    public void draw_down(SpriteBatch batch) {
+        // Draw the space of ideas
+        for (int i = 0; i < down.cells.length; i++) {
+            for (int j = 0; j < down.cells[i].length; j++) {
+                down.cells[i][ j].draw(batch);
             }
         }
     }

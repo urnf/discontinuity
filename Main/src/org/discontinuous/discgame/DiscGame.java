@@ -22,10 +22,11 @@ import java.util.LinkedHashMap;
  */
 public class DiscGame extends Game {
     // TODO: Too much casting.  I'm trying to write Java like I'm writing Ruby.  Clean up/reduce casting.
-    // TODO: - FIRST CONVERT GRID TO GRAPH ADJACENCY LIST
-    // TODO: - 3x3 grid that can swap around
+    // TODO: -DONE -  FIRST CONVERT GRID TO GRAPH ADJACENCY LIST
+    // TODO: - DONE - 3x3 grid that can swap around
+    // TODO: - Swap functionality. - Sub board menu previews
     // TODO: - Insults/Compliments
-    // TODO: - DP spending
+    // TODO: - DONE - DP spending
     // TODO: - Oral Swap Hyper Combos
     // TODO: - Fog of war
 
@@ -77,6 +78,10 @@ public class DiscGame extends Game {
     static final int BOARD_WIDTH = 4;
     static final int BOARD_HEIGHT = 4;
 
+    //debug
+    static int mouse_x;
+    static int mouse_y;
+
     public void create() {
         screen_width = Gdx.graphics.getWidth();
         screen_height = Gdx.graphics.getHeight();
@@ -111,11 +116,12 @@ public class DiscGame extends Game {
         boards = new Board[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                boards[i][j] = new Board(BOARD_HEIGHT, BOARD_WIDTH);
+                boards[i][j] = new Board(BOARD_HEIGHT, BOARD_WIDTH, "Row " + String.valueOf(i) + " Column " + String.valueOf(j));
             }
         }
-        boards[1][1].set_current_board();
         Board.link_boards(boards);
+        boards[1][1].set_current_board();
+
 
         // Setup dialog option hovers
         setupDialogEntities();
@@ -194,6 +200,9 @@ public class DiscGame extends Game {
         }
         */
 
+        // debug for mouse
+        header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y, 600, 700);
+
         batch.end();
 
         // FFS, I can't use shape renderer for the bars inside batch.  So it needs to be done outside.
@@ -237,8 +246,13 @@ public class DiscGame extends Game {
         yi_portrait.draw(batch);
         arlene_portrait.draw(batch);
 
-        // Draw the board
-        current_board.draw(batch, BOARD_WIDTH, BOARD_HEIGHT);
+        // Draw the board & Board topics
+
+        current_board.draw(batch);
+        current_board.draw_left(batch);
+        current_board.draw_right(batch);
+        current_board.draw_up(batch);
+        current_board.draw_down(batch);
 
         // Draw confidence/inspiration icons
         confidence_icon_player.draw(batch);
@@ -251,7 +265,8 @@ public class DiscGame extends Game {
         arlene.draw(batch);
 
         // TOPIC FOR DEBATE
-        header_font.draw(batch, "Resolved: That Prof. Elecantos should not horribly murder us and obliterate our souls.", screen_width/2 - 300, screen_height - 12);
+        //header_font.draw(batch, "Resolved: That Prof. Elecantos should not horribly murder us and obliterate our souls.", screen_width/2 - 300, screen_height - 12);
+
 
         // Draw Deal Power
         dealpower.draw(batch);

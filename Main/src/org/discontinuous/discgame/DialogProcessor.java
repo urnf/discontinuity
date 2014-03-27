@@ -73,6 +73,8 @@ public class DialogProcessor implements InputProcessor {
         }
         if (!hovered) {DiscGame.hover = DiscGame.empty_hover; DiscGame.shape_hover = DiscGame.empty_hover;}
         hovered = false;
+        DiscGame.mouse_x = screenX;
+        DiscGame.mouse_y = screenY;
         return false;
     }
 

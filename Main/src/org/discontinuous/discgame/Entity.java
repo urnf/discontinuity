@@ -50,10 +50,10 @@ public class Entity {
     public boolean checkArea(int mousex, int mousey){
         // Check if it's inside, fire the element's hover if so
         // Siiiiiiiigh.  Libgdx's input are zero'd at top left, instead of gfx bottom right.
-        if (mousex > x &&
-                mousex < (x + width) &&
-                mousey < (DiscGame.screen_height - y) &&
-                mousey > (DiscGame.screen_height - y - height)) {
+        if (mousex > x + 5 &&
+                mousex < (x + width + 5) &&
+                mousey < (DiscGame.screen_height - y + 5) &&
+                mousey > (DiscGame.screen_height - y - height - 5)) {
             return true;
         }
         return false;
