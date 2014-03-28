@@ -206,6 +206,8 @@ public class Board {
                 right.cells[i][ j].draw(batch);
             }
         }
+        // Draw topic
+        DiscGame.header_font.draw(batch, right.topic, right.cells[0][0].img.getX() - DiscGame.header_font.getBounds(right.topic).width/2, screen_height - 12);
     }
 
     public void draw_up(SpriteBatch batch) {

@@ -116,7 +116,7 @@ public class DiscGame extends Game {
         boards = new Board[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                boards[i][j] = new Board(BOARD_HEIGHT, BOARD_WIDTH, "Row " + String.valueOf(i) + " Column " + String.valueOf(j));
+                boards[i][j] = new Board(BOARD_HEIGHT, BOARD_WIDTH, "Column " + String.valueOf(i) + " Row " + String.valueOf(j));
             }
         }
         Board.link_boards(boards);
