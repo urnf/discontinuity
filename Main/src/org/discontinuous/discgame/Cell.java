@@ -158,6 +158,7 @@ public class Cell extends Entity {
     public void clickHandler (){
         // if not current board, swap in this board
         if (DiscGame.current_board != board) {
+            DiscGame.current_board.reset_board_positions();
             board.set_current_board();
             return;
         }

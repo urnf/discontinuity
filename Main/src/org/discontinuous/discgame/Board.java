@@ -105,6 +105,27 @@ public class Board {
         }
     }
 
+    // Run right before a set_current_board to make sure scaling doesn't stack infinitely
+    public void reset_board_positions(){
+        reset_board(left);
+        reset_board(right);
+        reset_board(up);
+        reset_board(down);
+    }
+
+    private void reset_board(Board board) {
+        Cell cell;
+        for (int i = 0; i < board.cells.length; i++) {
+            for (int j = 0; j < board.cells[i].length; j++) {
+                cell = board.cells[i][j];
+                cell.x = cell.center_x;
+                cell.y = cell.center_y;
+                cell.img.setPosition(cell.x, cell.y);
+                cell.img.scale(0.4f);
+            }
+        }
+    }
+
     public void set_current_board() {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
@@ -114,7 +135,6 @@ public class Board {
         DiscGame.current_board = this;
 
         // Make the other boards smaller
-
         resize_board(Direction.LEFT, left);
         resize_board(Direction.RIGHT, right);
         resize_board(Direction.UP, up);
