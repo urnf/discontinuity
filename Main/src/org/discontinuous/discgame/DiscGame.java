@@ -23,12 +23,16 @@ import java.util.LinkedHashMap;
 public class DiscGame extends Game {
     // TODO: Too much casting.  I'm trying to write Java like I'm writing Ruby.  Clean up/reduce casting.
     // TODO: -DONE -  FIRST CONVERT GRID TO GRAPH ADJACENCY LIST
+    // TODO: Convert players to be dynamic
     // TODO: - DONE - 3x3 grid that can swap around
+    // TODO: - DONE - Android working
+    // TODO: - Prorated combos - 50%, 25%, 12.5%, etc.
     // TODO: - Swap functionality. - Sub board menu previews
     // TODO: - Insults/Compliments
     // TODO: - DONE - DP spending
     // TODO: - Oral Swap Hyper Combos
     // TODO: - Fog of war
+    // TODO: - Move from yml to JSON
 
     // TODO: Giant pile of static variables.  OK for prototype, terrible design.
     static Board[][] boards;
@@ -78,9 +82,38 @@ public class DiscGame extends Game {
     static final int BOARD_WIDTH = 4;
     static final int BOARD_HEIGHT = 4;
 
+    static final int DESIRED_WIDTH = 800;
+    static final int DESIRED_HEIGHT = 480;
+
+    int view_x = 0;
+    int view_y = 0;
+    int view_width;
+    int view_height;
+
     //debug
     static int mouse_x;
     static int mouse_y;
+
+    @Override
+    // Overriding resize to make it keep aspect ratio
+    // Approach similar to one on acamara.es
+    public void resize(int width, int height) {
+        float aspect_ratio = (float) width/(float) height;
+        float desired_ratio = (float) DESIRED_WIDTH/(float) DESIRED_HEIGHT;
+        float scale;
+        if (aspect_ratio >= desired_ratio) {
+            // Width is larger than desired, so we divide height by DESIRED_HEIGHT
+            // And use that as a scaling factor for width
+            scale = (float) height/ (float) DESIRED_HEIGHT;
+            view_x = (int) ((width - DESIRED_WIDTH * scale)/2f);
+        }
+        else {
+            scale = (float) width/ (float) DESIRED_WIDTH;
+            view_y = (int) ((height - DESIRED_HEIGHT * scale)/2f);
+        }
+        view_width = (int) (DESIRED_WIDTH * scale);
+        view_height = (int) (DESIRED_HEIGHT * scale);
+    }
 
     public void create() {
         screen_width = Gdx.graphics.getWidth();
@@ -100,7 +133,7 @@ public class DiscGame extends Game {
 
         // Setup camera and sprite batch
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, screen_width, screen_height);
+        camera.setToOrtho(false, DESIRED_WIDTH, DESIRED_HEIGHT);
         batch = new SpriteBatch();
         shapes = new ShapeRenderer();
 
@@ -179,6 +212,9 @@ public class DiscGame extends Game {
         // Not sure what else it's doing, though
         camera.update();
 
+        // Keep the aspect ratio that we want
+        Gdx.gl.glViewport(view_x, view_y, view_width, view_height);
+
         // Clears the screen, from tutorial
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -201,7 +237,9 @@ public class DiscGame extends Game {
         */
 
         // debug for mouse
-        header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y, 600, 700);
+        //header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y, 600, 700);
+
+        // debug for phone resolution
 
         batch.end();
 
@@ -417,13 +455,13 @@ public class DiscGame extends Game {
     }
 
     public void setupPortraits() {
-        yi_portrait = new Portrait(new Texture(Gdx.files.internal("img/yi-combos.png")), 20, 0, 300, 375, screen_width/2 - 250, 700, 220, 250, 500, "Zhuge Yi\n" +
+        yi_portrait = new Portrait(new Texture(Gdx.files.internal("img/yi-combos.png")), -120, 0, 500, 375, screen_width/2 - 250, 700, 220, 250, 500, "Zhuge Yi\n" +
                 "This proclaimed traveling businessman seems to have a surprising knack for methodical debate and inquiry.\n\n" +
                 "His arguments are swift as the coursing river;\n" +
                 "laid out with all the force of a great typhoon;\n" +
                 "debated with all the strength of a raging fire;\n" +
                 "and his next move is mysterious as the dark side of the moon.");
-        yi_portrait.setImg(new Texture(Gdx.files.internal("img/zhugeyi.png")));
+        yi_portrait.setImg(new Texture(Gdx.files.internal("img/socrates.png")));
         arlene_portrait = new Portrait(new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 300, 375, screen_width/2 - 250, 700, screen_width - 280, 250, 520, "Arlene Elecantos\n" +
                 "J.D. University of New Oxford\n" +
                 "Elecantos Legal Group\n" +

@@ -99,7 +99,7 @@ public class State {
                 for (DialogOption option : DiscGame.dialog_options) {
                     option.drawDialogOption(batch);
                 }
-                Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 230, 50, 450, 200, batch);
+                Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 1200, 50, 240, 100, batch);
                 break;
             case InDialog:
                 animateGain(batch, currentSpeaker.player);

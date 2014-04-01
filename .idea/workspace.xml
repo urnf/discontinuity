@@ -85,19 +85,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="State.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/State.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="26" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="4607">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DiscGame.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="438" column="97" selection-start="18668" selection-end="18668" vertical-scroll-proportion="0.0" vertical-offset="7085" max-vertical-offset="8874">
+            <state line="403" column="36" selection-start="16012" selection-end="16012" vertical-scroll-proportion="-0.65384614" vertical-offset="6834" max-vertical-offset="9520">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -105,19 +96,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Android/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="43" selection-start="695" selection-end="695" vertical-scroll-proportion="0.2618262" vertical-offset="0" max-vertical-offset="909">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Board.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="192" column="21" selection-start="6935" selection-end="6935" vertical-scroll-proportion="0.0" vertical-offset="3264" max-vertical-offset="4080">
+            <state line="155" column="69" selection-start="5294" selection-end="5294" vertical-scroll-proportion="0.0" vertical-offset="2635" max-vertical-offset="4046">
               <folding />
             </state>
           </provider>
@@ -126,7 +108,7 @@
       <file leaf-file-name="AndroidStarter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Android/src/org/discontinuous/discgame/AndroidStarter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="30" selection-start="555" selection-end="559" vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="476">
+            <state line="17" column="30" selection-start="555" selection-end="559" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
               <folding />
             </state>
           </provider>
@@ -135,7 +117,7 @@
       <file leaf-file-name="DesktopStarter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Desktop/src/org/discontinuous/discgame/DesktopStarter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="45" selection-start="324" selection-end="324" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="425">
+            <state line="14" column="24" selection-start="481" selection-end="481" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
               <folding />
             </state>
           </provider>
@@ -144,16 +126,34 @@
       <file leaf-file-name="Entity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Entity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="63" selection-start="2093" selection-end="2093" vertical-scroll-proportion="0.0" vertical-offset="935" max-vertical-offset="1326">
+            <state line="55" column="63" selection-start="2093" selection-end="2093" vertical-scroll-proportion="0.0" vertical-offset="280" max-vertical-offset="1275">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DialogProcessor.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogProcessor.java">
+      <file leaf-file-name="DialogOption.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogOption.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="35" selection-start="2622" selection-end="2622" vertical-scroll-proportion="0.0" vertical-offset="1292" max-vertical-offset="1632">
+            <state line="30" column="25" selection-start="1132" selection-end="1132" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="State.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/State.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="101" column="84" selection-start="5300" selection-end="5300" vertical-scroll-proportion="0.7125172" vertical-offset="1182" max-vertical-offset="4590">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Tooltip.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Tooltip.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="57" column="75" selection-start="2776" selection-end="2776" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1207">
               <folding />
             </state>
           </provider>
@@ -162,7 +162,7 @@
       <file leaf-file-name="Contestant.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Contestant.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="99" column="28" selection-start="4732" selection-end="4732" vertical-scroll-proportion="0.0" vertical-offset="1683" max-vertical-offset="3740">
+            <state line="136" column="52" selection-start="6153" selection-end="6153" vertical-scroll-proportion="0.0" vertical-offset="2312" max-vertical-offset="3740">
               <folding />
             </state>
           </provider>
@@ -188,7 +188,6 @@
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogCorner.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogOption.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Topic.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Tooltip.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Abilities.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Icon.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Portrait.java" />
@@ -196,7 +195,6 @@
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/AbilityTarget.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/AbilitiesButton.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/EndGameOption.java" />
-        <option value="$PROJECT_DIR$/Desktop/src/org/discontinuous/discgame/DesktopStarter.java" />
         <option value="$PROJECT_DIR$/Main/dialog/dialog.yml" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DealPower.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/AI.java" />
@@ -204,12 +202,14 @@
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Contestant.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogProcessor.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Entity.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/State.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Cell.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Board.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java" />
         <option value="$PROJECT_DIR$/Android/src/org/discontinuous/discgame/AndroidStarter.java" />
         <option value="$PROJECT_DIR$/Android/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/Desktop/src/org/discontinuous/discgame/DesktopStarter.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Tooltip.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/State.java" />
       </list>
     </option>
   </component>
@@ -245,6 +245,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -395,8 +397,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -423,7 +423,7 @@
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="cb9ea3d4" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="TestAVD" />
   </component>
-  <component name="RunManager" selected="Android Application.AndroidStarter">
+  <component name="RunManager" selected="Application.DesktopStarter">
     <configuration default="false" name="AndroidStarter" type="AndroidRunConfigurationType" factoryName="Android Application" temporary="true">
       <module name="Android" />
       <option name="ACTIVITY_CLASS" value="org.discontinuous.discgame.AndroidStarter" />
@@ -501,6 +501,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -526,19 +539,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -600,8 +600,8 @@
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Android Application.AndroidStarter" />
-        <item index="1" class="java.lang.String" itemvalue="Application.DesktopStarter" />
+        <item index="0" class="java.lang.String" itemvalue="Application.DesktopStarter" />
+        <item index="1" class="java.lang.String" itemvalue="Android Application.AndroidStarter" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -637,13 +637,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1688" height="1030" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22352941" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25454545" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25454545" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -651,19 +652,18 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19679144" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.597861" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1593583" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19642857" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18074866" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18074866" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="96" y="96" width="1488" height="830" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22352941" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -886,11 +886,6 @@
         <state line="37" column="54" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.85" vertical-offset="0" max-vertical-offset="833" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Tooltip.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="436" selection-end="561" vertical-scroll-proportion="0.2325228" vertical-offset="0" max-vertical-offset="1207" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/AbilitiesButton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="119" selection-start="1293" selection-end="1293" vertical-scroll-proportion="0.0" vertical-offset="42" max-vertical-offset="799" />
@@ -921,11 +916,6 @@
         <state line="17" column="123" selection-start="590" selection-end="590" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogOption.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="39" selection-start="983" selection-end="983" vertical-scroll-proportion="0.52837837" vertical-offset="0" max-vertical-offset="1377" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DealPower.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="77" selection-start="1071" selection-end="1071" vertical-scroll-proportion="0.33378378" vertical-offset="212" max-vertical-offset="952" />
@@ -946,16 +936,28 @@
         <state line="65" column="95" selection-start="2831" selection-end="2831" vertical-scroll-proportion="0.5635135" vertical-offset="654" max-vertical-offset="1649" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogProcessor.java">
+    <entry file="jar://$PROJECT_DIR$/Main/libs/gdx-sources.jar!/com/badlogic/gdx/graphics/g2d/BitmapFont.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="35" selection-start="2622" selection-end="2622" vertical-scroll-proportion="0.0" vertical-offset="723" max-vertical-offset="1632">
+        <state line="268" column="0" selection-start="12263" selection-end="12263" vertical-scroll-proportion="0.0" vertical-offset="3715" max-vertical-offset="16439" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Cell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="160" column="59" selection-start="6394" selection-end="6394" vertical-scroll-proportion="0.0" vertical-offset="2236" max-vertical-offset="3621">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="43" selection-start="695" selection-end="695" vertical-scroll-proportion="0.2618262" vertical-offset="0" max-vertical-offset="909">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Contestant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="28" selection-start="4732" selection-end="4732" vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="3655">
+        <state line="136" column="52" selection-start="6153" selection-end="6153" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3655">
           <folding />
         </state>
       </provider>
@@ -967,35 +969,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/Main/libs/gdx-sources.jar!/com/badlogic/gdx/graphics/g2d/BitmapFont.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="268" column="0" selection-start="12263" selection-end="12263" vertical-scroll-proportion="0.0" vertical-offset="3715" max-vertical-offset="16439" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/State.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="26" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="4590">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Cell.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="59" selection-start="6394" selection-end="6394" vertical-scroll-proportion="0.0" vertical-offset="2236" max-vertical-offset="3621">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="21" selection-start="6935" selection-end="6935" vertical-scroll-proportion="0.0" vertical-offset="3137" max-vertical-offset="4046">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Desktop/src/org/discontinuous/discgame/DesktopStarter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="45" selection-start="324" selection-end="324" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+        <state line="14" column="24" selection-start="481" selection-end="481" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
           <folding />
         </state>
       </provider>
@@ -1007,18 +983,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="155" column="69" selection-start="5294" selection-end="5294" vertical-scroll-proportion="0.0" vertical-offset="2023" max-vertical-offset="4046">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="438" column="97" selection-start="18668" selection-end="18668" vertical-scroll-proportion="0.0" vertical-offset="7085" max-vertical-offset="8874">
+        <state line="403" column="36" selection-start="16012" selection-end="16012" vertical-scroll-proportion="-0.65384614" vertical-offset="6834" max-vertical-offset="9520">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Android/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogOption.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="43" selection-start="695" selection-end="695" vertical-scroll-proportion="0.2618262" vertical-offset="0" max-vertical-offset="909">
+        <state line="30" column="25" selection-start="1132" selection-end="1132" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="35" selection-start="2622" selection-end="2622" vertical-scroll-proportion="1.2635136" vertical-offset="357" max-vertical-offset="1632">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Tooltip.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="75" selection-start="2776" selection-end="2776" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1207">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="84" selection-start="5300" selection-end="5300" vertical-scroll-proportion="0.7125172" vertical-offset="1182" max-vertical-offset="4590">
           <folding />
         </state>
       </provider>
