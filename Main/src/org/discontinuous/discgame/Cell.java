@@ -43,10 +43,10 @@ public class Cell extends Entity {
 
     // Dialog, if applicable
     DialogOption dialog_option;
-    String yi_dialog;
-    String yi_resp_dialog;
-    String arlene_dialog;
-    String arlene_resp_dialog;
+    public String yi_dialog;
+    public String yi_resp_dialog;
+    public String arlene_dialog;
+    public String arlene_resp_dialog;
 
     // Adjacent cells
     ArrayList<Cell> adjacent;

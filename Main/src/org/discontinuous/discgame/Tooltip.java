@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import org.discontinuous.discgame.Colors.*;
+import org.discontinuous.discgame.Colors;
 
 import java.util.ArrayList;
 
@@ -15,6 +15,8 @@ import java.util.ArrayList;
  */
 public class Tooltip {
     // No constructor, this is a utility class
+    static Color inner_color = Colors.ColorMap.get("dark_grey");
+    static Color outer_color = Colors.ColorMap.get("light_grey");
 
     static Sprite upper_left = new Sprite(new Texture(Gdx.files.internal("img/upper-left.png")), 64, 64);
     static Sprite upper_right = new Sprite(new Texture(Gdx.files.internal("img/upper-right.png")), 64, 64);
@@ -56,7 +58,7 @@ public class Tooltip {
     // Draw a dialog area tooltip
     public static void drawDialogBox(ShapeRenderer shapes) {
         Tooltip.newTip(DiscGame.screen_width/2 - 120, dialog_height, 240, 100,
-                200, 250, dark_grey, light_grey, true, shapes);
+                200, 250, inner_color, outer_color, true, shapes);
     }
     public static void drawDialogWidgets(int x, int y, int width, int height, SpriteBatch batch) {
         upper_left.setPosition(x - 30, y + height - 32);

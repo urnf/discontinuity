@@ -1,8 +1,10 @@
 package org.discontinuous.discgame;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.states.*;
+import org.discontinuous.discgame.Colors;
 
 /**
  * Created by Urk on 1/25/14.
@@ -35,12 +37,15 @@ public class StateHandling {
     private static String ins_minus_string;
     public static int yi_dialog_height_offset;
     public static int arlene_dialog_height_offset;
-    private static int dialog_width_offset =  DiscGame.screen_width/2 - 190;
+    public static int dialog_width_offset =  DiscGame.screen_width/2 - 190;
     private static String yi_text;
     private static String arlene_text;
     public static EndGameOption selected_endgame_option;
 
     static boolean combo;
+
+    static Color inner_color = Colors.ColorMap.get("dark_grey");
+    static Color outer_color = Colors.ColorMap.get("light_grey");
 
     public static void drawStateShapes(ShapeRenderer shapes) {
         switch(currentState) {
@@ -56,30 +61,30 @@ public class StateHandling {
                 Tooltip.drawDialogBox(shapes);
                 break;
             case AbilityTargeting:
-                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width/2 - 180, 250, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width/2 - 180, 250, inner_color, outer_color, false, shapes);
                 break;
             case AbilityDialog:
-                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, inner_color, outer_color, false, shapes);
                 break;
             // TODO: This is lazy.  Clean up the design, integrate with current states.
             case PostGameDialog:
                 if (DiscGame.dealpower.dp >= 0) {
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, inner_color, outer_color, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, inner_color, outer_color, false, shapes);
                 }
                 else {
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width - 270, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, 270, 150, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width - 270, 220, inner_color, outer_color, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, 270, 150, inner_color, outer_color, false, shapes);
                 }
                 break;
             case PostGameSelect:
                 for (int i = 0; i < DiscGame.endgame_options.size(); i++) {
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 600 - 100 * i, 400, 50, DiscGame.screen_width/2 - 200, 600 - 100 * i, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 600 - 100 * i, 400, 50, DiscGame.screen_width/2 - 200, 600 - 100 * i, inner_color, outer_color, false, shapes);
                 }
                 break;
             case PostGameResult:
-                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 260, 260, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
+                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 260, 260, inner_color, outer_color, false, shapes);
+                Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, inner_color, outer_color, false, shapes);
                 break;
         }
     }
@@ -90,7 +95,7 @@ public class StateHandling {
                 SelectDialog.drawBatch(batch, DiscGame.dialog_options, DiscGame.screen_width);
                 break;
             case InDialog:
-                InDialog.drawBatch(batch);
+                InDialog.drawBatch(batch, currentSpeaker.player);
                 break;
             case SelectAbility:
                 for (Ability ability : DiscGame.yi.abilities) {
@@ -177,7 +182,7 @@ public class StateHandling {
         return false;
     }
 
-    private static void animateGain(SpriteBatch batch, boolean playerSpeaking) {
+    public static void animateGain(SpriteBatch batch, boolean playerSpeaking) {
         if (animation_counter <= animation_max * animation_coefficient) {
             DiscGame.animation_font.setColor(1f, 1f, 1f, 1 - ((float) animation_counter / (animation_coefficient * 100)));
 

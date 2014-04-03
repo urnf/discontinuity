@@ -38,8 +38,8 @@ public class DiscGame extends Game {
     // TODO: Giant pile of static variables.  OK for prototype, terrible design.
     static Board[][] boards;
     static Board current_board;
-    static Contestant yi;
-    static Contestant arlene;
+    static public Contestant yi;
+    static public Contestant arlene;
     static Portrait yi_portrait;
     static Portrait arlene_portrait;
     OrthographicCamera camera;
@@ -64,7 +64,7 @@ public class DiscGame extends Game {
     static BitmapFont header_font;
     static BitmapFont deal_font;
     static BitmapFont text_font;
-    static BitmapFont movestats_font;
+    static public BitmapFont movestats_font;
     static BitmapFont nightmare_font;
     static BitmapFont animation_font;
     static BitmapFont dialog_font;

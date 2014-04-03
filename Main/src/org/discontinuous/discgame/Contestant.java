@@ -11,7 +11,7 @@ import java.util.Hashtable;
  */
 public class Contestant extends Entity {
     //Don't store board_x, board_y; grab from Cell
-    Cell cell;
+    public Cell cell;
     int confidence;
     int inspiration;
     int conf_max;
