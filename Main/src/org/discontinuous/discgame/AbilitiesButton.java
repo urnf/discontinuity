@@ -3,6 +3,7 @@ package org.discontinuous.discgame;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import org.discontinuous.discgame.StateHandling.State;
 
 /**
  * Created by Urk on 2/3/14.
@@ -34,9 +35,9 @@ public class AbilitiesButton extends Entity {
     }
 
     public void clickHandler() {
-        if (State.checkState(State.states.PostGameSelect) || State.checkState(State.states.PostGameDialog)) { return; }
+        if (StateHandling.checkState(State.PostGameSelect) || StateHandling.checkState(State.PostGameDialog)) { return; }
         // Clicking activates the ability list - goes to new game state select ability
-        State.currentState = State.states.SelectAbility;
+        StateHandling.currentState = State.SelectAbility;
         // Add abilities to hover and click handling
         Ability.add_ability_response();
     }

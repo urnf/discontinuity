@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import org.discontinuous.discgame.StateHandling.State;
 
 /**
  * Created by Urk on 2/7/14.
@@ -46,9 +47,9 @@ public class EndGameOption extends Entity {
 
     public void clickHandler() {
         if (DiscGame.dealpower.dp > dp_cost) {
-            State.set_yi_offset(yi_text);
-            State.set_arlene_offset(arlene_text);
-            State.selected_endgame_option = this;
+            StateHandling.set_yi_offset(yi_text);
+            StateHandling.set_arlene_offset(arlene_text);
+            StateHandling.selected_endgame_option = this;
 
             for (EndGameOption option: DiscGame.endgame_options) {
                 // Entity has action on hover, add to hover list
@@ -77,7 +78,7 @@ public class EndGameOption extends Entity {
 
             }
 
-            State.currentState = State.states.PostGameResult;
+            StateHandling.currentState = State.PostGameResult;
         }
     }
 }

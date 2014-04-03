@@ -3,6 +3,7 @@ package org.discontinuous.discgame;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import org.discontinuous.discgame.StateHandling.State;
 
 /**
  * Created by Urk on 2/3/14.
@@ -66,13 +67,13 @@ public class Ability extends Entity {
             if (tooltip.contains("Tableflip")) { dialog = "Please be careful, I am about to flip my shit.\nRargh.\n(Yi hurls the table " + ((int)(Math.random() * 100) + 10) + " meters)"; }
 
             effect.apply_effect(contestant, null);
-            State.set_yi_offset(DiscGame.yi.ability_selected.dialog);
-            State.currentState = State.states.AbilityDialog;
+            StateHandling.set_yi_offset(DiscGame.yi.ability_selected.dialog);
+            StateHandling.currentState = State.AbilityDialog;
         }
         // If ability target is not self, go to ability targeting
         else {
-            State.set_yi_offset(AbilityTarget.target_state_string());
-            State.currentState = State.states.AbilityTargeting;
+            StateHandling.set_yi_offset(AbilityTarget.target_state_string());
+            StateHandling.currentState = State.AbilityTargeting;
         }
         // Remove abilities from hover and click handling
         remove_ability_response();

@@ -2,18 +2,19 @@ package org.discontinuous.discgame;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import org.discontinuous.discgame.states.*;
 
 /**
  * Created by Urk on 1/25/14.
  */
-public class State {
+public class StateHandling {
     // singleton game state library, drawing state-specific UI elements and transitions to other states
 
-    public enum states {
+    public enum State {
         SelectDialog, BoardTransition, SelectAbility, AbilityTargeting, AbilityDialog, InDialog, PostGameDialog, PostGameSelect, PostGameResult
     }
 
-    static states currentState = states.SelectDialog;
+    static State currentState = State.SelectDialog;
     static Contestant currentSpeaker;
     static int animation_max = 0;
     static int animation_counter = 0;
@@ -44,21 +45,12 @@ public class State {
     public static void drawStateShapes(ShapeRenderer shapes) {
         switch(currentState) {
             case SelectDialog:
-                Tooltip.drawDialogBox(shapes);
+                SelectDialog.drawShapes(shapes);
                 break;
             case BoardTransition:
                 break;
             case InDialog:
-                // Find out who is speaking
-                if (currentSpeaker.player) {
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                }
-                else {
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width - 270, 220, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, 270, 150, Tooltip.dark_grey, Tooltip.light_grey, false, shapes);
-                }
-                //
+                InDialog.drawShapes(shapes, currentSpeaker.player, DiscGame.screen_width);
                 break;
             case SelectAbility:
                 Tooltip.drawDialogBox(shapes);
@@ -95,28 +87,10 @@ public class State {
     public static void drawStateBatch(SpriteBatch batch) {
         switch(currentState) {
             case SelectDialog:
-                // Draw Dialog Options which need to overlap the underlying element
-                for (DialogOption option : DiscGame.dialog_options) {
-                    option.drawDialogOption(batch);
-                }
-                Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 1200, 50, 240, 100, batch);
+                SelectDialog.drawBatch(batch, DiscGame.dialog_options, DiscGame.screen_width);
                 break;
             case InDialog:
-                animateGain(batch, currentSpeaker.player);
-
-                // If player speaking, print line chosen, centered in the box.
-                if (currentSpeaker.player) {
-                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.cell.yi_dialog, dialog_width_offset, 200 + yi_dialog_height_offset, 380);
-                    Tooltip.drawDialogWidgets(dialog_width_offset - 10, 200, 400, 100, batch);
-                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.cell.arlene_resp_dialog, dialog_width_offset, 40 + arlene_dialog_height_offset, 380);
-                    Tooltip.drawDialogWidgets(dialog_width_offset - 10, 40, 400, 100, batch);
-                }
-                else {
-                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.arlene_dialog, dialog_width_offset, 200 + arlene_dialog_height_offset, 380);
-                    Tooltip.drawDialogWidgets(dialog_width_offset - 10, 200, 400, 100, batch);
-                    DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.yi_resp_dialog, dialog_width_offset, 40 + yi_dialog_height_offset, 380);
-                    Tooltip.drawDialogWidgets(dialog_width_offset - 10, 40, 400, 100, batch);
-                }
+                InDialog.drawBatch(batch);
                 break;
             case SelectAbility:
                 for (Ability ability : DiscGame.yi.abilities) {
@@ -180,7 +154,7 @@ public class State {
                 arlene_text = "Definitely.";
                 set_yi_offset(yi_text);
                 set_arlene_offset(arlene_text);
-                currentState = states.PostGameDialog;
+                currentState = State.PostGameDialog;
                 return;
             }
             if (DiscGame.yi.confidence <= 0) {
@@ -189,16 +163,16 @@ public class State {
                 yi_text = "That seems so.";
                 set_yi_offset(yi_text);
                 set_arlene_offset(arlene_text);
-                currentState = states.PostGameDialog;
+                currentState = State.PostGameDialog;
                 return;
             }
 
             // Otherwise back to select dialog
-            currentState = states.SelectDialog;
+            currentState = State.SelectDialog;
         }
     }
 
-    public static boolean checkState(states checkThis){
+    public static boolean checkState(State checkThis){
         if (currentState == checkThis) {return true;}
         return false;
     }
@@ -232,7 +206,7 @@ public class State {
             DiscGame.animation_font.drawWrapped(batch, ins_plus_string, ins_plus_x, 420 + animation_counter/animation_coefficient, 380);
             DiscGame.animation_font.drawWrapped(batch, conf_minus_string, conf_minus_x, 420 + animation_counter/animation_coefficient, 380);
             DiscGame.animation_font.drawWrapped(batch, ins_minus_string, ins_minus_x, 420 + animation_counter/animation_coefficient, 380);
-            if (State.combo) {
+            if (StateHandling.combo) {
                 DiscGame.animation_font.drawWrapped(batch, "COMBO", currentSpeaker.cell.x, currentSpeaker.cell.y + 30 + animation_counter / animation_coefficient, 380);
             }
             animation_counter++;

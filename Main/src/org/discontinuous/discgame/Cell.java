@@ -5,10 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import org.discontinuous.discgame.StateHandling.State;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Each cell representing an argument in the table of ideas
@@ -120,19 +119,19 @@ public class Cell extends Entity {
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
-        if (DiscGame.yi.is_adjacent_to(this) && State.checkState(State.states.SelectDialog)) {
+        if (DiscGame.yi.is_adjacent_to(this) && StateHandling.checkState(State.SelectDialog)) {
             dialog_option.drawShapeHover(shapes);
         }
     }
     public void drawHover(SpriteBatch batch) {
         // Return if in post game select
-        if (State.checkState(State.states.PostGameSelect)) { return; }
+        if (StateHandling.checkState(State.PostGameSelect)) { return; }
         // If in ability targeting selection
-        if (State.checkState(State.states.AbilityTargeting)) {
+        if (StateHandling.checkState(State.AbilityTargeting)) {
             AbilityTarget.target_cell_hover(this, batch);
         }
         // If the cell is adjacent to the player, scale it up and redraw on top
-        if (DiscGame.yi.is_adjacent_to(this)&& State.checkState(State.states.SelectDialog)) {
+        if (DiscGame.yi.is_adjacent_to(this)&& StateHandling.checkState(State.SelectDialog)) {
             enlargeCell(batch);
             //Redraw so that the shape doesn't cover text
             dialog_option.drawDialogOption(batch);
@@ -164,12 +163,12 @@ public class Cell extends Entity {
         }
 
         // player can't travel otherwise if not adjacent
-        if (DiscGame.yi.is_adjacent_to(this) && State.checkState(State.states.SelectDialog)) {
+        if (DiscGame.yi.is_adjacent_to(this) && StateHandling.checkState(State.SelectDialog)) {
             DiscGame.yi.update_position(this);
         }
 
         // If in ability targeting selection
-        if (State.checkState(State.states.AbilityTargeting)) {
+        if (StateHandling.checkState(State.AbilityTargeting)) {
             AbilityTarget.target_cell_click(this);
         }
     }

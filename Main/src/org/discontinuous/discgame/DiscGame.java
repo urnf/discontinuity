@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.yaml.snakeyaml.Yaml;
+import org.discontinuous.discgame.StateHandling.State;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -247,14 +248,14 @@ public class DiscGame extends Game {
         shapes.setProjectionMatrix(camera.combined);
         shapes.begin(ShapeRenderer.ShapeType.Filled);
         drawShapesCore();
-        State.drawStateShapes(shapes);
+        StateHandling.drawStateShapes(shapes);
         shapes.end();
 
         // I really hate not drawing all in one spritebatch block - but this hacky solution works for now
         batch.begin();
-        State.drawStateBatch(batch);
+        StateHandling.drawStateBatch(batch);
         // TODO: Hacky way to hide this in the post game scenario
-        if(State.currentState != State.states.PostGameResult) { drawBatchCoreTop(); }
+        if(StateHandling.currentState != State.PostGameResult) { drawBatchCoreTop(); }
         batch.end();
 
         // Need a separate shape and sprite batch for hovers

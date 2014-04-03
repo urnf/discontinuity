@@ -1,9 +1,8 @@
 package org.discontinuous.discgame;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
+import org.discontinuous.discgame.StateHandling.State;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -126,11 +125,11 @@ public class Contestant extends Entity {
 
     public void update_position(Cell cell) {
         // Record current values of stats - player and opponent before effects
-        State.previousPower = DiscGame.dealpower.dp;
-        State.previousPlayerConf = DiscGame.yi.confidence;
-        State.previousPlayerIns = DiscGame.yi.inspiration;
-        State.previousOpponentConf = DiscGame.arlene.confidence;
-        State.previousOpponentIns = DiscGame.arlene.inspiration;
+        StateHandling.previousPower = DiscGame.dealpower.dp;
+        StateHandling.previousPlayerConf = DiscGame.yi.confidence;
+        StateHandling.previousPlayerIns = DiscGame.yi.inspiration;
+        StateHandling.previousOpponentConf = DiscGame.arlene.confidence;
+        StateHandling.previousOpponentIns = DiscGame.arlene.inspiration;
 
         this.cell.consume();
         this.cell.occupied = false;
@@ -139,10 +138,10 @@ public class Contestant extends Entity {
         if (this.combo.checkCombo(this.cell, cell) && cell.consumed == false) {
             // Get all the benefits of the previous cell except DP
             update_stats(this.cell, true);
-            State.combo = true;
+            StateHandling.combo = true;
         }
         else {
-            State.combo = false;
+            StateHandling.combo = false;
         }
 
         // set new cell to destination
@@ -157,21 +156,21 @@ public class Contestant extends Entity {
         img.setPosition(x, y);
 
         // Trigger dialog
-        State.currentSpeaker = this;
-        if (State.currentSpeaker.player) {
-            State.set_yi_offset(DiscGame.yi.cell.yi_dialog);
-            State.set_arlene_offset(DiscGame.yi.cell.arlene_resp_dialog);
+        StateHandling.currentSpeaker = this;
+        if (StateHandling.currentSpeaker.player) {
+            StateHandling.set_yi_offset(DiscGame.yi.cell.yi_dialog);
+            StateHandling.set_arlene_offset(DiscGame.yi.cell.arlene_resp_dialog);
         }
         else {
-            State.set_yi_offset(DiscGame.arlene.cell.yi_resp_dialog);
-            State.set_arlene_offset(DiscGame.arlene.cell.arlene_dialog);
+            StateHandling.set_yi_offset(DiscGame.arlene.cell.yi_resp_dialog);
+            StateHandling.set_arlene_offset(DiscGame.arlene.cell.arlene_dialog);
         }
-        State.currentState = State.states.InDialog;
+        StateHandling.currentState = State.InDialog;
 
 
         // Show bonus
-        State.animation_counter = 0;
-        State.animation_max = 30;
+        StateHandling.animation_counter = 0;
+        StateHandling.animation_max = 30;
     }
 
     public void update_abilities() {

@@ -1,7 +1,5 @@
 package org.discontinuous.discgame;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-
 import java.util.Hashtable;
 
 /**
@@ -27,11 +25,11 @@ public class AbilityEffect {
 
     public void apply_effect(Contestant contestant, Cell cell){
         // Record current values of stats - player and opponent before effects
-        State.previousPower = DiscGame.dealpower.dp;
-        State.previousPlayerConf = DiscGame.yi.confidence;
-        State.previousPlayerIns = DiscGame.yi.inspiration;
-        State.previousOpponentConf = DiscGame.arlene.confidence;
-        State.previousOpponentIns = DiscGame.arlene.inspiration;
+        StateHandling.previousPower = DiscGame.dealpower.dp;
+        StateHandling.previousPlayerConf = DiscGame.yi.confidence;
+        StateHandling.previousPlayerIns = DiscGame.yi.inspiration;
+        StateHandling.previousOpponentConf = DiscGame.arlene.confidence;
+        StateHandling.previousOpponentIns = DiscGame.arlene.inspiration;
 
         // Null protect, though I'm tempted to pull out to expose bugs
         if (null != cell && move_to_cell) {
@@ -75,10 +73,10 @@ public class AbilityEffect {
                 if (contestant.combo.checkCombo(contestant.cell, cell)) {
                     // Get all the benefits of the previous cell except DP
                     contestant.update_stats(contestant.cell, true);
-                    State.combo = true;
+                    StateHandling.combo = true;
                 }
                 else {
-                    State.combo = false;
+                    StateHandling.combo = false;
                 }
 
                 contestant.update_stats(cell, false);
@@ -86,8 +84,8 @@ public class AbilityEffect {
             default:
         }
         // Show bonus
-        State.animation_counter = 0;
-        State.animation_max = 30;
+        StateHandling.animation_counter = 0;
+        StateHandling.animation_max = 30;
 
     }
 }

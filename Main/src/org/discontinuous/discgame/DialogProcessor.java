@@ -1,6 +1,7 @@
 package org.discontinuous.discgame;
 
 import com.badlogic.gdx.InputProcessor;
+import org.discontinuous.discgame.StateHandling.State;
 
 /**
  * Created by Urk on 12/19/13.
@@ -32,17 +33,17 @@ public class DialogProcessor implements InputProcessor {
     @Override
     public boolean touchUp (int x, int y, int pointer, int button) {
         // If in dialog, advance to the next dialog or exit
-        switch (State.currentState) {
+        switch (StateHandling.currentState) {
             case InDialog:
-                State.advanceDialog();
+                StateHandling.advanceDialog();
                 return false;
             case AbilityDialog:
-                State.currentSpeaker = DiscGame.yi;
-                State.advanceDialog();
+                StateHandling.currentSpeaker = DiscGame.yi;
+                StateHandling.advanceDialog();
                 return false;
             case PostGameDialog:
-                State.setup_endgame_options();
-                State.currentState = State.states.PostGameSelect;
+                StateHandling.setup_endgame_options();
+                StateHandling.currentState = State.PostGameSelect;
                 return false;
         }
 
@@ -51,14 +52,14 @@ public class DialogProcessor implements InputProcessor {
             if (e.checkArea(x, y)) {clicked = e;}
         }
         // If no ability clicked or nothing clicked while in ability select, return to select Dialog
-        if (State.checkState(State.states.SelectAbility) && (null == clicked || clicked.getClass() != Ability.class)) {
-            State.currentState = State.states.SelectDialog;
+        if (StateHandling.checkState(State.SelectAbility) && (null == clicked || clicked.getClass() != Ability.class)) {
+            StateHandling.currentState = State.SelectDialog;
             Ability.remove_ability_response();
             return false;
         }
         // If no cell clicked or nothing clicked while in ability target, return to select ability
-        if (State.checkState(State.states.AbilityTargeting) && (null == clicked || clicked.getClass() != Cell.class)) {
-            State.currentState = State.states.SelectAbility;
+        if (StateHandling.checkState(State.AbilityTargeting) && (null == clicked || clicked.getClass() != Cell.class)) {
+            StateHandling.currentState = State.SelectAbility;
             Ability.add_ability_response();
             return false;
         }
