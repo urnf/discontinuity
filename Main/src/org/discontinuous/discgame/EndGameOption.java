@@ -12,11 +12,11 @@ import org.discontinuous.discgame.StateHandling.State;
  * Created by Urk on 2/7/14.
  */
 public class EndGameOption extends Entity {
-    int dp_cost;
-    String option_text;
-    BitmapFont font;
-    String arlene_text;
-    String yi_text;
+    public int dp_cost;
+    public String option_text;
+    public BitmapFont font;
+    public String arlene_text;
+    public String yi_text;
     static Color dark_grey = new Color(0.15f, 0.15f, 0.15f, 1);
     static Color dark_green = new Color(0.0664f, 0.4336f, 0.1523f, 1);
     static Color dark_red = new Color(0.4336f, 0.1172f, 0.0664f, 1);

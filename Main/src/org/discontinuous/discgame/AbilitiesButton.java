@@ -13,8 +13,8 @@ public class AbilitiesButton extends Entity {
     int tooltip_y = 100;
     int tooltip_width = 110;
     int tooltip_height = 10;
-    Color dark_grey = new Color(0.15f, 0.15f, 0.15f, 1);
-    Color light_grey = new Color(0.8f, 0.8f, 0.8f, 1);
+    static Color inner_color = Colors.ColorMap.get("dark_grey");
+    static Color outer_color = Colors.ColorMap.get("light_grey");
 
     public AbilitiesButton(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -31,7 +31,7 @@ public class AbilitiesButton extends Entity {
         Tooltip.newTip(x + tooltip_x, y + tooltip_y,
                 tooltip_width, tooltip_height,
                 x + width/2, y + height,
-                dark_grey, light_grey, false, shapes);
+                inner_color, outer_color, false, shapes);
     }
 
     public void clickHandler() {

@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.states.*;
-import org.discontinuous.discgame.Colors;
 
 /**
  * Created by Urk on 1/25/14.
@@ -22,22 +21,27 @@ public class StateHandling {
     static int animation_counter = 0;
     // Higher value is divided into animation speed
     private static int animation_coefficient = 4; // TODO: Results in divide by zero error if zero, make more robust
+
     static int previousPower;
     static int previousPlayerConf;
     static int previousPlayerIns;
     static int previousOpponentConf;
     static int previousOpponentIns;
+
     private static int conf_plus_x;
     private static int ins_plus_x;
     private static int conf_minus_x;
     private static int ins_minus_x;
+
     private static String conf_plus_string;
     private static String conf_minus_string;
     private static String ins_plus_string;
     private static String ins_minus_string;
+
     public static int yi_dialog_height_offset;
     public static int arlene_dialog_height_offset;
     public static int dialog_width_offset =  DiscGame.screen_width/2 - 190;
+
     private static String yi_text;
     private static String arlene_text;
     public static EndGameOption selected_endgame_option;
@@ -55,36 +59,35 @@ public class StateHandling {
             case BoardTransition:
                 break;
             case InDialog:
-                InDialog.drawShapes(shapes, currentSpeaker.player, DiscGame.screen_width);
-                break;
-            case SelectAbility:
-                Tooltip.drawDialogBox(shapes);
-                break;
-            case AbilityTargeting:
-                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width/2 - 180, 250, inner_color, outer_color, false, shapes);
-                break;
-            case AbilityDialog:
-                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, inner_color, outer_color, false, shapes);
-                break;
-            // TODO: This is lazy.  Clean up the design, integrate with current states.
-            case PostGameDialog:
-                if (DiscGame.dealpower.dp >= 0) {
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 200, 220, inner_color, outer_color, false, shapes);
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, inner_color, outer_color, false, shapes);
+                if (currentSpeaker.player) {
+                    InDialog.drawShapes(shapes, true, DiscGame.screen_width);
                 }
                 else {
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, DiscGame.screen_width - 270, 220, inner_color, outer_color, false, shapes);
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, 270, 150, inner_color, outer_color, false, shapes);
+                    InDialog.drawShapes(shapes, false, DiscGame.screen_width);
+                }
+                break;
+            case SelectAbility:
+                SelectAbility.drawShapes(shapes);
+                break;
+            case AbilityTargeting:
+                AbilityTargeting.drawShapes(shapes, DiscGame.screen_width);
+                break;
+            case AbilityDialog:
+                AbilityDialog.drawShapes(shapes, DiscGame.screen_width);
+                break;
+            case PostGameDialog:
+                if (DiscGame.dealpower.dp >= 0) {
+                    PostGameDialog.drawShapes(shapes, true, DiscGame.screen_width);
+                }
+                else {
+                    PostGameDialog.drawShapes(shapes, false, DiscGame.screen_width);
                 }
                 break;
             case PostGameSelect:
-                for (int i = 0; i < DiscGame.endgame_options.size(); i++) {
-                    Tooltip.newTip(DiscGame.screen_width/2 - 200, 600 - 100 * i, 400, 50, DiscGame.screen_width/2 - 200, 600 - 100 * i, inner_color, outer_color, false, shapes);
-                }
+                PostGameSelect.drawShapes(shapes, DiscGame.endgame_options.size(), DiscGame.screen_width);
                 break;
             case PostGameResult:
-                Tooltip.newTip(DiscGame.screen_width/2 - 200, 200, 400, 100, 260, 260, inner_color, outer_color, false, shapes);
-                Tooltip.newTip(DiscGame.screen_width/2 - 200, 40, 400, 100, DiscGame.screen_width - 270, 160, inner_color, outer_color, false, shapes);
+                PostGameResult.drawShapes(shapes, DiscGame.screen_width);
                 break;
         }
     }
@@ -95,47 +98,35 @@ public class StateHandling {
                 SelectDialog.drawBatch(batch, DiscGame.dialog_options, DiscGame.screen_width);
                 break;
             case InDialog:
-                InDialog.drawBatch(batch, currentSpeaker.player);
+                if (currentSpeaker.player) {
+                    InDialog.drawBatch(batch, true, DiscGame.yi.cell.yi_dialog, DiscGame.yi.cell.arlene_resp_dialog, dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
+                }
+                else {
+                    InDialog.drawBatch(batch, false, DiscGame.arlene.cell.arlene_dialog, DiscGame.arlene.cell.yi_resp_dialog, dialog_width_offset, arlene_dialog_height_offset, yi_dialog_height_offset);
+                }
                 break;
             case SelectAbility:
-                for (Ability ability : DiscGame.yi.abilities) {
-                    ability.draw(batch);
-                }
-                Tooltip.drawDialogWidgets(DiscGame.screen_width/2 - 230, 50, 450, 200, batch);
+                SelectAbility.drawBatch(batch, DiscGame.screen_width);
                 break;
             case AbilityTargeting:
-                DiscGame.movestats_font.drawWrapped(batch, yi_text, dialog_width_offset, 200 + yi_dialog_height_offset, 380);
+                AbilityTargeting.drawBatch(batch, yi_text, dialog_width_offset, yi_dialog_height_offset);
                 break;
             case AbilityDialog:
-                animateGain(batch, true);
-                DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.ability_selected.dialog, dialog_width_offset, 200 + yi_dialog_height_offset, 380);
-                Tooltip.drawDialogWidgets(dialog_width_offset - 10, 200, 400, 100, batch);
+                AbilityDialog.drawBatch(batch, DiscGame.yi.ability_selected.dialog, dialog_width_offset, yi_dialog_height_offset);
                 break;
             case PostGameDialog:
                 if (DiscGame.dealpower.dp >= 0) {
-                    DiscGame.movestats_font.drawWrapped(batch, yi_text, dialog_width_offset, 200 + yi_dialog_height_offset, 380);
-                    Tooltip.drawDialogWidgets(dialog_width_offset - 10, 200, 400, 100, batch);
-                    DiscGame.movestats_font.drawWrapped(batch, arlene_text, dialog_width_offset, 40 + arlene_dialog_height_offset, 380);
-                    Tooltip.drawDialogWidgets(dialog_width_offset - 10, 40, 400, 100, batch);
+                    PostGameDialog.drawBatch(batch, true, "Why are we still talking?  I think it's time to resolve this.", "Definitely.", dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
                 }
                 else {
-                    DiscGame.movestats_font.drawWrapped(batch, arlene_text, dialog_width_offset, 200 + arlene_dialog_height_offset, 380);
-                    Tooltip.drawDialogWidgets(dialog_width_offset - 10, 200, 400, 100, batch);
-                    DiscGame.movestats_font.drawWrapped(batch, yi_text, dialog_width_offset, 40 + yi_dialog_height_offset, 380);
-                    Tooltip.drawDialogWidgets(dialog_width_offset - 10, 40, 400, 100, batch);
+                    PostGameDialog.drawBatch(batch, false, "This discussion is over.", "That seems so.", dialog_width_offset, arlene_dialog_height_offset, yi_dialog_height_offset);
                 }
                 break;
             case PostGameSelect:
-                for (EndGameOption option: DiscGame.endgame_options) {
-                    DiscGame.movestats_font.drawWrapped(batch, Integer.toString(option.dp_cost), option.x + 10, option.y + 75, option.width - 40);
-                    option.font.drawWrapped(batch, option.option_text, option.x + 70, option.y + 75, option.width - 70);
-                }
+                PostGameSelect.drawBatch(batch, DiscGame.endgame_options);
                 break;
             case PostGameResult:
-                selected_endgame_option.font.drawWrapped(batch, yi_text, dialog_width_offset, 200 + yi_dialog_height_offset, 380);
-                Tooltip.drawDialogWidgets(dialog_width_offset - 10, 200, 400, 100, batch);
-                selected_endgame_option.font.drawWrapped(batch, arlene_text, dialog_width_offset, 40 + arlene_dialog_height_offset, 380);
-                Tooltip.drawDialogWidgets(dialog_width_offset - 10, 40, 400, 100, batch);
+                PostGameResult.drawBatch(batch, selected_endgame_option, dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
                 //Redraw portraits on top of everything else
                 DiscGame.yi_portrait.draw(batch);
                 DiscGame.arlene_portrait.draw(batch);
@@ -155,8 +146,6 @@ public class StateHandling {
             // Check to see if it's game over
             if (DiscGame.arlene.confidence <= 0) {
                 DiscGame.dealpower.dp += 1000;
-                yi_text = "Why are we still talking?  I think it's time to resolve this.";
-                arlene_text = "Definitely.";
                 set_yi_offset(yi_text);
                 set_arlene_offset(arlene_text);
                 currentState = State.PostGameDialog;
@@ -164,8 +153,6 @@ public class StateHandling {
             }
             if (DiscGame.yi.confidence <= 0) {
                 DiscGame.dealpower.dp -= 1000;
-                arlene_text = "This discussion is over.";
-                yi_text = "That seems so.";
                 set_yi_offset(yi_text);
                 set_arlene_offset(arlene_text);
                 currentState = State.PostGameDialog;
@@ -227,7 +214,8 @@ public class StateHandling {
         arlene_text = text;
         arlene_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 380).height)/2));
     }
-     public static void setup_endgame_options() {
+
+    public static void setup_endgame_options() {
          int i = 0;
          for (EndGameOption option: DiscGame.endgame_options) {
              option.width = 428;

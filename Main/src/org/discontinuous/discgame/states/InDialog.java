@@ -29,20 +29,20 @@ public class InDialog {
         }
         //
     }
-    public static void drawBatch(SpriteBatch batch, boolean isPlayer) {
+    public static void drawBatch(SpriteBatch batch, boolean isPlayer, String argument, String response, int width_offset, int argument_height_offset, int response_height_offset) {
         StateHandling.animateGain(batch, isPlayer);
 
         // If player speaking, print line chosen, centered in the box.
         if (isPlayer) {
-            DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.cell.yi_dialog, StateHandling.dialog_width_offset, 200 + StateHandling.yi_dialog_height_offset, 380);
+            DiscGame.movestats_font.drawWrapped(batch, argument, width_offset, 200 + argument_height_offset, 380);
             Tooltip.drawDialogWidgets(StateHandling.dialog_width_offset - 10, 200, 400, 100, batch);
-            DiscGame.movestats_font.drawWrapped(batch, DiscGame.yi.cell.arlene_resp_dialog, StateHandling.dialog_width_offset, 40 + StateHandling.arlene_dialog_height_offset, 380);
+            DiscGame.movestats_font.drawWrapped(batch, response, width_offset, 40 + response_height_offset, 380);
             Tooltip.drawDialogWidgets(StateHandling.dialog_width_offset - 10, 40, 400, 100, batch);
         }
         else {
-            DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.arlene_dialog, StateHandling.dialog_width_offset, 200 + StateHandling.arlene_dialog_height_offset, 380);
+            DiscGame.movestats_font.drawWrapped(batch, argument, width_offset, 200 + argument_height_offset, 380);
             Tooltip.drawDialogWidgets(StateHandling.dialog_width_offset - 10, 200, 400, 100, batch);
-            DiscGame.movestats_font.drawWrapped(batch, DiscGame.arlene.cell.yi_resp_dialog, StateHandling.dialog_width_offset, 40 + StateHandling.yi_dialog_height_offset, 380);
+            DiscGame.movestats_font.drawWrapped(batch, response, width_offset, 40 + response_height_offset, 380);
             Tooltip.drawDialogWidgets(StateHandling.dialog_width_offset - 10, 40, 400, 100, batch);
         }
     }

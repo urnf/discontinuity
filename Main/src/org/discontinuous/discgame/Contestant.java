@@ -24,7 +24,7 @@ public class Contestant extends Entity {
     boolean player;
     Contestant opponent;
     ArrayList<Cell> adjacent;
-    ArrayList<Ability> abilities;
+    public ArrayList<Ability> abilities;
     Ability ability_selected;
     Combo combo;
 
