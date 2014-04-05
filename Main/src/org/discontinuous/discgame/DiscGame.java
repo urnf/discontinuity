@@ -322,6 +322,7 @@ public class DiscGame extends Game {
     }
 
     public void setupPlayer() {
+        /* TODO: Remove.  Moved out to contestants.
         // Setup Contestant stats
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
             put("power", 100);
@@ -411,9 +412,12 @@ public class DiscGame extends Game {
         yi.abilities.add(double_down);
 
         Ability.setup_ability_display(yi);
+        */
     }
 
     public void setupOpponent() {
+        // TODO: Remove.  Moved out to contestants.
+        /*
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
             put("power", 60);
             put("conf_plus", 0);
@@ -457,9 +461,12 @@ public class DiscGame extends Game {
         arlene.setImg(new Texture(Gdx.files.internal("img/arlenemini.png")));
         //arlene.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
         arlene_portrait.setContestant(arlene);
+        */
     }
 
     public void setupPortraits() {
+        // TODO: Remove
+        /*
         yi_portrait = new Portrait(new Texture(Gdx.files.internal("img/yi-combos.png")), -120, 0, 500, 375, screen_width/2 - 250, 700, 220, 250, 500, "Zhuge Yi\n" +
                 "This proclaimed traveling businessman seems to have a surprising knack for methodical debate and inquiry.\n\n" +
                 "His arguments are swift as the coursing river;\n" +
@@ -475,6 +482,7 @@ public class DiscGame extends Game {
                 "verbal suplexes upon opposing counsel or unruly law students.  " +
                 "Her fearsome reputation as both sorceror and lawyer means that few people cross her, professionally or personally.");
         arlene_portrait.setImg(new Texture(Gdx.files.internal("img/arlene.png")));
+        */
     }
 
     public void setupFonts() {

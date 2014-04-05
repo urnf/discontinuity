@@ -29,6 +29,7 @@ public class Contestant extends Entity {
     public ArrayList<Ability> abilities;
     Ability ability_selected;
     Combo combo;
+    Portrait portrait;
 
     // TODO: pass in a hash or something.  this argument list is getting confusingly gnarly as fuck
     public Contestant(int board_x,
@@ -64,6 +65,8 @@ public class Contestant extends Entity {
     public void set_combo(Combo combo) {
         this.combo = combo;
     }
+
+    public void set_portrait(Portrait portrait) { this.portrait = portrait; }
 
     public void draw(SpriteBatch batch) {
         img.draw(batch);

@@ -1,6 +1,7 @@
 package org.discontinuous.discgame.contestants;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import org.discontinuous.discgame.*;
 import org.discontinuous.discgame.abilities.Ability;
 import org.discontinuous.discgame.abilities.AbilityEffect;
@@ -43,23 +44,35 @@ public class Socrates extends Contestant {
         put("ins_minus", 0);
     }};
 
-    public Socrates(  int coordinate,
-                      boolean isPlayer,
-                      Cell cell) {
+    static ArrayList<String[]> combo_list = new  ArrayList<String[]>() {{
+        add(new String[]{"Intimidate", "Logical"});
+        add(new String[]{"Logical", "Ethical"});
+        add(new String[]{"Logical", "Interrogate"});
+        add(new String[]{"Ethical", "Interrogate"});
+        add(new String[]{"Interrogate", "Intimidate"});
+    }};
+
+    public Socrates( int coordinate,
+                     boolean isPlayer,
+                     Cell cell) {
         super(DiscGame.BOARD_WIDTH, DiscGame.BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 120, isPlayer, cell);
 
         // Set up Socrates' combos
-        ArrayList<String[]> combo_list = new  ArrayList<String[]>();
-        combo_list.add(new String[]{"Intimidate", "Logical"});
-        combo_list.add(new String[]{"Logical", "Ethical"});
-        combo_list.add(new String[]{"Logical", "Interrogate"});
-        combo_list.add(new String[]{"Ethical", "Interrogate"});
-        combo_list.add(new String[]{"Interrogate", "Intimidate"});
         this.set_combo(new Combo(combo_list));
+
+        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/yi-combos.png")), -120, 0, 500, 375, DiscGame.screen_width/2 - 250, 700, 220, 250, 500, "Socrates\n" +
+                "Nobody fucks with Socrates and gets away with it.\n\n" +
+                "\n" +
+                "Nobody.\n" +
+                "\n" +
+                "Socrates' passive ability SOCRATIC METHOD reduces all confidence damage taken by 20%");
+        portrait.setImg(new Texture(Gdx.files.internal("img/socrates.png")));
+        //portrait.setContestant(yi);
+        this.set_portrait(portrait);
 
         //yi = new Contestant(combos, BOARD_WIDTH, BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 120, true, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
         setImg(new Texture(Gdx.files.internal("img/zhugemini.png")));
-        yi_portrait.setContestant(yi);
+
     }
     Ability strawman = new Ability(yi, 64, 64, 40,
             AbilityTarget.targets.adjacent_square_fresh,

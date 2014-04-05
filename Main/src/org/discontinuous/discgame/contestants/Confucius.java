@@ -1,6 +1,7 @@
 package org.discontinuous.discgame.contestants;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import org.discontinuous.discgame.*;
 import org.discontinuous.discgame.Board;
 import org.discontinuous.discgame.Combo;
@@ -12,47 +13,64 @@ import java.util.Hashtable;
  * Created by Urk on 4/4/14.
  */
 public class Confucius extends Contestant {
-    Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
+    static Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
         put("power", 60);
         put("conf_plus", 0);
         put("conf_minus", 10);
         put("ins_plus", 10);
         put("ins_minus", 0);
     }};
-    Hashtable<String, Integer> eth_stats = new Hashtable<String, Integer>() {{
+    static Hashtable<String, Integer> eth_stats = new Hashtable<String, Integer>() {{
         put("power", 40);
         put("conf_plus", 10);
         put("conf_minus", 0);
         put("ins_plus", 0);
         put("ins_minus", 0);
     }};
-    Hashtable<String, Integer> inm_stats = new Hashtable<String, Integer>() {{
+    static Hashtable<String, Integer> inm_stats = new Hashtable<String, Integer>() {{
         put("power", 80);
         put("conf_plus", 0);
         put("conf_minus", 20);
         put("ins_plus", 0);
         put("ins_minus", 10);
     }};
-    Hashtable<String, Integer> ing_stats = new Hashtable<String, Integer>() {{
+    static Hashtable<String, Integer> ing_stats = new Hashtable<String, Integer>() {{
         put("power", 120);
         put("conf_plus", 30);
         put("conf_minus", 20);
         put("ins_plus", 30);
         put("ins_minus", 10);
     }};
+    static ArrayList<String []> combo_list = new  ArrayList<String []>() {{
+        add(new String[]{"Intimidate", "Logical"});
+        add(new String[]{"Logical", "Ethical"});
+        add(new String[]{"Interrogate", "Ethical"});
+        add(new String[]{"Interrogate", "Logical"});
+        add(new String[]{"Interrogate", "Intimidate"});
+        add(new String[]{"Intimidate", "Ethical"});
+    }};
 
-    // Set up Arlene's combos
-    ArrayList<String []> arlene_combo_list = new  ArrayList<String []>();
-    arlene_combo_list.add(new String[]{"Intimidate","Logical"});
-    arlene_combo_list.add(new String[]{"Logical", "Ethical"});
-    arlene_combo_list.add(new String[]{"Interrogate", "Ethical"});
-    arlene_combo_list.add(new String[]{"Interrogate", "Logical"});
-    arlene_combo_list.add(new String[]{"Interrogate", "Intimidate"});
-    arlene_combo_list.add(new String[]{"Intimidate", "Ethical"});
-    Combo arlene_combo = new Combo(arlene_combo_list);
 
-    arlene = new Contestant(arlene_combo, 1, 1, log_stats, eth_stats, inm_stats, ing_stats, 200, 200, screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 40, false, current_board.cells[0][0]);
-    arlene.setImg(new Texture(Gdx.files.internal("img/arlenemini.png")));
-    //arlene.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
-    arlene_portrait.setContestant(arlene);
+    public Confucius( int coordinate,
+                      boolean isPlayer,
+                      Cell cell) {
+        super(DiscGame.BOARD_WIDTH, DiscGame.BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 120, isPlayer, cell);
+
+        // Set up Arlene's combos
+        this.set_combo(new Combo(combo_list));
+
+        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/arlene-combos.png")), DiscGame.screen_width - 290,0, 300, 375, DiscGame.screen_width/2 - 250, 700, DiscGame.screen_width - 280, 250, 520, "Confucius\n" +
+                "J.D. University of New Oxford\n" +
+                "Elecantos Legal Group\n" +
+                "Professor Emeritus, Harvard Mars Law Adjunct\n\n" +
+                "When she's not preparing for a major case or incinerating revenant souls, she relishes dishing out " +
+                "verbal suplexes upon opposing counsel or unruly law students.  " +
+                "Her fearsome reputation as both sorceror and lawyer means that few people cross her, professionally or personally.");
+        portrait.setImg(new Texture(Gdx.files.internal("img/arlene.png")));
+        //portrait.setContestant(arlene);
+        this.set_portrait(portrait);
+
+        //arlene = new Contestant(arlene_combo, 1, 1, log_stats, eth_stats, inm_stats, ing_stats, 200, 200, screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 40, false, current_board.cells[0][0]);
+        setImg(new Texture(Gdx.files.internal("img/arlenemini.png")));
+    }
 }

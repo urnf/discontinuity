@@ -23,7 +23,7 @@ public class Portrait extends Entity {
     Entity combos;
     Entity movestats;
 
-    public Portrait(Texture combo_img, int x, int y, int width, int height, int hover_x, int hover_y, int pointer_x_offset, int pointer_y_offset, int wrap_size, String hover_text) {
+    public Portrait(Contestant contestant, Texture combo_img, int x, int y, int width, int height, int hover_x, int hover_y, int pointer_x_offset, int pointer_y_offset, int wrap_size, String hover_text) {
         super(x, y, width, height);
         this.hover_x = hover_x;
         this.hover_y = hover_y;
@@ -44,12 +44,14 @@ public class Portrait extends Entity {
         // Entity has action on hover, add to hover list
         DiscGame.hover_list.add(this);
         DiscGame.shape_hover_list.add(this);
+
+        this.contestant = contestant;
     }
 
     // Not part of the constructor since it'll be null at Portrait instantiation
-    public void setContestant(Contestant contestant) {
-        this.contestant = contestant;
-    }
+    //public void setContestant(Contestant contestant) {
+    //    this.contestant = contestant;
+    //}
 
     public void drawHover(SpriteBatch batch) {
         DiscGame.text_font.drawWrapped(batch, hover_text, hover_x, hover_y, wrap_size);
