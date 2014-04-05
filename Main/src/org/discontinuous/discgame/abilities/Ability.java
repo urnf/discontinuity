@@ -1,8 +1,9 @@
-package org.discontinuous.discgame;
+package org.discontinuous.discgame.abilities;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import org.discontinuous.discgame.*;
 import org.discontinuous.discgame.StateHandling.State;
 
 /**
@@ -49,7 +50,7 @@ public class Ability extends Entity {
     public void drawShapeHover(ShapeRenderer shapes) {
         Tooltip.newTip(x + tooltip_x, y + tooltip_y,
                 tooltip_width, tooltip_height,
-                x + width/2, y + height/2,
+                x + width / 2, y + height / 2,
                 dark_grey, light_grey, false, shapes);
     }
 

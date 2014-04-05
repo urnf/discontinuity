@@ -2,6 +2,7 @@ package org.discontinuous.discgame;
 
 import com.badlogic.gdx.InputProcessor;
 import org.discontinuous.discgame.StateHandling.State;
+import org.discontinuous.discgame.abilities.Ability;
 
 /**
  * Created by Urk on 12/19/13.

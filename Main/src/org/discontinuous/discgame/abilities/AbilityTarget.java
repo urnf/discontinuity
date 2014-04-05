@@ -1,6 +1,9 @@
-package org.discontinuous.discgame;
+package org.discontinuous.discgame.abilities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import org.discontinuous.discgame.Cell;
+import org.discontinuous.discgame.DiscGame;
+import org.discontinuous.discgame.StateHandling;
 import org.discontinuous.discgame.StateHandling.State;
 
 /**

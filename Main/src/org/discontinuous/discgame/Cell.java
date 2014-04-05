@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.StateHandling.State;
+import org.discontinuous.discgame.abilities.AbilityTarget;
 
 import java.util.ArrayList;
 

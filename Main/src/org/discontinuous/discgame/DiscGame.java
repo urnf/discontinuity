@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import org.discontinuous.discgame.abilities.AbilitiesButton;
+import org.discontinuous.discgame.abilities.Ability;
+import org.discontinuous.discgame.abilities.AbilityEffect;
+import org.discontinuous.discgame.abilities.AbilityTarget;
 import org.yaml.snakeyaml.Yaml;
 import org.discontinuous.discgame.StateHandling.State;
 
@@ -69,8 +73,8 @@ public class DiscGame extends Game {
     static BitmapFont animation_font;
     static BitmapFont dialog_font;
     static BitmapFont text_font_small;
-    static int screen_width;
-    static int screen_height;
+    public static int screen_width;
+    public static int screen_height;
 
     static ArrayList<Entity> click_list;
     static ArrayList<Entity> hover_list;
@@ -80,8 +84,8 @@ public class DiscGame extends Game {
 
     static Texture movestats;
 
-    static final int BOARD_WIDTH = 4;
-    static final int BOARD_HEIGHT = 4;
+    public static final int BOARD_WIDTH = 4;
+    public static final int BOARD_HEIGHT = 4;
 
     static final int DESIRED_WIDTH = 800;
     static final int DESIRED_HEIGHT = 480;
@@ -164,8 +168,8 @@ public class DiscGame extends Game {
         dealpower = new DealPower();
 
         // Initialize stats for each contestant
-        setupYi();
-        setupArlene();
+        setupPlayer();
+        setupOpponent();
 
         // TODO: Need a better way of setting up cross references to each other, if we don't do this here there's a null ref
         yi.opponent = arlene;
@@ -317,7 +321,7 @@ public class DiscGame extends Game {
         arlene.draw_bar_counters(batch);
     }
 
-    public void setupYi() {
+    public void setupPlayer() {
         // Setup Contestant stats
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
             put("power", 100);
@@ -409,7 +413,7 @@ public class DiscGame extends Game {
         Ability.setup_ability_display(yi);
     }
 
-    public void setupArlene() {
+    public void setupOpponent() {
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
             put("power", 60);
             put("conf_plus", 0);

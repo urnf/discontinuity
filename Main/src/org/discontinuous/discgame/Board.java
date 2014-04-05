@@ -19,7 +19,7 @@ public class Board {
         LEFT, RIGHT, UP, DOWN
     }
 
-    static final int CELL_EDGE_SIZE = 48;
+    public static final int CELL_EDGE_SIZE = 48;
 
     // Asset texture size, independent of how large we want it
     static final int TEXTURE_EDGE = 64;

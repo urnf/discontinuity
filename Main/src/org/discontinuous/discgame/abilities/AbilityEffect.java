@@ -1,4 +1,9 @@
-package org.discontinuous.discgame;
+package org.discontinuous.discgame.abilities;
+
+import org.discontinuous.discgame.Cell;
+import org.discontinuous.discgame.Contestant;
+import org.discontinuous.discgame.DiscGame;
+import org.discontinuous.discgame.StateHandling;
 
 import java.util.Hashtable;
 

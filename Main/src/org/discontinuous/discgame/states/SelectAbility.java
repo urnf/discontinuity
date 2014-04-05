@@ -2,7 +2,7 @@ package org.discontinuous.discgame.states;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import org.discontinuous.discgame.Ability;
+import org.discontinuous.discgame.abilities.Ability;
 import org.discontinuous.discgame.DiscGame;
 import org.discontinuous.discgame.Tooltip;
 
