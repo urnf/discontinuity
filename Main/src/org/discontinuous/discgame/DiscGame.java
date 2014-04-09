@@ -13,6 +13,8 @@ import org.discontinuous.discgame.abilities.AbilitiesButton;
 import org.discontinuous.discgame.abilities.Ability;
 import org.discontinuous.discgame.abilities.AbilityEffect;
 import org.discontinuous.discgame.abilities.AbilityTarget;
+import org.discontinuous.discgame.contestants.Confucius;
+import org.discontinuous.discgame.contestants.Socrates;
 import org.yaml.snakeyaml.Yaml;
 import org.discontinuous.discgame.StateHandling.State;
 
@@ -42,8 +44,8 @@ public class DiscGame extends Game {
     // TODO: Giant pile of static variables.  OK for prototype, terrible design.
     static Board[][] boards;
     static Board current_board;
-    static public Contestant yi;
-    static public Contestant arlene;
+    static Contestant yi;
+    static Contestant arlene;
     static Portrait yi_portrait;
     static Portrait arlene_portrait;
     OrthographicCamera camera;
@@ -68,13 +70,13 @@ public class DiscGame extends Game {
     static BitmapFont header_font;
     static BitmapFont deal_font;
     static BitmapFont text_font;
-    static public BitmapFont movestats_font;
+    static BitmapFont movestats_font;
     static BitmapFont nightmare_font;
     static BitmapFont animation_font;
     static BitmapFont dialog_font;
     static BitmapFont text_font_small;
-    public static int screen_width;
-    public static int screen_height;
+    static int screen_width;
+    static int screen_height;
 
     static ArrayList<Entity> click_list;
     static ArrayList<Entity> hover_list;
@@ -84,8 +86,8 @@ public class DiscGame extends Game {
 
     static Texture movestats;
 
-    public static final int BOARD_WIDTH = 4;
-    public static final int BOARD_HEIGHT = 4;
+    static final int BOARD_WIDTH = 4;
+    static final int BOARD_HEIGHT = 4;
 
     static final int DESIRED_WIDTH = 800;
     static final int DESIRED_HEIGHT = 480;
@@ -322,6 +324,7 @@ public class DiscGame extends Game {
     }
 
     public void setupPlayer() {
+        Contestant player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, screen_width, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
         /* TODO: Remove.  Moved out to contestants.
         // Setup Contestant stats
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{

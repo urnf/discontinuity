@@ -14,6 +14,9 @@ import java.util.Hashtable;
  * Created by Urk on 4/4/14.
  */
 public class Socrates extends Contestant {
+    static int CONF_MAX = 100;
+    static int INSP_MAX = 140;
+
     // Setup Contestant stats
     static Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
         put("power", 100);
@@ -52,15 +55,17 @@ public class Socrates extends Contestant {
         add(new String[]{"Interrogate", "Intimidate"});
     }};
 
-    public Socrates( int coordinate,
-                     boolean isPlayer,
+    public Socrates( boolean isPlayer,
+                     int board_x,
+                     int board_y,
+                     int screen_width,
                      Cell cell) {
-        super(DiscGame.BOARD_WIDTH, DiscGame.BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 120, isPlayer, cell);
+        super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, CONF_MAX, INSP_MAX, screen_width/2 - (Board.CELL_EDGE_SIZE * board_x/2) - 120, isPlayer, cell);
 
         // Set up Socrates' combos
         this.set_combo(new Combo(combo_list));
 
-        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/yi-combos.png")), -120, 0, 500, 375, DiscGame.screen_width/2 - 250, 700, 220, 250, 500, "Socrates\n" +
+        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/yi-combos.png")), -120, 0, 500, 375, screen_width/2 - 250, 700, 220, 250, 500, "Socrates\n" +
                 "Nobody fucks with Socrates and gets away with it.\n\n" +
                 "\n" +
                 "Nobody.\n" +

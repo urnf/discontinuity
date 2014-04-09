@@ -13,6 +13,9 @@ import java.util.Hashtable;
  * Created by Urk on 4/4/14.
  */
 public class Confucius extends Contestant {
+    static int CONF_MAX = 110;
+    static int INSP_MAX = 130;
+
     static Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
         put("power", 60);
         put("conf_plus", 0);
@@ -51,15 +54,16 @@ public class Confucius extends Contestant {
     }};
 
 
-    public Confucius( int coordinate,
-                      boolean isPlayer,
+    public Confucius( boolean isPlayer,
+                      int board_x,
+                      int board_y,
+                      int screen_width,
                       Cell cell) {
-        super(DiscGame.BOARD_WIDTH, DiscGame.BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 120, isPlayer, cell);
-
+        super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, CONF_MAX, INSP_MAX, screen_width/2 - (Board.CELL_EDGE_SIZE * board_x/2) - 120, isPlayer, cell);
         // Set up Arlene's combos
         this.set_combo(new Combo(combo_list));
 
-        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/arlene-combos.png")), DiscGame.screen_width - 290,0, 300, 375, DiscGame.screen_width/2 - 250, 700, DiscGame.screen_width - 280, 250, 520, "Confucius\n" +
+        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 300, 375, screen_width/2 - 250, 700, screen_width - 280, 250, 520, "Confucius\n" +
                 "J.D. University of New Oxford\n" +
                 "Elecantos Legal Group\n" +
                 "Professor Emeritus, Harvard Mars Law Adjunct\n\n" +

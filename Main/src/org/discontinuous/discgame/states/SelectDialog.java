@@ -8,7 +8,8 @@ import org.discontinuous.discgame.Tooltip;
 /**
  * Created by Urk on 4/2/14.
  */
-public class SelectDialog {
+public class SelectDialog extends State {
+
     public static void drawShapes(ShapeRenderer shapes) {
         Tooltip.drawDialogBox(shapes);
     }

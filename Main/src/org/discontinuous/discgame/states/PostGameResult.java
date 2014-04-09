@@ -13,10 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Urk on 4/3/14.
  */
-public class PostGameResult {
-
-    static Color inner_color = Colors.ColorMap.get("dark_grey");
-    static Color outer_color = Colors.ColorMap.get("light_grey");
+public class PostGameResult extends State {
 
     public static void drawShapes(ShapeRenderer shapes, int screen_width)  {
         Tooltip.newTip(screen_width/2 - 200, 200, 400, 100, 260, 260, inner_color, outer_color, false, shapes);

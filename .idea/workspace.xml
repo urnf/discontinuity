@@ -88,11 +88,8 @@
       <file leaf-file-name="DiscGame.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="476" column="8" selection-start="19572" selection-end="20359" vertical-scroll-proportion="0.3872768" vertical-offset="5076" max-vertical-offset="7072">
-              <folding>
-                <element signature="method#setupPlayer#0;class#DiscGame#0" expanded="false" />
-                <element signature="method#setupOpponent#0;class#DiscGame#0" expanded="false" />
-              </folding>
+            <state line="462" column="31" selection-start="18640" selection-end="18811" vertical-scroll-proportion="3.768973" vertical-offset="4137" max-vertical-offset="9452">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -100,7 +97,7 @@
       <file leaf-file-name="Socrates.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/contestants/Socrates.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="0" selection-start="2201" selection-end="2201" vertical-scroll-proportion="0.0" vertical-offset="39" max-vertical-offset="2040">
+            <state line="62" column="94" selection-start="2134" selection-end="2134" vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="2125">
               <folding />
             </state>
           </provider>
@@ -109,7 +106,7 @@
       <file leaf-file-name="Confucius.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/contestants/Confucius.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="70" selection-start="3312" selection-end="3312" vertical-scroll-proportion="0.0" vertical-offset="379" max-vertical-offset="1275">
+            <state line="65" column="164" selection-start="2399" selection-end="2399" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1343">
               <folding />
             </state>
           </provider>
@@ -118,19 +115,16 @@
       <file leaf-file-name="Contestant.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Contestant.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="45" selection-start="2045" selection-end="2045" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="3910">
-              <folding>
-                <element signature="e#2277#2278#0" expanded="true" />
-                <element signature="e#2305#2306#0" expanded="true" />
-              </folding>
+            <state line="58" column="45" selection-start="2045" selection-end="2045" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="3910">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbilitiesButton.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/AbilitiesButton.java">
+      <file leaf-file-name="Ability.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/Ability.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="31" selection-start="638" selection-end="638" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="799">
+            <state line="17" column="4" selection-start="492" selection-end="492" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1819">
               <folding />
             </state>
           </provider>
@@ -168,28 +162,30 @@
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogOption.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Ability.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/AbilityTarget.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/SelectDialog.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Colors.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Cell.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Tooltip.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/SelectAbility.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogProcessor.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/InDialog.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameDialog.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/AbilityTargeting.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/AbilityDialog.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/AbilitiesButton.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Entity.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameSelect.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/EndGameOption.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameResult.java" />
-        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/StateHandling.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Board.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Contestant.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Portrait.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/State.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameResult.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/SelectDialog.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/AbilityDialog.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/AbilityTargeting.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/InDialog.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameSelect.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/SelectAbility.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/StateHandling.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/contestants/Socrates.java" />
         <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/contestants/Confucius.java" />
+        <option value="$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/Ability.java" />
       </list>
     </option>
   </component>
@@ -441,8 +437,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -547,6 +543,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -572,19 +581,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -682,7 +678,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1688" height="1030" extended-state="7" />
+    <frame x="-4" y="-4" width="1688" height="1030" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -738,16 +734,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="44" selection-start="2936" selection-end="2936" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="1581">
-          <folding>
-            <element signature="method#setupPlayer#0;class#DiscGame#0" expanded="false" />
-            <element signature="method#setupOpponent#0;class#DiscGame#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Board.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="61" column="9" selection-start="2354" selection-end="2354" vertical-scroll-proportion="0.0" vertical-offset="513" max-vertical-offset="1190">
@@ -772,10 +758,7 @@
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="62" column="61" selection-start="2440" selection-end="2440" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1326">
-          <folding>
-            <element signature="method#setupPlayer#0;class#DiscGame#0" expanded="false" />
-            <element signature="method#setupOpponent#0;class#DiscGame#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -789,10 +772,7 @@
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="62" column="61" selection-start="2440" selection-end="2440" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1326">
-          <folding>
-            <element signature="method#setupPlayer#0;class#DiscGame#0" expanded="false" />
-            <element signature="method#setupOpponent#0;class#DiscGame#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -806,10 +786,7 @@
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="84" selection-start="1415" selection-end="1415" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1190">
-          <folding>
-            <element signature="method#setupPlayer#0;class#DiscGame#0" expanded="false" />
-            <element signature="method#setupOpponent#0;class#DiscGame#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -897,43 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/AbilityTargeting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="100" selection-start="837" selection-end="837" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/AbilityDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="100" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/SelectAbility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="331" selection-end="331" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/SelectDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="13" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="13" selection-start="288" selection-end="288" vertical-scroll-proportion="0.22972973" vertical-offset="0" max-vertical-offset="740">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DialogOption.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="64" column="45" selection-start="2446" selection-end="2446" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="1377">
@@ -941,49 +881,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="8" selection-start="1550" selection-end="1550" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameSelect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="51" selection-start="910" selection-end="910" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Entity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="11" selection-start="483" selection-end="483" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1275">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/InDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="179" selection-start="1266" selection-end="1443" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="935">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/StateHandling.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="131" column="53" selection-start="5745" selection-end="5745" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3094">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#checkState#0;class#StateHandling#0" expanded="false" />
-            <element signature="method#animateGain#0;class#StateHandling#0" expanded="false" />
-            <element signature="method#set_yi_offset#0;class#StateHandling#0" expanded="false" />
-            <element signature="method#set_arlene_offset#0;class#StateHandling#0" expanded="false" />
-            <element signature="method#setup_endgame_options#0;class#StateHandling#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1029,40 +930,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Contestant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="45" selection-start="2045" selection-end="2045" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="3910">
-          <folding>
-            <element signature="e#2277#2278#0" expanded="true" />
-            <element signature="e#2305#2306#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Combo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="123" selection-start="590" selection-end="590" vertical-scroll-proportion="0.3179318" vertical-offset="0" max-vertical-offset="909">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/Ability.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="35" selection-start="3222" selection-end="3222" vertical-scroll-proportion="0.46875" vertical-offset="923" max-vertical-offset="1819">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/AbilityTarget.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="30" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.6358636" vertical-offset="0" max-vertical-offset="1394">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/AbilityEffect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="95" selection-start="2856" selection-end="2856" vertical-scroll-proportion="0.3080308" vertical-offset="740" max-vertical-offset="1649">
           <folding />
         </state>
       </provider>
@@ -1074,13 +944,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/AbilitiesButton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="31" selection-start="638" selection-end="638" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="867">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Portrait.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="53" column="6" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.69196427" vertical-offset="196" max-vertical-offset="1275">
@@ -1088,27 +951,138 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/AbilityTarget.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="30" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1394">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/AbilityEffect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="27" selection-start="1142" selection-end="1142" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1649">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/AbilityDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="12" selection-start="902" selection-end="902" vertical-scroll-proportion="0.2618262" vertical-offset="0" max-vertical-offset="909">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/AbilityTargeting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="12" selection-start="829" selection-end="829" vertical-scroll-proportion="0.2431243" vertical-offset="0" max-vertical-offset="909">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="13" selection-start="288" selection-end="288" vertical-scroll-proportion="0.1309131" vertical-offset="0" max-vertical-offset="909">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/InDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="16" selection-start="2169" selection-end="2169" vertical-scroll-proportion="0.6640625" vertical-offset="0" max-vertical-offset="896">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="24" selection-start="1142" selection-end="1142" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/SelectAbility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="41" selection-start="657" selection-end="657" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="112" selection-start="297" selection-end="297" vertical-scroll-proportion="0.16831683" vertical-offset="0" max-vertical-offset="909">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/SelectDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="27" selection-start="631" selection-end="631" vertical-scroll-proportion="0.2618262" vertical-offset="0" max-vertical-offset="909">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/states/PostGameSelect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="16" selection-start="1113" selection-end="1113" vertical-scroll-proportion="0.33663365" vertical-offset="0" max-vertical-offset="909">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/StateHandling.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="108" column="60" selection-start="4374" selection-end="4374" vertical-scroll-proportion="0.0" vertical-offset="1479" max-vertical-offset="3094">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#checkState#0;class#StateHandling#0" expanded="false" />
+            <element signature="method#animateGain#0;class#StateHandling#0" expanded="false" />
+            <element signature="method#set_yi_offset#0;class#StateHandling#0" expanded="false" />
+            <element signature="method#set_arlene_offset#0;class#StateHandling#0" expanded="false" />
+            <element signature="method#setup_endgame_options#0;class#StateHandling#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/AbilitiesButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="31" selection-start="638" selection-end="638" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="799">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/Contestant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="45" selection-start="2045" selection-end="2045" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="3910">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/contestants/Confucius.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="70" selection-start="3312" selection-end="3312" vertical-scroll-proportion="0.0" vertical-offset="379" max-vertical-offset="1275">
+        <state line="65" column="164" selection-start="2399" selection-end="2399" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1343">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/contestants/Socrates.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="0" selection-start="2201" selection-end="2201" vertical-scroll-proportion="0.0" vertical-offset="39" max-vertical-offset="2040">
+        <state line="62" column="94" selection-start="2134" selection-end="2134" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="2125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/abilities/Ability.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="4" selection-start="492" selection-end="492" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1819">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main/src/org/discontinuous/discgame/DiscGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="476" column="8" selection-start="19572" selection-end="20359" vertical-scroll-proportion="0.3872768" vertical-offset="5076" max-vertical-offset="7072">
-          <folding>
-            <element signature="method#setupPlayer#0;class#DiscGame#0" expanded="false" />
-            <element signature="method#setupOpponent#0;class#DiscGame#0" expanded="false" />
-          </folding>
+        <state line="462" column="31" selection-start="18640" selection-end="18811" vertical-scroll-proportion="3.768973" vertical-offset="4137" max-vertical-offset="9452">
+          <folding />
         </state>
       </provider>
     </entry>

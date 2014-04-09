@@ -99,31 +99,31 @@ public class StateHandling {
                 break;
             case InDialog:
                 if (currentSpeaker.player) {
-                    InDialog.drawBatch(batch, true, DiscGame.yi.cell.yi_dialog, DiscGame.yi.cell.arlene_resp_dialog, dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
+                    InDialog.drawBatch(batch, DiscGame.movestats_font, true, DiscGame.yi.cell.yi_dialog, DiscGame.yi.cell.arlene_resp_dialog, dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
                 }
                 else {
-                    InDialog.drawBatch(batch, false, DiscGame.arlene.cell.arlene_dialog, DiscGame.arlene.cell.yi_resp_dialog, dialog_width_offset, arlene_dialog_height_offset, yi_dialog_height_offset);
+                    InDialog.drawBatch(batch, DiscGame.movestats_font, false, DiscGame.arlene.cell.arlene_dialog, DiscGame.arlene.cell.yi_resp_dialog, dialog_width_offset, arlene_dialog_height_offset, yi_dialog_height_offset);
                 }
                 break;
             case SelectAbility:
-                SelectAbility.drawBatch(batch, DiscGame.screen_width);
+                SelectAbility.drawBatch(batch, DiscGame.yi, DiscGame.screen_width);
                 break;
             case AbilityTargeting:
-                AbilityTargeting.drawBatch(batch, yi_text, dialog_width_offset, yi_dialog_height_offset);
+                AbilityTargeting.drawBatch(batch, DiscGame.movestats_font, yi_text, dialog_width_offset, yi_dialog_height_offset);
                 break;
             case AbilityDialog:
-                AbilityDialog.drawBatch(batch, DiscGame.yi.ability_selected.dialog, dialog_width_offset, yi_dialog_height_offset);
+                AbilityDialog.drawBatch(batch, DiscGame.movestats_font, DiscGame.yi.ability_selected.dialog, dialog_width_offset, yi_dialog_height_offset);
                 break;
             case PostGameDialog:
                 if (DiscGame.dealpower.dp >= 0) {
-                    PostGameDialog.drawBatch(batch, true, "Why are we still talking?  I think it's time to resolve this.", "Definitely.", dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
+                    PostGameDialog.drawBatch(batch, DiscGame.movestats_font, true, "Why are we still talking?  I think it's time to resolve this.", "Definitely.", dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
                 }
                 else {
-                    PostGameDialog.drawBatch(batch, false, "This discussion is over.", "That seems so.", dialog_width_offset, arlene_dialog_height_offset, yi_dialog_height_offset);
+                    PostGameDialog.drawBatch(batch, DiscGame.movestats_font, false, "This discussion is over.", "That seems so.", dialog_width_offset, arlene_dialog_height_offset, yi_dialog_height_offset);
                 }
                 break;
             case PostGameSelect:
-                PostGameSelect.drawBatch(batch, DiscGame.endgame_options);
+                PostGameSelect.drawBatch(batch, DiscGame.movestats_font, DiscGame.endgame_options);
                 break;
             case PostGameResult:
                 PostGameResult.drawBatch(batch, selected_endgame_option, dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
