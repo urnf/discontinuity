@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.StateHandling.State;
 import org.discontinuous.discgame.abilities.Ability;
+import org.discontinuous.discgame.abilities.AbilityEffect;
+import org.discontinuous.discgame.abilities.AbilityTarget;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -26,7 +28,7 @@ public class Contestant extends Entity {
     boolean player;
     Contestant opponent;
     ArrayList<Cell> adjacent;
-    public ArrayList<Ability> abilities;
+    ArrayList<Ability> abilities;
     Ability ability_selected;
     Combo combo;
     Portrait portrait;
@@ -228,5 +230,26 @@ public class Contestant extends Entity {
             confidence = Math.max(confidence - 50, 0);
             inspiration = Math.max(inspiration - 50, 0);
         }
+    }
+
+    public void ability_click(Ability ability, AbilityEffect effect, AbilityTarget.targets target, String tooltip, String dialog) {
+        ability_selected = ability;
+        // If ability target is self, apply effect immediately
+        if (target == AbilityTarget.targets.self) {
+            // SPECIAL CASE FOR TABLEFLIP WOOOOOOO
+            // TODO: Fix this terrible special case
+            if (tooltip.contains("Tableflip")) { dialog = "Please be careful, I am about to flip my shit.\nRargh.\n(Yi hurls the table " + ((int)(Math.random() * 100) + 10) + " meters)"; }
+
+            effect.apply_effect(this, null);
+            StateHandling.set_yi_offset(dialog);
+            StateHandling.setState(State.AbilityDialog);
+        }
+        // If ability target is not self, go to ability targeting
+        else {
+            StateHandling.set_yi_offset(AbilityTarget.target_state_string());
+            StateHandling.setState(State.AbilityTargeting);
+        }
+        // Remove abilities from hover and click handling
+        Ability.remove_ability_response(DiscGame.hover_list, DiscGame.click_list, abilities);
     }
 }

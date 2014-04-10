@@ -48,9 +48,6 @@ public class StateHandling {
 
     static boolean combo;
 
-    static Color inner_color = Colors.ColorMap.get("dark_grey");
-    static Color outer_color = Colors.ColorMap.get("light_grey");
-
     public static void drawStateShapes(ShapeRenderer shapes) {
         switch(currentState) {
             case SelectDialog:
@@ -106,7 +103,7 @@ public class StateHandling {
                 }
                 break;
             case SelectAbility:
-                SelectAbility.drawBatch(batch, DiscGame.yi, DiscGame.screen_width);
+                SelectAbility.drawBatch(batch, DiscGame.yi.abilities, DiscGame.screen_width);
                 break;
             case AbilityTargeting:
                 AbilityTargeting.drawBatch(batch, DiscGame.movestats_font, yi_text, dialog_width_offset, yi_dialog_height_offset);
@@ -167,6 +164,10 @@ public class StateHandling {
     public static boolean checkState(State checkThis){
         if (currentState == checkThis) {return true;}
         return false;
+    }
+
+    public static void setState(State state) {
+        currentState = state;
     }
 
     public static void animateGain(SpriteBatch batch, boolean playerSpeaking) {

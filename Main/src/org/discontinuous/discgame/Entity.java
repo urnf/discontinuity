@@ -10,12 +10,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  * Presentation is coupled with the data at the moment, may separate out later
  */
 public class Entity {
+    // TODO: Make these not publically accessible, create methods instead for specific types of manipulation
     public int x;
     public int y;
     public int width;
     public int height;
     // Assign this to a generic error texture so that it's visible when unset and drawn
-    Sprite img = null;
+    public Sprite img = null;
 
     public Entity (int x, int y, int width, int height) {
         this.x = x;

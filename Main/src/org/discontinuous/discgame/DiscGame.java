@@ -324,7 +324,7 @@ public class DiscGame extends Game {
     }
 
     public void setupPlayer() {
-        Contestant player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, screen_width, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
+        Contestant player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, screen_width, movestats_font, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
         /* TODO: Remove.  Moved out to contestants.
         // Setup Contestant stats
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{

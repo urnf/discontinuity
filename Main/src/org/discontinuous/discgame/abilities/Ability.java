@@ -1,10 +1,13 @@
 package org.discontinuous.discgame.abilities;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.*;
-import org.discontinuous.discgame.StateHandling.State;
+
+import java.util.ArrayList;
 
 /**
  * Created by Urk on 2/3/14.
@@ -26,8 +29,9 @@ public class Ability extends Entity {
     int ins_cost;
     private boolean usable;
     Contestant contestant;
+    BitmapFont font;
 
-    public Ability (Contestant contestant, int width, int height, int ins_cost, AbilityTarget.targets target, AbilityEffect effect, String tooltip, String dialog) {
+    public Ability (Contestant contestant, BitmapFont font, int width, int height, int ins_cost, AbilityTarget.targets target, AbilityEffect effect, String tooltip, String dialog) {
         super(0, 0, width, height);
 
         this.tooltip = tooltip;
@@ -35,15 +39,18 @@ public class Ability extends Entity {
         this.target = target;
         this.effect = effect;
         this.ins_cost = ins_cost;
-        this.contestant = contestant;
+        this.contestant = contestant; //I REALLY don't like that this is coupled to contestant, but can't avoid for now
+        this.font = font; //same as above
     }
 
+    // TODO: Mixing up MVC here, Ability should remain a data model, and not have rendering code in it
     public void drawHover(SpriteBatch batch) {
-        DiscGame.text_font.drawWrapped(batch, tooltip, x + tooltip_x, y + tooltip_y + tooltip_height, tooltip_width);
+        //DiscGame.text_font
+        font.drawWrapped(batch, tooltip, x + tooltip_x, y + tooltip_y + tooltip_height, tooltip_width);
         if (!usable) {
-            DiscGame.text_font.setColor(red);
-            DiscGame.text_font.drawWrapped(batch, "Not enough inspiration for this ability!", x + tooltip_x, y + tooltip_y + tooltip_height - 70, tooltip_width);
-            DiscGame.text_font.setColor(white);
+            font.setColor(red);
+            font.drawWrapped(batch, "Not enough inspiration for this ability!", x + tooltip_x, y + tooltip_y + tooltip_height - 70, tooltip_width);
+            font.setColor(white);
         }
     }
 
@@ -61,45 +68,29 @@ public class Ability extends Entity {
 
     public void clickHandler() {
         if (!usable) { return; }
-        DiscGame.yi.ability_selected = this;
-        // If ability target is self, apply effect immediately
-        if (target == AbilityTarget.targets.self) {
-            // SPECIAL CASE FOR TABLEFLIP WOOOOOOO
-            if (tooltip.contains("Tableflip")) { dialog = "Please be careful, I am about to flip my shit.\nRargh.\n(Yi hurls the table " + ((int)(Math.random() * 100) + 10) + " meters)"; }
-
-            effect.apply_effect(contestant, null);
-            StateHandling.set_yi_offset(DiscGame.yi.ability_selected.dialog);
-            StateHandling.currentState = State.AbilityDialog;
-        }
-        // If ability target is not self, go to ability targeting
-        else {
-            StateHandling.set_yi_offset(AbilityTarget.target_state_string());
-            StateHandling.currentState = State.AbilityTargeting;
-        }
-        // Remove abilities from hover and click handling
-        remove_ability_response();
+        contestant.ability_click(this, effect, target, tooltip, dialog);
     }
 
-    public static void setup_ability_display(Contestant contestant) {
+    public static void setup_ability_display(ArrayList<Ability> abilities, int screen_width, Sprite ability_img) {
         int i = 0;
-        for (Ability ability : DiscGame.yi.abilities) {
-            ability.x = DiscGame.screen_width/2 - 230 + i * 68;
+        for (Ability ability : abilities) {
+            ability.x = screen_width/2 - 230 + i * 68;
             ability.y = 190;
-            ability.img.setPosition(DiscGame.screen_width/2 - 230 + i * 68, 190);
+            ability_img.setPosition(screen_width/2 - 230 + i * 68, 190);
             i++;
         }
     }
-    public static void add_ability_response() {
-        for (Ability ability : DiscGame.yi.abilities) {
-            DiscGame.hover_list.add(ability);
-            DiscGame.click_list.add(ability);
+    public static void add_ability_response(ArrayList<Entity> hover_list, ArrayList<Entity> click_list, ArrayList<Ability> abilities) {
+        for (Ability ability : abilities) {
+            hover_list.add(ability);
+            click_list.add(ability);
         }
     }
-    public static void remove_ability_response() {
+    public static void remove_ability_response(ArrayList<Entity> hover_list, ArrayList<Entity> click_list, ArrayList<Ability> abilities) {
         // Remove abilities from hover and click handling
-        for (Ability ability : DiscGame.yi.abilities) {
-            DiscGame.hover_list.remove(ability);
-            DiscGame.click_list.remove(ability);
+        for (Ability ability : abilities) {
+            hover_list.remove(ability);
+            click_list.remove(ability);
         }
     }
 }
