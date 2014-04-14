@@ -39,7 +39,7 @@ public class DialogProcessor implements InputProcessor {
                 StateHandling.advanceDialog();
                 return false;
             case AbilityDialog:
-                StateHandling.currentSpeaker = DiscGame.yi;
+                StateHandling.currentSpeaker = DiscGame.player;
                 StateHandling.advanceDialog();
                 return false;
             case PostGameDialog:

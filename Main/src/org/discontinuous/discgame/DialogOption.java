@@ -33,7 +33,7 @@ public class DialogOption extends Entity {
     // TODO: Stubbed these out, need a full sheet for options
 
         if (null != cell){
-            DiscGame.dialog_font.drawWrapped(batch, cell.yi_dialog, x, y_offset, width);
+            DiscGame.dialog_font.drawWrapped(batch, cell.player_dialog, x, y_offset, width);
             //setup_dialog_hover(cell);
             //setup_dialog_click(cell);
         }

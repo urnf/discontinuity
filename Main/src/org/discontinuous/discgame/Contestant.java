@@ -8,6 +8,7 @@ import org.discontinuous.discgame.abilities.AbilityEffect;
 import org.discontinuous.discgame.abilities.AbilityTarget;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Hashtable;
  */
 public class Contestant extends Entity {
     //Don't store board_x, board_y; grab from Cell
-    public Cell cell;
+    Cell cell;
     int confidence;
     int inspiration;
     int conf_max;
@@ -63,6 +64,8 @@ public class Contestant extends Entity {
         adjacent = new ArrayList();
         abilities = new ArrayList();
     }
+
+    public ArrayList<Ability> get_abilities() { return abilities; }
 
     public void set_combo(Combo combo) {
         this.combo = combo;
@@ -119,7 +122,7 @@ public class Contestant extends Entity {
             // for this to be adjacent to more than 4 cells
             DiscGame.dialog_options[i].cell = adjacent_cell;
             // Update combo status
-            DiscGame.dialog_options[i].will_combo = DiscGame.yi.combo.checkCombo(DiscGame.yi.cell, adjacent_cell);
+            DiscGame.dialog_options[i].will_combo = DiscGame.player.combo.checkCombo(DiscGame.player.cell, adjacent_cell);
             adjacent_cell.dialog_option = DiscGame.dialog_options[i];
             i++;
         }
@@ -147,10 +150,10 @@ public class Contestant extends Entity {
     public void update_position(Cell cell) {
         // Record current values of stats - player and opponent before effects
         StateHandling.previousPower = DiscGame.dealpower.dp;
-        StateHandling.previousPlayerConf = DiscGame.yi.confidence;
-        StateHandling.previousPlayerIns = DiscGame.yi.inspiration;
-        StateHandling.previousOpponentConf = DiscGame.arlene.confidence;
-        StateHandling.previousOpponentIns = DiscGame.arlene.inspiration;
+        StateHandling.previousPlayerConf = DiscGame.player.confidence;
+        StateHandling.previousPlayerIns = DiscGame.player.inspiration;
+        StateHandling.previousComputerConf = DiscGame.computer.confidence;
+        StateHandling.previousComputerIns = DiscGame.computer.inspiration;
 
         this.cell.consume();
         this.cell.occupied = false;
@@ -179,15 +182,14 @@ public class Contestant extends Entity {
         // Trigger dialog
         StateHandling.currentSpeaker = this;
         if (StateHandling.currentSpeaker.player) {
-            StateHandling.set_yi_offset(DiscGame.yi.cell.yi_dialog);
-            StateHandling.set_arlene_offset(DiscGame.yi.cell.arlene_resp_dialog);
+            StateHandling.set_yi_offset(DiscGame.player.cell.player_dialog);
+            StateHandling.set_arlene_offset(DiscGame.player.cell.computer_resp_dialog);
         }
         else {
-            StateHandling.set_yi_offset(DiscGame.arlene.cell.yi_resp_dialog);
-            StateHandling.set_arlene_offset(DiscGame.arlene.cell.arlene_dialog);
+            StateHandling.set_yi_offset(DiscGame.computer.cell.player_resp_dialog);
+            StateHandling.set_arlene_offset(DiscGame.computer.cell.computer_dialog);
         }
         StateHandling.currentState = State.InDialog;
-
 
         // Show bonus
         StateHandling.animation_counter = 0;
@@ -232,6 +234,7 @@ public class Contestant extends Entity {
         }
     }
 
+    // Called by an ability's click handler
     public void ability_click(Ability ability, AbilityEffect effect, AbilityTarget.targets target, String tooltip, String dialog) {
         ability_selected = ability;
         // If ability target is self, apply effect immediately
@@ -240,16 +243,70 @@ public class Contestant extends Entity {
             // TODO: Fix this terrible special case
             if (tooltip.contains("Tableflip")) { dialog = "Please be careful, I am about to flip my shit.\nRargh.\n(Yi hurls the table " + ((int)(Math.random() * 100) + 10) + " meters)"; }
 
-            effect.apply_effect(this, null);
+            apply_effect(effect, null);
             StateHandling.set_yi_offset(dialog);
             StateHandling.setState(State.AbilityDialog);
         }
         // If ability target is not self, go to ability targeting
         else {
-            StateHandling.set_yi_offset(AbilityTarget.target_state_string());
+            StateHandling.set_yi_offset(AbilityTarget.target_state_string(ability));
             StateHandling.setState(State.AbilityTargeting);
         }
         // Remove abilities from hover and click handling
         Ability.remove_ability_response(DiscGame.hover_list, DiscGame.click_list, abilities);
+    }
+
+    public void apply_effect(AbilityEffect effect, Cell new_cell) {
+        // Record current values of stats - player and opponent before effects
+        StateHandling.previousPower = DiscGame.dealpower.dp;
+        StateHandling.previousPlayerConf = DiscGame.player.confidence;
+        StateHandling.previousPlayerIns = DiscGame.player.inspiration;
+        StateHandling.previousComputerConf = DiscGame.computer.confidence;
+        StateHandling.previousComputerIns = DiscGame.computer.inspiration;
+
+        // TODO: Ugly.  Pass arguments in as a hash, maybe break apart.
+        HashMap<String, Integer> effects = effect.apply_effect(
+                this,
+                ability_selected,
+                cell.type,
+                confidence,
+                inspiration,
+                opponent.confidence,
+                opponent.inspiration,
+                log_stats,
+                eth_stats,
+                ing_stats,
+                inm_stats,
+                conf_max,
+                insp_max,
+                opponent.cell,
+                new_cell);
+
+        DiscGame.dealpower.update(effects.get("power"), player, cell.consumed);
+        confidence = effects.get("player_confidence");
+        opponent.confidence = effects.get("opponent_confidence");
+        inspiration = effects.get("player_inspiration");
+        opponent.inspiration = effects.get("opponent_inspiration");
+
+        // Show bonus
+        StateHandling.animation_counter = 0;
+        StateHandling.animation_max = 30;
+
+    }
+
+    public void refresh_consume_effect(Cell new_cell) {
+        cell.consumed = false;
+
+        //give combo bonus if legit combo for character and new cell is not consumed
+        if (combo.checkCombo(cell, new_cell)) {
+            // Get all the benefits of the previous cell except DP
+            update_stats(cell, true);
+            StateHandling.combo = true;
+        }
+        else {
+            StateHandling.combo = false;
+        }
+
+        update_stats(new_cell, false);
     }
 }

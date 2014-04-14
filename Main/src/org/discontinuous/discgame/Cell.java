@@ -44,10 +44,10 @@ public class Cell extends Entity {
 
     // Dialog, if applicable
     DialogOption dialog_option;
-    public String yi_dialog;
-    public String yi_resp_dialog;
-    public String arlene_dialog;
-    public String arlene_resp_dialog;
+    public String player_dialog;
+    public String player_resp_dialog;
+    public String computer_dialog;
+    public String computer_resp_dialog;
 
     // Adjacent cells
     ArrayList<Cell> adjacent;
@@ -89,11 +89,11 @@ public class Cell extends Entity {
 
         //Grab a line of dialog for each character involved
         String[] dialog_temp = DiscGame.topics.get(0).getYiDialog(this);
-        yi_dialog = dialog_temp[0];
-        arlene_resp_dialog = dialog_temp[1];
+        player_dialog = dialog_temp[0];
+        computer_resp_dialog = dialog_temp[1];
         dialog_temp = DiscGame.topics.get(0).getArleneDialog(this);
-        arlene_dialog = dialog_temp[0];
-        yi_resp_dialog = dialog_temp[1];
+        computer_dialog = dialog_temp[0];
+        player_resp_dialog = dialog_temp[1];
     }
 
     public void createAdjacentList(Cell[][] cells) {
@@ -120,7 +120,7 @@ public class Cell extends Entity {
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
-        if (DiscGame.yi.is_adjacent_to(this) && StateHandling.checkState(State.SelectDialog)) {
+        if (DiscGame.player.is_adjacent_to(this) && StateHandling.checkState(State.SelectDialog)) {
             dialog_option.drawShapeHover(shapes);
         }
     }
@@ -129,10 +129,10 @@ public class Cell extends Entity {
         if (StateHandling.checkState(State.PostGameSelect)) { return; }
         // If in ability targeting selection
         if (StateHandling.checkState(State.AbilityTargeting)) {
-            AbilityTarget.target_cell_hover(this, batch);
+            AbilityTarget.target_cell_hover(DiscGame.player, DiscGame.player.ability_selected, this, consumed, batch);
         }
         // If the cell is adjacent to the player, scale it up and redraw on top
-        if (DiscGame.yi.is_adjacent_to(this)&& StateHandling.checkState(State.SelectDialog)) {
+        if (DiscGame.player.is_adjacent_to(this)&& StateHandling.checkState(State.SelectDialog)) {
             enlargeCell(batch);
             //Redraw so that the shape doesn't cover text
             dialog_option.drawDialogOption(batch);
@@ -164,13 +164,13 @@ public class Cell extends Entity {
         }
 
         // player can't travel otherwise if not adjacent
-        if (DiscGame.yi.is_adjacent_to(this) && StateHandling.checkState(State.SelectDialog)) {
-            DiscGame.yi.update_position(this);
+        if (DiscGame.player.is_adjacent_to(this) && StateHandling.checkState(State.SelectDialog)) {
+            DiscGame.player.update_position(this);
         }
 
         // If in ability targeting selection
         if (StateHandling.checkState(State.AbilityTargeting)) {
-            AbilityTarget.target_cell_click(this);
+            AbilityTarget.target_cell_click(DiscGame.player, DiscGame.player.ability_selected, this, consumed);
         }
     }
 

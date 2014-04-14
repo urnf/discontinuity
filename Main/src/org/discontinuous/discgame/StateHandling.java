@@ -25,8 +25,8 @@ public class StateHandling {
     static int previousPower;
     static int previousPlayerConf;
     static int previousPlayerIns;
-    static int previousOpponentConf;
-    static int previousOpponentIns;
+    static int previousComputerConf;
+    static int previousComputerIns;
 
     private static int conf_plus_x;
     private static int ins_plus_x;
@@ -38,12 +38,12 @@ public class StateHandling {
     private static String ins_plus_string;
     private static String ins_minus_string;
 
-    public static int yi_dialog_height_offset;
-    public static int arlene_dialog_height_offset;
+    public static int player_dialog_height_offset;
+    public static int computer_dialog_height_offset;
     public static int dialog_width_offset =  DiscGame.screen_width/2 - 190;
 
-    private static String yi_text;
-    private static String arlene_text;
+    private static String player_text;
+    private static String computer_text;
     public static EndGameOption selected_endgame_option;
 
     static boolean combo;
@@ -96,62 +96,62 @@ public class StateHandling {
                 break;
             case InDialog:
                 if (currentSpeaker.player) {
-                    InDialog.drawBatch(batch, DiscGame.movestats_font, true, DiscGame.yi.cell.yi_dialog, DiscGame.yi.cell.arlene_resp_dialog, dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
+                    InDialog.drawBatch(batch, DiscGame.movestats_font, true, DiscGame.player.cell.player_dialog, DiscGame.player.cell.computer_resp_dialog, dialog_width_offset, player_dialog_height_offset, computer_dialog_height_offset);
                 }
                 else {
-                    InDialog.drawBatch(batch, DiscGame.movestats_font, false, DiscGame.arlene.cell.arlene_dialog, DiscGame.arlene.cell.yi_resp_dialog, dialog_width_offset, arlene_dialog_height_offset, yi_dialog_height_offset);
+                    InDialog.drawBatch(batch, DiscGame.movestats_font, false, DiscGame.computer.cell.computer_dialog, DiscGame.computer.cell.player_resp_dialog, dialog_width_offset, computer_dialog_height_offset, player_dialog_height_offset);
                 }
                 break;
             case SelectAbility:
-                SelectAbility.drawBatch(batch, DiscGame.yi.abilities, DiscGame.screen_width);
+                SelectAbility.drawBatch(batch, DiscGame.player.abilities, DiscGame.screen_width);
                 break;
             case AbilityTargeting:
-                AbilityTargeting.drawBatch(batch, DiscGame.movestats_font, yi_text, dialog_width_offset, yi_dialog_height_offset);
+                AbilityTargeting.drawBatch(batch, DiscGame.movestats_font, player_text, dialog_width_offset, player_dialog_height_offset);
                 break;
             case AbilityDialog:
-                AbilityDialog.drawBatch(batch, DiscGame.movestats_font, DiscGame.yi.ability_selected.dialog, dialog_width_offset, yi_dialog_height_offset);
+                AbilityDialog.drawBatch(batch, DiscGame.movestats_font, DiscGame.player.ability_selected, dialog_width_offset, player_dialog_height_offset);
                 break;
             case PostGameDialog:
                 if (DiscGame.dealpower.dp >= 0) {
-                    PostGameDialog.drawBatch(batch, DiscGame.movestats_font, true, "Why are we still talking?  I think it's time to resolve this.", "Definitely.", dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
+                    PostGameDialog.drawBatch(batch, DiscGame.movestats_font, true, "Why are we still talking?  I think it's time to resolve this.", "Definitely.", dialog_width_offset, player_dialog_height_offset, computer_dialog_height_offset);
                 }
                 else {
-                    PostGameDialog.drawBatch(batch, DiscGame.movestats_font, false, "This discussion is over.", "That seems so.", dialog_width_offset, arlene_dialog_height_offset, yi_dialog_height_offset);
+                    PostGameDialog.drawBatch(batch, DiscGame.movestats_font, false, "This discussion is over.", "That seems so.", dialog_width_offset, computer_dialog_height_offset, player_dialog_height_offset);
                 }
                 break;
             case PostGameSelect:
                 PostGameSelect.drawBatch(batch, DiscGame.movestats_font, DiscGame.endgame_options);
                 break;
             case PostGameResult:
-                PostGameResult.drawBatch(batch, selected_endgame_option, dialog_width_offset, yi_dialog_height_offset, arlene_dialog_height_offset);
+                PostGameResult.drawBatch(batch, selected_endgame_option, dialog_width_offset, player_dialog_height_offset, computer_dialog_height_offset);
                 //Redraw portraits on top of everything else
-                DiscGame.yi_portrait.draw(batch);
-                DiscGame.arlene_portrait.draw(batch);
+                DiscGame.player.portrait.draw(batch);
+                DiscGame.computer.portrait.draw(batch);
                 break;
         }
 
     }
 
     public static void advanceDialog(){
-        if (currentSpeaker.player) { DiscGame.current_board.move_arlene(); }
+        if (currentSpeaker.player) { DiscGame.current_board.move_computer(); }
         else {
             // For player character: update the new cells considered adjacent
-            DiscGame.yi.adjacent = DiscGame.yi.cell.unoccupied_cells();
-            DiscGame.yi.update_dialog_options();
-            DiscGame.yi.update_abilities();
+            DiscGame.player.adjacent = DiscGame.player.cell.unoccupied_cells();
+            DiscGame.player.update_dialog_options();
+            DiscGame.player.update_abilities();
 
             // Check to see if it's game over
-            if (DiscGame.arlene.confidence <= 0) {
+            if (DiscGame.computer.confidence <= 0) {
                 DiscGame.dealpower.dp += 1000;
-                set_yi_offset(yi_text);
-                set_arlene_offset(arlene_text);
+                set_yi_offset(player_text);
+                set_arlene_offset(computer_text);
                 currentState = State.PostGameDialog;
                 return;
             }
-            if (DiscGame.yi.confidence <= 0) {
+            if (DiscGame.player.confidence <= 0) {
                 DiscGame.dealpower.dp -= 1000;
-                set_yi_offset(yi_text);
-                set_arlene_offset(arlene_text);
+                set_yi_offset(player_text);
+                set_arlene_offset(computer_text);
                 currentState = State.PostGameDialog;
                 return;
             }
@@ -179,20 +179,20 @@ public class StateHandling {
                 ins_plus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 76;
                 conf_minus_x =  DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 44;
                 ins_minus_x = DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 84;
-                conf_plus_string = Integer.toString(DiscGame.yi.confidence - previousPlayerConf);
-                ins_plus_string = Integer.toString(DiscGame.yi.inspiration - previousPlayerIns);
-                conf_minus_string = Integer.toString(DiscGame.arlene.confidence - previousOpponentConf);
-                ins_minus_string = Integer.toString(DiscGame.arlene.inspiration - previousOpponentIns);
+                conf_plus_string = Integer.toString(DiscGame.player.confidence - previousPlayerConf);
+                ins_plus_string = Integer.toString(DiscGame.player.inspiration - previousPlayerIns);
+                conf_minus_string = Integer.toString(DiscGame.computer.confidence - previousComputerConf);
+                ins_minus_string = Integer.toString(DiscGame.computer.inspiration - previousComputerIns);
             }
             else {
                 conf_plus_x = DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 44;
                 ins_plus_x =  DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 84;
                 conf_minus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 116;
                 ins_minus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 76;
-                conf_plus_string = Integer.toString(DiscGame.arlene.confidence - previousOpponentConf);
-                ins_plus_string = Integer.toString(DiscGame.arlene.inspiration - previousOpponentIns);
-                conf_minus_string = Integer.toString(DiscGame.yi.confidence - previousPlayerConf);
-                ins_minus_string = Integer.toString(DiscGame.yi.inspiration - previousPlayerIns);
+                conf_plus_string = Integer.toString(DiscGame.computer.confidence - previousComputerConf);
+                ins_plus_string = Integer.toString(DiscGame.computer.inspiration - previousComputerIns);
+                conf_minus_string = Integer.toString(DiscGame.player.confidence - previousPlayerConf);
+                ins_minus_string = Integer.toString(DiscGame.player.inspiration - previousPlayerIns);
             }
             DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.dealpower.dp - previousPower), DiscGame.dealpower.x, DiscGame.screen_height/2 - 20 + animation_counter/animation_coefficient, 380);
             DiscGame.animation_font.drawWrapped(batch, conf_plus_string, conf_plus_x, 420 + animation_counter/animation_coefficient, 380);
@@ -207,13 +207,13 @@ public class StateHandling {
     }
 
     public static void set_yi_offset(String text) {
-        yi_text = text;
-        yi_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 380).height)/2));
+        player_text = text;
+        player_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 380).height)/2));
     }
 
     public static void set_arlene_offset(String text) {
-        arlene_text = text;
-        arlene_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 380).height)/2));
+        computer_text = text;
+        computer_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 380).height)/2));
     }
 
     public static void setup_endgame_options() {

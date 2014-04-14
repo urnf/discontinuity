@@ -228,7 +228,7 @@ public class Board {
         }
     }
 
-    public void move_arlene() {
-        DiscGame.arlene.update_position(DiscGame.arlene_ai.find_next_move());
+    public void move_computer() {
+        DiscGame.computer.update_position(DiscGame.computer_ai.find_next_move());
     }
 }

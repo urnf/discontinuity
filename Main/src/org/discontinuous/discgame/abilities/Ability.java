@@ -61,6 +61,10 @@ public class Ability extends Entity {
                 dark_grey, light_grey, false, shapes);
     }
 
+    public void drawDialog(SpriteBatch batch, int width_offset, int height_offset, int width) {
+        font.drawWrapped(batch, dialog, width_offset, height_offset, width);
+    }
+
     public void update_usability(int inspiration) {
         if (inspiration < ins_cost) { usable = false; }
         else { usable = true; }
@@ -71,12 +75,12 @@ public class Ability extends Entity {
         contestant.ability_click(this, effect, target, tooltip, dialog);
     }
 
-    public static void setup_ability_display(ArrayList<Ability> abilities, int screen_width, Sprite ability_img) {
+    public static void setup_ability_display(ArrayList<Ability> abilities, int screen_width) {
         int i = 0;
         for (Ability ability : abilities) {
             ability.x = screen_width/2 - 230 + i * 68;
             ability.y = 190;
-            ability_img.setPosition(screen_width/2 - 230 + i * 68, 190);
+            ability.img.setPosition(screen_width/2 - 230 + i * 68, 190);
             i++;
         }
     }

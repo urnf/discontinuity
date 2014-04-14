@@ -5,6 +5,7 @@ import org.discontinuous.discgame.Contestant;
 import org.discontinuous.discgame.DiscGame;
 import org.discontinuous.discgame.StateHandling;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 
 /**
@@ -28,69 +29,68 @@ public class AbilityEffect {
         this.move_to_cell = move_to_cell;
     }
 
-    public void apply_effect(Contestant contestant, Cell cell){
-        // Record current values of stats - player and opponent before effects
-        StateHandling.previousPower = DiscGame.dealpower.dp;
-        StateHandling.previousPlayerConf = DiscGame.yi.confidence;
-        StateHandling.previousPlayerIns = DiscGame.yi.inspiration;
-        StateHandling.previousOpponentConf = DiscGame.arlene.confidence;
-        StateHandling.previousOpponentIns = DiscGame.arlene.inspiration;
-
+    public HashMap<String, Integer> apply_effect(Contestant contestant,
+                              Ability ability_selected,
+                              Cell.concepts type,
+                              int player_confidence,
+                              int player_inspiration,
+                              int opponent_confidence,
+                              int opponent_inspiration,
+                              Hashtable<String, Integer> log_stats,
+                              Hashtable<String, Integer> eth_stats,
+                              Hashtable<String, Integer> ing_stats,
+                              Hashtable<String, Integer> inm_stats,
+                              int conf_max,
+                              int insp_max,
+                              Cell opponent_cell,
+                              Cell new_cell){
         // Null protect, though I'm tempted to pull out to expose bugs
-        if (null != cell && move_to_cell) {
-            DiscGame.yi.update_only_position(cell);
+        if (null != new_cell && move_to_cell) {
+            contestant.update_only_position(new_cell);
         }
 
         // Deduct the inspiration cost
-        contestant.inspiration -= contestant.ability_selected.ins_cost;
+        player_inspiration -= ability_selected.ins_cost;
 
+        int dp = 0;
         // Apply the effect
         switch (effect) {
             case multiply_all:
                 Hashtable<String, Integer> stats;
-                switch (cell.type) {
-                    case Logical: stats = contestant.log_stats; break;
-                    case Ethical: stats = contestant.eth_stats; break;
-                    case Interrogate: stats = contestant.ing_stats; break;
-                    case Intimidate: stats = contestant.inm_stats; break;
+                switch (type) {
+                    case Logical: stats = log_stats; break;
+                    case Ethical: stats = eth_stats; break;
+                    case Interrogate: stats = ing_stats; break;
+                    case Intimidate: stats = inm_stats; break;
                     // Will lead to exceptions - intentional
                     default: stats = null; break;
                 }
-                DiscGame.dealpower.update(stats.get("power") * magnitude, contestant.player, cell.consumed);
-                contestant.confidence = Math.min(contestant.confidence + stats.get("conf_plus") * magnitude, contestant.conf_max);
-                contestant.opponent.confidence = Math.max(contestant.opponent.confidence - stats.get("conf_minus") * magnitude, 0);
-                contestant.inspiration = Math.min(contestant.inspiration + stats.get("ins_plus") * magnitude, contestant.insp_max);
-                contestant.opponent.inspiration = Math.max(contestant.opponent.inspiration - stats.get("ins_minus") * magnitude, 0);
+                dp = stats.get("power") * magnitude;
+                player_confidence = Math.min(player_confidence + stats.get("conf_plus") * magnitude, conf_max);
+                opponent_confidence = Math.max(opponent_confidence - stats.get("conf_minus") * magnitude, 0);
+                player_inspiration = Math.min(player_inspiration + stats.get("ins_plus") * magnitude, insp_max);
+                opponent_inspiration = Math.max(opponent_inspiration - stats.get("ins_minus") * magnitude, 0);
                 break;
             case conf_damage:
-                contestant.opponent.confidence = Math.max(contestant.opponent.confidence - magnitude, 0);
+                opponent_confidence = Math.max(opponent_confidence - magnitude, 0);
                 break;
             case aoe_consume:
                 // Adjacent cells, not unoccupied cells, though no difference in game mechanics
-                for (Cell adjacent_cell : contestant.opponent.cell.adjacent_cells()) {
+                for (Cell adjacent_cell : opponent_cell.adjacent_cells()) {
                     adjacent_cell.consume();
                 }
                 break;
             case refresh_consume:
-                cell.consumed = false;
-
-                //give combo bonus if legit combo for character and new cell is not consumed
-                if (contestant.combo.checkCombo(contestant.cell, cell)) {
-                    // Get all the benefits of the previous cell except DP
-                    contestant.update_stats(contestant.cell, true);
-                    StateHandling.combo = true;
-                }
-                else {
-                    StateHandling.combo = false;
-                }
-
-                contestant.update_stats(cell, false);
+                contestant.refresh_consume_effect(new_cell);
                 break;
             default:
         }
-        // Show bonus
-        StateHandling.animation_counter = 0;
-        StateHandling.animation_max = 30;
-
+        HashMap<String, Integer> return_hash = new HashMap<String, Integer>();
+        return_hash.put("dp", dp);
+        return_hash.put("player_confidence", player_confidence);
+        return_hash.put("player_inspiration", player_inspiration);
+        return_hash.put("opponent_confidence", opponent_confidence);
+        return_hash.put("opponent_inspiration", opponent_inspiration);
+        return return_hash;
     }
 }

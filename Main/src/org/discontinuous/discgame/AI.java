@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 public class AI {
-    Contestant opponent;
+    Contestant computer;
     Contestant player;
     // This is how many steps ahead the AI looks for pathfinding.
     // Exponentially takes more time the more iterations there are, so keep this low
@@ -31,9 +31,9 @@ public class AI {
     int ins_plus_weight = 2;
     int ins_minus_weight = 2;
 
-    public AI(Contestant opponent, Contestant player) {
+    public AI(Contestant computer, Contestant player) {
         // Set up the Contestant as the opponent
-        this.opponent = opponent;
+        this.computer = computer;
         this.player = player;
         possible_moves = new HashMap<Cell, Float>();
     }
@@ -45,13 +45,13 @@ public class AI {
         max_cell = null;
         possible_moves.clear();
 
-        opponent.adjacent = opponent.cell.unoccupied_cells();
-        for (Cell cell : opponent.adjacent) {
+        computer.adjacent = computer.cell.unoccupied_cells();
+        for (Cell cell : computer.adjacent) {
             ArrayList<Cell> previousCells = new ArrayList<Cell>();
-            previousCells.add(opponent.cell);
+            previousCells.add(computer.cell);
             // If combo, add in bonus - regardless of cell consumption state
-            if (opponent.combo.checkCombo(opponent.cell, cell)) {
-                possible_moves.put(cell, sum_move_options(cell, previousCells) + (getBonuses(opponent.cell)));
+            if (computer.combo.checkCombo(computer.cell, cell)) {
+                possible_moves.put(cell, sum_move_options(cell, previousCells) + (getBonuses(computer.cell)));
             }
             else {
                 possible_moves.put(cell, sum_move_options(cell, previousCells));
@@ -94,7 +94,7 @@ public class AI {
                 new_cells.add(adjacent);
 
                 // Factor in combos if not consumed and not previously shown up in recursion
-                if (opponent.combo.checkCombo(cell, adjacent) && !previousCells.contains(adjacent)) { total += getBonuses(cell) * weight ; }
+                if (computer.combo.checkCombo(cell, adjacent) && !previousCells.contains(adjacent)) { total += getBonuses(cell) * weight ; }
 
                 // Recursively add the score in
                 total += sum_move_options(adjacent, new_cells);
@@ -103,7 +103,7 @@ public class AI {
         else {
             for (Cell adjacent : adjacent_cells) {
                 // Factor in combos if not consumed
-                if (opponent.combo.checkCombo(cell, adjacent)) { total += getBonusOrPenalty(cell, previousCells.contains(adjacent)) * weight ; }
+                if (computer.combo.checkCombo(cell, adjacent)) { total += getBonusOrPenalty(cell, previousCells.contains(adjacent)) * weight ; }
                 total += getBonusOrPenalty(adjacent, previousCells.contains(adjacent)) * weight;
             }
         }
@@ -121,8 +121,8 @@ public class AI {
         // if consumed either in the previous cells list or already marked on board, no bonuses and DP penalty instead.
         if (cell.consumed || previously_consumed) {
             return -1 * DealPower.consume_penalty * backtrack_dp_weight +
-                    -50 * conf_plus_weight * (1 - ((float) opponent.confidence/opponent.conf_max)) +
-                    -50 * ins_plus_weight * (1 - ((float) opponent.inspiration/opponent.insp_max));
+                    -50 * conf_plus_weight * (1 - ((float) computer.confidence/computer.conf_max)) +
+                    -50 * ins_plus_weight * (1 - ((float) computer.inspiration/computer.insp_max));
         }
         return getBonuses(cell);
     }
@@ -137,41 +137,41 @@ public class AI {
         // Weight conf_plus more if confidence is low, and like so for each of the stats
         switch (cell.type) {
             case Logical:
-                power = opponent.log_stats.get("power");
-                conf_plus = opponent.log_stats.get("conf_plus");
-                conf_minus = opponent.log_stats.get("conf_minus");
-                ins_plus = opponent.log_stats.get("ins_plus");
-                ins_minus = opponent.log_stats.get("ins_minus");
+                power = computer.log_stats.get("power");
+                conf_plus = computer.log_stats.get("conf_plus");
+                conf_minus = computer.log_stats.get("conf_minus");
+                ins_plus = computer.log_stats.get("ins_plus");
+                ins_minus = computer.log_stats.get("ins_minus");
                 break;
             case Ethical:
-                power = opponent.eth_stats.get("power");
-                conf_plus = opponent.eth_stats.get("conf_plus");
-                conf_minus = opponent.eth_stats.get("conf_minus");
-                ins_plus = opponent.eth_stats.get("ins_plus");
-                ins_minus = opponent.eth_stats.get("ins_minus");
+                power = computer.eth_stats.get("power");
+                conf_plus = computer.eth_stats.get("conf_plus");
+                conf_minus = computer.eth_stats.get("conf_minus");
+                ins_plus = computer.eth_stats.get("ins_plus");
+                ins_minus = computer.eth_stats.get("ins_minus");
                 break;
             case Interrogate:
-                power = opponent.ing_stats.get("power");
-                conf_plus = opponent.ing_stats.get("conf_plus");
-                conf_minus = opponent.ing_stats.get("conf_minus");
-                ins_plus = opponent.ing_stats.get("ins_plus");
-                ins_minus = opponent.ing_stats.get("ins_minus");
+                power = computer.ing_stats.get("power");
+                conf_plus = computer.ing_stats.get("conf_plus");
+                conf_minus = computer.ing_stats.get("conf_minus");
+                ins_plus = computer.ing_stats.get("ins_plus");
+                ins_minus = computer.ing_stats.get("ins_minus");
                 break;
             case Intimidate:
-                power = opponent.inm_stats.get("power");
-                conf_plus = opponent.inm_stats.get("conf_plus");
-                conf_minus = opponent.inm_stats.get("conf_minus");
-                ins_plus = opponent.inm_stats.get("ins_plus");
-                ins_minus = opponent.inm_stats.get("ins_minus");
+                power = computer.inm_stats.get("power");
+                conf_plus = computer.inm_stats.get("conf_plus");
+                conf_minus = computer.inm_stats.get("conf_minus");
+                ins_plus = computer.inm_stats.get("ins_plus");
+                ins_minus = computer.inm_stats.get("ins_minus");
                 break;
         }
         return (power * dp_weight +
                 // Weighting: More confidence means getting confidence is less important
-                conf_plus * conf_plus_weight * (1 - ((float) opponent.confidence/opponent.conf_max)) +
+                conf_plus * conf_plus_weight * (1 - ((float) computer.confidence/computer.conf_max)) +
                 // Opponent having more confidence means confidence becomes a higher priority
                 conf_minus * conf_minus_weight * ((float) player.confidence/player.conf_max) +
                 // Likewise for inspiration
-                ins_plus * ins_plus_weight * (1 - ((float) opponent.inspiration/opponent.insp_max)) +
+                ins_plus * ins_plus_weight * (1 - ((float) computer.inspiration/computer.insp_max)) +
                 ins_minus * ins_minus_weight * ((float) player.inspiration/player.insp_max));
     }
 }

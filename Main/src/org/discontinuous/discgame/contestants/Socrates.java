@@ -82,9 +82,9 @@ public class Socrates extends Contestant {
         setImg(new Texture(Gdx.files.internal("img/zhugemini.png")));
 
         // Init AbilityList abilities here
-        AbilityList.init_abilities(this, font);
+        AbilityList.init_abilities(this, get_abilities(), font);
 
-        Ability.setup_ability_display(abilities, screen_width);
+        Ability.setup_ability_display(get_abilities(), screen_width);
 
     }
 }

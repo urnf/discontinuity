@@ -9,10 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import org.discontinuous.discgame.abilities.AbilitiesButton;
-import org.discontinuous.discgame.abilities.Ability;
-import org.discontinuous.discgame.abilities.AbilityEffect;
-import org.discontinuous.discgame.abilities.AbilityTarget;
+import org.discontinuous.discgame.abilities.*;
 import org.discontinuous.discgame.contestants.Confucius;
 import org.discontinuous.discgame.contestants.Socrates;
 import org.yaml.snakeyaml.Yaml;
@@ -44,10 +41,8 @@ public class DiscGame extends Game {
     // TODO: Giant pile of static variables.  OK for prototype, terrible design.
     static Board[][] boards;
     static Board current_board;
-    static Contestant yi;
-    static Contestant arlene;
-    static Portrait yi_portrait;
-    static Portrait arlene_portrait;
+    static Contestant player;
+    static Contestant computer;
     OrthographicCamera camera;
     SpriteBatch batch;
     ShapeRenderer shapes;
@@ -58,7 +53,7 @@ public class DiscGame extends Game {
     Icon inspiration_icon_player;
     Icon inspiration_icon_opponent;
     static AbilitiesButton abilities_button;
-    static AI arlene_ai;
+    static AI computer_ai;
 
     static DialogOption[] dialog_options;
 
@@ -149,7 +144,6 @@ public class DiscGame extends Game {
 
         // Setup board and character entities - may need new entity subclass for characters
         // These are created and added to the hover list in order from top to bottom - so no need for layer.
-        setupPortraits();
 
         // Setup a 3x3 board set.
         // TODO: Move out into constants, but I don't foresee being anything other than 3 x 3
@@ -162,6 +156,8 @@ public class DiscGame extends Game {
         Board.link_boards(boards);
         boards[1][1].set_current_board();
 
+        setupPlayer();
+        setupOpponent();
 
         // Setup dialog option hovers
         setupDialogEntities();
@@ -169,22 +165,18 @@ public class DiscGame extends Game {
         // Setup Deal Power counter
         dealpower = new DealPower();
 
-        // Initialize stats for each contestant
-        setupPlayer();
-        setupOpponent();
-
         // TODO: Need a better way of setting up cross references to each other, if we don't do this here there's a null ref
-        yi.opponent = arlene;
-        arlene.opponent = yi;
-        yi.adjacent = yi.cell.unoccupied_cells();
-        yi.update_dialog_options();
-        yi.update_abilities();
+        player.opponent = computer;
+        computer.opponent = player;
+        player.adjacent = player.cell.unoccupied_cells();
+        player.update_dialog_options();
+        player.update_abilities();
 
         // Setup AI class so Arlene doesn't wander randomly.
-        arlene_ai = new AI(arlene, yi);
+        computer_ai = new AI(computer, player);
 
         // Setup ability button
-        abilities_button = new AbilitiesButton(110, 380, 64, 64);
+        abilities_button = new AbilitiesButton(110, 380, 64, 64, hover_list, click_list, player.abilities, movestats_font);
         abilities_button.setImg(new Texture(Gdx.files.internal("img/abilities.png")));
 
         DialogProcessor inputProcessor = new DialogProcessor();
@@ -280,16 +272,16 @@ public class DiscGame extends Game {
     }
 
     public void drawShapesCore() {
-        yi.draw_confidence(shapes);
-        yi.draw_inspiration(shapes);
-        arlene.draw_confidence(shapes);
-        arlene.draw_inspiration(shapes);
+        player.draw_confidence(shapes);
+        player.draw_inspiration(shapes);
+        computer.draw_confidence(shapes);
+        computer.draw_inspiration(shapes);
     }
 
     public void drawBatchCore() {
         // Draw characters - order matters since hover states are affected
-        yi_portrait.draw(batch);
-        arlene_portrait.draw(batch);
+        player.portrait.draw(batch);
+        computer.portrait.draw(batch);
 
         // Draw the board & Board topics
 
@@ -306,8 +298,8 @@ public class DiscGame extends Game {
         inspiration_icon_opponent.draw(batch);
 
         // Draw contestants
-        yi.draw(batch);
-        arlene.draw(batch);
+        player.draw(batch);
+        computer.draw(batch);
 
         // TOPIC FOR DEBATE
         //header_font.draw(batch, "Resolved: That Prof. Elecantos should not horribly murder us and obliterate our souls.", screen_width/2 - 300, screen_height - 12);
@@ -319,12 +311,12 @@ public class DiscGame extends Game {
 
     public void drawBatchCoreTop() {
         // Draw confidence/inspiration amounts
-        yi.draw_bar_counters(batch);
-        arlene.draw_bar_counters(batch);
+        player.draw_bar_counters(batch);
+        computer.draw_bar_counters(batch);
     }
 
     public void setupPlayer() {
-        Contestant player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, screen_width, movestats_font, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
+        player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, screen_width, movestats_font, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
         /* TODO: Remove.  Moved out to contestants.
         // Setup Contestant stats
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
@@ -419,6 +411,7 @@ public class DiscGame extends Game {
     }
 
     public void setupOpponent() {
+        computer = new Confucius(false, 1, 1, screen_width, movestats_font, current_board.cells[0][0]);
         // TODO: Remove.  Moved out to contestants.
         /*
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{

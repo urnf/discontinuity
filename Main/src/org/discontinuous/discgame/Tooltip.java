@@ -6,23 +6,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import org.discontinuous.discgame.Colors;
-
-import java.util.ArrayList;
 
 /**
  * Created by Urk on 1/8/14.
  */
 public class Tooltip {
-    // No constructor, this is a utility class
-    static Color inner_color = Colors.ColorMap.get("dark_grey");
-    static Color outer_color = Colors.ColorMap.get("light_grey");
-
     static Sprite upper_left = new Sprite(new Texture(Gdx.files.internal("img/upper-left.png")), 64, 64);
     static Sprite upper_right = new Sprite(new Texture(Gdx.files.internal("img/upper-right.png")), 64, 64);
     static Sprite lower_left = new Sprite(new Texture(Gdx.files.internal("img/lower-left.png")), 64, 64);
     static Sprite lower_right = new Sprite(new Texture(Gdx.files.internal("img/lower-right.png")), 64, 64);
     static int dialog_height = 50;
+    static Color inner_color = Colors.ColorMap.get("dark_grey");
+    static Color outer_color = Colors.ColorMap.get("light_grey");
 
     // Draws a tooltip rectangle at the coordinates with width/height, with a pointer pointing to the location noted
     // So far tip is only attached to bottom of tooltip border, may add option later

@@ -2,9 +2,12 @@ package org.discontinuous.discgame.contestants;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import org.discontinuous.discgame.*;
 import org.discontinuous.discgame.Board;
 import org.discontinuous.discgame.Combo;
+import org.discontinuous.discgame.abilities.Ability;
+import org.discontinuous.discgame.abilities.AbilityList;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -58,8 +61,9 @@ public class Confucius extends Contestant {
                       int board_x,
                       int board_y,
                       int screen_width,
+                      BitmapFont font,
                       Cell cell) {
-        super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, CONF_MAX, INSP_MAX, screen_width/2 - (Board.CELL_EDGE_SIZE * board_x/2) - 120, isPlayer, cell);
+        super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, CONF_MAX, INSP_MAX, screen_width/2 - (Board.CELL_EDGE_SIZE * board_x/2) + 40, isPlayer, cell);
         // Set up Arlene's combos
         this.set_combo(new Combo(combo_list));
 
@@ -76,5 +80,12 @@ public class Confucius extends Contestant {
 
         //arlene = new Contestant(arlene_combo, 1, 1, log_stats, eth_stats, inm_stats, ing_stats, 200, 200, screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 40, false, current_board.cells[0][0]);
         setImg(new Texture(Gdx.files.internal("img/arlenemini.png")));
+
+        if (isPlayer) {
+            // Init AbilityList abilities here
+            AbilityList.init_abilities(this, get_abilities(), font);
+
+            Ability.setup_ability_display(get_abilities(), screen_width);
+        }
     }
 }

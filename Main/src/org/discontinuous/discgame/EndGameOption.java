@@ -57,8 +57,8 @@ public class EndGameOption extends Entity {
                 // Entity may have action on click, add to click list
                 DiscGame.click_list.remove(option);
             }
-            DiscGame.hover_list.remove(DiscGame.yi_portrait);
-            DiscGame.hover_list.remove(DiscGame.arlene_portrait);
+            DiscGame.hover_list.remove(DiscGame.player.portrait);
+            DiscGame.hover_list.remove(DiscGame.computer.portrait);
 
             // Refresh mouse moved to get rid of annoying mouseover
             // TODO: Hacky as heck, fix
@@ -66,14 +66,14 @@ public class EndGameOption extends Entity {
 
             // TODO: Also hacky, image change for -9999 option
             if (dp_cost == -9999) {
-                DiscGame.arlene_portrait.x = DiscGame.screen_width - 382;
-                DiscGame.arlene_portrait.width = 382;
-                DiscGame.arlene_portrait.height = 700;
-                DiscGame.yi_portrait.x = 0;
-                DiscGame.yi_portrait.width = 382;
-                DiscGame.yi_portrait.height = 700;
-                DiscGame.yi_portrait.setImg(new Texture(Gdx.files.internal("img/YiDemonResize.png")));
-                DiscGame.arlene_portrait.setImg(new Texture(Gdx.files.internal("img/ArleneLichResize.png")));
+                DiscGame.computer.portrait.x = DiscGame.screen_width - 382;
+                DiscGame.computer.portrait.width = 382;
+                DiscGame.computer.portrait.height = 700;
+                DiscGame.player.portrait.x = 0;
+                DiscGame.player.portrait.width = 382;
+                DiscGame.player.portrait.height = 700;
+                DiscGame.player.portrait.setImg(new Texture(Gdx.files.internal("img/YiDemonResize.png")));
+                DiscGame.computer.portrait.setImg(new Texture(Gdx.files.internal("img/ArleneLichResize.png")));
 
 
             }
