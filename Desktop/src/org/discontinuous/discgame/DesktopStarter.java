@@ -11,8 +11,8 @@ public class DesktopStarter {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "Discontinuity";
         cfg.useGL20 = true;
-        cfg.width = 800; //1336
-        cfg.height = 480;
+        cfg.width = 1920;
+        cfg.height = 1080;
         cfg.resizable = true;
         new LwjglApplication(new DiscGame(), cfg);
     }

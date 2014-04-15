@@ -75,6 +75,7 @@ public class Socrates extends Contestant {
                 "\n" +
                 "Socrates' passive ability SOCRATIC METHOD reduces all confidence damage taken by 20%");
         portrait.setImg(new Texture(Gdx.files.internal("img/socrates.png")));
+        portrait.img.scale(-0.4f);
         //portrait.setContestant(yi);
         this.set_portrait(portrait);
 

@@ -24,7 +24,7 @@ public class Board {
     // Asset texture size, independent of how large we want it
     static final int TEXTURE_EDGE = 64;
 
-    static final int WIDTH_OFFSET = DiscGame.screen_width/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 10;
+    static final int WIDTH_OFFSET = DiscGame.DESIRED_WIDTH/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 10;
     static final int HEIGHT_OFFSET = 120;
 
     int[] player_position;
@@ -40,8 +40,8 @@ public class Board {
     public Board (int board_height, int board_width, String topic){
         width = board_width;
         height = board_height;
-        screen_width = DiscGame.screen_width;
-        screen_height = DiscGame.screen_height;
+        screen_width = DiscGame.DESIRED_WIDTH;
+        screen_height = DiscGame.DESIRED_HEIGHT;
         this.topic = topic;
 
         // Multiply width by height

@@ -84,8 +84,8 @@ public class DiscGame extends Game {
     static final int BOARD_WIDTH = 4;
     static final int BOARD_HEIGHT = 4;
 
-    static final int DESIRED_WIDTH = 800;
-    static final int DESIRED_HEIGHT = 480;
+    static final int DESIRED_WIDTH = 960;
+    static final int DESIRED_HEIGHT = 540;
 
     int view_x = 0;
     int view_y = 0;
@@ -120,6 +120,7 @@ public class DiscGame extends Game {
     public void create() {
         screen_width = Gdx.graphics.getWidth();
         screen_height = Gdx.graphics.getHeight();
+        resize(screen_width, screen_height);
 
         //Load dialog
         loadDialog();
@@ -185,8 +186,6 @@ public class DiscGame extends Game {
         // Setup end game options
         endgame_options = new ArrayList();
         setupEndgameOptions(endgame_options);
-
-
     }
     // Dialog:
     /*

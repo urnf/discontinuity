@@ -109,7 +109,7 @@ public class StateHandling {
                 AbilityTargeting.drawBatch(batch, DiscGame.movestats_font, player_text, dialog_width_offset, player_dialog_height_offset);
                 break;
             case AbilityDialog:
-                AbilityDialog.drawBatch(batch, DiscGame.movestats_font, DiscGame.player.ability_selected, dialog_width_offset, player_dialog_height_offset);
+                AbilityDialog.drawBatch(batch, DiscGame.player.ability_selected, dialog_width_offset, player_dialog_height_offset);
                 break;
             case PostGameDialog:
                 if (DiscGame.dealpower.dp >= 0) {
