@@ -84,8 +84,8 @@ public class DiscGame extends Game {
     static final int BOARD_WIDTH = 4;
     static final int BOARD_HEIGHT = 4;
 
-    static final int DESIRED_WIDTH = 960;
-    static final int DESIRED_HEIGHT = 540;
+    static final int DESIRED_WIDTH = 1280;
+    static final int DESIRED_HEIGHT = 720;
 
     int view_x = 0;
     int view_y = 0;
@@ -303,7 +303,6 @@ public class DiscGame extends Game {
         // TOPIC FOR DEBATE
         //header_font.draw(batch, "Resolved: That Prof. Elecantos should not horribly murder us and obliterate our souls.", screen_width/2 - 300, screen_height - 12);
 
-
         // Draw Deal Power
         dealpower.draw(batch);
     }
@@ -315,7 +314,7 @@ public class DiscGame extends Game {
     }
 
     public void setupPlayer() {
-        player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, screen_width, movestats_font, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
+        player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, DESIRED_WIDTH, movestats_font, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
         /* TODO: Remove.  Moved out to contestants.
         // Setup Contestant stats
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
@@ -410,7 +409,7 @@ public class DiscGame extends Game {
     }
 
     public void setupOpponent() {
-        computer = new Confucius(false, 1, 1, screen_width, movestats_font, current_board.cells[0][0]);
+        computer = new Confucius(false, 1, 1, DESIRED_WIDTH, movestats_font, current_board.cells[0][0]);
         // TODO: Remove.  Moved out to contestants.
         /*
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
@@ -512,13 +511,13 @@ public class DiscGame extends Game {
         confidence_icon = new Texture(Gdx.files.internal("img/confidence.png"));
         inspiration_icon = new Texture(Gdx.files.internal("img/inspiration.png"));
 
-        confidence_icon_player = new Icon(screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 115, screen_height - 65, 32, 32, screen_width/2 - 200, 600, 400, 80, "Your " + confidence);
+        confidence_icon_player = new Icon(DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 115, screen_height - 65, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Your " + confidence);
         confidence_icon_player.setImg(confidence_icon);
-        confidence_icon_opponent = new Icon(screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 45, screen_height - 67, 32, 32, screen_width/2 - 200, 600, 400, 80, "Opponent " + confidence);
+        confidence_icon_opponent = new Icon(DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 45, screen_height - 67, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Opponent " + confidence);
         confidence_icon_opponent.setImg(confidence_icon);
-        inspiration_icon_player = new Icon(screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 75, screen_height - 65, 32, 32, screen_width/2 - 200, 600, 400, 80, "Your " + inspiration);
+        inspiration_icon_player = new Icon(DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 75, screen_height - 65, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Your " + inspiration);
         inspiration_icon_player.setImg(inspiration_icon);
-        inspiration_icon_opponent = new Icon(screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 85, screen_height - 67, 32, 32, screen_width/2 - 200, 600, 400, 80, "Opponent " + inspiration);
+        inspiration_icon_opponent = new Icon(DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 85, screen_height - 67, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Opponent " + inspiration);
         inspiration_icon_opponent.setImg(inspiration_icon);
         // Assign the movestats texture to be used generally in portraits
         movestats = new Texture(Gdx.files.internal("img/movestats.png"));
@@ -527,10 +526,10 @@ public class DiscGame extends Game {
     // Create four new entities for dialog options whose role is solely to be a hover over/click handler and draw a bounding box
     public void setupDialogEntities() {
         dialog_options = new DialogOption[4];
-        dialog_options[0] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height + 150, 455, 55);
-        dialog_options[1] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height + 95, 455, 55);
-        dialog_options[2] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height + 40, 455, 55);
-        dialog_options[3] = new DialogOption(DiscGame.screen_width/2 - 230, Tooltip.dialog_height - 15, 455, 55);
+        dialog_options[0] = new DialogOption(DiscGame.DESIRED_WIDTH/2 - 230, Tooltip.dialog_height + 150, 455, 55);
+        dialog_options[1] = new DialogOption(DiscGame.DESIRED_WIDTH/2 - 230, Tooltip.dialog_height + 95, 455, 55);
+        dialog_options[2] = new DialogOption(DiscGame.DESIRED_WIDTH/2 - 230, Tooltip.dialog_height + 40, 455, 55);
+        dialog_options[3] = new DialogOption(DiscGame.DESIRED_WIDTH/2 - 230, Tooltip.dialog_height - 15, 455, 55);
     }
 
     public void setupEndgameOptions(ArrayList<EndGameOption> endgame_options) {

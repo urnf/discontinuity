@@ -36,9 +36,9 @@ public class Portrait extends Entity {
         this.pointer_y_offset = pointer_y_offset;
 
         // set up combo and movestats image position
-        combos = new Entity(DiscGame.screen_width/2 - 250, (int) (hover_y - text_height - 5), 113, 143);
+        combos = new Entity(DiscGame.DESIRED_WIDTH/2 - 250, (int) (hover_y - text_height - 5), 113, 143);
         combos.setImg(combo_img);
-        movestats = new Entity(DiscGame.screen_width/2 - 20, (int) (hover_y - text_height + 105), 256, 32);
+        movestats = new Entity(DiscGame.DESIRED_WIDTH/2 - 20, (int) (hover_y - text_height + 105), 256, 32);
         movestats.setImg(DiscGame.movestats);
 
         // Entity has action on hover, add to hover list

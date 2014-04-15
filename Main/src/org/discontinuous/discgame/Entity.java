@@ -29,6 +29,7 @@ public class Entity {
     // I'm assuming that although this is a strong reference, the garbage collector will pick the old one up
     // Can chain this method into the constructor since it returns this
     public Entity setImg(Texture img) {
+        img.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.img = new Sprite(img, width, height);
         this.img.setPosition(x, y);
         return this;
@@ -53,8 +54,8 @@ public class Entity {
         // Siiiiiiiigh.  Libgdx's input are zero'd at top left, instead of gfx bottom right.
         if (mousex > x + 5 &&
                 mousex < (x + width + 5) &&
-                mousey < (DiscGame.screen_height - y + 5) &&
-                mousey > (DiscGame.screen_height - y - height - 5)) {
+                mousey < (DiscGame.DESIRED_HEIGHT - y + 5) &&
+                mousey > (DiscGame.DESIRED_HEIGHT - y - height - 5)) {
             return true;
         }
         return false;

@@ -25,7 +25,9 @@ public class Contestant extends Entity {
     Hashtable<String, Integer> eth_stats;
     Hashtable<String, Integer> inm_stats;
     Hashtable<String, Integer> ing_stats;
-    int bars_coordinate;
+    int confidence_x_coord;
+    int inspiration_x_coord;
+    int bars_y_coord;
     boolean player;
     Contestant opponent;
     ArrayList<Cell> adjacent;
@@ -46,8 +48,8 @@ public class Contestant extends Entity {
                       int coordinate,
                       boolean isPlayer,
                       Cell cell) {
-        super(DiscGame.screen_width - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (board_x)),
-                DiscGame.screen_height - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (board_y)),
+        super(DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (board_x)),
+                DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (board_y)),
                 Board.TEXTURE_EDGE,
                 Board.TEXTURE_EDGE);
         this.cell = cell;
@@ -59,7 +61,9 @@ public class Contestant extends Entity {
         this.eth_stats = eth_stats;
         this.inm_stats = inm_stats;
         this.ing_stats = ing_stats;
-        bars_coordinate = coordinate;
+        bars_y_coord = DiscGame.DESIRED_HEIGHT/2 - 80;
+        confidence_x_coord = coordinate;
+        inspiration_x_coord = coordinate + 40;
         player = isPlayer;
         adjacent = new ArrayList();
         abilities = new ArrayList();
@@ -79,16 +83,16 @@ public class Contestant extends Entity {
 
     public void draw_confidence(ShapeRenderer shapes) {
         shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
-        shapes.rect(bars_coordinate, 380, 40, 320);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, 320);
         shapes.setColor(0.1f, 0.69f, 0.298f, 1);
-        shapes.rect(bars_coordinate, 380, 40, ((float) confidence / conf_max) * 320);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, ((float) confidence / conf_max) * 320);
     }
 
     public void draw_inspiration(ShapeRenderer shapes) {
         shapes.setColor(0.039f, 0.18f, 0.258f, 1);
-        shapes.rect(bars_coordinate + 40, 380, 40, 320);
+        shapes.rect(inspiration_x_coord, bars_y_coord, 40, 320);
         shapes.setColor(0.129f, 0.506f, 0.725f, 1);
-        shapes.rect(bars_coordinate + 40, 380, 40, ((float) inspiration/insp_max) * 320);
+        shapes.rect(inspiration_x_coord, bars_y_coord, 40, ((float) inspiration/insp_max) * 320);
     }
 
     public void draw_stats(SpriteBatch batch, int hover_x, int hover_y) {
@@ -106,8 +110,8 @@ public class Contestant extends Entity {
     }
 
     public void draw_bar_counters(SpriteBatch batch) {
-        DiscGame.header_font.draw(batch, String.valueOf(confidence), bars_coordinate + 5, 400);
-        DiscGame.header_font.draw(batch, String.valueOf(inspiration), bars_coordinate + 45, 400);
+        DiscGame.header_font.draw(batch, String.valueOf(confidence), confidence_x_coord + 5, 400);
+        DiscGame.header_font.draw(batch, String.valueOf(inspiration), inspiration_x_coord + 5, 400);
     }
 
     public void update_dialog_options() {
@@ -142,8 +146,8 @@ public class Contestant extends Entity {
         cell.occupied = true;
 
         // update image position
-        x = DiscGame.screen_width - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
-        y = DiscGame.screen_height - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
+        x = DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
+        y = DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
         img.setPosition(x, y);
     }
 
@@ -175,8 +179,8 @@ public class Contestant extends Entity {
         update_stats(cell, false);
 
         // update image position
-        x = DiscGame.screen_width - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
-        y = DiscGame.screen_height - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
+        x = DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
+        y = DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
         img.setPosition(x, y);
 
         // Trigger dialog

@@ -52,7 +52,7 @@ public class Tooltip {
     //TODO: These two methods do NOT belong here.  Move it.
     // Draw a dialog area tooltip
     public static void drawDialogBox(ShapeRenderer shapes) {
-        Tooltip.newTip(DiscGame.screen_width/2 - 120, dialog_height, 240, 100,
+        Tooltip.newTip(DiscGame.DESIRED_WIDTH/2 - 120, dialog_height, 240, 100,
                 200, 250, inner_color, outer_color, true, shapes);
     }
     public static void drawDialogWidgets(int x, int y, int width, int height, SpriteBatch batch) {

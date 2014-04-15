@@ -63,19 +63,19 @@ public class Socrates extends Contestant {
                      int screen_width,
                      BitmapFont font,
                      Cell cell) {
-        super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, CONF_MAX, INSP_MAX, screen_width/2 - (Board.CELL_EDGE_SIZE * board_x/2) - 120, isPlayer, cell);
+        super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, CONF_MAX, INSP_MAX, screen_width/2 - (Board.CELL_EDGE_SIZE * board_x/2) - 200, isPlayer, cell);
 
         // Set up Socrates' combos
         this.set_combo(new Combo(combo_list));
 
         Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/yi-combos.png")), -120, 0, 500, 375, screen_width/2 - 250, 700, 220, 250, 500, "Socrates\n" +
-                "Nobody fucks with Socrates and gets away with it.\n\n" +
+                "Nobody fucks with Socrates and gets away with it.\n" +
                 "\n" +
                 "Nobody.\n" +
                 "\n" +
                 "Socrates' passive ability SOCRATIC METHOD reduces all confidence damage taken by 20%");
         portrait.setImg(new Texture(Gdx.files.internal("img/socrates.png")));
-        portrait.img.scale(-0.4f);
+
         //portrait.setContestant(yi);
         this.set_portrait(portrait);
 

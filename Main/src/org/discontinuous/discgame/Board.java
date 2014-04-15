@@ -24,8 +24,8 @@ public class Board {
     // Asset texture size, independent of how large we want it
     static final int TEXTURE_EDGE = 64;
 
-    static final int WIDTH_OFFSET = DiscGame.DESIRED_WIDTH/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 10;
-    static final int HEIGHT_OFFSET = 120;
+    static final int WIDTH_OFFSET = DiscGame.DESIRED_WIDTH/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2);
+    static final int HEIGHT_OFFSET = DiscGame.DESIRED_HEIGHT/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_HEIGHT/2) - 100;
 
     int[] player_position;
     int[] opponent_position;
@@ -139,7 +139,6 @@ public class Board {
         resize_board(Direction.RIGHT, right);
         resize_board(Direction.UP, up);
         resize_board(Direction.DOWN, down);
-
     }
 
     private void resize_board(Direction direction, Board board) {
@@ -149,19 +148,21 @@ public class Board {
                 cell = board.cells[i][j];
                 switch(direction) {
                     case LEFT:
-                        cell.x = cell.center_x - 400 - (board.cells.length/2 - i) * 26;
-                        cell.y = cell.center_y - (board.cells.length/2 - j) * 26;
+                        cell.x = cell.center_x - 150 - (left.cells.length/2 - i) * 26;
+                        cell.y = cell.center_y - (left.cells.length/2 - j) * 26 + 15;
                         break;
                     case RIGHT:
-                        cell.x = cell.center_x + 400 - (right.cells.length/2 - i) * 26;
-                        cell.y = cell.center_y - (right.cells.length/2 - j) * 26;
+                        cell.x = cell.center_x + 150 - (right.cells.length/2 - i) * 26 + 26;
+                        cell.y = cell.center_y - (right.cells.length/2 - j) * 26 + 15;
                         break;
                     case UP:
-                        cell.x = cell.center_x - (up.cells.length/2 - i) * 26;
-                        cell.y = cell.center_y + 200 - (up.cells.length/2 - j) * 26;
+                        cell.x = cell.center_x - (up.cells.length/2 - i) * 26 + 15;
+                        cell.y = cell.center_y + 150 - (up.cells.length/2 - j) * 26 + 26;
+                        break;
                     case DOWN:
-                        cell.x = cell.center_x - (down.cells.length/2 - i) * 26;
-                        cell.y = cell.center_y - 200 - (down.cells.length/2 - j) * 26;
+                        cell.x = cell.center_x - (down.cells.length/2 - i) * 26 + 15;
+                        cell.y = cell.center_y - 150 - (down.cells.length/2 - j) * 26;
+                        break;
                 }
                 cell.img.setPosition(cell.x, cell.y);
                 cell.img.scale(-0.4f);
