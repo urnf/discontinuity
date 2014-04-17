@@ -68,7 +68,7 @@ public class Socrates extends Contestant {
         // Set up Socrates' combos
         this.set_combo(new Combo(combo_list));
 
-        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/yi-combos.png")), -120, 0, 500, 375, screen_width/2 - 250, 700, 220, 250, 500, "Socrates\n" +
+        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/yi-combos.png")), -60, 0, 400, 292, screen_width/2 - 250, 700, 220, 250, 500, "Socrates\n" +
                 "Nobody fucks with Socrates and gets away with it.\n" +
                 "\n" +
                 "Nobody.\n" +

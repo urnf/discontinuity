@@ -67,14 +67,10 @@ public class Confucius extends Contestant {
         // Set up Arlene's combos
         this.set_combo(new Combo(combo_list));
 
-        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 300, 375, screen_width/2 - 250, 700, screen_width - 280, 250, 520, "Confucius\n" +
-                "J.D. University of New Oxford\n" +
-                "Elecantos Legal Group\n" +
-                "Professor Emeritus, Harvard Mars Law Adjunct\n\n" +
-                "When she's not preparing for a major case or incinerating revenant souls, she relishes dishing out " +
-                "verbal suplexes upon opposing counsel or unruly law students.  " +
-                "Her fearsome reputation as both sorceror and lawyer means that few people cross her, professionally or personally.");
-        portrait.setImg(new Texture(Gdx.files.internal("img/arlene.png")));
+        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 400, 270, screen_width/2 - 250, 700, screen_width - 280, 250, 520, "Confucius\n" +
+                "It's motherfuggin Confucius\n");
+        portrait.setImg(new Texture(Gdx.files.internal("img/confucius.png")));
+        portrait.img.flip(true, false);
         //portrait.setContestant(arlene);
         this.set_portrait(portrait);
 
