@@ -15,15 +15,21 @@ import org.discontinuous.discgame.Tooltip;
  */
 public class InDialog extends State{
 
+    static int x;
+
+    public static void setTooltipX(int x) {
+        InDialog.x = x;
+    }
+
     public static void drawShapes(ShapeRenderer shapes, boolean isPlayer, int screen_width) {
         // Find out who is speaking
         if (isPlayer) {
-            Tooltip.newTip(screen_width / 2 - 200, 200, 400, 100, 200, 220, inner_color, outer_color, false, shapes);
-            Tooltip.newTip(screen_width/2 - 200, 40, 400, 100, screen_width - 270, 160, inner_color, outer_color, false, shapes);
+            Tooltip.newTip(x, 200, 400, 100, 200, 220, inner_color, outer_color, false, shapes);
+            Tooltip.newTip(x, 40, 400, 100, screen_width - 270, 160, inner_color, outer_color, false, shapes);
         }
         else {
-            Tooltip.newTip(screen_width/2 - 200, 200, 400, 100, screen_width - 270, 220, inner_color, outer_color, false, shapes);
-            Tooltip.newTip(screen_width/2 - 200, 40, 400, 100, 270, 150, inner_color, outer_color, false, shapes);
+            Tooltip.newTip(x, 200, 400, 100, screen_width - 270, 220, inner_color, outer_color, false, shapes);
+            Tooltip.newTip(x, 40, 400, 100, 270, 150, inner_color, outer_color, false, shapes);
         }
         //
     }

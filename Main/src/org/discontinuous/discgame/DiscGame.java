@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.abilities.*;
 import org.discontinuous.discgame.contestants.Confucius;
 import org.discontinuous.discgame.contestants.Socrates;
+import org.discontinuous.discgame.states.InDialog;
+import org.discontinuous.discgame.states.SelectDialog;
 import org.yaml.snakeyaml.Yaml;
 import org.discontinuous.discgame.StateHandling.State;
 
@@ -27,6 +29,7 @@ import java.util.LinkedHashMap;
 public class DiscGame extends Game {
     // TODO: Too much casting.  I'm trying to write Java like I'm writing Ruby.  Clean up/reduce casting.
     // TODO: -DONE -  FIRST CONVERT GRID TO GRAPH ADJACENCY LIST
+    // TODO: Model edges on graph - dialog is dynamically chosen based on edges - so logical -> ethical will choose from series of text
     // TODO: Convert players to be dynamic
     // TODO: - DONE - 3x3 grid that can swap around
     // TODO: - DONE - Android working
@@ -84,8 +87,8 @@ public class DiscGame extends Game {
     static final int BOARD_WIDTH = 4;
     static final int BOARD_HEIGHT = 4;
 
-    static final int DESIRED_WIDTH = 1280;
-    static final int DESIRED_HEIGHT = 720;
+    static final int DESIRED_WIDTH = 960;
+    static final int DESIRED_HEIGHT = 540;
 
     int view_x = 0;
     int view_y = 0;
@@ -165,6 +168,13 @@ public class DiscGame extends Game {
 
         // Setup Deal Power counter
         dealpower = new DealPower();
+
+        // Setup state coordinates
+        // TODO: Move out to its own method when it gets unwieldly
+        //InDialog.setTooltipX(DESIRED_WIDTH / 2 - 200);
+        InDialog.setTooltipX(100);
+        //SelectDialog.setTooltipX(DiscGame.DESIRED_WIDTH/2 - 120);
+        SelectDialog.setTooltipX(100);
 
         // TODO: Need a better way of setting up cross references to each other, if we don't do this here there's a null ref
         player.opponent = computer;

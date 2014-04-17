@@ -45,7 +45,6 @@ public class Contestant extends Entity {
                       Hashtable ing_stats,
                       int conf_max,
                       int insp_max,
-                      int coordinate,
                       boolean isPlayer,
                       Cell cell) {
         super(DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (board_x)),
@@ -61,7 +60,14 @@ public class Contestant extends Entity {
         this.eth_stats = eth_stats;
         this.inm_stats = inm_stats;
         this.ing_stats = ing_stats;
-        bars_y_coord = DiscGame.DESIRED_HEIGHT/2 - 80;
+        int coordinate;
+        if (isPlayer) {
+            coordinate = DiscGame.DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * board_x/2) - 100;
+        }
+        else {
+            coordinate = DiscGame.DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * board_x/2) + 100;
+        }
+        bars_y_coord = DiscGame.DESIRED_HEIGHT/2 + 80;
         confidence_x_coord = coordinate;
         inspiration_x_coord = coordinate + 40;
         player = isPlayer;
@@ -83,16 +89,16 @@ public class Contestant extends Entity {
 
     public void draw_confidence(ShapeRenderer shapes) {
         shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, 320);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, 150);
         shapes.setColor(0.1f, 0.69f, 0.298f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, ((float) confidence / conf_max) * 320);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, ((float) confidence / conf_max) * 150);
     }
 
     public void draw_inspiration(ShapeRenderer shapes) {
         shapes.setColor(0.039f, 0.18f, 0.258f, 1);
-        shapes.rect(inspiration_x_coord, bars_y_coord, 40, 320);
+        shapes.rect(inspiration_x_coord, bars_y_coord, 40, 150);
         shapes.setColor(0.129f, 0.506f, 0.725f, 1);
-        shapes.rect(inspiration_x_coord, bars_y_coord, 40, ((float) inspiration/insp_max) * 320);
+        shapes.rect(inspiration_x_coord, bars_y_coord, 40, ((float) inspiration/insp_max) * 150);
     }
 
     public void draw_stats(SpriteBatch batch, int hover_x, int hover_y) {

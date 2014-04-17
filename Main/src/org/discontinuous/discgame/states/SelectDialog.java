@@ -10,8 +10,13 @@ import org.discontinuous.discgame.Tooltip;
  */
 public class SelectDialog extends State {
 
+    static int x;
+    public static void setTooltipX(int x) {
+        SelectDialog.x = x;
+    }
+
     public static void drawShapes(ShapeRenderer shapes) {
-        Tooltip.drawDialogBox(shapes);
+        Tooltip.drawDialogBox(shapes, x);
     }
     public static void drawBatch(SpriteBatch batch, DialogOption[] dialog_options, int screen_width) {
         // Draw Dialog Options which need to overlap the underlying element

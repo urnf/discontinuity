@@ -25,7 +25,7 @@ public class Board {
     static final int TEXTURE_EDGE = 64;
 
     static final int WIDTH_OFFSET = DiscGame.DESIRED_WIDTH/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2);
-    static final int HEIGHT_OFFSET = DiscGame.DESIRED_HEIGHT/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_HEIGHT/2) - 100;
+    static final int HEIGHT_OFFSET = DiscGame.DESIRED_HEIGHT/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_HEIGHT/2);
 
     int[] player_position;
     int[] opponent_position;
