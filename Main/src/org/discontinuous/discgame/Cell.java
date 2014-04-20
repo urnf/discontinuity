@@ -83,9 +83,9 @@ public class Cell extends Entity {
         this.board = board;
 
         // Entity has action on hover, add to hover list
-        DiscGame.hover_list.add(this);
+        //DiscGame.hover_list.add(this);
         // Entity may have action on click, add to click list
-        DiscGame.click_list.add(this);
+        //DiscGame.click_list.add(this);
 
         //Grab a line of dialog for each character involved
         String[] dialog_temp = DiscGame.topics.get(0).getYiDialog(this);

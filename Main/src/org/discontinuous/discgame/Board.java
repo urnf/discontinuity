@@ -122,6 +122,8 @@ public class Board {
                 cell.y = cell.center_y;
                 cell.img.setPosition(cell.x, cell.y);
                 cell.img.scale(0.4f);
+                DiscGame.hover_list.remove(cell);
+                DiscGame.click_list.remove(cell);
             }
         }
     }
@@ -130,6 +132,9 @@ public class Board {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 cells[i][j].img.setPosition(cells[i][j].center_x, cells[i][j].center_y);
+                // TODO: also sets up the click, move out since it conflates functionality
+                DiscGame.hover_list.add(cells[i][j]);
+                DiscGame.click_list.add(cells[i][j]);
             }
         }
         DiscGame.current_board = this;
@@ -166,6 +171,9 @@ public class Board {
                 }
                 cell.img.setPosition(cell.x, cell.y);
                 cell.img.scale(-0.4f);
+                // TODO: also sets up the click, move out since it conflates functionality
+                DiscGame.hover_list.add(cell);
+                DiscGame.click_list.add(cell);
             }
         }
     }
