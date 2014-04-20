@@ -52,29 +52,29 @@ public class Topic {
         switch (cell.type) {
             case Logical:
                 if (yi_log_options.size() == 0) { return new String[] {
-                        "Debug: No more logical responses for Yi.  Congratulations, Yi is now illogical, you monster.",
-                        "Debug: No more logical rebuttals for Arlene."
+                        "Debug: No more logical responses for player.",
+                        "Debug: No more logical rebuttals for computer."
                 }; }
                 choice = new Random().nextInt(yi_log_options.size());
                 return new String[]{yi_log_options.remove(choice), arlene_resp_log_options.remove(choice)};
             case Ethical:
                 if (yi_eth_options.size() == 0) { return new String[] {
-                        "Debug: No more ethical responses for Yi.  Never let ethics get the best of him, anyhow.",
-                        "Debug: No more ethical rebuttals for Arlene."
+                        "Debug: No more ethical responses for player.",
+                        "Debug: No more ethical rebuttals for computer."
                 }; }
                 choice = new Random().nextInt(yi_eth_options.size());
                 return new String[]{yi_eth_options.remove(choice), arlene_resp_eth_options.remove(choice)};
             case Interrogate:
                 if (yi_ing_options.size() == 0) { return new String[] {
-                        "Debug: No more interrogate responses for Yi, which is impossible, since he always has a question.",
-                        "Debug: No more interrogate rebuttals for Arlene."
+                        "Debug: No more interrogate responses for player.",
+                        "Debug: No more interrogate rebuttals for computer."
                 }; }
                 choice = new Random().nextInt(yi_ing_options.size());
                 return new String[]{yi_ing_options.remove(choice), arlene_resp_ing_options.remove(choice)};
             case Intimidate:
                 if (yi_inm_options.size() == 0) { return new String[] {
-                        "Debug: No more intimidate responses for Yi.  Intimidation is for the weak, anyway.",
-                        "Debug: No more intimidate rebuttals for Arlene."
+                        "Debug: No more intimidate responses for player.",
+                        "Debug: No more intimidate rebuttals for computer."
                 }; }
                 choice = new Random().nextInt(yi_inm_options.size());
                 return new String[]{yi_inm_options.remove(choice), arlene_resp_inm_options.remove(choice)};
@@ -87,29 +87,29 @@ public class Topic {
         switch (cell.type) {
             case Logical:
                 if (arlene_log_options.size() == 0) { return new String[] {
-                        "Debug: No more logical responses for Arlene.  Dafuq?",
-                        "Debug: No more logical rebuttals for Yi."
+                        "Debug: No more logical responses for computer.",
+                        "Debug: No more logical rebuttals for player."
                 }; }
                 choice = new Random().nextInt(arlene_log_options.size());
                 return new String[]{arlene_log_options.remove(choice), yi_resp_log_options.remove(choice)};
             case Ethical:
                 if (arlene_eth_options.size() == 0) { return new String[] {
-                        "Debug: No more ethical responses for Arlene.  You'd think that, but you'd be wrong.",
-                        "Debug: No more ethical rebuttals for Yi."
+                        "Debug: No more ethical responses for computer.",
+                        "Debug: No more ethical rebuttals for player."
                 }; }
                 choice = new Random().nextInt(arlene_eth_options.size());
                 return new String[]{arlene_eth_options.remove(choice), yi_resp_eth_options.remove(choice)};
             case Interrogate:
                 if (arlene_ing_options.size() == 0) { return new String[] {
-                        "Debug: No more interrogate responses for Arlene.  Except, she's already peeled info from your client. NOOOOOOOOOooooo-",
-                        "Debug: No more interrogate rebuttals for Yi."
+                        "Debug: No more interrogate responses for computer",
+                        "Debug: No more interrogate rebuttals for player."
                 }; }
                 choice = new Random().nextInt(arlene_ing_options.size());
                 return new String[]{arlene_ing_options.remove(choice), yi_resp_ing_options.remove(choice)};
             case Intimidate:
                 if (arlene_inm_options.size() == 0) { return new String[] {
-                        "Debug: No more intimidate responses for Arlene.  Nevermore's more than enough.",
-                        "Debug: No more intimidate rebuttals for Yi."
+                        "Debug: No more intimidate responses for computer",
+                        "Debug: No more intimidate rebuttals for player."
                 }; }
                 choice = new Random().nextInt(arlene_inm_options.size());
                 return new String[]{arlene_inm_options.remove(choice), yi_resp_inm_options.remove(choice)};

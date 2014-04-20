@@ -15,12 +15,15 @@ import java.util.ArrayList;
 public class SelectAbility extends State {
 
     static int x;
+    static int y;
+
     public static void setTooltipX(int x) {
         SelectAbility.x = x;
     }
+    public static void setTooltipY(int y) { SelectAbility.y = y; }
 
     public static void drawShapes(ShapeRenderer shapes) {
-        Tooltip.drawDialogBox(shapes, x);
+        Tooltip.drawDialogBox(shapes, x, y);
     }
     public static void drawBatch(SpriteBatch batch, ArrayList<Ability> abilities, int screen_width) {
         for (Ability ability : abilities) {

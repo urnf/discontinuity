@@ -1,5 +1,6 @@
 package org.discontinuous.discgame;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -15,5 +16,7 @@ public class DesktopStarter {
         cfg.height = 540;
         cfg.resizable = true;
         new LwjglApplication(new DiscGame(), cfg);
+        DialogProcessor inputProcessor = new DialogProcessor();
+        Gdx.input.setInputProcessor(inputProcessor);
     }
 }

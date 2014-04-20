@@ -27,6 +27,44 @@ import java.util.LinkedHashMap;
  * be adequate given that I'm planning on working on a purely 2D plane
  */
 public class DiscGame extends Game {
+    /*
+       TODO: DECIDE BETWEEEN 3D CAMERA (Perspective) or 2D with simulated transition
+       for cube of dialog options
+     */
+
+    /*
+       TODO: Write a library to get report positioning
+       TODO: Gson - if need to convert JSON directly to java object
+       TODO: UI toolkits export to JSON
+     */
+
+    /*
+       TODO: Rather than a 3x3 set of squares, think of it as a cube
+
+        Thanks, Hunter!
+    */
+
+    /*
+       TODO: Think about the arguments as things you need to collect to get certain advantages and disadvantages
+       - For example, a difference between one type becomes more or less important when opponent has collected a certain amount
+       - Get rid of health/mana - NOT needed for arguments.
+
+
+       | Logical | Ethical | Interrogate | Intimidate
+        Interrogate - preps the other three for more power
+
+        Does this end up feeling like a puzzle game, instead?
+
+        Thanks, Hunter!
+
+     */
+
+    /*
+        TODO: Side swipes to select the square you want - or to move the cube
+
+        Thanks, Ethan!
+     */
+
     // TODO: Too much casting.  I'm trying to write Java like I'm writing Ruby.  Clean up/reduce casting.
     // TODO: -DONE -  FIRST CONVERT GRID TO GRAPH ADJACENCY LIST
     // TODO: Model edges on graph - dialog is dynamically chosen based on edges - so logical -> ethical will choose from series of text
@@ -89,6 +127,9 @@ public class DiscGame extends Game {
 
     static final int DESIRED_WIDTH = 960;
     static final int DESIRED_HEIGHT = 540;
+
+    static final int DIALOG_X = 40;
+    static final int DIALOG_Y = 400;
 
     int view_x = 0;
     int view_y = 0;
@@ -172,9 +213,11 @@ public class DiscGame extends Game {
         // Setup state coordinates
         // TODO: Move out to its own method when it gets unwieldly
         //InDialog.setTooltipX(DESIRED_WIDTH / 2 - 200);
-        InDialog.setTooltipX(100);
+        InDialog.setTooltipX(DIALOG_X);
         //SelectDialog.setTooltipX(DiscGame.DESIRED_WIDTH/2 - 120);
-        SelectDialog.setTooltipX(100);
+        SelectDialog.setTooltipX(DIALOG_X);
+        //setTooltipY(dialog_height);
+        SelectDialog.setTooltipY(DIALOG_Y);
 
         // TODO: Need a better way of setting up cross references to each other, if we don't do this here there's a null ref
         player.opponent = computer;
@@ -190,8 +233,8 @@ public class DiscGame extends Game {
         abilities_button = new AbilitiesButton(110, 380, 64, 64, hover_list, click_list, player.abilities, movestats_font);
         abilities_button.setImg(new Texture(Gdx.files.internal("img/abilities.png")));
 
-        DialogProcessor inputProcessor = new DialogProcessor();
-        Gdx.input.setInputProcessor(inputProcessor);
+        //DialogProcessor inputProcessor = new DialogProcessor();
+        //Gdx.input.setInputProcessor(inputProcessor);
 
         // Setup end game options
         endgame_options = new ArrayList();
@@ -245,7 +288,7 @@ public class DiscGame extends Game {
         */
 
         // debug for mouse
-        //header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y, 600, 700);
+        header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y, 400, 500);
 
         // debug for phone resolution
 
@@ -521,13 +564,13 @@ public class DiscGame extends Game {
         confidence_icon = new Texture(Gdx.files.internal("img/confidence.png"));
         inspiration_icon = new Texture(Gdx.files.internal("img/inspiration.png"));
 
-        confidence_icon_player = new Icon(DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 115, screen_height - 65, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Your " + confidence);
+        confidence_icon_player = new Icon(DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 95, screen_height - 65, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Your " + confidence);
         confidence_icon_player.setImg(confidence_icon);
-        confidence_icon_opponent = new Icon(DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 45, screen_height - 67, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Opponent " + confidence);
+        confidence_icon_opponent = new Icon(DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 30, screen_height - 67, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Opponent " + confidence);
         confidence_icon_opponent.setImg(confidence_icon);
-        inspiration_icon_player = new Icon(DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 75, screen_height - 65, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Your " + inspiration);
+        inspiration_icon_player = new Icon(DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 55, screen_height - 65, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Your " + inspiration);
         inspiration_icon_player.setImg(inspiration_icon);
-        inspiration_icon_opponent = new Icon(DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 85, screen_height - 67, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Opponent " + inspiration);
+        inspiration_icon_opponent = new Icon(DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 70, screen_height - 67, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Opponent " + inspiration);
         inspiration_icon_opponent.setImg(inspiration_icon);
         // Assign the movestats texture to be used generally in portraits
         movestats = new Texture(Gdx.files.internal("img/movestats.png"));
@@ -536,10 +579,11 @@ public class DiscGame extends Game {
     // Create four new entities for dialog options whose role is solely to be a hover over/click handler and draw a bounding box
     public void setupDialogEntities() {
         dialog_options = new DialogOption[4];
-        dialog_options[0] = new DialogOption(DiscGame.DESIRED_WIDTH/2 - 230, Tooltip.dialog_height + 150, 455, 55);
-        dialog_options[1] = new DialogOption(DiscGame.DESIRED_WIDTH/2 - 230, Tooltip.dialog_height + 95, 455, 55);
-        dialog_options[2] = new DialogOption(DiscGame.DESIRED_WIDTH/2 - 230, Tooltip.dialog_height + 40, 455, 55);
-        dialog_options[3] = new DialogOption(DiscGame.DESIRED_WIDTH/2 - 230, Tooltip.dialog_height - 15, 455, 55);
+        //DiscGame.DESIRED_WIDTH/2 - 230
+        dialog_options[0] = new DialogOption(DIALOG_X, DIALOG_Y + 60, 455, 55);
+        dialog_options[1] = new DialogOption(DIALOG_X, DIALOG_Y + 5, 455, 55);
+        dialog_options[2] = new DialogOption(DIALOG_X, DIALOG_Y - 50, 455, 55);
+        dialog_options[3] = new DialogOption(DIALOG_X, DIALOG_Y - 105, 455, 55);
     }
 
     public void setupEndgameOptions(ArrayList<EndGameOption> endgame_options) {

@@ -89,16 +89,16 @@ public class Contestant extends Entity {
 
     public void draw_confidence(ShapeRenderer shapes) {
         shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, 150);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, 120);
         shapes.setColor(0.1f, 0.69f, 0.298f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, ((float) confidence / conf_max) * 150);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, ((float) confidence / conf_max) * 120);
     }
 
     public void draw_inspiration(ShapeRenderer shapes) {
         shapes.setColor(0.039f, 0.18f, 0.258f, 1);
-        shapes.rect(inspiration_x_coord, bars_y_coord, 40, 150);
+        shapes.rect(inspiration_x_coord, bars_y_coord, 40, 120);
         shapes.setColor(0.129f, 0.506f, 0.725f, 1);
-        shapes.rect(inspiration_x_coord, bars_y_coord, 40, ((float) inspiration/insp_max) * 150);
+        shapes.rect(inspiration_x_coord, bars_y_coord, 40, ((float) inspiration/insp_max) * 120);
     }
 
     public void draw_stats(SpriteBatch batch, int hover_x, int hover_y) {
