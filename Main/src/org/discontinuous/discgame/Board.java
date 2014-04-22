@@ -30,6 +30,8 @@ public class Board {
     int[] player_position;
     int[] opponent_position;
 
+    Direction relative_to_current;
+
     // Adjacent boards - on a rotating 3x3 setup so moving to any other board
     // Will still be surrounded by a board on the up, down, left, right
     Board up;
@@ -129,21 +131,35 @@ public class Board {
     }
 
     public void set_current_board() {
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                cells[i][j].img.setPosition(cells[i][j].center_x, cells[i][j].center_y);
-                // TODO: also sets up the click, move out since it conflates functionality
-                DiscGame.hover_list.add(cells[i][j]);
-                DiscGame.click_list.add(cells[i][j]);
-            }
-        }
+        resize_board(null, this);
         DiscGame.current_board = this;
+        this.relative_to_current = null;
 
         // Make the other boards smaller
         resize_board(Direction.LEFT, left);
         resize_board(Direction.RIGHT, right);
         resize_board(Direction.UP, up);
         resize_board(Direction.DOWN, down);
+
+        // Move the player and computer to appropriate board
+        if (null == DiscGame.player || null == DiscGame.computer) return; // Player/Computer not yet set up
+        // Scale up icons if not in center
+        if (null == DiscGame.player.cell.board.relative_to_current) {
+            DiscGame.player.img.scale(0.4f);
+            DiscGame.computer.img.scale(0.4f);
+        }
+        position_board_entity(
+                DiscGame.player.cell.board.relative_to_current,
+                DiscGame.player,
+                DiscGame.player.cell,
+                DiscGame.player.cell.x,
+                DiscGame.player.cell.y);
+        position_board_entity(
+                DiscGame.computer.cell.board.relative_to_current,
+                DiscGame.computer,
+                DiscGame.computer.cell,
+                DiscGame.computer.cell.x,
+                DiscGame.computer.cell.y);
     }
 
     private void resize_board(Direction direction, Board board) {
@@ -151,31 +167,42 @@ public class Board {
         for (int i = 0; i < board.cells.length; i++) {
             for (int j = 0; j < board.cells[i].length; j++) {
                 cell = board.cells[i][j];
-                switch(direction) {
-                    case LEFT:
-                        cell.x = cell.center_x - 150 - (left.cells.length/2 - i) * 26;
-                        cell.y = cell.center_y - (left.cells.length/2 - j) * 26 + 15;
-                        break;
-                    case RIGHT:
-                        cell.x = cell.center_x + 150 - (right.cells.length/2 - i) * 26 + 26;
-                        cell.y = cell.center_y - (right.cells.length/2 - j) * 26 + 15;
-                        break;
-                    case UP:
-                        cell.x = cell.center_x - (up.cells.length/2 - i) * 26 + 15;
-                        cell.y = cell.center_y + 150 - (up.cells.length/2 - j) * 26 + 26;
-                        break;
-                    case DOWN:
-                        cell.x = cell.center_x - (down.cells.length/2 - i) * 26 + 15;
-                        cell.y = cell.center_y - 150 - (down.cells.length/2 - j) * 26;
-                        break;
-                }
-                cell.img.setPosition(cell.x, cell.y);
-                cell.img.scale(-0.4f);
-                // TODO: also sets up the click, move out since it conflates functionality
+                board.relative_to_current = direction;
+                position_board_entity(direction, cell, cell, i, j);
+                // TODO: also sets up the click, move out since it conflates method functionality
                 DiscGame.hover_list.add(cell);
                 DiscGame.click_list.add(cell);
             }
         }
+    }
+
+    // Resizes entity relative to the cell that it occupies
+    private void position_board_entity(Direction direction, Entity entity, Cell cell, int cell_x, int cell_y) {
+        if (null == direction) {
+            // We're on the current board, reset positioning elements
+            entity.img.setPosition(cell.center_x, cell.center_y);
+            return;
+        }
+        switch(direction) {
+            case LEFT:
+                entity.x = cell.center_x - 150 - (left.cells.length/2 - cell_x) * 26;
+                entity.y = cell.center_y - (left.cells.length/2 - cell_y) * 26 + 15;
+                break;
+            case RIGHT:
+                entity.x = cell.center_x + 150 - (right.cells.length/2 - cell_x) * 26 + 26;
+                entity.y = cell.center_y - (right.cells.length/2 - cell_y) * 26 + 15;
+                break;
+            case UP:
+                entity.x = cell.center_x - (up.cells.length/2 - cell_x) * 26 + 15;
+                entity.y = cell.center_y + 150 - (up.cells.length/2 - cell_y) * 26 + 26;
+                break;
+            case DOWN:
+                entity.x = cell.center_x - (down.cells.length/2 - cell_x) * 26 + 15;
+                entity.y = cell.center_y - 150 - (down.cells.length/2 - cell_y) * 26;
+                break;
+        }
+        entity.img.setPosition(cell.x, cell.y);
+        entity.img.scale(-0.4f);
     }
 
     private void link(Board[][] boards, int x, int y) {

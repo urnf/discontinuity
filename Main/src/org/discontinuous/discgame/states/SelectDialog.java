@@ -19,13 +19,13 @@ public class SelectDialog extends State {
     public static void setTooltipY(int y) { SelectDialog.y = y; }
 
     public static void drawShapes(ShapeRenderer shapes) {
-        Tooltip.drawDialogBox(shapes, x, y);
+        //Tooltip.drawDialogBox(shapes, x, y);
     }
     public static void drawBatch(SpriteBatch batch, DialogOption[] dialog_options, int screen_width) {
         // Draw Dialog Options which need to overlap the underlying element
-        for (DialogOption option : dialog_options) {
-            option.drawDialogOption(batch);
-        }
-        Tooltip.drawDialogWidgets(screen_width/2 - 1200, 50, 240, 100, batch);
+        //for (DialogOption option : dialog_options) {
+        //    option.drawDialogOption(batch);
+        //}
+        //Tooltip.drawDialogWidgets(screen_width/2 - 1200, 50, 240, 100, batch);
     }
 }

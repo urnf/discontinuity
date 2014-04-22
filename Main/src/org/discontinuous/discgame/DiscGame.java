@@ -28,8 +28,7 @@ import java.util.LinkedHashMap;
  */
 public class DiscGame extends Game {
     /*
-       TODO: DECIDE BETWEEEN 3D CAMERA (Perspective) or 2D with simulated transition
-       for cube of dialog options
+       TODO: DECIDE BETWEEEN 3D CAMERA (Perspective) or 2D with simulated transition for cube of dialog options
      */
 
     /*
@@ -49,7 +48,8 @@ public class DiscGame extends Game {
        - For example, a difference between one type becomes more or less important when opponent has collected a certain amount
        - Get rid of health/mana - NOT needed for arguments.
 
-
+           +         +
+           +         +           +             +
        | Logical | Ethical | Interrogate | Intimidate
         Interrogate - preps the other three for more power
 
@@ -230,7 +230,7 @@ public class DiscGame extends Game {
         computer_ai = new AI(computer, player);
 
         // Setup ability button
-        abilities_button = new AbilitiesButton(110, 380, 64, 64, hover_list, click_list, player.abilities, movestats_font);
+        abilities_button = new AbilitiesButton(110, 300, 64, 64, hover_list, click_list, player.abilities, movestats_font);
         abilities_button.setImg(new Texture(Gdx.files.internal("img/abilities.png")));
 
         //DialogProcessor inputProcessor = new DialogProcessor();

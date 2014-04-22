@@ -49,6 +49,7 @@ public class DialogOption extends Entity {
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
+        /*
         if (null != cell && StateHandling.checkState(State.SelectDialog)) {
             // if backtracking, highlight red
             if (cell.consumed) { shapes.setColor(dark_red); }
@@ -59,20 +60,25 @@ public class DialogOption extends Entity {
             shapes.setColor(dark_grey);
             shapes.rect(x - 5, y - 1 + dialog_y_offset, width + 10, height + 2);
         }
+        */
     }
 
     public void drawHover(SpriteBatch batch) {
         //DiscGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + DiscGame.hover.toString(), x, y + 30);
+        /*
         if (null != cell && StateHandling.checkState(State.SelectDialog)) {
             cell.drawHover(batch);
             //Redraw so that hover shape doesn't cover
             drawDialogOption(batch);
         }
+        */
     }
 
     public void clickHandler() {
+        /*
         if (null != cell && StateHandling.checkState(State.SelectDialog)){
             cell.clickHandler();
         }
+        */
     }
 }
