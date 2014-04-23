@@ -117,10 +117,30 @@ public class Cell extends Entity {
 
     public void createAdjacentList(Cell[][] cells) {
         adjacent = new ArrayList();
-        if (board_x + 1 < DiscGame.BOARD_WIDTH) {adjacent.add(cells[board_x + 1][board_y]);}
-        if (board_x - 1 >= 0) {adjacent.add(cells[board_x - 1][board_y]);}
-        if (board_y + 1 < DiscGame.BOARD_HEIGHT) { adjacent.add(cells[board_x][board_y + 1]);}
-        if (board_y - 1 >= 0) {adjacent.add(cells[board_x][board_y - 1]);}
+        if (board_x + 1 < DiscGame.BOARD_WIDTH) {
+            adjacent.add(cells[board_x + 1][board_y]);
+        }
+        else {
+            adjacent.add(board.right.cells[0][board_y]);
+        }
+        if (board_x - 1 >= 0) {
+            adjacent.add(cells[board_x - 1][board_y]);
+        }
+        else {
+            adjacent.add(board.left.cells[DiscGame.BOARD_WIDTH - 1][board_y]);
+        }
+        if (board_y + 1 < DiscGame.BOARD_HEIGHT) {
+            adjacent.add(cells[board_x][board_y + 1]);
+        }
+        else {
+            adjacent.add(board.up.cells[board_x][0]);
+        }
+        if (board_y - 1 >= 0) {
+            adjacent.add(cells[board_x][board_y - 1]);
+        }
+        else {
+            adjacent.add(board.down.cells[board_x][DiscGame.BOARD_HEIGHT - 1]);
+        }
     }
 
     public void add_handlers() {
@@ -158,7 +178,6 @@ public class Cell extends Entity {
         }
         else {
             // Tint it on hover
-            // TODO: Hacky as hell since I don't have access to setAlpha yet
             Color tempColor = img.getColor();
             img.setColor(tempColor.r * 0.7f, tempColor.g * 0.7f, tempColor.b * 0.7f, 1);
             img.draw(batch);

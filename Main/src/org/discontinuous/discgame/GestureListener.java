@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 public class GestureListener implements GestureDetector.GestureListener {
     final int sensitivity_x = 3000;
     final int sensitivity_y = 3000;
-    Object selectedObject = DiscGame.player.cell;
+    //Object selectedObject = DiscGame.player.cell;
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {

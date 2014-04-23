@@ -87,8 +87,6 @@ public class Board {
                 k++;
             }
         }
-
-        setup_graph(cells);
     }
 
     private void setup_graph(Cell[][] cells) {
@@ -103,6 +101,7 @@ public class Board {
         for (int i = 0; i < boards.length; i++) {
             for (int j = 0; j < boards[i].length; j++) {
                 boards[i][j].link(boards, i, j);
+                boards[i][j].setup_graph(boards[i][j].cells);
             }
         }
     }

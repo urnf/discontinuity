@@ -76,7 +76,7 @@ public class DiscGame extends Game {
     // TODO: - Insults/Compliments
     // TODO: - DONE - DP spending
     // TODO: - Oral Swap Hyper Combos
-    // TODO: - Fog of war
+    // TODO: - Fog of war / Line of Sight
     // TODO: - Move from yml to JSON
 
     // TODO: Giant pile of static variables.  OK for prototype, terrible design.
