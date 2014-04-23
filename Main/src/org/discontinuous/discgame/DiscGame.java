@@ -358,7 +358,7 @@ public class DiscGame extends Game {
         //header_font.draw(batch, "Resolved: That Prof. Elecantos should not horribly murder us and obliterate our souls.", screen_width/2 - 300, screen_height - 12);
 
         // Draw Deal Power
-        dealpower.draw(batch);
+        //dealpower.draw(batch);
     }
 
     public void drawBatchCoreTop() {

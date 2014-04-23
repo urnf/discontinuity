@@ -112,6 +112,9 @@ public class Board {
         reset_board(right);
         reset_board(up);
         reset_board(down);
+        // Reset character sizes
+        DiscGame.player.img.setScale(1);
+        DiscGame.computer.img.setScale(1);
     }
 
     private void reset_board(Board board) {
@@ -122,15 +125,10 @@ public class Board {
                 cell.x = cell.center_x;
                 cell.y = cell.center_y;
                 cell.img.setPosition(cell.x, cell.y);
-                cell.img.scale(0.4f);
+                cell.img.setScale(Cell.SCALE);
                 DiscGame.hover_list.remove(cell);
                 DiscGame.click_list.remove(cell);
             }
-        }
-        // Scale up player/computer icons if resetting board with characters
-        if (board == DiscGame.player.cell.board) {
-            DiscGame.player.img.scale(0.4f);
-            DiscGame.computer.img.scale(0.4f);
         }
     }
 

@@ -58,6 +58,8 @@ public class Cell extends Entity {
     // Associated board
     Board board;
 
+    static float SCALE = (float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE;
+
     // Super basic constructor
     public Cell (int concept_num, boolean consumed, boolean visible, int board_x, int board_y, int x, int y, int length, Board board){
         super(x, y, length, length);
@@ -87,7 +89,7 @@ public class Cell extends Entity {
             }
             img.setPosition(x, y);
             // TODO: Hack in place for 48x48 for more screen real estate, remove/redo
-            img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
+            img.setScale(SCALE);
         }
         catch (Exception e) {
             System.err.println("Invalid concept cell type!");
@@ -121,25 +123,25 @@ public class Cell extends Entity {
             adjacent.add(cells[board_x + 1][board_y]);
         }
         else {
-            adjacent.add(board.right.cells[0][board_y]);
+            adjacent.add(board.left.cells[0][board_y]);
         }
         if (board_x - 1 >= 0) {
             adjacent.add(cells[board_x - 1][board_y]);
         }
         else {
-            adjacent.add(board.left.cells[DiscGame.BOARD_WIDTH - 1][board_y]);
+            adjacent.add(board.right.cells[DiscGame.BOARD_WIDTH - 1][board_y]);
         }
         if (board_y + 1 < DiscGame.BOARD_HEIGHT) {
             adjacent.add(cells[board_x][board_y + 1]);
         }
         else {
-            adjacent.add(board.up.cells[board_x][0]);
+            adjacent.add(board.down.cells[board_x][0]);
         }
         if (board_y - 1 >= 0) {
             adjacent.add(cells[board_x][board_y - 1]);
         }
         else {
-            adjacent.add(board.down.cells[board_x][DiscGame.BOARD_HEIGHT - 1]);
+            adjacent.add(board.up.cells[board_x][DiscGame.BOARD_HEIGHT - 1]);
         }
     }
 
