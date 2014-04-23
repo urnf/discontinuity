@@ -1,6 +1,7 @@
 package org.discontinuous.discgame;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,12 +16,14 @@ import java.util.ArrayList;
  */
 public class Cell extends Entity {
     // Set up our static textures
+    static Texture tintable = new Texture(Gdx.files.internal("cell/tint.png"));
+    /*
     static Texture logical = new Texture(Gdx.files.internal("cell/logical.jpg"));
     static Texture ethical = new Texture(Gdx.files.internal("cell/ethical.jpg"));
     static Texture interrogate = new Texture(Gdx.files.internal("cell/interrogate.jpg"));
     static Texture intimidate = new Texture(Gdx.files.internal("cell/intimidate.jpg"));
     static Texture consume = new Texture(Gdx.files.internal("cell/consumed.jpg"));
-
+    */
     // Board position
     int board_x;
     int board_y;
@@ -60,10 +63,26 @@ public class Cell extends Entity {
         super(x, y, length, length);
         try {
             switch (concept_num) {
-                case 1: type = concepts.Logical; img = new Sprite(logical, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE); break;
-                case 2: type = concepts.Ethical; img = new Sprite(ethical, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE); break;
-                case 3: type = concepts.Interrogate; img = new Sprite(interrogate, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE); break;
-                case 4: type = concepts.Intimidate; img = new Sprite(intimidate, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE); break;
+                case 1:
+                    type = concepts.Logical;
+                    img = new Sprite(tintable, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE);
+                    img.setColor(34f/255, 166f/255, 129f/255, 1); // Make it adjustable later on
+                    break;
+                case 2:
+                    type = concepts.Ethical;
+                    img = new Sprite(tintable, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE);
+                    img.setColor(26f/255, 55f/255, 185f/255, 1);
+                    break;
+                case 3:
+                    type = concepts.Interrogate;
+                    img = new Sprite(tintable, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE);
+                    img.setColor(228f/255, 144f/255, 54f/255, 1);
+                    break;
+                case 4:
+                    type = concepts.Intimidate;
+                    img = new Sprite(tintable, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE);
+                    img.setColor(146f/255, 10f/255, 20f/255, 1);
+                    break;
                 default: throw new Exception();
             }
             img.setPosition(x, y);
@@ -139,10 +158,15 @@ public class Cell extends Entity {
         }
         else {
             // Tint it on hover
-            img.setColor(0.0f, 0.0f, 0.0f, 0.3f);
+            // TODO: Hacky as hell since I don't have access to setAlpha yet
+            Color tempColor = img.getColor();
+            img.setColor(tempColor.r * 0.7f, tempColor.g * 0.7f, tempColor.b * 0.7f, 1);
             img.draw(batch);
+            // Redraw char on top
+            DiscGame.player.draw(batch);
+            DiscGame.computer.draw(batch);
             // Return image to original color/scale
-            img.setColor(1f, 1f, 1f, 1);
+            img.setColor(tempColor);
 
             switch (type) {
                 case Logical: DiscGame.text_font.draw(batch, type.toString(), x + 3, y + 33); break;
@@ -178,9 +202,8 @@ public class Cell extends Entity {
     public void consume() {
         // mark current cell as consumed
         consumed = true;
-        setImg(Cell.consume);
-        img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
-
+        img.setColor(67f / 255, 67f / 255, 67f / 255, 1);
+        //img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
     }
 
     // Imperative; mark this as visible

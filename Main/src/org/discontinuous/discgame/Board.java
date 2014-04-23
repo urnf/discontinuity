@@ -16,7 +16,7 @@ public class Board {
     Cell[][] cells;
 
     enum Direction {
-        LEFT, RIGHT, UP, DOWN
+        LEFT, RIGHT, UP, DOWN, NOT_VISIBLE
     }
 
     public static final int CELL_EDGE_SIZE = 48;
@@ -128,26 +128,28 @@ public class Board {
                 DiscGame.click_list.remove(cell);
             }
         }
+        // Scale up player/computer icons if resetting board with characters
+        if (board == DiscGame.player.cell.board) {
+            DiscGame.player.img.scale(0.4f);
+            DiscGame.computer.img.scale(0.4f);
+        }
     }
 
     public void set_current_board() {
-        resize_board(null, this);
+        resize_board(null);
         DiscGame.current_board = this;
         this.relative_to_current = null;
 
         // Make the other boards smaller
-        resize_board(Direction.LEFT, left);
-        resize_board(Direction.RIGHT, right);
-        resize_board(Direction.UP, up);
-        resize_board(Direction.DOWN, down);
+        left.resize_board(Direction.LEFT);
+        right.resize_board(Direction.RIGHT);
+        up.resize_board(Direction.UP);
+        down.resize_board(Direction.DOWN);
+
+        // Player/Computer not yet set up
+        if (null == DiscGame.player || null == DiscGame.computer) return;
 
         // Move the player and computer to appropriate board
-        if (null == DiscGame.player || null == DiscGame.computer) return; // Player/Computer not yet set up
-        // Scale up icons if not in center
-        if (null == DiscGame.player.cell.board.relative_to_current) {
-            DiscGame.player.img.scale(0.4f);
-            DiscGame.computer.img.scale(0.4f);
-        }
         position_board_entity(
                 DiscGame.player.cell.board.relative_to_current,
                 DiscGame.player,
@@ -162,12 +164,26 @@ public class Board {
                 DiscGame.computer.cell.y);
     }
 
-    private void resize_board(Direction direction, Board board) {
+    private void resize_board(Direction direction) {
         Cell cell;
-        for (int i = 0; i < board.cells.length; i++) {
-            for (int j = 0; j < board.cells[i].length; j++) {
-                cell = board.cells[i][j];
-                board.relative_to_current = direction;
+        relative_to_current = direction;
+        if (null != direction) {
+            switch(direction) {
+                case LEFT:
+                case RIGHT:
+                    up.relative_to_current = Direction.NOT_VISIBLE;
+                    down.relative_to_current = Direction.NOT_VISIBLE;
+                    break;
+                case UP:
+                case DOWN:
+                    left.relative_to_current = Direction.NOT_VISIBLE;
+                    right.relative_to_current = Direction.NOT_VISIBLE;
+                    break;
+            }
+        }
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                cell = cells[i][j];
                 position_board_entity(direction, cell, cell, i, j);
                 // TODO: also sets up the click, move out since it conflates method functionality
                 DiscGame.hover_list.add(cell);
@@ -200,6 +216,8 @@ public class Board {
                 entity.x = cell.center_x - (down.cells.length/2 - cell_x) * 26 + 15;
                 entity.y = cell.center_y - 150 - (down.cells.length/2 - cell_y) * 26;
                 break;
+            case NOT_VISIBLE:
+                return;
         }
         entity.img.setPosition(cell.x, cell.y);
         entity.img.scale(-0.4f);

@@ -23,8 +23,8 @@ public class DialogOption extends Entity {
 
     public DialogOption (int x, int y, int width, int height){
         super(x, y, width, height);
-        DiscGame.hover_list.add(this);
-        DiscGame.click_list.add(this);
+        //DiscGame.hover_list.add(this);
+        //DiscGame.click_list.add(this);
         y_offset = y + height;
         // Note - cell isn't initialized here since that's the purview of Contestant
     }

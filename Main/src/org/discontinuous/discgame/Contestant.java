@@ -84,7 +84,7 @@ public class Contestant extends Entity {
     public void set_portrait(Portrait portrait) { this.portrait = portrait; }
 
     public void draw(SpriteBatch batch) {
-        img.draw(batch);
+        if (cell.board.relative_to_current != Board.Direction.NOT_VISIBLE) img.draw(batch);
     }
 
     public void draw_confidence(ShapeRenderer shapes) {

@@ -288,7 +288,8 @@ public class DiscGame extends Game {
         */
 
         // debug for mouse
-        header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y, 400, 500);
+        //header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y + "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
+        header_font.draw(batch, "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
 
         // debug for phone resolution
 
