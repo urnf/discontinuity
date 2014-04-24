@@ -178,8 +178,20 @@ public class Contestant extends Entity {
             StateHandling.combo = false;
         }
 
-        // set new cell to destination
-        this.cell = cell;
+        // if moving to a new board, enlarge icons and bring opponent along
+        if (this.cell.board != cell.board) {
+            // Update both player and opponent positions
+            opponent.update_only_position(cell.board.cells[opponent.cell.board_x][opponent.cell.board_y]);
+            this.cell = cell;
+            // Make sure we move onto the new board (if computer decides to swap)
+            DiscGame.current_board.reset_board_positions();
+            cell.board.set_current_board();
+        }
+        else {
+            // set new cell to destination
+            this.cell = cell;
+        }
+
         cell.occupied = true;
 
         update_stats(cell, false);
