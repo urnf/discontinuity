@@ -17,7 +17,8 @@ public class AI {
     Contestant player;
     // This is how many steps ahead the AI looks for pathfinding.
     // Exponentially takes more time the more iterations there are, so keep this low
-    final int iterations = 8;
+    // TODO: FIX - TAKES TOO LONG ON MOBILE
+    final int iterations = 6;
     Map<Cell, Float> possible_moves;
     Cell max_cell;
     float max_value;

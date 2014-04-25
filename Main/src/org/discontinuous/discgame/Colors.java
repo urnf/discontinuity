@@ -29,6 +29,8 @@ public class Colors {
         put("dark_grey", new Color(0.15f, 0.15f, 0.15f, 1));
         put("light_grey", new Color(0.8f, 0.8f, 0.8f, 1));
 
+        put ("consumed", new Color(67f / 255, 67f / 255, 67f / 255, 1));
+
         put("logical_color", new Color(logical_r, logical_g, logical_b, 1));
         put("ethical_color", new Color(ethical_r, ethical_g, ethical_b, 1));
         put("interrogate_color", new Color(interrogate_r, interrogate_g, interrogate_b, 1));

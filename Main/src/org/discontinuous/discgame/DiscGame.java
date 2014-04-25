@@ -2,6 +2,7 @@ package org.discontinuous.discgame;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -27,6 +28,12 @@ import java.util.LinkedHashMap;
  * be adequate given that I'm planning on working on a purely 2D plane
  */
 public class DiscGame extends Game {
+    /*
+    TODO: TOP PRIORITIES NOW IMPLEMENT ASSET MANAGER AND FIX NON ASPECT RATIO INPUTS
+
+     */
+
+
     /*
     CURRENT IDEA
     - Each player has an ethical, logical, interrogate, intimidate bar
@@ -101,14 +108,16 @@ public class DiscGame extends Game {
     OrthographicCamera camera;
     SpriteBatch batch;
     ShapeRenderer shapes;
-    Texture confidence_icon;
-    Texture inspiration_icon;
-    Icon confidence_icon_player;
-    Icon confidence_icon_opponent;
-    Icon inspiration_icon_player;
-    Icon inspiration_icon_opponent;
+    //Texture confidence_icon;
+    //Texture inspiration_icon;
+    //Icon confidence_icon_player;
+    //Icon confidence_icon_opponent;
+    //Icon inspiration_icon_player;
+    //Icon inspiration_icon_opponent;
     static AbilitiesButton abilities_button;
     static AI computer_ai;
+
+    AssetManager manager = new AssetManager();
 
     static DialogOption[] dialog_options;
 
@@ -302,8 +311,8 @@ public class DiscGame extends Game {
         */
 
         // debug for mouse
-        //header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y + "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
-        header_font.draw(batch, "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
+        header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y + "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
+        //header_font.draw(batch, "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
 
         // debug for phone resolution
 
@@ -592,6 +601,7 @@ public class DiscGame extends Game {
     }
 
     public void setupIcons() {
+        /*
         String confidence = "Confidence \n At zero confidence, your opponent forces you to concede the match.  This results in the end of the game along with a 1000 DP penalty.";
         String inspiration = "Inspiration \n This enables you to use special debate techniques.  Using a special ability costs your turn, but you don't take backtracking penalties.";
         confidence_icon = new Texture(Gdx.files.internal("img/confidence.png"));
@@ -605,6 +615,7 @@ public class DiscGame extends Game {
         inspiration_icon_player.setImg(inspiration_icon);
         inspiration_icon_opponent = new Icon(DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 70, screen_height - 67, 32, 32, DESIRED_WIDTH/2 - 200, 600, 400, 80, "Opponent " + inspiration);
         inspiration_icon_opponent.setImg(inspiration_icon);
+        */
         // Assign the movestats texture to be used generally in portraits
         movestats = new Texture(Gdx.files.internal("img/movestats.png"));
     }

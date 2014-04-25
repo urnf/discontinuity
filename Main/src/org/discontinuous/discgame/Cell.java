@@ -205,7 +205,6 @@ public class Cell extends Entity {
             DiscGame.computer.draw(batch);
             // Return image to original color/scale
             //img.setColor(tempColor);
-
             switch (type) {
                 case Logical:
                     img.setColor(Colors.ColorMap.get("logical_color"));
@@ -224,6 +223,7 @@ public class Cell extends Entity {
                     DiscGame.text_font_small.draw(batch, type.toString(), x - 2, y + 33);
                     break;
             }
+            if(consumed) img.setColor(Colors.ColorMap.get("consumed"));
         }
         //DiscGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + DiscGame.hover.toString(), x, y + 30);
         //DiscGame.text_font_small.draw(batch, "Board X: " + board_x + " Board Y: " + board_y, x, y + 25);
@@ -252,7 +252,7 @@ public class Cell extends Entity {
     public void consume() {
         // mark current cell as consumed
         consumed = true;
-        img.setColor(67f / 255, 67f / 255, 67f / 255, 1);
+        img.setColor(Colors.ColorMap.get("consumed"));
         //img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
     }
 

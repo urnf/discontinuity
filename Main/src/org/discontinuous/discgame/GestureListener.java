@@ -19,6 +19,10 @@ public class GestureListener implements GestureDetector.GestureListener {
 
     @Override
     public boolean tap (float x, float y, int count, int button) {
+        DiscGame.mouse_x = (int) x;
+        DiscGame.mouse_y = (int) y;
+        InputHandling.tapClickHandle((int) (x * DiscGame.DESIRED_WIDTH/DiscGame.screen_width),
+                (int) (y * DiscGame.DESIRED_HEIGHT/DiscGame.screen_height));
         return false;
     }
 

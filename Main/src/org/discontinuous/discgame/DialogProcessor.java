@@ -33,6 +33,8 @@ public class DialogProcessor implements InputProcessor {
 
     @Override
     public boolean touchUp (int x, int y, int pointer, int button) {
+        return InputHandling.tapClickHandle(x, y);
+        /*
         // If in dialog, advance to the next dialog or exit
         switch (StateHandling.currentState) {
             case InDialog:
@@ -66,6 +68,7 @@ public class DialogProcessor implements InputProcessor {
         }
         if (null != clicked) {clicked.clickHandler(); clicked = null;}
         return false;
+        */
     }
 
     @Override
