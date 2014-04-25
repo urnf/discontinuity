@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.StateHandling.State;
 import org.discontinuous.discgame.abilities.AbilityTarget;
+import org.discontinuous.discgame.Colors;
 
 import java.util.ArrayList;
 
@@ -68,22 +69,22 @@ public class Cell extends Entity {
                 case 1:
                     type = concepts.Logical;
                     img = new Sprite(tintable, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE);
-                    img.setColor(34f/255, 166f/255, 129f/255, 1); // Make it adjustable later on
+                    img.setColor(Colors.ColorMap.get("logical_color")); // Make it adjustable later on
                     break;
                 case 2:
                     type = concepts.Ethical;
                     img = new Sprite(tintable, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE);
-                    img.setColor(26f/255, 55f/255, 185f/255, 1);
+                    img.setColor(Colors.ColorMap.get("ethical_color"));
                     break;
                 case 3:
                     type = concepts.Interrogate;
                     img = new Sprite(tintable, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE);
-                    img.setColor(228f/255, 144f/255, 54f/255, 1);
+                    img.setColor(Colors.ColorMap.get("interrogate_color"));
                     break;
                 case 4:
                     type = concepts.Intimidate;
                     img = new Sprite(tintable, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE);
-                    img.setColor(146f/255, 10f/255, 20f/255, 1);
+                    img.setColor(Colors.ColorMap.get("intimidate_color"));
                     break;
                 default: throw new Exception();
             }
@@ -179,21 +180,49 @@ public class Cell extends Entity {
             dialog_option.drawDialogOption(batch);
         }
         else {
+
+            switch (type) {
+                case Logical:
+                    img.setColor(Colors.ColorMap.get("logical_fade"));
+                    break;
+                case Ethical:
+                    img.setColor(Colors.ColorMap.get("ethical_fade"));
+                    break;
+                case Interrogate:
+                    img.setColor(Colors.ColorMap.get("interrogate_fade"));
+                    break;
+                case Intimidate:
+                    img.setColor(Colors.ColorMap.get("intimidate_fade"));
+                    break;
+            }
+
             // Tint it on hover
-            Color tempColor = img.getColor();
-            img.setColor(tempColor.r * 0.7f, tempColor.g * 0.7f, tempColor.b * 0.7f, 1);
+            //Color tempColor = img.getColor();
+            //img.setColor(tempColor.r * 0.7f, tempColor.g * 0.7f, tempColor.b * 0.7f, 1);
             img.draw(batch);
             // Redraw char on top
             DiscGame.player.draw(batch);
             DiscGame.computer.draw(batch);
             // Return image to original color/scale
-            img.setColor(tempColor);
+            //img.setColor(tempColor);
 
             switch (type) {
-                case Logical: DiscGame.text_font.draw(batch, type.toString(), x + 3, y + 33); break;
-                case Ethical: DiscGame.text_font.draw(batch, type.toString(), x + 5, y + 33); break;
-                case Interrogate: DiscGame.text_font_small.draw(batch, type.toString(), x - 3, y + 33); break;
-                case Intimidate: DiscGame.text_font_small.draw(batch, type.toString(), x - 2, y + 33); break;
+                case Logical:
+                    img.setColor(Colors.ColorMap.get("logical_color"));
+                    DiscGame.text_font.draw(batch, type.toString(), x + 3, y + 33);
+                    break;
+                case Ethical:
+                    img.setColor(Colors.ColorMap.get("ethical_color"));
+                    DiscGame.text_font.draw(batch, type.toString(), x + 5, y + 33);
+                    break;
+                case Interrogate:
+                    img.setColor(Colors.ColorMap.get("interrogate_color"));
+                    DiscGame.text_font_small.draw(batch, type.toString(), x - 3, y + 33);
+                    break;
+                case Intimidate:
+                    img.setColor(Colors.ColorMap.get("intimidate_color"));
+                    DiscGame.text_font_small.draw(batch, type.toString(), x - 2, y + 33);
+                    break;
             }
         }
         //DiscGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + DiscGame.hover.toString(), x, y + 30);

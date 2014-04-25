@@ -339,6 +339,7 @@ public class DiscGame extends Game {
     }
 
     public void drawShapesCore() {
+        /*
         player.draw_ethical(shapes);
         player.draw_logical(shapes);
         player.draw_interrogate(shapes);
@@ -347,6 +348,7 @@ public class DiscGame extends Game {
         computer.draw_logical(shapes);
         computer.draw_interrogate(shapes);
         computer.draw_intimidate(shapes);
+        */
     }
 
     public void drawBatchCore() {
@@ -363,10 +365,22 @@ public class DiscGame extends Game {
         current_board.draw_down(batch);
 
         // Draw confidence/inspiration icons
+        /*
         confidence_icon_player.draw(batch);
         confidence_icon_opponent.draw(batch);
         inspiration_icon_player.draw(batch);
         inspiration_icon_opponent.draw(batch);
+        */
+
+        // Draw argument bars
+        player.draw_ethical(batch);
+        player.draw_logical(batch);
+        player.draw_interrogate(batch);
+        player.draw_intimidate(batch);
+        computer.draw_ethical(batch);
+        computer.draw_logical(batch);
+        computer.draw_interrogate(batch);
+        computer.draw_intimidate(batch);
 
         // Draw contestants
         player.draw(batch);

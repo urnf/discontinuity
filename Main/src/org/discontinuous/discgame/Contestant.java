@@ -1,5 +1,6 @@
 package org.discontinuous.discgame;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.StateHandling.State;
@@ -15,6 +16,9 @@ import java.util.Hashtable;
  * Created by Urk on 12/18/13.
  */
 public class Contestant extends Entity {
+    static final float SCALE = 0.5f;
+    static final int SCALED_ARG_TEXTURE = (int) (Board.TEXTURE_EDGE * SCALE);
+
     //Don't store board_x, board_y; grab from Cell
     Cell cell;
     //int confidence;
@@ -37,8 +41,12 @@ public class Contestant extends Entity {
     Hashtable<String, Integer> eth_stats;
     Hashtable<String, Integer> inm_stats;
     Hashtable<String, Integer> ing_stats;
-    int confidence_x_coord;
-    int inspiration_x_coord;
+    //int confidence_x_coord;
+    //int inspiration_x_coord;
+    int logical_x_coord;
+    int ethical_x_coord;
+    int interrogate_x_coord;
+    int intimidate_x_coord;
     int bars_y_coord;
     boolean player;
     Contestant opponent;
@@ -47,6 +55,10 @@ public class Contestant extends Entity {
     Ability ability_selected;
     Combo combo;
     Portrait portrait;
+    ArrayList<Sprite> logical_imgs;
+    ArrayList<Sprite> ethical_imgs;
+    ArrayList<Sprite> interrogate_imgs;
+    ArrayList<Sprite> intimidate_imgs;
 
     // TODO: pass in a hash or something.  this argument list is getting confusingly gnarly as fuck
     public Contestant(int board_x,
@@ -89,17 +101,78 @@ public class Contestant extends Entity {
         this.ing_stats = ing_stats;
         int coordinate;
         if (isPlayer) {
-            coordinate = DiscGame.DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * board_x/2) - 100;
+            coordinate = DiscGame.DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * board_x/2) - 350;
         }
         else {
-            coordinate = DiscGame.DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * board_x/2) + 100;
+            coordinate = DiscGame.DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * board_x/2) + 250;
         }
         bars_y_coord = DiscGame.DESIRED_HEIGHT/2 + 80;
-        confidence_x_coord = coordinate;
-        inspiration_x_coord = coordinate + 40;
+        logical_x_coord = coordinate;
+        ethical_x_coord = coordinate + SCALED_ARG_TEXTURE;
+        interrogate_x_coord = coordinate + SCALED_ARG_TEXTURE * 2;
+        intimidate_x_coord = coordinate + SCALED_ARG_TEXTURE * 3;
         player = isPlayer;
         adjacent = new ArrayList();
         abilities = new ArrayList();
+        logical_imgs = new ArrayList();
+        ethical_imgs = new ArrayList();
+        interrogate_imgs = new ArrayList();
+        intimidate_imgs = new ArrayList();
+
+        // Set up arrays of each argument type to draw
+        for (int i = 0; i < logical_max; i++) {
+            Sprite arg_img = setup_argument_sprite(i);
+            arg_img.setPosition(logical_x_coord, bars_y_coord + SCALED_ARG_TEXTURE * i);
+            if (i < logical_bar) {
+                arg_img.setColor(Colors.ColorMap.get("logical_color"));
+            }
+            else {
+                arg_img.setColor(Colors.ColorMap.get("logical_extra_fade"));
+            }
+            logical_imgs.add(arg_img);
+        }
+        for (int i = 0; i < ethical_max; i++) {
+            Sprite arg_img = setup_argument_sprite(i);
+            arg_img.setPosition(ethical_x_coord, bars_y_coord + SCALED_ARG_TEXTURE * i);
+            if (i < ethical_bar) {
+                arg_img.setColor(Colors.ColorMap.get("ethical_color"));
+            }
+            else {
+                arg_img.setColor(Colors.ColorMap.get("ethical_extra_fade"));
+            }
+            ethical_imgs.add(arg_img);
+
+        }
+        for (int i = 0; i < interrogate_max; i++) {
+            Sprite arg_img = setup_argument_sprite(i);
+            arg_img.setPosition(interrogate_x_coord, bars_y_coord + SCALED_ARG_TEXTURE * i);
+            if (i < interrogate_bar) {
+                arg_img.setColor(Colors.ColorMap.get("interrogate_color"));
+            }
+            else {
+                arg_img.setColor(Colors.ColorMap.get("interrogate_extra_fade"));
+            }
+            interrogate_imgs.add(arg_img);
+
+        }
+        for (int i = 0; i < intimidate_max; i++) {
+            Sprite arg_img = setup_argument_sprite(i);
+            arg_img.setPosition(intimidate_x_coord, bars_y_coord + SCALED_ARG_TEXTURE * i);
+            if (i < intimidate_bar) {
+                arg_img.setColor(Colors.ColorMap.get("intimidate_color"));
+            }
+            else {
+                arg_img.setColor(Colors.ColorMap.get("intimidate_extra_fade"));
+            }
+            intimidate_imgs.add(arg_img);
+
+        }
+    }
+
+    public Sprite setup_argument_sprite(int i) {
+        Sprite arg_img = new Sprite(Cell.tintable, Board.TEXTURE_EDGE, Board.TEXTURE_EDGE);
+        arg_img.setScale(SCALE);
+        return arg_img;
     }
 
     public ArrayList<Ability> get_abilities() { return abilities; }
@@ -114,32 +187,52 @@ public class Contestant extends Entity {
         if (cell.board.relative_to_current != Board.Direction.NOT_VISIBLE) img.draw(batch);
     }
 
-    public void draw_logical(ShapeRenderer shapes) {
+    public void draw_logical(SpriteBatch batch) {
+        for (int i = 0; i < logical_max; i++) {
+            logical_imgs.get(i).draw(batch);
+        }
+        /*
         shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
         shapes.rect(confidence_x_coord, bars_y_coord, 40, 120);
         shapes.setColor(0.1f, 0.69f, 0.298f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, logical_bar * 120);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, logical_bar * 30);
+        */
     }
 
-    public void draw_ethical(ShapeRenderer shapes) {
+    public void draw_ethical(SpriteBatch batch) {
+        for (int i = 0; i < ethical_max; i++) {
+            ethical_imgs.get(i).draw(batch);
+        }
+        /*
         shapes.setColor(0.039f, 0.18f, 0.258f, 1);
         shapes.rect(inspiration_x_coord, bars_y_coord, 40, 120);
         shapes.setColor(0.129f, 0.506f, 0.725f, 1);
-        shapes.rect(inspiration_x_coord, bars_y_coord, 40, ethical_bar * 120);
+        shapes.rect(inspiration_x_coord, bars_y_coord, 40, ethical_bar * 30);
+        */
     }
 
-    public void draw_interrogate(ShapeRenderer shapes) {
+    public void draw_interrogate(SpriteBatch batch) {
+        for (int i = 0; i < interrogate_max; i++) {
+            interrogate_imgs.get(i).draw(batch);
+        }
+        /*
         shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
         shapes.rect(confidence_x_coord, bars_y_coord, 40, 120);
         shapes.setColor(0.1f, 0.69f, 0.298f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, interrogate_bar * 120);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, interrogate_bar * 30);
+        */
     }
 
-    public void draw_intimidate(ShapeRenderer shapes) {
+    public void draw_intimidate(SpriteBatch batch) {
+        for (int i = 0; i < intimidate_max; i++) {
+            intimidate_imgs.get(i).draw(batch);
+        }
+        /*
         shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
         shapes.rect(confidence_x_coord, bars_y_coord, 40, 120);
         shapes.setColor(0.1f, 0.69f, 0.298f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, intimidate_bar * 120);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, intimidate_bar * 30);
+        */
     }
 
     public void draw_stats(SpriteBatch batch, int hover_x, int hover_y) {
@@ -326,6 +419,43 @@ public class Contestant extends Entity {
             intimidate_bar -= 1;
             //confidence = Math.max(confidence - 50, 0);
             //inspiration = Math.max(inspiration - 50, 0);
+        }
+        refresh_argument_bars();
+    }
+
+    private void refresh_argument_bars() {
+        for (int i = 0; i < logical_max; i++) {
+            if (i < logical_bar) {
+                logical_imgs.get(i).setColor(Colors.ColorMap.get("logical_color"));
+            }
+            else {
+                logical_imgs.get(i).setColor(Colors.ColorMap.get("logical_extra_fade"));
+            }
+        }
+        for (int i = 0; i < ethical_max; i++) {
+            if (i < ethical_bar) {
+                ethical_imgs.get(i).setColor(Colors.ColorMap.get("ethical_color"));
+            }
+            else {
+                ethical_imgs.get(i).setColor(Colors.ColorMap.get("ethical_extra_fade"));
+            }
+        }
+        for (int i = 0; i < interrogate_max; i++) {
+            if (i < interrogate_bar) {
+                interrogate_imgs.get(i).setColor(Colors.ColorMap.get("interrogate_color"));
+            }
+            else {
+                interrogate_imgs.get(i).setColor(Colors.ColorMap.get("interrogate_extra_fade"));
+            }
+        }
+        for (int i = 0; i < intimidate_max; i++) {
+            if (i < intimidate_bar) {
+                intimidate_imgs.get(i).setColor(Colors.ColorMap.get("intimidate_color"));
+            }
+            else {
+                intimidate_imgs.get(i).setColor(Colors.ColorMap.get("intimidate_extra_fade"));
+            }
+
         }
     }
 
