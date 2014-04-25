@@ -24,12 +24,19 @@ public class AI {
 
     // Current AI weights - may change based on personalities, abilities, etc.
     // TODO: Move out and read from game variables yml
+    /*
     int dp_weight = 1;
     int backtrack_dp_weight = 3;
     int conf_plus_weight = 2;
     int conf_minus_weight = 2;
     int ins_plus_weight = 2;
     int ins_minus_weight = 2;
+    */
+
+    int log_plus_weight = 1;
+    int eth_plus_weight = 1;
+    int ing_plus_weight = 1;
+    int int_plus_weight = 1;
 
     public AI(Contestant computer, Contestant player) {
         // Set up the Contestant as the opponent
@@ -120,58 +127,90 @@ public class AI {
     public float getBonusOrPenalty(Cell cell, boolean previously_consumed) {
         // if consumed either in the previous cells list or already marked on board, no bonuses and DP penalty instead.
         if (cell.consumed || previously_consumed) {
+
+            return -2 * log_plus_weight * (1 - ((float) computer.logical_bar/computer.logical_max)) +
+                   -2 * eth_plus_weight * (1 - ((float) computer.ethical_bar/computer.ethical_max)) +
+                   -2 * ing_plus_weight * (1 - ((float) computer.interrogate_bar/computer.interrogate_max)) +
+                   -2 * int_plus_weight * (1 - ((float) computer.intimidate_bar/computer.intimidate_max));
+            /*
             return -1 * DealPower.consume_penalty * backtrack_dp_weight +
                     -50 * conf_plus_weight * (1 - ((float) computer.confidence/computer.conf_max)) +
                     -50 * ins_plus_weight * (1 - ((float) computer.inspiration/computer.insp_max));
+            */
         }
         return getBonuses(cell);
     }
 
     public float getBonuses(Cell cell) {
+        /*
         int power = 0;
         int conf_plus = 0;
         int conf_minus = 0;
         int ins_plus = 0;
         int ins_minus = 0;
-
+        */
+        int log_plus = 0;
+        int eth_plus = 0;
+        int ing_plus = 0;
+        int int_plus = 0;
         // Weight conf_plus more if confidence is low, and like so for each of the stats
         switch (cell.type) {
             case Logical:
+                log_plus += 1;
+                /*
                 power = computer.log_stats.get("power");
                 conf_plus = computer.log_stats.get("conf_plus");
                 conf_minus = computer.log_stats.get("conf_minus");
                 ins_plus = computer.log_stats.get("ins_plus");
                 ins_minus = computer.log_stats.get("ins_minus");
+                */
                 break;
             case Ethical:
+                eth_plus += 1;
+                /*
                 power = computer.eth_stats.get("power");
                 conf_plus = computer.eth_stats.get("conf_plus");
                 conf_minus = computer.eth_stats.get("conf_minus");
                 ins_plus = computer.eth_stats.get("ins_plus");
                 ins_minus = computer.eth_stats.get("ins_minus");
+                */
                 break;
             case Interrogate:
+                ing_plus += 1;
+                /*
                 power = computer.ing_stats.get("power");
                 conf_plus = computer.ing_stats.get("conf_plus");
                 conf_minus = computer.ing_stats.get("conf_minus");
                 ins_plus = computer.ing_stats.get("ins_plus");
                 ins_minus = computer.ing_stats.get("ins_minus");
+                */
                 break;
             case Intimidate:
+                int_plus += 1;
+                /*
                 power = computer.inm_stats.get("power");
                 conf_plus = computer.inm_stats.get("conf_plus");
                 conf_minus = computer.inm_stats.get("conf_minus");
                 ins_plus = computer.inm_stats.get("ins_plus");
                 ins_minus = computer.inm_stats.get("ins_minus");
+                */
                 break;
         }
-        return (power * dp_weight +
+        return (
+                log_plus * log_plus_weight * (1- ((float) computer.logical_bar/computer.logical_max)) +
+                eth_plus * eth_plus_weight * (1- ((float) computer.ethical_bar/computer.ethical_max)) +
+                ing_plus * ing_plus_weight * (1- ((float) computer.interrogate_bar/computer.interrogate_max)) +
+                int_plus * int_plus_weight * (1- ((float) computer.intimidate_bar/computer.intimidate_max))
+                /*
+                power * dp_weight +
                 // Weighting: More confidence means getting confidence is less important
                 conf_plus * conf_plus_weight * (1 - ((float) computer.confidence/computer.conf_max)) +
                 // Opponent having more confidence means confidence becomes a higher priority
                 conf_minus * conf_minus_weight * ((float) player.confidence/player.conf_max) +
                 // Likewise for inspiration
                 ins_plus * ins_plus_weight * (1 - ((float) computer.inspiration/computer.insp_max)) +
-                ins_minus * ins_minus_weight * ((float) player.inspiration/player.insp_max));
+                ins_minus * ins_minus_weight * ((float) player.inspiration/player.insp_max)
+                */
+        );
     }
 }

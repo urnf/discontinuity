@@ -16,8 +16,10 @@ import java.util.Hashtable;
  * Created by Urk on 4/4/14.
  */
 public class Socrates extends Contestant {
-    static int CONF_MAX = 100;
-    static int INSP_MAX = 140;
+    static int LOG_MAX = 4;
+    static int ETH_MAX = 4;
+    static int ING_MAX = 4;
+    static int INT_MAX = 4;
 
     // Setup Contestant stats
     static Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
@@ -63,7 +65,7 @@ public class Socrates extends Contestant {
                      int screen_width,
                      BitmapFont font,
                      Cell cell) {
-        super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, CONF_MAX, INSP_MAX, isPlayer, cell);
+        super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, LOG_MAX, ETH_MAX, INT_MAX, ING_MAX, isPlayer, cell);
 
         // Set up Socrates' combos
         this.set_combo(new Combo(combo_list));

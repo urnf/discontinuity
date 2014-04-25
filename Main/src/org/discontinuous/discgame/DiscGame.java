@@ -28,6 +28,20 @@ import java.util.LinkedHashMap;
  */
 public class DiscGame extends Game {
     /*
+    CURRENT IDEA
+    - Each player has an ethical, logical, interrogate, intimidate bar
+    - these start at different values and cap at different values
+    - You gain +1 to each one as you consume it.  You also gain +argument on that specific topic equal to the value of the arugment you have
+    - Abilities cost a certain amount of each to use.  Using it still consumes your turn.
+    - Combos still work
+    - Going over a consumed argument is -1 to all values
+    - -1 to ANY value at 0 causes you to lose your next turn "stammer"
+    - CHoice between - sitting on the pile for max +argument or using them for abilities
+    - Goal of the game is to win the arugments.
+
+     */
+
+    /*
        TODO: DECIDE BETWEEEN 3D CAMERA (Perspective) or 2D with simulated transition for cube of dialog options
      */
 
@@ -325,10 +339,14 @@ public class DiscGame extends Game {
     }
 
     public void drawShapesCore() {
-        player.draw_confidence(shapes);
-        player.draw_inspiration(shapes);
-        computer.draw_confidence(shapes);
-        computer.draw_inspiration(shapes);
+        player.draw_ethical(shapes);
+        player.draw_logical(shapes);
+        player.draw_interrogate(shapes);
+        player.draw_intimidate(shapes);
+        computer.draw_ethical(shapes);
+        computer.draw_logical(shapes);
+        computer.draw_interrogate(shapes);
+        computer.draw_intimidate(shapes);
     }
 
     public void drawBatchCore() {
