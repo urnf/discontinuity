@@ -64,25 +64,27 @@ public class Socrates extends Contestant {
                      int board_y,
                      int screen_width,
                      BitmapFont font,
+                     Texture socrates_tex,
+                     Texture mini_tex,
                      Cell cell) {
         super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, LOG_MAX, ETH_MAX, INT_MAX, ING_MAX, isPlayer, cell);
 
         // Set up Socrates' combos
         this.set_combo(new Combo(combo_list));
 
-        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/yi-combos.png")), -60, 0, 400, 292, screen_width/2 - 250, 700, 220, 250, 500, "Socrates\n" +
+        Portrait portrait = new Portrait(this, DiscGame.manager.get("img/yi-combos.png", Texture.class), -60, 0, 400, 292, screen_width/2 - 250, 700, 220, 250, 500, "Socrates\n" +
                 "Nobody fucks with Socrates and gets away with it.\n" +
                 "\n" +
                 "Nobody.\n" +
                 "\n" +
                 "Socrates' passive ability SOCRATIC METHOD reduces all confidence damage taken by 20%");
-        portrait.setImg(new Texture(Gdx.files.internal("img/socrates.png")));
+        portrait.setImg(socrates_tex);
 
         //portrait.setContestant(yi);
         this.set_portrait(portrait);
 
         //yi = new Contestant(combos, BOARD_WIDTH, BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 120, true, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
-        setImg(new Texture(Gdx.files.internal("img/zhugemini.png")));
+        setImg(mini_tex);
 
         // Init AbilityList abilities here
         AbilityList.init_abilities(this, get_abilities(), font);

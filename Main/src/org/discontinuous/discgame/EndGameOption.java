@@ -72,8 +72,8 @@ public class EndGameOption extends Entity {
                 DiscGame.player.portrait.x = 0;
                 DiscGame.player.portrait.width = 382;
                 DiscGame.player.portrait.height = 700;
-                DiscGame.player.portrait.setImg(new Texture(Gdx.files.internal("img/YiDemonResize.png")));
-                DiscGame.computer.portrait.setImg(new Texture(Gdx.files.internal("img/ArleneLichResize.png")));
+                DiscGame.player.portrait.setImg(DiscGame.manager.get("img/YiDemonResize.png", Texture.class));
+                DiscGame.computer.portrait.setImg(DiscGame.manager.get("img/ArleneLichResize.png", Texture.class));
 
 
             }

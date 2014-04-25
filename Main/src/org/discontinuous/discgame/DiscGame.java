@@ -117,7 +117,7 @@ public class DiscGame extends Game {
     static AbilitiesButton abilities_button;
     static AI computer_ai;
 
-    AssetManager manager = new AssetManager();
+    public static AssetManager manager = new AssetManager();
 
     static DialogOption[] dialog_options;
 
@@ -192,6 +192,37 @@ public class DiscGame extends Game {
         //Load dialog
         loadDialog();
 
+        manager.load("cell/tint.png", Texture.class);
+
+        manager.load("img/confucius.png", Texture.class);
+        manager.load("img/arlenemini.png", Texture.class);
+
+        manager.load("img/socrates.png", Texture.class);
+        manager.load("img/zhugemini.png", Texture.class);
+
+        manager.load("img/movestats.png", Texture.class);
+
+        manager.load("img/yi-combos.png", Texture.class);
+        manager.load("img/arlene-combos.png", Texture.class);
+
+        manager.load("img/strawman.png", Texture.class);
+        manager.load("img/tableflip.png", Texture.class);
+        manager.load("img/nonsequitur.png", Texture.class);
+        manager.load("img/reasonabledoubt.png", Texture.class);
+        manager.load("img/doubledown.png", Texture.class);
+
+        manager.load("img/abilities.png", Texture.class);
+
+        manager.load("img/upper-left.png", Texture.class);
+        manager.load("img/upper-right.png", Texture.class);
+        manager.load("img/lower-left.png", Texture.class);
+        manager.load("img/lower-right.png", Texture.class);
+
+        manager.load("img/YiDemonResize.png", Texture.class);
+        manager.load("img/ArleneLichResize.png", Texture.class);
+
+        manager.finishLoading();
+
         // Setup list of entities which have an action on hover/click
         click_list = new ArrayList();
         hover_list = new ArrayList();
@@ -254,7 +285,7 @@ public class DiscGame extends Game {
 
         // Setup ability button
         abilities_button = new AbilitiesButton(110, 300, 64, 64, hover_list, click_list, player.abilities, movestats_font);
-        abilities_button.setImg(new Texture(Gdx.files.internal("img/abilities.png")));
+        abilities_button.setImg( manager.get("img/abilities.png", Texture.class));
 
         //DialogProcessor inputProcessor = new DialogProcessor();
         //Gdx.input.setInputProcessor(inputProcessor);
@@ -345,6 +376,7 @@ public class DiscGame extends Game {
 
     public void dispose() {
         batch.dispose();
+        manager.dispose();
     }
 
     public void drawShapesCore() {
@@ -409,7 +441,7 @@ public class DiscGame extends Game {
     }
 
     public void setupPlayer() {
-        player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, DESIRED_WIDTH, movestats_font, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
+        player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, DESIRED_WIDTH, movestats_font, manager.get("img/socrates.png", Texture.class), manager.get("img/zhugemini.png", Texture.class), current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
         /* TODO: Remove.  Moved out to contestants.
         // Setup Contestant stats
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
@@ -504,7 +536,7 @@ public class DiscGame extends Game {
     }
 
     public void setupOpponent() {
-        computer = new Confucius(false, 1, 1, DESIRED_WIDTH, movestats_font, current_board.cells[0][0]);
+        computer = new Confucius(false, 1, 1, DESIRED_WIDTH, movestats_font, manager.get("img/confucius.png", Texture.class), manager.get("img/arlenemini.png", Texture.class), current_board.cells[0][0]);
         // TODO: Remove.  Moved out to contestants.
         /*
         Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
@@ -617,7 +649,7 @@ public class DiscGame extends Game {
         inspiration_icon_opponent.setImg(inspiration_icon);
         */
         // Assign the movestats texture to be used generally in portraits
-        movestats = new Texture(Gdx.files.internal("img/movestats.png"));
+        movestats = manager.get("img/movestats.png", Texture.class);
     }
 
     // Create four new entities for dialog options whose role is solely to be a hover over/click handler and draw a bounding box

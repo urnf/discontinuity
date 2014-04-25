@@ -64,20 +64,22 @@ public class Confucius extends Contestant {
                       int board_y,
                       int screen_width,
                       BitmapFont font,
+                      Texture portrait_tex,
+                      Texture mini_tex,
                       Cell cell) {
         super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, LOG_MAX, ETH_MAX, INT_MAX, ING_MAX, isPlayer, cell);
         // Set up Arlene's combos
         this.set_combo(new Combo(combo_list));
 
-        Portrait portrait = new Portrait(this, new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 400, 270, screen_width/2 - 250, 700, screen_width - 280, 250, 520, "Confucius\n" +
+        Portrait portrait = new Portrait(this, DiscGame.manager.get("img/arlene-combos.png", Texture.class), screen_width - 290,0, 400, 270, screen_width/2 - 250, 700, screen_width - 280, 250, 520, "Confucius\n" +
                 "It's motherfuggin Confucius\n");
-        portrait.setImg(new Texture(Gdx.files.internal("img/confucius.png")));
+        portrait.setImg(portrait_tex);
         portrait.img.flip(true, false);
         //portrait.setContestant(arlene);
         this.set_portrait(portrait);
 
         //arlene = new Contestant(arlene_combo, 1, 1, log_stats, eth_stats, inm_stats, ing_stats, 200, 200, screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 40, false, current_board.cells[0][0]);
-        setImg(new Texture(Gdx.files.internal("img/arlenemini.png")));
+        setImg(mini_tex);
 
         if (isPlayer) {
             // Init AbilityList abilities here

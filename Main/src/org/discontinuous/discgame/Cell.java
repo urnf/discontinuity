@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class Cell extends Entity {
     // Set up our static textures
-    static Texture tintable = new Texture(Gdx.files.internal("cell/tint.png"));
+    static Texture tintable = DiscGame.manager.get("cell/tint.png", Texture.class);
     /*
     static Texture logical = new Texture(Gdx.files.internal("cell/logical.jpg"));
     static Texture ethical = new Texture(Gdx.files.internal("cell/ethical.jpg"));

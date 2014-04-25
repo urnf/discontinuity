@@ -108,7 +108,7 @@ public class Contestant extends Entity {
             coordinate = DiscGame.DESIRED_WIDTH - (SCALED_ARG_TEXTURE * 4) - 70;
             //coordinate = DiscGame.DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * board_x/2) + 270;
         }
-        bars_y_coord = DiscGame.DESIRED_HEIGHT/2 + 30;
+        bars_y_coord = DiscGame.DESIRED_HEIGHT/2 + 60;
         logical_x_coord = coordinate;
         ethical_x_coord = coordinate + SCALED_ARG_TEXTURE;
         interrogate_x_coord = coordinate + SCALED_ARG_TEXTURE * 2;
