@@ -23,20 +23,38 @@ public class StateHandling {
     private static int animation_coefficient = 4; // TODO: Results in divide by zero error if zero, make more robust
 
     static int previousPower;
-    static int previousPlayerConf;
-    static int previousPlayerIns;
-    static int previousComputerConf;
-    static int previousComputerIns;
+
+    static int previousPlayerLog;
+    static int previousPlayerEth;
+    static int previousPlayerIng;
+    static int previousPlayerInt;
+
+    static int previousComputerLog;
+    static int previousComputerEth;
+    static int previousComputerIng;
+    static int previousComputerInt;
 
     private static int conf_plus_x;
     private static int ins_plus_x;
     private static int conf_minus_x;
     private static int ins_minus_x;
 
+    private static String logical_plus_string;
+    private static String ethical_plus_string;
+    private static String interrogate_plus_string;
+    private static String intimidate_plus_string;
+
+    private static String logical_minus_string;
+    private static String ethical_minus_string;
+    private static String interrogate_minus_string;
+    private static String intimidate_minus_string;
+
+    /*
     private static String conf_plus_string;
     private static String conf_minus_string;
     private static String ins_plus_string;
     private static String ins_minus_string;
+    */
 
     public static int player_dialog_height_offset;
     public static int computer_dialog_height_offset;
@@ -140,6 +158,8 @@ public class StateHandling {
             DiscGame.player.update_dialog_options();
             DiscGame.player.update_abilities();
 
+            /*
+// TODO: Need new game over code
             // Check to see if it's game over
             if (DiscGame.computer.confidence <= 0) {
                 DiscGame.dealpower.dp += 1000;
@@ -155,6 +175,7 @@ public class StateHandling {
                 currentState = State.PostGameDialog;
                 return;
             }
+            */
 
             // Otherwise back to select dialog
             currentState = State.SelectDialog;
@@ -179,26 +200,45 @@ public class StateHandling {
                 ins_plus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 76;
                 conf_minus_x =  DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 44;
                 ins_minus_x = DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 84;
-                conf_plus_string = Integer.toString(DiscGame.player.confidence - previousPlayerConf);
-                ins_plus_string = Integer.toString(DiscGame.player.inspiration - previousPlayerIns);
-                conf_minus_string = Integer.toString(DiscGame.computer.confidence - previousComputerConf);
-                ins_minus_string = Integer.toString(DiscGame.computer.inspiration - previousComputerIns);
+
+                logical_plus_string = Integer.toString(DiscGame.player.logical_bar - previousPlayerLog);
+                ethical_plus_string = Integer.toString(DiscGame.player.ethical_bar - previousPlayerEth);
+                interrogate_plus_string = Integer.toString(DiscGame.player.interrogate_bar - previousPlayerIng);
+                intimidate_plus_string = Integer.toString(DiscGame.player.intimidate_bar - previousPlayerInt);
+
+                logical_minus_string = Integer.toString(DiscGame.computer.logical_bar - previousComputerLog);
+                ethical_minus_string = Integer.toString(DiscGame.computer.ethical_bar - previousComputerEth);
+                interrogate_minus_string = Integer.toString(DiscGame.computer.interrogate_bar - previousComputerIng);
+                intimidate_minus_string = Integer.toString(DiscGame.computer.intimidate_bar - previousComputerInt);
             }
             else {
                 conf_plus_x = DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 44;
                 ins_plus_x =  DiscGame.screen_width/2 + (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) + 84;
                 conf_minus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 116;
                 ins_minus_x = DiscGame.screen_width/2 - (Board.CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2) - 76;
-                conf_plus_string = Integer.toString(DiscGame.computer.confidence - previousComputerConf);
-                ins_plus_string = Integer.toString(DiscGame.computer.inspiration - previousComputerIns);
-                conf_minus_string = Integer.toString(DiscGame.player.confidence - previousPlayerConf);
-                ins_minus_string = Integer.toString(DiscGame.player.inspiration - previousPlayerIns);
+
+                logical_plus_string = Integer.toString(DiscGame.computer.logical_bar - previousComputerLog);
+                ethical_plus_string = Integer.toString(DiscGame.computer.ethical_bar - previousComputerEth);
+                interrogate_plus_string = Integer.toString(DiscGame.computer.interrogate_bar - previousComputerIng);
+                intimidate_plus_string = Integer.toString(DiscGame.computer.intimidate_bar - previousComputerInt);
+
+                logical_minus_string = Integer.toString(DiscGame.player.logical_bar - previousPlayerLog);
+                ethical_minus_string = Integer.toString(DiscGame.player.ethical_bar - previousPlayerEth);
+                interrogate_minus_string = Integer.toString(DiscGame.player.interrogate_bar - previousPlayerIng);
+                intimidate_minus_string = Integer.toString(DiscGame.player.intimidate_bar - previousPlayerInt);
             }
             DiscGame.animation_font.drawWrapped(batch, Integer.toString(DiscGame.dealpower.dp - previousPower), DiscGame.dealpower.x, DiscGame.screen_height/2 - 20 + animation_counter/animation_coefficient, 380);
-            DiscGame.animation_font.drawWrapped(batch, conf_plus_string, conf_plus_x, 420 + animation_counter/animation_coefficient, 380);
-            DiscGame.animation_font.drawWrapped(batch, ins_plus_string, ins_plus_x, 420 + animation_counter/animation_coefficient, 380);
-            DiscGame.animation_font.drawWrapped(batch, conf_minus_string, conf_minus_x, 420 + animation_counter/animation_coefficient, 380);
-            DiscGame.animation_font.drawWrapped(batch, ins_minus_string, ins_minus_x, 420 + animation_counter/animation_coefficient, 380);
+
+            DiscGame.animation_font.drawWrapped(batch, logical_plus_string, conf_plus_x, 420 + animation_counter/animation_coefficient, 380);
+            DiscGame.animation_font.drawWrapped(batch, ethical_plus_string, ins_plus_x, 420 + animation_counter/animation_coefficient, 380);
+            DiscGame.animation_font.drawWrapped(batch, interrogate_plus_string, conf_plus_x, 420 + animation_counter/animation_coefficient, 380);
+            DiscGame.animation_font.drawWrapped(batch, intimidate_plus_string, ins_plus_x, 420 + animation_counter/animation_coefficient, 380);
+
+            DiscGame.animation_font.drawWrapped(batch, logical_minus_string, conf_minus_x, 420 + animation_counter/animation_coefficient, 380);
+            DiscGame.animation_font.drawWrapped(batch, ethical_minus_string, ins_minus_x, 420 + animation_counter/animation_coefficient, 380);
+            DiscGame.animation_font.drawWrapped(batch, interrogate_minus_string, conf_minus_x, 420 + animation_counter/animation_coefficient, 380);
+            DiscGame.animation_font.drawWrapped(batch, intimidate_minus_string, ins_minus_x, 420 + animation_counter/animation_coefficient, 380);
+
             if (StateHandling.combo) {
                 DiscGame.animation_font.drawWrapped(batch, "COMBO", currentSpeaker.cell.x, currentSpeaker.cell.y + 30 + animation_counter / animation_coefficient, 380);
             }

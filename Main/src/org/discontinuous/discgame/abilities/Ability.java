@@ -25,20 +25,26 @@ public class Ability extends Entity {
     Color white = new Color(1, 1, 1, 1);
     AbilityTarget.targets target;
     AbilityEffect effect;
-    // Inspiration cost
-    int ins_cost;
+    // Ability cost
+    int logical_cost;
+    int ethical_cost;
+    int interrogate_cost;
+    int intimidate_cost;
     private boolean usable;
     Contestant contestant;
     BitmapFont font;
 
-    public Ability (Contestant contestant, BitmapFont font, int width, int height, int ins_cost, AbilityTarget.targets target, AbilityEffect effect, String tooltip, String dialog) {
+    public Ability (Contestant contestant, BitmapFont font, int width, int height, int logical_cost, int ethical_cost, int interrogate_cost, int intimidate_cost, AbilityTarget.targets target, AbilityEffect effect, String tooltip, String dialog) {
         super(0, 0, width, height);
 
         this.tooltip = tooltip;
         this.dialog = dialog;
         this.target = target;
         this.effect = effect;
-        this.ins_cost = ins_cost;
+        this.logical_cost = logical_cost;
+        this.ethical_cost = ethical_cost;
+        this.interrogate_cost = interrogate_cost;
+        this.intimidate_cost = intimidate_cost;
         this.contestant = contestant; //I REALLY don't like that this is coupled to contestant, but can't avoid for now
         this.font = font; //same as above
     }
@@ -65,8 +71,11 @@ public class Ability extends Entity {
         font.drawWrapped(batch, dialog, width_offset, height_offset, width);
     }
 
-    public void update_usability(int inspiration) {
-        if (inspiration < ins_cost) { usable = false; }
+    public void update_usability(int logical_bar, int ethical_bar, int interrogate_bar, int intimidate_bar) {
+        if (logical_bar < logical_cost ||
+            ethical_bar < ethical_cost ||
+            interrogate_bar < interrogate_cost ||
+            intimidate_bar < intimidate_cost) { usable = false; }
         else { usable = true; }
     }
 

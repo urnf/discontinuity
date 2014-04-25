@@ -17,10 +17,22 @@ import java.util.Hashtable;
 public class Contestant extends Entity {
     //Don't store board_x, board_y; grab from Cell
     Cell cell;
-    int confidence;
-    int inspiration;
-    int conf_max;
-    int insp_max;
+    //int confidence;
+    //int inspiration;
+    //int conf_max;
+    //int insp_max;
+
+    int logical_bar;
+    int ethical_bar;
+    int intimidate_bar;
+    int interrogate_bar;
+
+    int logical_max;
+    int ethical_max;
+    int intimidate_max;
+    int interrogate_max;
+
+
     Hashtable<String, Integer> log_stats;
     Hashtable<String, Integer> eth_stats;
     Hashtable<String, Integer> inm_stats;
@@ -43,8 +55,12 @@ public class Contestant extends Entity {
                       Hashtable eth_stats,
                       Hashtable inm_stats,
                       Hashtable ing_stats,
-                      int conf_max,
-                      int insp_max,
+                      int logical_max,
+                      int ethical_max,
+                      int intimidate_max,
+                      int interrogate_max,
+                      //int conf_max,
+                      //int insp_max,
                       boolean isPlayer,
                       Cell cell) {
         super(DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (board_x)),
@@ -52,10 +68,21 @@ public class Contestant extends Entity {
                 Board.TEXTURE_EDGE,
                 Board.TEXTURE_EDGE);
         this.cell = cell;
-        this.conf_max = conf_max;
-        this.insp_max = insp_max;
-        confidence = conf_max;
-        inspiration = 50;
+
+        this.logical_max = logical_max;
+        this.ethical_max = ethical_max;
+        this.intimidate_max = intimidate_max;
+        this.interrogate_max = interrogate_max;
+
+        this.logical_bar = 2;
+        this.ethical_bar = 2;
+        this.intimidate_bar = 2;
+        this.interrogate_bar = 2;
+
+        //this.conf_max = conf_max;
+        //this.insp_max = insp_max;
+        //confidence = conf_max;
+        //inspiration = 50;
         this.log_stats = log_stats;
         this.eth_stats = eth_stats;
         this.inm_stats = inm_stats;
@@ -87,18 +114,32 @@ public class Contestant extends Entity {
         if (cell.board.relative_to_current != Board.Direction.NOT_VISIBLE) img.draw(batch);
     }
 
-    public void draw_confidence(ShapeRenderer shapes) {
+    public void draw_logical(ShapeRenderer shapes) {
         shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
         shapes.rect(confidence_x_coord, bars_y_coord, 40, 120);
         shapes.setColor(0.1f, 0.69f, 0.298f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, ((float) confidence / conf_max) * 120);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, logical_bar * 120);
     }
 
-    public void draw_inspiration(ShapeRenderer shapes) {
+    public void draw_ethical(ShapeRenderer shapes) {
         shapes.setColor(0.039f, 0.18f, 0.258f, 1);
         shapes.rect(inspiration_x_coord, bars_y_coord, 40, 120);
         shapes.setColor(0.129f, 0.506f, 0.725f, 1);
-        shapes.rect(inspiration_x_coord, bars_y_coord, 40, ((float) inspiration/insp_max) * 120);
+        shapes.rect(inspiration_x_coord, bars_y_coord, 40, ethical_bar * 120);
+    }
+
+    public void draw_interrogate(ShapeRenderer shapes) {
+        shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, 120);
+        shapes.setColor(0.1f, 0.69f, 0.298f, 1);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, interrogate_bar * 120);
+    }
+
+    public void draw_intimidate(ShapeRenderer shapes) {
+        shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, 120);
+        shapes.setColor(0.1f, 0.69f, 0.298f, 1);
+        shapes.rect(confidence_x_coord, bars_y_coord, 40, intimidate_bar * 120);
     }
 
     public void draw_stats(SpriteBatch batch, int hover_x, int hover_y) {
@@ -116,8 +157,9 @@ public class Contestant extends Entity {
     }
 
     public void draw_bar_counters(SpriteBatch batch) {
-        DiscGame.header_font.draw(batch, String.valueOf(confidence), confidence_x_coord + 5, 400);
-        DiscGame.header_font.draw(batch, String.valueOf(inspiration), inspiration_x_coord + 5, 400);
+        // Commenting out for now - may need later if unclear
+        //DiscGame.header_font.draw(batch, String.valueOf(confidence), confidence_x_coord + 5, 400);
+        //DiscGame.header_font.draw(batch, String.valueOf(inspiration), inspiration_x_coord + 5, 400);
     }
 
     public void update_dialog_options() {
@@ -157,13 +199,22 @@ public class Contestant extends Entity {
         img.setPosition(x, y);
     }
 
-    public void update_position(Cell cell) {
+    private void record_previous_stats() {
         // Record current values of stats - player and opponent before effects
-        StateHandling.previousPower = DiscGame.dealpower.dp;
-        StateHandling.previousPlayerConf = DiscGame.player.confidence;
-        StateHandling.previousPlayerIns = DiscGame.player.inspiration;
-        StateHandling.previousComputerConf = DiscGame.computer.confidence;
-        StateHandling.previousComputerIns = DiscGame.computer.inspiration;
+        //StateHandling.previousPower = DiscGame.dealpower.dp;
+        StateHandling.previousPlayerLog = DiscGame.player.logical_bar;
+        StateHandling.previousPlayerEth = DiscGame.player.ethical_bar;
+        StateHandling.previousPlayerIng = DiscGame.player.interrogate_bar;
+        StateHandling.previousPlayerInt = DiscGame.player.intimidate_bar;
+
+        StateHandling.previousComputerLog = DiscGame.computer.logical_bar;
+        StateHandling.previousComputerEth = DiscGame.computer.ethical_bar;
+        StateHandling.previousComputerIng = DiscGame.computer.interrogate_bar;
+        StateHandling.previousComputerInt = DiscGame.computer.intimidate_bar;
+    }
+
+    public void update_position(Cell cell) {
+        record_previous_stats();
 
         this.cell.consume();
         this.cell.occupied = false;
@@ -220,7 +271,7 @@ public class Contestant extends Entity {
 
     public void update_abilities() {
         for (Ability ability : abilities) {
-            ability.update_usability(inspiration);
+            ability.update_usability(logical_bar, ethical_bar, interrogate_bar, intimidate_bar);
         }
     }
 
@@ -238,21 +289,43 @@ public class Contestant extends Entity {
         // No DP gain with combos
         if (!combo) {
             // Update Deal Power Gain/Loss
-            DiscGame.dealpower.update(temp_stats.get("power"), player, cell.consumed);
+            // THIS IS NO LONGER RELEVANT AS PART OF SYMPOSIUM
+            //DiscGame.dealpower.update(temp_stats.get("power"), player, cell.consumed);
         }
+        // TODO: Update this so that combos can continue past one
         // No bonuses for a consumed cell, but ok if it's a combo
         // Can combo over consumed arguments, the logic being you're taking a penalty to set up for new arguments
         if ((!cell.consumed) || (cell.consumed && combo))
         {
+            switch(cell.type) {
+                case Logical:
+                    logical_bar = Math.min(logical_bar + 1, logical_max);
+                    break;
+                case Ethical:
+                    ethical_bar = Math.min(ethical_bar + 1, ethical_max);
+                    break;
+                case Interrogate:
+                    interrogate_bar = Math.min(interrogate_bar + 1, interrogate_max);
+                    break;
+                case Intimidate:
+                    intimidate_bar = Math.min(intimidate_bar + 1, intimidate_max);
+                    break;
+            }
+            /*
             confidence = Math.min(confidence + temp_stats.get("conf_plus"), conf_max);
             opponent.confidence = Math.max(opponent.confidence - temp_stats.get("conf_minus"), 0);
             inspiration = Math.min(inspiration + temp_stats.get("ins_plus"), insp_max);
             opponent.inspiration = Math.max(opponent.inspiration - temp_stats.get("ins_minus"), 0);
+            */
         }
-        // lose a load of confidence and inspiration instead if consumed
+        // lose one of each type if consumed
         else {
-            confidence = Math.max(confidence - 50, 0);
-            inspiration = Math.max(inspiration - 50, 0);
+            ethical_bar -= 1;
+            logical_bar -= 1;
+            interrogate_bar -= 1;
+            intimidate_bar -= 1;
+            //confidence = Math.max(confidence - 50, 0);
+            //inspiration = Math.max(inspiration - 50, 0);
         }
     }
 
@@ -280,35 +353,50 @@ public class Contestant extends Entity {
 
     public void apply_effect(AbilityEffect effect, Cell new_cell) {
         // Record current values of stats - player and opponent before effects
-        StateHandling.previousPower = DiscGame.dealpower.dp;
-        StateHandling.previousPlayerConf = DiscGame.player.confidence;
-        StateHandling.previousPlayerIns = DiscGame.player.inspiration;
-        StateHandling.previousComputerConf = DiscGame.computer.confidence;
-        StateHandling.previousComputerIns = DiscGame.computer.inspiration;
+        record_previous_stats();
 
         // TODO: Ugly.  Pass arguments in as a hash, maybe break apart.
         HashMap<String, Integer> effects = effect.apply_effect(
                 this,
                 ability_selected,
                 cell.type,
-                confidence,
-                inspiration,
-                opponent.confidence,
-                opponent.inspiration,
+                logical_bar,
+                ethical_bar,
+                interrogate_bar,
+                intimidate_bar,
+                opponent.logical_bar,
+                opponent.ethical_bar,
+                opponent.interrogate_bar,
+                opponent.intimidate_bar,
                 log_stats,
                 eth_stats,
                 ing_stats,
                 inm_stats,
-                conf_max,
-                insp_max,
+                logical_max,
+                ethical_max,
+                interrogate_max,
+                intimidate_max,
                 opponent.cell,
                 new_cell);
 
-        DiscGame.dealpower.update(effects.get("power"), player, cell.consumed);
+        //DiscGame.dealpower.update(effects.get("power"), player, cell.consumed);
+
+        logical_bar = effects.get("player_logical_bar");
+        ethical_bar = effects.get("player_ethical_bar");
+        interrogate_bar = effects.get("player_interrogate_bar");
+        intimidate_bar = effects.get("player_intimidate_bar");
+
+        opponent.logical_bar = effects.get("opponent_logical_bar");
+        opponent.ethical_bar = effects.get("opponent_ethical_bar");
+        opponent.interrogate_bar = effects.get("opponent_interrogate_bar");
+        opponent.intimidate_bar = effects.get("opponent_intimidate_bar");
+
+        /*
         confidence = effects.get("player_confidence");
         opponent.confidence = effects.get("opponent_confidence");
         inspiration = effects.get("player_inspiration");
         opponent.inspiration = effects.get("opponent_inspiration");
+        */
 
         // Show bonus
         StateHandling.animation_counter = 0;

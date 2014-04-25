@@ -13,8 +13,8 @@ import java.util.Hashtable;
  */
 public class AbilityEffect {
     public enum effects {
-        multiply_all,
-        conf_damage,
+        multiply,
+        damage,
         aoe_consume,
         refresh_consume
     }
@@ -32,16 +32,22 @@ public class AbilityEffect {
     public HashMap<String, Integer> apply_effect(Contestant contestant,
                               Ability ability_selected,
                               Cell.concepts type,
-                              int player_confidence,
-                              int player_inspiration,
-                              int opponent_confidence,
-                              int opponent_inspiration,
+                              int player_logical_bar,
+                              int player_ethical_bar,
+                              int player_interrogate_bar,
+                              int player_intimidate_bar,
+                              int opponent_logical_bar,
+                              int opponent_ethical_bar,
+                              int opponent_interrogate_bar,
+                              int opponent_intimidate_bar,
                               Hashtable<String, Integer> log_stats,
                               Hashtable<String, Integer> eth_stats,
                               Hashtable<String, Integer> ing_stats,
                               Hashtable<String, Integer> inm_stats,
-                              int conf_max,
-                              int insp_max,
+                              int logical_max,
+                              int ethical_max,
+                              int interrogate_max,
+                              int intimidate_max,
                               Cell opponent_cell,
                               Cell new_cell){
         // Null protect, though I'm tempted to pull out to expose bugs
@@ -49,30 +55,65 @@ public class AbilityEffect {
             contestant.update_only_position(new_cell);
         }
 
-        // Deduct the inspiration cost
-        player_inspiration -= ability_selected.ins_cost;
+        // Deduct the ability cost
+        player_logical_bar -= ability_selected.logical_cost;
+        player_ethical_bar -= ability_selected.ethical_cost;
+        player_interrogate_bar -= ability_selected.interrogate_cost;
+        player_intimidate_bar -= ability_selected.intimidate_cost;
 
         int dp = 0;
         // Apply the effect
         switch (effect) {
-            case multiply_all:
+            case multiply:
                 Hashtable<String, Integer> stats;
                 switch (type) {
+                    case Logical:
+                        player_logical_bar = Math.min(player_logical_bar + magnitude, logical_max);
+                        break;
+                    case Ethical:
+                        player_ethical_bar = Math.min(player_ethical_bar + magnitude, ethical_max);
+                        break;
+                    case Interrogate:
+                        player_interrogate_bar = Math.min(player_interrogate_bar + magnitude, interrogate_max);
+                        break;
+                    case Intimidate:
+                        player_intimidate_bar = Math.min(player_intimidate_bar + magnitude, intimidate_max);
+                        break;
+                    /*
                     case Logical: stats = log_stats; break;
                     case Ethical: stats = eth_stats; break;
                     case Interrogate: stats = ing_stats; break;
                     case Intimidate: stats = inm_stats; break;
                     // Will lead to exceptions - intentional
                     default: stats = null; break;
+                    */
                 }
-                dp = stats.get("power") * magnitude;
+                // dp = stats.get("power") * magnitude;
+
+                /*
                 player_confidence = Math.min(player_confidence + stats.get("conf_plus") * magnitude, conf_max);
                 opponent_confidence = Math.max(opponent_confidence - stats.get("conf_minus") * magnitude, 0);
                 player_inspiration = Math.min(player_inspiration + stats.get("ins_plus") * magnitude, insp_max);
                 opponent_inspiration = Math.max(opponent_inspiration - stats.get("ins_minus") * magnitude, 0);
+                */
                 break;
-            case conf_damage:
-                opponent_confidence = Math.max(opponent_confidence - magnitude, 0);
+            case damage:
+                // TODO: Implement stammer mechanic, lose turn for sub zero
+                switch (type) {
+                    case Logical:
+                        opponent_logical_bar = Math.max(opponent_logical_bar - magnitude, 0);
+                        break;
+                    case Ethical:
+                        opponent_ethical_bar = Math.max(opponent_ethical_bar - magnitude, 0);
+                        break;
+                    case Interrogate:
+                        opponent_interrogate_bar = Math.max(opponent_interrogate_bar - magnitude, 0);
+                        break;
+                    case Intimidate:
+                        opponent_intimidate_bar = Math.max(opponent_intimidate_bar - magnitude, 0);
+                        break;
+                }
+                //opponent_confidence = Math.max(opponent_confidence - magnitude, 0);
                 break;
             case aoe_consume:
                 // Adjacent cells, not unoccupied cells, though no difference in game mechanics
@@ -86,11 +127,16 @@ public class AbilityEffect {
             default:
         }
         HashMap<String, Integer> return_hash = new HashMap<String, Integer>();
-        return_hash.put("dp", dp);
-        return_hash.put("player_confidence", player_confidence);
-        return_hash.put("player_inspiration", player_inspiration);
-        return_hash.put("opponent_confidence", opponent_confidence);
-        return_hash.put("opponent_inspiration", opponent_inspiration);
+        //return_hash.put("dp", dp);
+        return_hash.put("player_logical_bar", player_logical_bar);
+        return_hash.put("player_ethical_bar", player_ethical_bar);
+        return_hash.put("player_interrogate_bar", player_interrogate_bar);
+        return_hash.put("player_intimidate_bar", player_intimidate_bar);
+
+        return_hash.put("opponent_logical_bar", opponent_logical_bar);
+        return_hash.put("opponent_ethical_bar", opponent_ethical_bar);
+        return_hash.put("opponent_interrogate_bar", opponent_interrogate_bar);
+        return_hash.put("opponent_intimidate_bar", opponent_intimidate_bar);
         return return_hash;
     }
 }
