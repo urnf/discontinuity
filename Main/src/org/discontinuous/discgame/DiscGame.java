@@ -29,7 +29,7 @@ import java.util.LinkedHashMap;
  */
 public class DiscGame extends Game {
     /*
-    TODO: TOP PRIORITIES NOW IMPLEMENT ASSET MANAGER AND FIX NON ASPECT RATIO INPUTS
+    TODO: TOP PRIORITIES NOW FIX NON ASPECT RATIO INPUTS
 
      */
 
@@ -87,15 +87,11 @@ public class DiscGame extends Game {
      */
 
     // TODO: Too much casting.  I'm trying to write Java like I'm writing Ruby.  Clean up/reduce casting.
-    // TODO: -DONE -  FIRST CONVERT GRID TO GRAPH ADJACENCY LIST
     // TODO: Model edges on graph - dialog is dynamically chosen based on edges - so logical -> ethical will choose from series of text
     // TODO: Convert players to be dynamic
-    // TODO: - DONE - 3x3 grid that can swap around
-    // TODO: - DONE - Android working
     // TODO: - Prorated combos - 50%, 25%, 12.5%, etc.
     // TODO: - Swap functionality. - Sub board menu previews
     // TODO: - Insults/Compliments
-    // TODO: - DONE - DP spending
     // TODO: - Oral Swap Hyper Combos
     // TODO: - Fog of war / Line of Sight
     // TODO: - Move from yml to JSON
@@ -154,10 +150,11 @@ public class DiscGame extends Game {
     static final int DIALOG_X = 40;
     static final int DIALOG_Y = 400;
 
-    int view_x = 0;
-    int view_y = 0;
+    static int view_x = 0;
+    static int view_y = 0;
     int view_width;
     int view_height;
+    static float scale;
 
     //debug
     static int mouse_x;
@@ -169,7 +166,6 @@ public class DiscGame extends Game {
     public void resize(int width, int height) {
         float aspect_ratio = (float) width/(float) height;
         float desired_ratio = (float) DESIRED_WIDTH/(float) DESIRED_HEIGHT;
-        float scale;
         if (aspect_ratio >= desired_ratio) {
             // Width is larger than desired, so we divide height by DESIRED_HEIGHT
             // And use that as a scaling factor for width
@@ -343,6 +339,7 @@ public class DiscGame extends Game {
 
         // debug for mouse
         header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y + "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
+        header_font.draw(batch, "View Width: " + view_width + " View Height: " + view_height + " View X: " + view_x + " View Y: " + view_y, 400, 400);
         //header_font.draw(batch, "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
 
         // debug for phone resolution

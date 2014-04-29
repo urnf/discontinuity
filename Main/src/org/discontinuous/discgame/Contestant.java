@@ -16,7 +16,7 @@ import java.util.Hashtable;
  * Created by Urk on 12/18/13.
  */
 public class Contestant extends Entity {
-    static final float SCALE = 0.5f;
+    static final float SCALE = 0.75f;
     static final int SCALED_ARG_TEXTURE = (int) (Board.TEXTURE_EDGE * SCALE);
 
     //Don't store board_x, board_y; grab from Cell

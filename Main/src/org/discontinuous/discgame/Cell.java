@@ -59,7 +59,7 @@ public class Cell extends Entity {
     // Associated board
     Board board;
 
-    static float SCALE = (float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE;
+    //static float SCALE = (float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE;
 
     // Super basic constructor
     public Cell (int concept_num, boolean consumed, boolean visible, int board_x, int board_y, int x, int y, int length, Board board){
@@ -89,8 +89,6 @@ public class Cell extends Entity {
                 default: throw new Exception();
             }
             img.setPosition(x, y);
-            // TODO: Hack in place for 48x48 for more screen real estate, remove/redo
-            img.setScale(SCALE);
         }
         catch (Exception e) {
             System.err.println("Invalid concept cell type!");

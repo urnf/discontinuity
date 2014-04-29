@@ -22,7 +22,7 @@ public class Board {
     public static final int CELL_EDGE_SIZE = 48;
 
     // Asset texture size, independent of how large we want it
-    static final int TEXTURE_EDGE = 64;
+    static final int TEXTURE_EDGE = 48;
 
     static final int WIDTH_OFFSET = DiscGame.DESIRED_WIDTH/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2);
     static final int HEIGHT_OFFSET = DiscGame.DESIRED_HEIGHT/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_HEIGHT/2);
@@ -125,7 +125,7 @@ public class Board {
                 cell.x = cell.center_x;
                 cell.y = cell.center_y;
                 cell.img.setPosition(cell.x, cell.y);
-                cell.img.setScale(Cell.SCALE);
+                cell.img.setScale(1);
                 DiscGame.hover_list.remove(cell);
                 DiscGame.click_list.remove(cell);
             }
@@ -217,7 +217,7 @@ public class Board {
                 return;
         }
         entity.img.setPosition(cell.x, cell.y);
-        entity.img.scale(-0.4f);
+        entity.img.setScale(0.5f);
     }
 
     private void link(Board[][] boards, int x, int y) {

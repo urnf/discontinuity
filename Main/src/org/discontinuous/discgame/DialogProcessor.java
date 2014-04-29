@@ -9,7 +9,6 @@ import org.discontinuous.discgame.abilities.Ability;
  */
 public class DialogProcessor implements InputProcessor {
     boolean hovered;
-    Entity clicked;
 
     @Override
     public boolean keyDown (int keycode) {
@@ -34,41 +33,6 @@ public class DialogProcessor implements InputProcessor {
     @Override
     public boolean touchUp (int x, int y, int pointer, int button) {
         return InputHandling.tapClickHandle(x, y);
-        /*
-        // If in dialog, advance to the next dialog or exit
-        switch (StateHandling.currentState) {
-            case InDialog:
-                StateHandling.advanceDialog();
-                return false;
-            case AbilityDialog:
-                StateHandling.currentSpeaker = DiscGame.player;
-                StateHandling.advanceDialog();
-                return false;
-            case PostGameDialog:
-                StateHandling.setup_endgame_options();
-                StateHandling.currentState = State.PostGameSelect;
-                return false;
-        }
-
-        // Loop over everything in the clickable list and see if it's being clicked.
-        for (Entity e : DiscGame.click_list) {
-            if (e.checkArea(x, y)) {clicked = e;}
-        }
-        // If no ability clicked or nothing clicked while in ability select, return to select Dialog
-        if (StateHandling.checkState(State.SelectAbility) && (null == clicked || clicked.getClass() != Ability.class)) {
-            StateHandling.currentState = State.SelectDialog;
-            Ability.remove_ability_response(DiscGame.hover_list, DiscGame.click_list, DiscGame.player.abilities);
-            return false;
-        }
-        // If no cell clicked or nothing clicked while in ability target, return to select ability
-        if (StateHandling.checkState(State.AbilityTargeting) && (null == clicked || clicked.getClass() != Cell.class)) {
-            StateHandling.currentState = State.SelectAbility;
-            Ability.add_ability_response(DiscGame.hover_list, DiscGame.click_list, DiscGame.player.abilities);
-            return false;
-        }
-        if (null != clicked) {clicked.clickHandler(); clicked = null;}
-        return false;
-        */
     }
 
     @Override
