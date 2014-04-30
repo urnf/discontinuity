@@ -12,11 +12,14 @@ public class Board {
     int height;
     int screen_width;
     int screen_height;
+
+    static int animation_counter;
+
     String topic;
     Cell[][] cells;
 
     enum Direction {
-        LEFT, RIGHT, UP, DOWN, NOT_VISIBLE
+        LEFT, RIGHT, UP, DOWN, UPPER_LEFT, UPPER_RIGHT, LOWER_LEFT, LOWER_RIGHT
     }
 
     public static final int CELL_EDGE_SIZE = 48;
@@ -38,6 +41,10 @@ public class Board {
     Board down;
     Board left;
     Board right;
+    Board upper_left;
+    Board upper_right;
+    Board lower_left;
+    Board lower_right;
 
     public Board (int board_height, int board_width, String topic){
         width = board_width;
@@ -133,15 +140,17 @@ public class Board {
     }
 
     public void set_current_board() {
-        resize_board(null);
+        resize_board(null, relative_to_current);
         DiscGame.current_board = this;
         this.relative_to_current = null;
 
         // Make the other boards smaller
-        left.resize_board(Direction.LEFT);
-        right.resize_board(Direction.RIGHT);
-        up.resize_board(Direction.UP);
-        down.resize_board(Direction.DOWN);
+        left.resize_board(Direction.LEFT, left.relative_to_current);
+        right.resize_board(Direction.RIGHT, right.relative_to_current);
+        up.resize_board(Direction.UP, up.relative_to_current);
+        down.resize_board(Direction.DOWN, down.relative_to_current);
+
+        animation_counter = 0;
 
         // Player/Computer not yet set up
         if (null == DiscGame.player || null == DiscGame.computer) return;
@@ -161,27 +170,25 @@ public class Board {
                 DiscGame.computer.cell.y);
     }
 
-    private void resize_board(Direction direction) {
+    private void resize_board(Direction new_direction, Direction original_direction) {
         Cell cell;
-        relative_to_current = direction;
-        if (null != direction) {
-            switch(direction) {
+        relative_to_current = new_direction;
+        if (null != new_direction) {
+            switch(new_direction) {
                 case LEFT:
-                case RIGHT:
-                    up.relative_to_current = Direction.NOT_VISIBLE;
-                    down.relative_to_current = Direction.NOT_VISIBLE;
+                    up.relative_to_current = Direction.UPPER_LEFT;
+                    down.relative_to_current = Direction.LOWER_LEFT;
                     break;
-                case UP:
-                case DOWN:
-                    left.relative_to_current = Direction.NOT_VISIBLE;
-                    right.relative_to_current = Direction.NOT_VISIBLE;
+                case RIGHT:
+                    up.relative_to_current = Direction.UPPER_RIGHT;
+                    down.relative_to_current = Direction.LOWER_RIGHT;
                     break;
             }
         }
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 cell = cells[i][j];
-                position_board_entity(direction, cell, cell, i, j);
+                position_board_entity(new_direction, cell, cell, i, j);
                 // TODO: also sets up the click, move out since it conflates method functionality
                 DiscGame.hover_list.add(cell);
                 DiscGame.click_list.add(cell);
@@ -190,51 +197,68 @@ public class Board {
     }
 
     // Resizes entity relative to the cell that it occupies
-    private void position_board_entity(Direction direction, Entity entity, Cell cell, int cell_x, int cell_y) {
-        if (null == direction) {
+    private void position_board_entity(Direction new_direction, Entity entity, Cell cell, int cell_x, int cell_y) {
+        entity.old_x = entity.x;
+        entity.old_y = entity.y;
+        entity.old_scale = entity.img.getScaleX();
+
+        if (null == new_direction) {
             // We're on the current board, reset positioning elements
-            entity.img.setPosition(cell.center_x, cell.center_y);
+            entity.new_x = cell.center_x;
+            entity.new_y = cell.center_y;
             return;
         }
-        switch(direction) {
+        switch(new_direction) {
             case LEFT:
-                entity.x = cell.center_x - 150 - (left.cells.length/2 - cell_x) * 26;
-                entity.y = cell.center_y - (left.cells.length/2 - cell_y) * 26 + 15;
+                entity.new_x = cell.center_x - 150 - (left.cells.length/2 - cell_x) * 26;
+                entity.new_y = cell.center_y - (left.cells.length/2 - cell_y) * 26 + 15;
                 break;
             case RIGHT:
-                entity.x = cell.center_x + 150 - (right.cells.length/2 - cell_x) * 26 + 26;
-                entity.y = cell.center_y - (right.cells.length/2 - cell_y) * 26 + 15;
+                entity.new_x = cell.center_x + 150 - (right.cells.length/2 - cell_x) * 26 + 26;
+                entity.new_y = cell.center_y - (right.cells.length/2 - cell_y) * 26 + 15;
                 break;
             case UP:
-                entity.x = cell.center_x - (up.cells.length/2 - cell_x) * 26 + 15;
-                entity.y = cell.center_y + 150 - (up.cells.length/2 - cell_y) * 26 + 26;
+                entity.new_x = cell.center_x - (up.cells.length/2 - cell_x) * 26 + 15;
+                entity.new_y = cell.center_y + 150 - (up.cells.length/2 - cell_y) * 26 + 26;
                 break;
             case DOWN:
-                entity.x = cell.center_x - (down.cells.length/2 - cell_x) * 26 + 15;
-                entity.y = cell.center_y - 150 - (down.cells.length/2 - cell_y) * 26;
+                entity.new_x = cell.center_x - (down.cells.length/2 - cell_x) * 26 + 15;
+                entity.new_y = cell.center_y - 150 - (down.cells.length/2 - cell_y) * 26;
                 break;
-            case NOT_VISIBLE:
-                return;
         }
-        entity.img.setPosition(cell.x, cell.y);
-        entity.img.setScale(0.5f);
+        //entity.img.setPosition(cell.x, cell.y);
+        //entity.img.setScale(0.5f);
+        entity.new_scale = 0.5f;
+        entity.setup_animation();
     }
 
     private void link(Board[][] boards, int x, int y) {
         // Wrap around so that all boards are linked with a board in each cardinal direction
-        up = (y == boards[x].length - 1) ?  boards[x][0] : boards[x][y + 1];
-        down = (y == 0) ? boards[x][boards[x].length - 1] : boards[x][y - 1];
-        left = (x == 0) ? boards[boards.length - 1][y] : boards[x - 1][y];
-        right = (x == boards.length - 1) ? boards[0][y] : boards[x + 1][y];
+
+        int y_top = (y == boards[x].length - 1) ? 0 : y + 1;
+        int y_bottom = (y == 0) ? boards[x].length - 1 : y - 1;
+        int x_left = (x == 0) ? boards.length - 1 : x - 1;
+        int x_right = (x == boards.length - 1) ? 0 : x + 1;
+
+        up = boards[x][y_top];
+        down = boards[x][y_bottom];
+        left = boards[x_left][y];
+        right = boards[x_right][y];
+        upper_left = boards[x_left][y_top];
+        upper_right = boards[x_right][y_top];
+        lower_left = boards[x_left][y_bottom];
+        lower_right = boards[x_right][y_bottom];
     }
 
     public void draw(SpriteBatch batch) {
         // Draw the space of ideas
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
+                cells[i][j].animate();
                 cells[i][ j].draw(batch);
             }
         }
+
         // Draw topic
         DiscGame.header_font.draw(batch, topic, screen_width/2 - DiscGame.header_font.getBounds(topic).width/2, screen_height - 12);
     }
@@ -243,6 +267,7 @@ public class Board {
         // Draw the space of ideas
         for (int i = 0; i < left.cells.length; i++) {
             for (int j = 0; j < left.cells[i].length; j++) {
+                left.cells[i][j].animate();
                 left.cells[i][j].draw(batch);
             }
         }
@@ -254,6 +279,7 @@ public class Board {
         // Draw the space of ideas
         for (int i = 0; i < right.cells.length; i++) {
             for (int j = 0; j < right.cells[i].length; j++) {
+                right.cells[i][j].animate();
                 right.cells[i][ j].draw(batch);
             }
         }
@@ -265,6 +291,7 @@ public class Board {
         // Draw the space of ideas
         for (int i = 0; i < up.cells.length; i++) {
             for (int j = 0; j < up.cells[i].length; j++) {
+                up.cells[i][j].animate();
                 up.cells[i][ j].draw(batch);
             }
         }
@@ -274,6 +301,7 @@ public class Board {
         // Draw the space of ideas
         for (int i = 0; i < down.cells.length; i++) {
             for (int j = 0; j < down.cells[i].length; j++) {
+                down.cells[i][j].animate();
                 down.cells[i][ j].draw(batch);
             }
         }

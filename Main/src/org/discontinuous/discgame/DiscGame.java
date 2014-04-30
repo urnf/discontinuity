@@ -29,7 +29,8 @@ import java.util.LinkedHashMap;
  */
 public class DiscGame extends Game {
     /*
-    TODO: TOP PRIORITIES NOW FIX NON ASPECT RATIO INPUTS
+    TODO: FIX SCALED INPUT AREA FOR SMALLER SUB BOARDS
+    TODO: ANIMATE BOARD TRANSITIONS
 
      */
 

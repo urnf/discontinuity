@@ -15,6 +15,20 @@ public class Entity {
     public int y;
     public int width;
     public int height;
+
+    // Animation support
+    public int new_x;
+    public int new_y;
+    public float new_scale;
+    public int old_x;
+    public int old_y;
+    public float old_scale;
+    float x_increment;
+    float y_increment;
+    float scale_increment;
+    int animation_max;
+    int animation_counter;
+
     // Assign this to a generic error texture so that it's visible when unset and drawn
     public Sprite img = null;
 
@@ -60,6 +74,24 @@ public class Entity {
         }
         return false;
     }
+
+    public void setup_animation() {
+        animation_max = 30;
+        x_increment = (new_x - old_x) / (float) animation_max;
+        y_increment = (new_y - old_y) / (float) animation_max;
+        scale_increment = (new_scale - old_scale) / (float) animation_max;
+    }
+
+    public void animate() {
+        if (animation_counter <= animation_max) {
+            x += x_increment;
+            y += y_increment;
+            img.setPosition(x, y);
+            img.setScale(img.getScaleX() + scale_increment);
+        }
+        animation_counter++;
+    }
+
     public void drawHover(SpriteBatch batch) {
         //DiscGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + DiscGame.hover.toString(), x, y + 30);
     }
