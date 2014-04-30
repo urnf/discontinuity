@@ -13,8 +13,6 @@ public class Board {
     int screen_width;
     int screen_height;
 
-    static int animation_counter;
-
     String topic;
     Cell[][] cells;
 
@@ -140,17 +138,15 @@ public class Board {
     }
 
     public void set_current_board() {
-        resize_board(null, relative_to_current);
+        resize_board(null);
         DiscGame.current_board = this;
         this.relative_to_current = null;
 
         // Make the other boards smaller
-        left.resize_board(Direction.LEFT, left.relative_to_current);
-        right.resize_board(Direction.RIGHT, right.relative_to_current);
-        up.resize_board(Direction.UP, up.relative_to_current);
-        down.resize_board(Direction.DOWN, down.relative_to_current);
-
-        animation_counter = 0;
+        left.resize_board(Direction.LEFT);
+        right.resize_board(Direction.RIGHT);
+        up.resize_board(Direction.UP);
+        down.resize_board(Direction.DOWN);
 
         // Player/Computer not yet set up
         if (null == DiscGame.player || null == DiscGame.computer) return;
@@ -170,7 +166,7 @@ public class Board {
                 DiscGame.computer.cell.y);
     }
 
-    private void resize_board(Direction new_direction, Direction original_direction) {
+    private void resize_board(Direction new_direction) {
         Cell cell;
         relative_to_current = new_direction;
         if (null != new_direction) {
@@ -197,7 +193,7 @@ public class Board {
     }
 
     // Resizes entity relative to the cell that it occupies
-    private void position_board_entity(Direction new_direction, Entity entity, Cell cell, int cell_x, int cell_y) {
+    private void position_board_entity(Direction new_direction, Entity entity, Cell cell, float cell_x, float cell_y) {
         entity.old_x = entity.x;
         entity.old_y = entity.y;
         entity.old_scale = entity.img.getScaleX();
@@ -254,7 +250,7 @@ public class Board {
         // Draw the space of ideas
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                cells[i][j].animate();
+                //cells[i][j].animate();
                 cells[i][ j].draw(batch);
             }
         }

@@ -21,12 +21,12 @@ public class Tooltip {
 
     // Draws a tooltip rectangle at the coordinates with width/height, with a pointer pointing to the location noted
     // So far tip is only attached to bottom of tooltip border, may add option later
-    public static void newTip (int x, int y, int width, int height, int pointer_x, int pointer_y, Color fill_color, Color border_color, boolean thought, ShapeRenderer shapes) {
+    public static void newTip (float x, float y, int width, int height, float pointer_x, float pointer_y, Color fill_color, Color border_color, boolean thought, ShapeRenderer shapes) {
 
         shapes.setColor(border_color);
         shapes.rect(x - 20, y - 20, width + 40, height + 40);
-        int center_x = x + width/2;
-        int center_y = y + height/2;
+        float center_x = x + width/2;
+        float center_y = y + height/2;
         if (thought) {
             //draws ellipses to the pointer x,y from center of x,y
             for (int i = 1; i < 6; i++) {

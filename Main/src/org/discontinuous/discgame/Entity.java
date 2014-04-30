@@ -11,17 +11,17 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  */
 public class Entity {
     // TODO: Make these not publically accessible, create methods instead for specific types of manipulation
-    public int x;
-    public int y;
+    public float x;
+    public float y;
     public int width;
     public int height;
 
     // Animation support
-    public int new_x;
-    public int new_y;
+    public float new_x;
+    public float new_y;
     public float new_scale;
-    public int old_x;
-    public int old_y;
+    public float old_x;
+    public float old_y;
     public float old_scale;
     float x_increment;
     float y_increment;
@@ -83,7 +83,7 @@ public class Entity {
     }
 
     public void animate() {
-        if (animation_counter <= animation_max) {
+        if (animation_counter < animation_max) {
             x += x_increment;
             y += y_increment;
             img.setPosition(x, y);
