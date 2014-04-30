@@ -199,8 +199,9 @@ public class Cell extends Entity {
             //img.setColor(tempColor.r * 0.7f, tempColor.g * 0.7f, tempColor.b * 0.7f, 1);
             img.draw(batch);
             // Redraw char on top
-            DiscGame.player.draw(batch);
-            DiscGame.computer.draw(batch);
+            // Use img.draw instead of draw otherwise player/computer animate twice as fast.
+            if (this == DiscGame.player.cell) DiscGame.player.img.draw(batch);
+            if (this == DiscGame.computer.cell) DiscGame.computer.img.draw(batch);
             // Return image to original color/scale
             //img.setColor(tempColor);
             switch (type) {
@@ -230,7 +231,7 @@ public class Cell extends Entity {
     public void clickHandler (){
         // if not current board, swap in this board
         if (DiscGame.current_board != board) {
-            //DiscGame.current_board.reset_board_positions();
+            DiscGame.current_board.reset_board_positions();
             board.set_current_board();
             return;
         }

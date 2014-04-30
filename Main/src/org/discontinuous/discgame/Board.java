@@ -118,8 +118,8 @@ public class Board {
         reset_board(up);
         reset_board(down);
         // Reset character sizes
-        DiscGame.player.img.setScale(1);
-        DiscGame.computer.img.setScale(1);
+        //DiscGame.player.img.setScale(1);
+        //DiscGame.computer.img.setScale(1);
     }
 
     private void reset_board(Board board) {
@@ -127,10 +127,10 @@ public class Board {
         for (int i = 0; i < board.cells.length; i++) {
             for (int j = 0; j < board.cells[i].length; j++) {
                 cell = board.cells[i][j];
-                cell.x = cell.center_x;
-                cell.y = cell.center_y;
-                cell.img.setPosition(cell.x, cell.y);
-                cell.img.setScale(1);
+                //cell.x = cell.center_x;
+                //cell.y = cell.center_y;
+                //cell.img.setPosition(cell.x, cell.y);
+                //cell.img.setScale(1);
                 DiscGame.hover_list.remove(cell);
                 DiscGame.click_list.remove(cell);
             }
@@ -142,7 +142,7 @@ public class Board {
         DiscGame.current_board = this;
         this.relative_to_current = null;
 
-        // Make the other boards smaller
+        // Move the other boards
         left.resize_board(Direction.LEFT);
         right.resize_board(Direction.RIGHT);
         up.resize_board(Direction.UP);
@@ -156,18 +156,17 @@ public class Board {
                 DiscGame.player.cell.board.relative_to_current,
                 DiscGame.player,
                 DiscGame.player.cell,
-                DiscGame.player.cell.x,
-                DiscGame.player.cell.y);
+                DiscGame.player.cell.board_x,
+                DiscGame.player.cell.board_y);
         position_board_entity(
                 DiscGame.computer.cell.board.relative_to_current,
                 DiscGame.computer,
                 DiscGame.computer.cell,
-                DiscGame.computer.cell.x,
-                DiscGame.computer.cell.y);
+                DiscGame.computer.cell.board_x,
+                DiscGame.computer.cell.board_y);
     }
 
     private void resize_board(Direction new_direction) {
-        Cell cell;
         relative_to_current = new_direction;
         if (null != new_direction) {
             switch(new_direction) {
@@ -181,6 +180,7 @@ public class Board {
                     break;
             }
         }
+        Cell cell;
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 cell = cells[i][j];
@@ -202,29 +202,40 @@ public class Board {
             // We're on the current board, reset positioning elements
             entity.new_x = cell.center_x;
             entity.new_y = cell.center_y;
+            entity.new_scale = 1;
+            entity.setup_animation();
             return;
         }
         switch(new_direction) {
             case LEFT:
                 entity.new_x = cell.center_x - 150 - (left.cells.length/2 - cell_x) * 26;
                 entity.new_y = cell.center_y - (left.cells.length/2 - cell_y) * 26 + 15;
+                entity.new_scale = 0.5f;
                 break;
             case RIGHT:
                 entity.new_x = cell.center_x + 150 - (right.cells.length/2 - cell_x) * 26 + 26;
                 entity.new_y = cell.center_y - (right.cells.length/2 - cell_y) * 26 + 15;
+                entity.new_scale = 0.5f;
                 break;
             case UP:
                 entity.new_x = cell.center_x - (up.cells.length/2 - cell_x) * 26 + 15;
                 entity.new_y = cell.center_y + 150 - (up.cells.length/2 - cell_y) * 26 + 26;
+                entity.new_scale = 0.5f;
                 break;
             case DOWN:
                 entity.new_x = cell.center_x - (down.cells.length/2 - cell_x) * 26 + 15;
                 entity.new_y = cell.center_y - 150 - (down.cells.length/2 - cell_y) * 26;
+                entity.new_scale = 0.5f;
+                break;
+            case UPPER_LEFT:
+                break;
+            case LOWER_LEFT:
+                break;
+            case UPPER_RIGHT:
+                break;
+            case LOWER_RIGHT:
                 break;
         }
-        //entity.img.setPosition(cell.x, cell.y);
-        //entity.img.setScale(0.5f);
-        entity.new_scale = 0.5f;
         entity.setup_animation();
     }
 
@@ -246,14 +257,24 @@ public class Board {
         lower_right = boards[x_right][y_bottom];
     }
 
+    private void checkDrawContestants(SpriteBatch batch, Board board) {
+        // Draw contestants
+        if (DiscGame.player.cell.board == board) {
+            DiscGame.player.draw(batch);
+            DiscGame.computer.draw(batch);
+        }
+    }
+
     public void draw(SpriteBatch batch) {
         // Draw the space of ideas
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                //cells[i][j].animate();
+                cells[i][j].animate();
                 cells[i][ j].draw(batch);
             }
         }
+
+        checkDrawContestants(batch, this);
 
         // Draw topic
         DiscGame.header_font.draw(batch, topic, screen_width/2 - DiscGame.header_font.getBounds(topic).width/2, screen_height - 12);
@@ -267,6 +288,9 @@ public class Board {
                 left.cells[i][j].draw(batch);
             }
         }
+
+        checkDrawContestants(batch, left);
+
         // Draw topic
         DiscGame.header_font.draw(batch, left.topic, left.cells[0][0].img.getX() - DiscGame.header_font.getBounds(left.topic).width/2, screen_height - 12);
     }
@@ -279,6 +303,8 @@ public class Board {
                 right.cells[i][ j].draw(batch);
             }
         }
+        checkDrawContestants(batch, right);
+
         // Draw topic
         DiscGame.header_font.draw(batch, right.topic, right.cells[0][0].img.getX() - DiscGame.header_font.getBounds(right.topic).width/2, screen_height - 12);
     }
@@ -291,6 +317,7 @@ public class Board {
                 up.cells[i][ j].draw(batch);
             }
         }
+        checkDrawContestants(batch, up);
     }
 
     public void draw_down(SpriteBatch batch) {
@@ -301,6 +328,7 @@ public class Board {
                 down.cells[i][ j].draw(batch);
             }
         }
+        checkDrawContestants(batch, down);
     }
 
     public void move_computer() {

@@ -189,7 +189,10 @@ public class Contestant extends Entity {
         if (cell.board.relative_to_current != Board.Direction.UPPER_LEFT ||
                 cell.board.relative_to_current != Board.Direction.LOWER_LEFT ||
                 cell.board.relative_to_current != Board.Direction.UPPER_RIGHT ||
-                cell.board.relative_to_current != Board.Direction.LOWER_RIGHT) img.draw(batch);
+                cell.board.relative_to_current != Board.Direction.LOWER_RIGHT) {
+            animate();
+            img.draw(batch);
+        }
     }
 
     public void draw_logical(SpriteBatch batch) {

@@ -397,11 +397,30 @@ public class DiscGame extends Game {
 
         // Draw the board & Board topics
 
+        // Adjust the order so that those transitioning underneath are below
+        Cell sample_cell = DiscGame.current_board.cells[0][0];
+
+        if (sample_cell.x <= sample_cell.new_x) {
+            // Moving from left to right
+            current_board.draw_left(batch);
+            current_board.draw_right(batch);
+        }
+        if (sample_cell.x > sample_cell.new_x) {
+            // Moving from right to left
+            current_board.draw_right(batch);
+            current_board.draw_left(batch);
+        }
+        if (sample_cell.y >= sample_cell.new_y) {
+            // Moving from top down
+            current_board.draw_up(batch);
+            current_board.draw_down(batch);
+        }
+        if (sample_cell.y < sample_cell.new_y) {
+            // Moving from bottom up
+            current_board.draw_down(batch);
+            current_board.draw_up(batch);
+        }
         current_board.draw(batch);
-        current_board.draw_left(batch);
-        current_board.draw_right(batch);
-        current_board.draw_up(batch);
-        current_board.draw_down(batch);
 
         // Draw confidence/inspiration icons
         /*
@@ -420,10 +439,6 @@ public class DiscGame extends Game {
         computer.draw_logical(batch);
         computer.draw_interrogate(batch);
         computer.draw_intimidate(batch);
-
-        // Draw contestants
-        player.draw(batch);
-        computer.draw(batch);
 
         // TOPIC FOR DEBATE
         //header_font.draw(batch, "Resolved: That Prof. Elecantos should not horribly murder us and obliterate our souls.", screen_width/2 - 300, screen_height - 12);
