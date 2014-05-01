@@ -65,9 +65,8 @@ public class Confucius extends Contestant {
                       int screen_width,
                       BitmapFont font,
                       Texture portrait_tex,
-                      Texture mini_tex,
-                      Cell cell) {
-        super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, LOG_MAX, ETH_MAX, INT_MAX, ING_MAX, isPlayer, cell);
+                      Texture mini_tex) {
+        super(board_x, board_y, log_stats, eth_stats, inm_stats, ing_stats, LOG_MAX, ETH_MAX, INT_MAX, ING_MAX, isPlayer);
         // Set up Arlene's combos
         this.set_combo(new Combo(combo_list));
 

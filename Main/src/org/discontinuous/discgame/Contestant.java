@@ -65,8 +65,7 @@ public class Contestant extends Entity {
                       int ethical_max,
                       int intimidate_max,
                       int interrogate_max,
-                      boolean isPlayer,
-                      Cell cell) {
+                      boolean isPlayer) {
         super(DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (board_x)),
                 DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (board_y)),
                 Board.TEXTURE_EDGE,

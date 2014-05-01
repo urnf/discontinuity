@@ -149,8 +149,8 @@ public class DiscGame extends Game {
     static final int DESIRED_WIDTH = 960;
     static final int DESIRED_HEIGHT = 540;
 
-    static final int DIALOG_X = 40;
-    static final int DIALOG_Y = 400;
+    static final int DIALOG_X = 20;
+    static final int DIALOG_Y = 20;
 
     static int view_x = 0;
     static int view_y = 0;
@@ -242,6 +242,9 @@ public class DiscGame extends Game {
         // Setup board and character entities - may need new entity subclass for characters
         // These are created and added to the hover list in order from top to bottom - so no need for layer.
 
+        setupPlayer();
+        setupOpponent();
+
         // Setup a 3x3 board set.
         // TODO: Move out into constants, but I don't foresee being anything other than 3 x 3
         boards = new Board[3][3];
@@ -251,10 +254,12 @@ public class DiscGame extends Game {
             }
         }
         Board.link_boards(boards);
-        boards[1][1].set_current_board();
 
-        setupPlayer();
-        setupOpponent();
+        // Do this in this order since we want board hover on top of player/opponent
+        player.cell = boards[1][1].cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1];
+        computer.cell = boards[1][1].cells[0][0];
+
+        boards[1][1].set_current_board();
 
         // Setup dialog option hovers
         setupDialogEntities();
@@ -429,14 +434,6 @@ public class DiscGame extends Game {
         }
         current_board.draw(batch);
 
-        // Draw confidence/inspiration icons
-        /*
-        confidence_icon_player.draw(batch);
-        confidence_icon_opponent.draw(batch);
-        inspiration_icon_player.draw(batch);
-        inspiration_icon_opponent.draw(batch);
-        */
-
         // Draw argument bars
         player.draw_ethical(batch);
         player.draw_logical(batch);
@@ -461,169 +458,11 @@ public class DiscGame extends Game {
     }
 
     public void setupPlayer() {
-        player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, DESIRED_WIDTH, movestats_font, manager.get("img/socrates.png", Texture.class), manager.get("img/zhugemini.png", Texture.class), current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
-        /* TODO: Remove.  Moved out to contestants.
-        // Setup Contestant stats
-        Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
-            put("power", 100);
-            put("conf_plus", 25);
-            put("conf_minus", 0);
-            put("ins_plus", 10);
-            put("ins_minus", 10);
-        }};
-        Hashtable<String, Integer> eth_stats = new Hashtable<String, Integer>() {{
-            put("power", 30);
-            put("conf_plus", 10);
-            put("conf_minus", 0);
-            put("ins_plus", 0);
-            put("ins_minus", 20);
-        }};
-        Hashtable<String, Integer> inm_stats = new Hashtable<String, Integer>() {{
-            put("power", 50);
-            put("conf_plus", 10);
-            put("conf_minus", 20);
-            put("ins_plus", 0);
-            put("ins_minus", 0);
-        }};
-        Hashtable<String, Integer> ing_stats = new Hashtable<String, Integer>() {{
-            put("power", 70);
-            put("conf_plus", 10);
-            put("conf_minus", 0);
-            put("ins_plus", 30);
-            put("ins_minus", 0);
-        }};
-
-        // Set up Yi's combos
-        ArrayList<String []> yi_combo_list = new  ArrayList<String []>();
-        yi_combo_list.add(new String[]{"Intimidate", "Logical"});
-        yi_combo_list.add(new String[]{"Logical", "Ethical"});
-        yi_combo_list.add(new String[]{"Logical", "Interrogate"});
-        yi_combo_list.add(new String[]{"Ethical", "Interrogate"});
-        yi_combo_list.add(new String[]{"Interrogate", "Intimidate"});
-        Combo yi_combo = new Combo(yi_combo_list);
-
-        yi = new Contestant(yi_combo, BOARD_WIDTH, BOARD_HEIGHT, log_stats, eth_stats, inm_stats, ing_stats, 100, 140, screen_width/2 - (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) - 120, true, current_board.cells[BOARD_WIDTH - 1][BOARD_HEIGHT - 1]);
-        yi.setImg(new Texture(Gdx.files.internal("img/zhugemini.png")));
-        //yi.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
-        yi_portrait.setContestant(yi);
-
-        Ability strawman = new Ability(yi, 64, 64, 40,
-                AbilityTarget.targets.adjacent_square_fresh,
-                new AbilityEffect(AbilityEffect.effects.multiply_all, 4, true),
-                "~ Strawman ~ (Cost 40)\nConsume an unconsumed adjacent square for 4x the bonuses (DP, Cf+, Cf-, Ins+, Ins-)",
-                "That's a horrible example.  What you failed to consider is the following situation...");
-        strawman.setImg(new Texture(Gdx.files.internal("img/strawman.png")));
-        yi.abilities.add(strawman);
-
-        // Ability tableflip
-        Ability tableflip = new Ability(yi, 64, 64, 30,
-                AbilityTarget.targets.self,
-                new AbilityEffect(AbilityEffect.effects.conf_damage, 60, false),
-                "~ Tableflip ~ (Cost 30)\nFlip a table at your opponent, damaging your opponent's confidence by 60.",
-                "Special case generated in Ability class, you should never see this.");
-        tableflip.setImg(new Texture(Gdx.files.internal("img/tableflip.png")));
-        yi.abilities.add(tableflip);
-
-        // Ability non sequitur
-        Ability nonsequitur = new Ability(yi, 64, 64, 50,
-                AbilityTarget.targets.any_square,
-                new AbilityEffect(AbilityEffect.effects.multiply_all, 1, true),
-                "~ Non Sequitur ~ (Cost 50)\nDiscreetly move the conversation elsewhere; teleport to and consume any square.",
-                "If you think about it, you're actually talking about something else, such as this.");
-        nonsequitur.setImg(new Texture(Gdx.files.internal("img/nonsequitur.png")));
-        yi.abilities.add(nonsequitur);
-
-        // Ability reasonable doubt - surrounding AoE opponent squares consumed
-        Ability reasonable_doubt = new Ability(yi, 64, 64, 40,
-                AbilityTarget.targets.self,
-                new AbilityEffect(AbilityEffect.effects.aoe_consume, 1, false),
-                "~ Reasonable Doubt ~ (Cost 40)\nSow doubt and make your opponent's adjacent squares consumed.",
-                "Are you sure about that?  I think you're making a bad assumption.");
-        reasonable_doubt.setImg(new Texture(Gdx.files.internal("img/reasonabledoubt.png")));
-        yi.abilities.add(reasonable_doubt);
-
-        // Ability double down - refresh and consume an adjacent consumed argument
-        Ability double_down = new Ability(yi, 64, 64, 60,
-                AbilityTarget.targets.adjacent_square_consumed,
-                new AbilityEffect(AbilityEffect.effects.refresh_consume, 1, true),
-                "~ Double Down ~ (Cost 60)\nRefuse to be wrong and repeat an adjacent, consumed square without penalties.",
-                "No.  Let me repeat it again, just slower and louder, until you understand.");
-        double_down.setImg(new Texture(Gdx.files.internal("img/doubledown.png")));
-        yi.abilities.add(double_down);
-
-        Ability.setup_ability_display(yi);
-        */
+        player = new Socrates(true, BOARD_WIDTH, BOARD_HEIGHT, DESIRED_WIDTH, movestats_font, manager.get("img/socrates.png", Texture.class), manager.get("img/zhugemini.png", Texture.class));
     }
 
     public void setupOpponent() {
-        computer = new Confucius(false, 1, 1, DESIRED_WIDTH, movestats_font, manager.get("img/confucius.png", Texture.class), manager.get("img/arlenemini.png", Texture.class), current_board.cells[0][0]);
-        // TODO: Remove.  Moved out to contestants.
-        /*
-        Hashtable<String, Integer> log_stats = new Hashtable<String, Integer>() {{
-            put("power", 60);
-            put("conf_plus", 0);
-            put("conf_minus", 10);
-            put("ins_plus", 10);
-            put("ins_minus", 0);
-        }};
-        Hashtable<String, Integer> eth_stats = new Hashtable<String, Integer>() {{
-            put("power", 40);
-            put("conf_plus", 10);
-            put("conf_minus", 0);
-            put("ins_plus", 0);
-            put("ins_minus", 0);
-        }};
-        Hashtable<String, Integer> inm_stats = new Hashtable<String, Integer>() {{
-            put("power", 80);
-            put("conf_plus", 0);
-            put("conf_minus", 20);
-            put("ins_plus", 0);
-            put("ins_minus", 10);
-        }};
-        Hashtable<String, Integer> ing_stats = new Hashtable<String, Integer>() {{
-            put("power", 120);
-            put("conf_plus", 30);
-            put("conf_minus", 20);
-            put("ins_plus", 30);
-            put("ins_minus", 10);
-        }};
-
-        // Set up Arlene's combos
-        ArrayList<String []> arlene_combo_list = new  ArrayList<String []>();
-        arlene_combo_list.add(new String[]{"Intimidate","Logical"});
-        arlene_combo_list.add(new String[]{"Logical", "Ethical"});
-        arlene_combo_list.add(new String[]{"Interrogate", "Ethical"});
-        arlene_combo_list.add(new String[]{"Interrogate", "Logical"});
-        arlene_combo_list.add(new String[]{"Interrogate", "Intimidate"});
-        arlene_combo_list.add(new String[]{"Intimidate", "Ethical"});
-        Combo arlene_combo = new Combo(arlene_combo_list);
-
-        arlene = new Contestant(arlene_combo, 1, 1, log_stats, eth_stats, inm_stats, ing_stats, 200, 200, screen_width/2 + (Board.CELL_EDGE_SIZE * BOARD_WIDTH/2) + 40, false, current_board.cells[0][0]);
-        arlene.setImg(new Texture(Gdx.files.internal("img/arlenemini.png")));
-        //arlene.img.scale((float) Board.CELL_EDGE_SIZE/Board.TEXTURE_EDGE - 1);
-        arlene_portrait.setContestant(arlene);
-        */
-    }
-
-    public void setupPortraits() {
-        // TODO: Remove
-        /*
-        yi_portrait = new Portrait(new Texture(Gdx.files.internal("img/yi-combos.png")), -120, 0, 500, 375, screen_width/2 - 250, 700, 220, 250, 500, "Zhuge Yi\n" +
-                "This proclaimed traveling businessman seems to have a surprising knack for methodical debate and inquiry.\n\n" +
-                "His arguments are swift as the coursing river;\n" +
-                "laid out with all the force of a great typhoon;\n" +
-                "debated with all the strength of a raging fire;\n" +
-                "and his next move is mysterious as the dark side of the moon.");
-        yi_portrait.setImg(new Texture(Gdx.files.internal("img/socrates.png")));
-        arlene_portrait = new Portrait(new Texture(Gdx.files.internal("img/arlene-combos.png")), screen_width - 290,0, 300, 375, screen_width/2 - 250, 700, screen_width - 280, 250, 520, "Arlene Elecantos\n" +
-                "J.D. University of New Oxford\n" +
-                "Elecantos Legal Group\n" +
-                "Professor Emeritus, Harvard Mars Law Adjunct\n\n" +
-                "When she's not preparing for a major case or incinerating revenant souls, she relishes dishing out " +
-                "verbal suplexes upon opposing counsel or unruly law students.  " +
-                "Her fearsome reputation as both sorceror and lawyer means that few people cross her, professionally or personally.");
-        arlene_portrait.setImg(new Texture(Gdx.files.internal("img/arlene.png")));
-        */
+        computer = new Confucius(false, 1, 1, DESIRED_WIDTH, movestats_font, manager.get("img/confucius.png", Texture.class), manager.get("img/arlenemini.png", Texture.class));
     }
 
     public void setupFonts() {
@@ -635,7 +474,7 @@ public class DiscGame extends Game {
         animation_font = sinanova.generateFont(24);
         movestats_font = ptsans.generateFont(20);
         text_font = ptsans.generateFont(16);
-        dialog_font = ptsans.generateFont(14);
+        dialog_font = ptsans.generateFont(20);
         text_font_small = ptsans.generateFont(13);
         nightmare_font = nightmare.generateFont(20);
         sinanova.dispose();
@@ -675,11 +514,10 @@ public class DiscGame extends Game {
     // Create four new entities for dialog options whose role is solely to be a hover over/click handler and draw a bounding box
     public void setupDialogEntities() {
         dialog_options = new DialogOption[4];
-        //DiscGame.DESIRED_WIDTH/2 - 230
-        dialog_options[0] = new DialogOption(DIALOG_X, DIALOG_Y + 60, 455, 55);
-        dialog_options[1] = new DialogOption(DIALOG_X, DIALOG_Y + 5, 455, 55);
-        dialog_options[2] = new DialogOption(DIALOG_X, DIALOG_Y - 50, 455, 55);
-        dialog_options[3] = new DialogOption(DIALOG_X, DIALOG_Y - 105, 455, 55);
+        dialog_options[0] = new DialogOption(DIALOG_X, DIALOG_Y, 355, 75);
+        dialog_options[1] = new DialogOption(DIALOG_X, DIALOG_Y, 355, 75);
+        dialog_options[2] = new DialogOption(DIALOG_X, DIALOG_Y, 355, 75);
+        dialog_options[3] = new DialogOption(DIALOG_X, DIALOG_Y, 355, 75);
     }
 
     public void setupEndgameOptions(ArrayList<EndGameOption> endgame_options) {

@@ -113,10 +113,15 @@ public class Board {
 
     // Run right before a set_current_board to make sure scaling doesn't stack infinitely
     public void reset_board_positions(){
+        reset_board(this);
         reset_board(left);
         reset_board(right);
         reset_board(up);
         reset_board(down);
+        reset_board(upper_left);
+        reset_board(upper_right);
+        reset_board(lower_left);
+        reset_board(lower_right);
         // Reset character sizes
         //DiscGame.player.img.setScale(1);
         //DiscGame.computer.img.setScale(1);

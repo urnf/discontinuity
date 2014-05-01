@@ -49,18 +49,18 @@ public class DialogOption extends Entity {
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
-        /*
+
         if (null != cell && StateHandling.checkState(State.SelectDialog)) {
             // if backtracking, highlight red
             if (cell.consumed) { shapes.setColor(dark_red); }
             // if can combo into this option, highlight green
             else if (will_combo) { shapes.setColor(dark_green); }
             else { shapes.setColor(light_grey); }
-            shapes.rect(x - 7, y - 3 + dialog_y_offset, width + 14, height + 6);
+            shapes.rect(x - 10, y - 5 + dialog_y_offset, width + 20, height + 10);
             shapes.setColor(dark_grey);
             shapes.rect(x - 5, y - 1 + dialog_y_offset, width + 10, height + 2);
         }
-        */
+
     }
 
     public void drawHover(SpriteBatch batch) {

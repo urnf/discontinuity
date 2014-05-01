@@ -54,21 +54,23 @@ public class Portrait extends Entity {
     //}
 
     public void drawHover(SpriteBatch batch) {
-        DiscGame.text_font.drawWrapped(batch, hover_text, hover_x, hover_y, wrap_size);
-        contestant.draw_stats(batch, hover_x + 125, (int) (hover_y - text_height + 95));
-        combos.draw(batch);
-        movestats.draw(batch);
-        Tooltip.drawDialogWidgets(hover_x, (int) (hover_y - text_height), (int) text_width, (int) text_height, batch);
+        //DiscGame.text_font.drawWrapped(batch, hover_text, hover_x, hover_y, wrap_size);
+        //contestant.draw_stats(batch, hover_x + 125, (int) (hover_y - text_height + 95));
+        //combos.draw(batch);
+        //movestats.draw(batch);
+        //Tooltip.drawDialogWidgets(hover_x, (int) (hover_y - text_height), (int) text_width, (int) text_height, batch);
         if (contestant.player) { DiscGame.abilities_button.draw(batch);}
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
+        /*
         Color dark_grey = new Color(0.15f, 0.15f, 0.15f, 1);
         Color light_grey = new Color(0.8f, 0.8f, 0.8f, 1);
         Tooltip.newTip(hover_x, (int) (hover_y - text_height),
                 (int) text_width, (int) text_height,
                 pointer_x_offset, pointer_y_offset,
                 dark_grey, light_grey, false, shapes);
+                */
 
     }
 }
