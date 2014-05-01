@@ -147,6 +147,10 @@ public class Board {
         right.resize_board(Direction.RIGHT);
         up.resize_board(Direction.UP);
         down.resize_board(Direction.DOWN);
+        upper_left.resize_board(Direction.UPPER_LEFT);
+        lower_left.resize_board(Direction.LOWER_LEFT);
+        upper_right.resize_board(Direction.UPPER_RIGHT);
+        lower_right.resize_board(Direction.LOWER_RIGHT);
 
         // Player/Computer not yet set up
         if (null == DiscGame.player || null == DiscGame.computer) return;
@@ -228,12 +232,24 @@ public class Board {
                 entity.new_scale = 0.5f;
                 break;
             case UPPER_LEFT:
+                entity.new_x = cell.center_x - 150 - (left.cells.length/2 - cell_x) * 26;
+                entity.new_y = cell.center_y + 150 - (up.cells.length/2 - cell_y) * 26 + 26;
+                entity.new_scale = 0.0f;
                 break;
             case LOWER_LEFT:
+                entity.new_x = cell.center_x - 150 - (left.cells.length/2 - cell_x) * 26;
+                entity.new_y = cell.center_y - 150 - (down.cells.length/2 - cell_y) * 26;
+                entity.new_scale = 0.0f;
                 break;
             case UPPER_RIGHT:
+                entity.new_x = cell.center_x + 150 - (right.cells.length/2 - cell_x) * 26 + 26;
+                entity.new_y = cell.center_y + 150 - (up.cells.length/2 - cell_y) * 26 + 26;
+                entity.new_scale = 0.0f;
                 break;
             case LOWER_RIGHT:
+                entity.new_x = cell.center_x + 150 - (right.cells.length/2 - cell_x) * 26 + 26;
+                entity.new_y = cell.center_y - 150 - (down.cells.length/2 - cell_y) * 26;
+                entity.new_scale = 0.0f;
                 break;
         }
         entity.setup_animation();
@@ -329,6 +345,50 @@ public class Board {
             }
         }
         checkDrawContestants(batch, down);
+    }
+
+    public void draw_upper_left(SpriteBatch batch) {
+        // Draw the space of ideas
+        for (int i = 0; i < upper_left.cells.length; i++) {
+            for (int j = 0; j < upper_left.cells[i].length; j++) {
+                upper_left.cells[i][j].animate();
+                upper_left.cells[i][ j].draw(batch);
+            }
+        }
+        checkDrawContestants(batch, upper_left);
+    }
+
+    public void draw_lower_left(SpriteBatch batch) {
+        // Draw the space of ideas
+        for (int i = 0; i < lower_left.cells.length; i++) {
+            for (int j = 0; j < lower_left.cells[i].length; j++) {
+                lower_left.cells[i][j].animate();
+                lower_left.cells[i][ j].draw(batch);
+            }
+        }
+        checkDrawContestants(batch, lower_left);
+    }
+
+    public void draw_upper_right(SpriteBatch batch) {
+        // Draw the space of ideas
+        for (int i = 0; i < upper_right.cells.length; i++) {
+            for (int j = 0; j < upper_right.cells[i].length; j++) {
+                upper_right.cells[i][j].animate();
+                upper_right.cells[i][ j].draw(batch);
+            }
+        }
+        checkDrawContestants(batch, upper_right);
+    }
+
+    public void draw_lower_right(SpriteBatch batch) {
+        // Draw the space of ideas
+        for (int i = 0; i < lower_right.cells.length; i++) {
+            for (int j = 0; j < lower_right.cells[i].length; j++) {
+                lower_right.cells[i][j].animate();
+                lower_right.cells[i][ j].draw(batch);
+            }
+        }
+        checkDrawContestants(batch, lower_right);
     }
 
     public void move_computer() {

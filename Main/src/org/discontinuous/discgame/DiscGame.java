@@ -29,6 +29,7 @@ import java.util.LinkedHashMap;
  */
 public class DiscGame extends Game {
     /*
+    TODO: BONUS TILES IN CENTER - EXAMPLE, CORINTHIAN COLUMN, CHINESE MEDICINE, ETC.
     TODO: FIX SCALED INPUT AREA FOR SMALLER SUB BOARDS
     TODO: ANIMATE BOARD TRANSITIONS
 
@@ -399,6 +400,12 @@ public class DiscGame extends Game {
 
         // Adjust the order so that those transitioning underneath are below
         Cell sample_cell = DiscGame.current_board.cells[0][0];
+
+
+        current_board.draw_upper_left(batch);
+        current_board.draw_lower_left(batch);
+        current_board.draw_upper_right(batch);
+        current_board.draw_lower_right(batch);
 
         if (sample_cell.x <= sample_cell.new_x) {
             // Moving from left to right
