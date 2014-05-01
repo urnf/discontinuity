@@ -307,9 +307,11 @@ public class Contestant extends Entity {
             // set new cell to destination
             this.cell = cell;
             // update image position
-            x = DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
-            y = DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
-            img.setPosition(x, y);
+            cell.board.position_board_entity(null, this, cell, cell.board_x, cell.board_y);
+
+            //x = DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
+            //y = DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
+            //img.setPosition(x, y);
         }
 
         cell.occupied = true;

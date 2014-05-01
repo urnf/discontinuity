@@ -147,6 +147,13 @@ public class Board {
         right.resize_board(Direction.RIGHT);
         up.resize_board(Direction.UP);
         down.resize_board(Direction.DOWN);
+
+        handler_setup();
+        left.handler_setup();
+        right.handler_setup();
+        up.handler_setup();
+        down.handler_setup();
+
         upper_left.resize_board(Direction.UPPER_LEFT);
         lower_left.resize_board(Direction.LOWER_LEFT);
         upper_right.resize_board(Direction.UPPER_RIGHT);
@@ -189,15 +196,21 @@ public class Board {
             for (int j = 0; j < cells[i].length; j++) {
                 cell = cells[i][j];
                 position_board_entity(new_direction, cell, cell, i, j);
-                // TODO: also sets up the click, move out since it conflates method functionality
-                DiscGame.hover_list.add(cell);
-                DiscGame.click_list.add(cell);
+            }
+        }
+    }
+
+    private void handler_setup() {
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                DiscGame.hover_list.add(cells[i][j]);
+                DiscGame.click_list.add(cells[i][j]);
             }
         }
     }
 
     // Resizes entity relative to the cell that it occupies
-    private void position_board_entity(Direction new_direction, Entity entity, Cell cell, float cell_x, float cell_y) {
+    public void position_board_entity(Direction new_direction, Entity entity, Cell cell, float cell_x, float cell_y) {
         entity.old_x = entity.x;
         entity.old_y = entity.y;
         entity.old_scale = entity.img.getScaleX();
