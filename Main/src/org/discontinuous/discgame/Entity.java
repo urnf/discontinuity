@@ -77,7 +77,7 @@ public class Entity {
 
     public void setup_animation() {
         animation_counter = 0;
-        animation_max = 120;
+        animation_max = 30;
         x_increment = (new_x - old_x) / (float) animation_max;
         y_increment = (new_y - old_y) / (float) animation_max;
         scale_increment = (new_scale - old_scale) / (float) animation_max;

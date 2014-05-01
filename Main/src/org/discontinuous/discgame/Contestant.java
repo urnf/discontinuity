@@ -21,10 +21,6 @@ public class Contestant extends Entity {
 
     //Don't store board_x, board_y; grab from Cell
     Cell cell;
-    //int confidence;
-    //int inspiration;
-    //int conf_max;
-    //int insp_max;
 
     int logical_bar;
     int ethical_bar;
@@ -41,8 +37,6 @@ public class Contestant extends Entity {
     Hashtable<String, Integer> eth_stats;
     Hashtable<String, Integer> inm_stats;
     Hashtable<String, Integer> ing_stats;
-    //int confidence_x_coord;
-    //int inspiration_x_coord;
     int logical_x_coord;
     int ethical_x_coord;
     int interrogate_x_coord;
@@ -71,8 +65,6 @@ public class Contestant extends Entity {
                       int ethical_max,
                       int intimidate_max,
                       int interrogate_max,
-                      //int conf_max,
-                      //int insp_max,
                       boolean isPlayer,
                       Cell cell) {
         super(DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (board_x)),
@@ -91,10 +83,6 @@ public class Contestant extends Entity {
         this.intimidate_bar = 2;
         this.interrogate_bar = 2;
 
-        //this.conf_max = conf_max;
-        //this.insp_max = insp_max;
-        //confidence = conf_max;
-        //inspiration = 50;
         this.log_stats = log_stats;
         this.eth_stats = eth_stats;
         this.inm_stats = inm_stats;
@@ -199,48 +187,24 @@ public class Contestant extends Entity {
         for (int i = 0; i < logical_max; i++) {
             logical_imgs.get(i).draw(batch);
         }
-        /*
-        shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, 120);
-        shapes.setColor(0.1f, 0.69f, 0.298f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, logical_bar * 30);
-        */
     }
 
     public void draw_ethical(SpriteBatch batch) {
         for (int i = 0; i < ethical_max; i++) {
             ethical_imgs.get(i).draw(batch);
         }
-        /*
-        shapes.setColor(0.039f, 0.18f, 0.258f, 1);
-        shapes.rect(inspiration_x_coord, bars_y_coord, 40, 120);
-        shapes.setColor(0.129f, 0.506f, 0.725f, 1);
-        shapes.rect(inspiration_x_coord, bars_y_coord, 40, ethical_bar * 30);
-        */
     }
 
     public void draw_interrogate(SpriteBatch batch) {
         for (int i = 0; i < interrogate_max; i++) {
             interrogate_imgs.get(i).draw(batch);
         }
-        /*
-        shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, 120);
-        shapes.setColor(0.1f, 0.69f, 0.298f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, interrogate_bar * 30);
-        */
     }
 
     public void draw_intimidate(SpriteBatch batch) {
         for (int i = 0; i < intimidate_max; i++) {
             intimidate_imgs.get(i).draw(batch);
         }
-        /*
-        shapes.setColor(0.0547f, 0.273f, 0.129f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, 120);
-        shapes.setColor(0.1f, 0.69f, 0.298f, 1);
-        shapes.rect(confidence_x_coord, bars_y_coord, 40, intimidate_bar * 30);
-        */
     }
 
     public void draw_stats(SpriteBatch batch, int hover_x, int hover_y) {
@@ -342,16 +306,15 @@ public class Contestant extends Entity {
         else {
             // set new cell to destination
             this.cell = cell;
+            // update image position
+            x = DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
+            y = DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
+            img.setPosition(x, y);
         }
 
         cell.occupied = true;
 
         update_stats(cell, false);
-
-        // update image position
-        x = DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
-        y = DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
-        img.setPosition(x, y);
 
         // Trigger dialog
         StateHandling.currentSpeaker = this;
