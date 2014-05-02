@@ -136,4 +136,279 @@ intimidate:
     - Globalization Confucius Intimidate 2
     - Globalization Confucius Intimidate 3
     - Globalization Confucius Intimidate 4
-
+---
+name: Gun Control
+logical:
+  Socrates:
+    - Gun Control Socrates Logical 1
+    - Gun Control Socrates Logical 2
+    - Gun Control Socrates Logical 3
+    - Gun Control Socrates Logical 4
+  Confucius:
+    - Gun Control Confucius Logical 1
+    - Gun Control Confucius Logical 2
+    - Gun Control Confucius Logical 3
+    - Gun Control Confucius Logical 4
+ethical:
+  Socrates:
+    - Gun Control Socrates Ethical 1
+    - Gun Control Socrates Ethical 2
+    - Gun Control Socrates Ethical 3
+    - Gun Control Socrates Ethical 4
+  Confucius:
+    - Gun Control Confucius Ethical 1
+    - Gun Control Confucius Ethical 2
+    - Gun Control Confucius Ethical 3
+    - Gun Control Confucius Ethical 4
+interrogate:
+  Socrates:
+    - Gun Control Socrates Interrogate 1
+    - Gun Control Socrates Interrogate 2
+    - Gun Control Socrates Interrogate 3
+    - Gun Control Socrates Interrogate 4
+  Confucius:
+    - Gun Control Confucius Interrogate 1
+    - Gun Control Confucius Interrogate 2
+    - Gun Control Confucius Interrogate 3
+    - Gun Control Confucius Interrogate 4
+intimidate:
+  Socrates:
+    - Gun Control Socrates Intimidate 1
+    - Gun Control Socrates Intimidate 2
+    - Gun Control Socrates Intimidate 3
+    - Gun Control Socrates Intimidate 4
+  Confucius:
+    - Gun Control Confucius Intimidate 1
+    - Gun Control Confucius Intimidate 2
+    - Gun Control Confucius Intimidate 3
+    - Gun Control Confucius Intimidate 4
+---
+name: Serious Topic 5
+logical:
+  Socrates:
+    - Serious Topic 5 Socrates Logical 1
+    - Serious Topic 5 Socrates Logical 2
+    - Serious Topic 5 Socrates Logical 3
+    - Serious Topic 5 Socrates Logical 4
+  Confucius:
+    - Serious Topic 5 Confucius Logical 1
+    - Serious Topic 5 Confucius Logical 2
+    - Serious Topic 5 Confucius Logical 3
+    - Serious Topic 5 Confucius Logical 4
+ethical:
+  Socrates:
+    - Serious Topic 5 Socrates Ethical 1
+    - Serious Topic 5 Socrates Ethical 2
+    - Serious Topic 5 Socrates Ethical 3
+    - Serious Topic 5 Socrates Ethical 4
+  Confucius:
+    - Serious Topic 5 Confucius Ethical 1
+    - Serious Topic 5 Confucius Ethical 2
+    - Serious Topic 5 Confucius Ethical 3
+    - Serious Topic 5 Confucius Ethical 4
+interrogate:
+  Socrates:
+    - Serious Topic 5 Socrates Interrogate 1
+    - Serious Topic 5 Socrates Interrogate 2
+    - Serious Topic 5 Socrates Interrogate 3
+    - Serious Topic 5 Socrates Interrogate 4
+  Confucius:
+    - Serious Topic 5 Confucius Interrogate 1
+    - Serious Topic 5 Confucius Interrogate 2
+    - Serious Topic 5 Confucius Interrogate 3
+    - Serious Topic 5 Confucius Interrogate 4
+intimidate:
+  Socrates:
+    - Serious Topic 5 Socrates Intimidate 1
+    - Serious Topic 5 Socrates Intimidate 2
+    - Serious Topic 5 Socrates Intimidate 3
+    - Serious Topic 5 Socrates Intimidate 4
+  Confucius:
+    - Serious Topic 5 Confucius Intimidate 1
+    - Serious Topic 5 Confucius Intimidate 2
+    - Serious Topic 5 Confucius Intimidate 3
+    - Serious Topic 5 Confucius Intimidate 4
+---
+name: Silly Topic 1
+logical:
+  Socrates:
+    - Silly Topic 1 Socrates Logical 1
+    - Silly Topic 1 Socrates Logical 2
+    - Silly Topic 1 Socrates Logical 3
+    - Silly Topic 1 Socrates Logical 4
+  Confucius:
+    - Silly Topic 1 Confucius Logical 1
+    - Silly Topic 1 Confucius Logical 2
+    - Silly Topic 1 Confucius Logical 3
+    - Silly Topic 1 Confucius Logical 4
+ethical:
+  Socrates:
+    - Silly Topic 1 Socrates Ethical 1
+    - Silly Topic 1 Socrates Ethical 2
+    - Silly Topic 1 Socrates Ethical 3
+    - Silly Topic 1 Socrates Ethical 4
+  Confucius:
+    - Silly Topic 1 Confucius Ethical 1
+    - Silly Topic 1 Confucius Ethical 2
+    - Silly Topic 1 Confucius Ethical 3
+    - Silly Topic 1 Confucius Ethical 4
+interrogate:
+  Socrates:
+    - Silly Topic 1 Socrates Interrogate 1
+    - Silly Topic 1 Socrates Interrogate 2
+    - Silly Topic 1 Socrates Interrogate 3
+    - Silly Topic 1 Socrates Interrogate 4
+  Confucius:
+    - Silly Topic 1 Confucius Interrogate 1
+    - Silly Topic 1 Confucius Interrogate 2
+    - Silly Topic 1 Confucius Interrogate 3
+    - Silly Topic 1 Confucius Interrogate 4
+intimidate:
+  Socrates:
+    - Silly Topic 1 Socrates Intimidate 1
+    - Silly Topic 1 Socrates Intimidate 2
+    - Silly Topic 1 Socrates Intimidate 3
+    - Silly Topic 1 Socrates Intimidate 4
+  Confucius:
+    - Silly Topic 1 Confucius Intimidate 1
+    - Silly Topic 1 Confucius Intimidate 2
+    - Silly Topic 1 Confucius Intimidate 3
+    - Silly Topic 1 Confucius Intimidate 4
+---
+name: Silly Topic 2
+logical:
+  Socrates:
+    - Silly Topic 2 Socrates Logical 1
+    - Silly Topic 2 Socrates Logical 2
+    - Silly Topic 2 Socrates Logical 3
+    - Silly Topic 2 Socrates Logical 4
+  Confucius:
+    - Silly Topic 2 Confucius Logical 1
+    - Silly Topic 2 Confucius Logical 2
+    - Silly Topic 2 Confucius Logical 3
+    - Silly Topic 2 Confucius Logical 4
+ethical:
+  Socrates:
+    - Silly Topic 2 Socrates Ethical 1
+    - Silly Topic 2 Socrates Ethical 2
+    - Silly Topic 2 Socrates Ethical 3
+    - Silly Topic 2 Socrates Ethical 4
+  Confucius:
+    - Silly Topic 2 Confucius Ethical 1
+    - Silly Topic 2 Confucius Ethical 2
+    - Silly Topic 2 Confucius Ethical 3
+    - Silly Topic 2 Confucius Ethical 4
+interrogate:
+  Socrates:
+    - Silly Topic 2 Socrates Interrogate 1
+    - Silly Topic 2 Socrates Interrogate 2
+    - Silly Topic 2 Socrates Interrogate 3
+    - Silly Topic 2 Socrates Interrogate 4
+  Confucius:
+    - Silly Topic 2 Confucius Interrogate 1
+    - Silly Topic 2 Confucius Interrogate 2
+    - Silly Topic 2 Confucius Interrogate 3
+    - Silly Topic 2 Confucius Interrogate 4
+intimidate:
+  Socrates:
+    - Silly Topic 2 Socrates Intimidate 1
+    - Silly Topic 2 Socrates Intimidate 2
+    - Silly Topic 2 Socrates Intimidate 3
+    - Silly Topic 2 Socrates Intimidate 4
+  Confucius:
+    - Silly Topic 2 Confucius Intimidate 1
+    - Silly Topic 2 Confucius Intimidate 2
+    - Silly Topic 2 Confucius Intimidate 3
+    - Silly Topic 2 Confucius Intimidate 4
+---
+name: Silly Topic 3
+logical:
+  Socrates:
+    - Silly Topic 3 Socrates Logical 1
+    - Silly Topic 3 Socrates Logical 2
+    - Silly Topic 3 Socrates Logical 3
+    - Silly Topic 3 Socrates Logical 4
+  Confucius:
+    - Silly Topic 3 Confucius Logical 1
+    - Silly Topic 3 Confucius Logical 2
+    - Silly Topic 3 Confucius Logical 3
+    - Silly Topic 3 Confucius Logical 4
+ethical:
+  Socrates:
+    - Silly Topic 3 Socrates Ethical 1
+    - Silly Topic 3 Socrates Ethical 2
+    - Silly Topic 3 Socrates Ethical 3
+    - Silly Topic 3 Socrates Ethical 4
+  Confucius:
+    - Silly Topic 3 Confucius Ethical 1
+    - Silly Topic 3 Confucius Ethical 2
+    - Silly Topic 3 Confucius Ethical 3
+    - Silly Topic 3 Confucius Ethical 4
+interrogate:
+  Socrates:
+    - Silly Topic 3 Socrates Interrogate 1
+    - Silly Topic 3 Socrates Interrogate 2
+    - Silly Topic 3 Socrates Interrogate 3
+    - Silly Topic 3 Socrates Interrogate 4
+  Confucius:
+    - Silly Topic 3 Confucius Interrogate 1
+    - Silly Topic 3 Confucius Interrogate 2
+    - Silly Topic 3 Confucius Interrogate 3
+    - Silly Topic 3 Confucius Interrogate 4
+intimidate:
+  Socrates:
+    - Silly Topic 3 Socrates Intimidate 1
+    - Silly Topic 3 Socrates Intimidate 2
+    - Silly Topic 3 Socrates Intimidate 3
+    - Silly Topic 3 Socrates Intimidate 4
+  Confucius:
+    - Silly Topic 3 Confucius Intimidate 1
+    - Silly Topic 3 Confucius Intimidate 2
+    - Silly Topic 3 Confucius Intimidate 3
+    - Silly Topic 3 Confucius Intimidate 4
+---
+name: Silly Topic 4
+logical:
+  Socrates:
+    - Silly Topic 4 Socrates Logical 1
+    - Silly Topic 4 Socrates Logical 2
+    - Silly Topic 4 Socrates Logical 3
+    - Silly Topic 4 Socrates Logical 4
+  Confucius:
+    - Silly Topic 4 Confucius Logical 1
+    - Silly Topic 4 Confucius Logical 2
+    - Silly Topic 4 Confucius Logical 3
+    - Silly Topic 4 Confucius Logical 4
+ethical:
+  Socrates:
+    - Silly Topic 4 Socrates Ethical 1
+    - Silly Topic 4 Socrates Ethical 2
+    - Silly Topic 4 Socrates Ethical 3
+    - Silly Topic 4 Socrates Ethical 4
+  Confucius:
+    - Silly Topic 4 Confucius Ethical 1
+    - Silly Topic 4 Confucius Ethical 2
+    - Silly Topic 4 Confucius Ethical 3
+    - Silly Topic 4 Confucius Ethical 4
+interrogate:
+  Socrates:
+    - Silly Topic 4 Socrates Interrogate 1
+    - Silly Topic 4 Socrates Interrogate 2
+    - Silly Topic 4 Socrates Interrogate 3
+    - Silly Topic 4 Socrates Interrogate 4
+  Confucius:
+    - Silly Topic 4 Confucius Interrogate 1
+    - Silly Topic 4 Confucius Interrogate 2
+    - Silly Topic 4 Confucius Interrogate 3
+    - Silly Topic 4 Confucius Interrogate 4
+intimidate:
+  Socrates:
+    - Silly Topic 4 Socrates Intimidate 1
+    - Silly Topic 4 Socrates Intimidate 2
+    - Silly Topic 4 Socrates Intimidate 3
+    - Silly Topic 4 Socrates Intimidate 4
+  Confucius:
+    - Silly Topic 4 Confucius Intimidate 1
+    - Silly Topic 4 Confucius Intimidate 2
+    - Silly Topic 4 Confucius Intimidate 3
+    - Silly Topic 4 Confucius Intimidate 4

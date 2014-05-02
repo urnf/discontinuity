@@ -330,10 +330,10 @@ public class Contestant extends Entity {
         StateHandling.currentSpeaker = this;
         if (StateHandling.currentSpeaker.player) {
             StateHandling.set_player_offset(DiscGame.player.cell.player_dialog);
-            StateHandling.set_computer_offset(DiscGame.player.cell.computer_resp_dialog);
+            //StateHandling.set_computer_offset(DiscGame.player.cell.computer_resp_dialog);
         }
         else {
-            StateHandling.set_player_offset(DiscGame.computer.cell.player_resp_dialog);
+            //StateHandling.set_player_offset(DiscGame.computer.cell.player_resp_dialog);
             StateHandling.set_computer_offset(DiscGame.computer.cell.computer_dialog);
         }
         StateHandling.currentState = State.InDialog;

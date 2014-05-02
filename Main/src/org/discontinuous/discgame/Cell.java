@@ -49,9 +49,9 @@ public class Cell extends Entity {
     // Dialog, if applicable
     DialogOption dialog_option;
     public String player_dialog;
-    public String player_resp_dialog;
+    //public String player_resp_dialog;
     public String computer_dialog;
-    public String computer_resp_dialog;
+    //public String computer_resp_dialog;
 
     // Adjacent cells
     ArrayList<Cell> adjacent;
@@ -108,12 +108,8 @@ public class Cell extends Entity {
         //DiscGame.click_list.add(this);
 
         //Grab a line of dialog for each character involved
-        String[] dialog_temp = DiscGame.topics.get(0).getYiDialog(this);
-        player_dialog = dialog_temp[0];
-        computer_resp_dialog = dialog_temp[1];
-        dialog_temp = DiscGame.topics.get(0).getArleneDialog(this);
-        computer_dialog = dialog_temp[0];
-        player_resp_dialog = dialog_temp[1];
+        player_dialog = board.topic.getPlayerDialog(this)[0];
+        computer_dialog = board.topic.getComputerDialog(this)[0];
     }
 
     public void createAdjacentList(Cell[][] cells) {

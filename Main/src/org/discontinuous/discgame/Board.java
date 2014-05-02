@@ -13,7 +13,7 @@ public class Board {
     int screen_width;
     int screen_height;
 
-    String topic;
+    Topic topic;
     Cell[][] cells;
 
     enum Direction {
@@ -44,7 +44,7 @@ public class Board {
     Board lower_left;
     Board lower_right;
 
-    public Board (int board_height, int board_width, String topic){
+    public Board (int board_height, int board_width, Topic topic){
         width = board_width;
         height = board_height;
         screen_width = DiscGame.DESIRED_WIDTH;
@@ -319,7 +319,7 @@ public class Board {
         checkDrawContestants(batch, this);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, topic, screen_width/2 - DiscGame.header_font.getBounds(topic).width/2, screen_height - 12);
+        DiscGame.header_font.draw(batch, topic.name, screen_width/2 - DiscGame.header_font.getBounds(topic.name).width/2, screen_height - 12);
     }
 
     public void draw_left(SpriteBatch batch) {
@@ -334,7 +334,7 @@ public class Board {
         checkDrawContestants(batch, left);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, left.topic, left.cells[0][0].img.getX() - DiscGame.header_font.getBounds(left.topic).width/2, screen_height - 12);
+        DiscGame.header_font.draw(batch, left.topic.name, left.cells[0][0].img.getX() - DiscGame.header_font.getBounds(left.topic.name).width/2, screen_height - 12);
     }
 
     public void draw_right(SpriteBatch batch) {
@@ -348,7 +348,7 @@ public class Board {
         checkDrawContestants(batch, right);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, right.topic, right.cells[0][0].img.getX() - DiscGame.header_font.getBounds(right.topic).width/2, screen_height - 12);
+        DiscGame.header_font.draw(batch, right.topic.name, right.cells[0][0].img.getX() - DiscGame.header_font.getBounds(right.topic.name).width/2, screen_height - 12);
     }
 
     public void draw_up(SpriteBatch batch) {

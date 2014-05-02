@@ -34,7 +34,7 @@ public class Topic {
     public Topic (Object name, Object logical, Object ethical, Object interrogate, Object intimidate) {
         this.name = (String) name;
         String player = DiscGame.player.getClass().getSimpleName();
-        String computer = DiscGame.player.getClass().getSimpleName();
+        String computer = DiscGame.computer.getClass().getSimpleName();
         player_log_options = (ArrayList) (((LinkedHashMap) logical).get(player));
         player_eth_options = (ArrayList) (((LinkedHashMap) ethical).get(player));
         player_ing_options = (ArrayList) (((LinkedHashMap) interrogate).get(player));
@@ -55,15 +55,16 @@ public class Topic {
         arlene_resp_inm_options = (ArrayList) (((LinkedHashMap) intimidate).get("Arlene_Resp"));*/
     }
 
-    public String[] getYiDialog(Cell cell) {
+    public String[] getPlayerDialog(Cell cell) {
         switch (cell.type) {
             case Logical:
-                if (player_log_options.size() == 0) { return new String[] {
+                if (player_log_options.size() == 0) {
+                    return new String[] {
                         "Debug: No more logical responses for player.",
                         "Debug: No more logical rebuttals for computer."
                 }; }
-                choice = new Random().nextInt(player_log_options.size());
-                return new String[]{player_log_options.remove(choice), ""};
+                //choice = new Random().nextInt(player_log_options.size());
+                return new String[]{player_log_options.remove((int)(Math.random() * player_log_options.size())), ""};
             case Ethical:
                 if (player_eth_options.size() == 0) { return new String[] {
                         "Debug: No more ethical responses for player.",
@@ -90,7 +91,7 @@ public class Topic {
         }
     }
 
-    public String[] getArleneDialog(Cell cell) {
+    public String[] getComputerDialog(Cell cell) {
         switch (cell.type) {
             case Logical:
                 if (computer_log_options.size() == 0) { return new String[] {

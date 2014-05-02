@@ -114,10 +114,10 @@ public class StateHandling {
                 break;
             case InDialog:
                 if (currentSpeaker.player) {
-                    InDialog.drawBatch(batch, DiscGame.movestats_font, true, DiscGame.player.cell.player_dialog, DiscGame.player.cell.computer_resp_dialog, dialog_width_offset, player_dialog_height_offset, computer_dialog_height_offset);
+                    InDialog.drawBatch(batch, DiscGame.movestats_font, true, DiscGame.player.cell.player_dialog, "", dialog_width_offset, player_dialog_height_offset, computer_dialog_height_offset);
                 }
                 else {
-                    InDialog.drawBatch(batch, DiscGame.movestats_font, false, DiscGame.computer.cell.computer_dialog, DiscGame.computer.cell.player_resp_dialog, dialog_width_offset, computer_dialog_height_offset, player_dialog_height_offset);
+                    InDialog.drawBatch(batch, DiscGame.movestats_font, false, DiscGame.computer.cell.computer_dialog, "", dialog_width_offset, computer_dialog_height_offset, player_dialog_height_offset);
                 }
                 break;
             case SelectAbility:

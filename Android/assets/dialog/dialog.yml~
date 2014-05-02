@@ -1,0 +1,139 @@
+---
+name: Transhumanism
+logical:
+  Socrates:
+    - Transhumanism Socrates Logical 1
+    - Transhumanism Socrates Logical 2
+    - Transhumanism Socrates Logical 3
+    - Transhumanism Socrates Logical 4
+  Confucius:
+    - Transhumanism Confucius Logical 1
+    - Transhumanism Confucius Logical 2
+    - Transhumanism Confucius Logical 3
+    - Transhumanism Confucius Logical 4
+ethical:
+  Socrates:
+    - Transhumanism Socrates Ethical 1
+    - Transhumanism Socrates Ethical 2
+    - Transhumanism Socrates Ethical 3
+    - Transhumanism Socrates Ethical 4
+  Confucius:
+    - Transhumanism Confucius Ethical 1
+    - Transhumanism Confucius Ethical 2
+    - Transhumanism Confucius Ethical 3
+    - Transhumanism Confucius Ethical 4
+interrogate:
+  Socrates:
+    - Transhumanism Socrates Interrogate 1
+    - Transhumanism Socrates Interrogate 2
+    - Transhumanism Socrates Interrogate 3
+    - Transhumanism Socrates Interrogate 4
+  Confucius:
+    - Transhumanism Confucius Interrogate 1
+    - Transhumanism Confucius Interrogate 2
+    - Transhumanism Confucius Interrogate 3
+    - Transhumanism Confucius Interrogate 4
+intimidate:
+  Socrates:
+    - Transhumanism Socrates Intimidate 1
+    - Transhumanism Socrates Intimidate 2
+    - Transhumanism Socrates Intimidate 3
+    - Transhumanism Socrates Intimidate 4
+  Confucius:
+    - Transhumanism Confucius Intimidate 1
+    - Transhumanism Confucius Intimidate 2
+    - Transhumanism Confucius Intimidate 3
+    - Transhumanism Confucius Intimidate 4
+---
+name: Social Policy
+logical:
+  Socrates:
+    - Social Policy Socrates Logical 1
+    - Social Policy Socrates Logical 2
+    - Social Policy Socrates Logical 3
+    - Social Policy Socrates Logical 4
+  Confucius:
+    - Social Policy Confucius Logical 1
+    - Social Policy Confucius Logical 2
+    - Social Policy Confucius Logical 3
+    - Social Policy Confucius Logical 4
+ethical:
+  Socrates:
+    - Social Policy Socrates Ethical 1
+    - Social Policy Socrates Ethical 2
+    - Social Policy Socrates Ethical 3
+    - Social Policy Socrates Ethical 4
+  Confucius:
+    - Social Policy Confucius Ethical 1
+    - Social Policy Confucius Ethical 2
+    - Social Policy Confucius Ethical 3
+    - Social Policy Confucius Ethical 4
+interrogate:
+  Socrates:
+    - Social Policy Socrates Interrogate 1
+    - Social Policy Socrates Interrogate 2
+    - Social Policy Socrates Interrogate 3
+    - Social Policy Socrates Interrogate 4
+  Confucius:
+    - Social Policy Confucius Interrogate 1
+    - Social Policy Confucius Interrogate 2
+    - Social Policy Confucius Interrogate 3
+    - Social Policy Confucius Interrogate 4
+intimidate:
+  Socrates:
+    - Social Policy Socrates Intimidate 1
+    - Social Policy Socrates Intimidate 2
+    - Social Policy Socrates Intimidate 3
+    - Social Policy Socrates Intimidate 4
+  Confucius:
+    - Social Policy Confucius Intimidate 1
+    - Social Policy Confucius Intimidate 2
+    - Social Policy Confucius Intimidate 3
+    - Social Policy Confucius Intimidate 4
+---
+name: Globalization
+logical:
+  Socrates:
+    - Globalization Socrates Logical 1
+    - Globalization Socrates Logical 2
+    - Globalization Socrates Logical 3
+    - Globalization Socrates Logical 4
+  Confucius:
+    - Globalization Confucius Logical 1
+    - Globalization Confucius Logical 2
+    - Globalization Confucius Logical 3
+    - Globalization Confucius Logical 4
+ethical:
+  Socrates:
+    - Globalization Socrates Ethical 1
+    - Globalization Socrates Ethical 2
+    - Globalization Socrates Ethical 3
+    - Globalization Socrates Ethical 4
+  Confucius:
+    - Globalization Confucius Ethical 1
+    - Globalization Confucius Ethical 2
+    - Globalization Confucius Ethical 3
+    - Globalization Confucius Ethical 4
+interrogate:
+  Socrates:
+    - Globalization Socrates Interrogate 1
+    - Globalization Socrates Interrogate 2
+    - Globalization Socrates Interrogate 3
+    - Globalization Socrates Interrogate 4
+  Confucius:
+    - Globalization Confucius Interrogate 1
+    - Globalization Confucius Interrogate 2
+    - Globalization Confucius Interrogate 3
+    - Globalization Confucius Interrogate 4
+intimidate:
+  Socrates:
+    - Globalization Socrates Intimidate 1
+    - Globalization Socrates Intimidate 2
+    - Globalization Socrates Intimidate 3
+    - Globalization Socrates Intimidate 4
+  Confucius:
+    - Globalization Confucius Intimidate 1
+    - Globalization Confucius Intimidate 2
+    - Globalization Confucius Intimidate 3
+    - Globalization Confucius Intimidate 4
+

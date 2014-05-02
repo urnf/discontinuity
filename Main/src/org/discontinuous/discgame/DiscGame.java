@@ -257,7 +257,7 @@ public class DiscGame extends Game {
         boards = new Board[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                boards[i][j] = new Board(BOARD_HEIGHT, BOARD_WIDTH, "Column " + String.valueOf(i) + " Row " + String.valueOf(j));
+                boards[i][j] = new Board(BOARD_HEIGHT, BOARD_WIDTH, topics.remove((int) (Math.random() * topics.size())));
             }
         }
         Board.link_boards(boards);
@@ -352,8 +352,8 @@ public class DiscGame extends Game {
         */
 
         // debug for mouse
-        header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y + "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
-        header_font.draw(batch, "View Width: " + view_width + " View Height: " + view_height + " View X: " + view_x + " View Y: " + view_y, 400, 400);
+        //header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y + "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
+        //header_font.draw(batch, "View Width: " + view_width + " View Height: " + view_height + " View X: " + view_x + " View Y: " + view_y, 400, 400);
         //header_font.draw(batch, "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
 
         // debug for phone resolution
