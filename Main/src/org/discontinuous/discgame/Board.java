@@ -213,6 +213,14 @@ public class Board {
             }
         }
     }
+    public boolean is_consumed() {
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                if (!cells[i][j].consumed) return false;
+            }
+        }
+        return true;
+    }
 
     // Resizes entity relative to the cell that it occupies
     public void position_board_entity(Direction new_direction, Entity entity, Cell cell, float cell_x, float cell_y) {

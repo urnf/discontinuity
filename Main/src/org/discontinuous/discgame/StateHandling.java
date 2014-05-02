@@ -246,14 +246,14 @@ public class StateHandling {
         }
     }
 
-    public static void set_yi_offset(String text) {
+    public static void set_player_offset(String text) {
         player_text = text;
-        player_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 380).height)/2));
+        player_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 350).height)/2));
     }
 
-    public static void set_arlene_offset(String text) {
+    public static void set_computer_offset(String text) {
         computer_text = text;
-        computer_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 380).height)/2));
+        computer_dialog_height_offset = 50 + (int) (((DiscGame.movestats_font.getWrappedBounds(text, 350).height)/2));
     }
 
     public static void setup_endgame_options() {

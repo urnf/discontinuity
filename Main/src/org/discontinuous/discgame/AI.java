@@ -127,7 +127,7 @@ public class AI {
 
     public float getBonusOrPenalty(Cell cell, boolean previously_consumed) {
         // if consumed either in the previous cells list or already marked on board, no bonuses and DP penalty instead.
-        if (cell.consumed || previously_consumed) {
+        if (cell.consumed || previously_consumed || (computer.cell.board != cell.board && !computer.cell.board.is_consumed())) {
 
             return -2 * log_plus_weight * (1 - ((float) computer.logical_bar/computer.logical_max)) +
                    -2 * eth_plus_weight * (1 - ((float) computer.ethical_bar/computer.ethical_max)) +

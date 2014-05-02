@@ -10,7 +10,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class DesktopStarter {
     public static void main(String[] args) {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "Discontinuity";
+        cfg.title = "Symposium";
         cfg.useGL20 = true;
         cfg.width = 960;
         cfg.height = 540;

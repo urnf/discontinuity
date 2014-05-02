@@ -29,6 +29,12 @@ import java.util.LinkedHashMap;
  */
 public class DiscGame extends Game {
     /*
+    TODO: DONE - IMPLEMENT PENALTY FOR SWITCHING BEFORE ALL SQUARES CONSUMED
+    TODO: IMPLEMENT STAMMER PENALTY FOR NEGATIVE BAR
+    TODO: IMPLEMENT BOARD AND DIALOG NAMES
+    TODO: IMPLEMENT SCORING PER BOARD
+
+
     TODO: BONUS TILES IN CENTER - EXAMPLE, CORINTHIAN COLUMN, CHINESE MEDICINE, ETC.
     TODO: FIX SCALED INPUT AREA FOR SMALLER SUB BOARDS
     TODO: ANIMATE BOARD TRANSITIONS
@@ -270,7 +276,7 @@ public class DiscGame extends Game {
         // Setup state coordinates
         // TODO: Move out to its own method when it gets unwieldly
         //InDialog.setTooltipX(DESIRED_WIDTH / 2 - 200);
-        InDialog.setTooltipX(DIALOG_X);
+        InDialog.setTooltipX(DESIRED_WIDTH / 2 - 355/2);
         //SelectDialog.setTooltipX(DiscGame.DESIRED_WIDTH/2 - 120);
         SelectDialog.setTooltipX(DIALOG_X);
         //setTooltipY(dialog_height);

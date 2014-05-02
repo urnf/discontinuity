@@ -54,6 +54,9 @@ public class Contestant extends Entity {
     ArrayList<Sprite> interrogate_imgs;
     ArrayList<Sprite> intimidate_imgs;
 
+    // Tracking whether this player is in stammer state.
+    boolean stammering;
+
     // TODO: pass in a hash or something.  this argument list is getting confusingly gnarly as fuck
     public Contestant(int board_x,
                       int board_y,
@@ -77,10 +80,11 @@ public class Contestant extends Entity {
         this.intimidate_max = intimidate_max;
         this.interrogate_max = interrogate_max;
 
-        this.logical_bar = 2;
-        this.ethical_bar = 2;
-        this.intimidate_bar = 2;
-        this.interrogate_bar = 2;
+        // Starting at one of each resource
+        this.logical_bar = 1;
+        this.ethical_bar = 1;
+        this.intimidate_bar = 1;
+        this.interrogate_bar = 1;
 
         this.log_stats = log_stats;
         this.eth_stats = eth_stats;
@@ -295,6 +299,11 @@ public class Contestant extends Entity {
 
         // if moving to a new board, enlarge icons and bring opponent along
         if (this.cell.board != cell.board) {
+            // If current board is not completely consumed, institute a -1 to all penalty
+            if (!this.cell.board.is_consumed()) {
+                minus_all_arguments(1);
+            }
+
             // Update both player and opponent positions
             opponent.update_only_position(cell.board.cells[opponent.cell.board_x][opponent.cell.board_y]);
             this.cell = cell;
@@ -320,12 +329,12 @@ public class Contestant extends Entity {
         // Trigger dialog
         StateHandling.currentSpeaker = this;
         if (StateHandling.currentSpeaker.player) {
-            StateHandling.set_yi_offset(DiscGame.player.cell.player_dialog);
-            StateHandling.set_arlene_offset(DiscGame.player.cell.computer_resp_dialog);
+            StateHandling.set_player_offset(DiscGame.player.cell.player_dialog);
+            StateHandling.set_computer_offset(DiscGame.player.cell.computer_resp_dialog);
         }
         else {
-            StateHandling.set_yi_offset(DiscGame.computer.cell.player_resp_dialog);
-            StateHandling.set_arlene_offset(DiscGame.computer.cell.computer_dialog);
+            StateHandling.set_player_offset(DiscGame.computer.cell.player_resp_dialog);
+            StateHandling.set_computer_offset(DiscGame.computer.cell.computer_dialog);
         }
         StateHandling.currentState = State.InDialog;
 
@@ -385,14 +394,38 @@ public class Contestant extends Entity {
         }
         // lose one of each type if consumed
         else {
-            ethical_bar -= 1;
-            logical_bar -= 1;
-            interrogate_bar -= 1;
-            intimidate_bar -= 1;
+            minus_all_arguments(1);
             //confidence = Math.max(confidence - 50, 0);
             //inspiration = Math.max(inspiration - 50, 0);
         }
         refresh_argument_bars();
+    }
+
+    private void minus_all_arguments(int amount) {
+        if (ethical_bar > 0) {
+            ethical_bar -= amount;
+        }
+        else {
+            stammering = true;
+        }
+        if (logical_bar > 0) {
+            logical_bar -= amount;
+        }
+        else {
+            stammering = true;
+        }
+        if (interrogate_bar > 0) {
+            interrogate_bar -= amount;
+        }
+        else {
+            stammering = true;
+        }
+        if (intimidate_bar > 0) {
+            intimidate_bar -= amount;
+        }
+        else {
+            stammering = true;
+        }
     }
 
     private void refresh_argument_bars() {
@@ -441,12 +474,12 @@ public class Contestant extends Entity {
             if (tooltip.contains("Tableflip")) { dialog = "Please be careful, I am about to flip my shit.\nRargh.\n(Yi hurls the table " + ((int)(Math.random() * 100) + 10) + " meters)"; }
 
             apply_effect(effect, null);
-            StateHandling.set_yi_offset(dialog);
+            StateHandling.set_player_offset(dialog);
             StateHandling.setState(State.AbilityDialog);
         }
         // If ability target is not self, go to ability targeting
         else {
-            StateHandling.set_yi_offset(AbilityTarget.target_state_string(ability));
+            StateHandling.set_player_offset(AbilityTarget.target_state_string(ability));
             StateHandling.setState(State.AbilityTargeting);
         }
         // Remove abilities from hover and click handling

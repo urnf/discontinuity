@@ -20,27 +20,27 @@ public class AbilityTarget {
             case adjacent_square_any:
                 if (contestant.is_adjacent_to(cell)) {
                     contestant.apply_effect(ability_selected.effect, cell);
-                    StateHandling.set_yi_offset(ability_selected.dialog);
+                    StateHandling.set_player_offset(ability_selected.dialog);
                     StateHandling.setState(State.AbilityDialog);
                 }
                 break;
             case adjacent_square_fresh:
                 if (contestant.is_adjacent_to(cell) && !cell_consumed) {
                     contestant.apply_effect(ability_selected.effect, cell);
-                    StateHandling.set_yi_offset(ability_selected.dialog);
+                    StateHandling.set_player_offset(ability_selected.dialog);
                     StateHandling.setState(State.AbilityDialog);
                 }
                 break;
             case adjacent_square_consumed:
                 if (contestant.is_adjacent_to(cell) && cell_consumed) {
                     contestant.apply_effect(ability_selected.effect, cell);
-                    StateHandling.set_yi_offset(ability_selected.dialog);
+                    StateHandling.set_player_offset(ability_selected.dialog);
                     StateHandling.setState(State.AbilityDialog);
                 }
                 break;
             case any_square:
                 contestant.apply_effect(ability_selected.effect, cell);
-                StateHandling.set_yi_offset(ability_selected.dialog);
+                StateHandling.set_player_offset(ability_selected.dialog);
                 StateHandling.setState(State.AbilityDialog);
                 break;
         }

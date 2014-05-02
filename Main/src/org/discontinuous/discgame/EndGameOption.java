@@ -47,8 +47,8 @@ public class EndGameOption extends Entity {
 
     public void clickHandler() {
         if (DiscGame.dealpower.dp > dp_cost) {
-            StateHandling.set_yi_offset(yi_text);
-            StateHandling.set_arlene_offset(arlene_text);
+            StateHandling.set_player_offset(yi_text);
+            StateHandling.set_computer_offset(arlene_text);
             StateHandling.selected_endgame_option = this;
 
             for (EndGameOption option: DiscGame.endgame_options) {
