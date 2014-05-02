@@ -31,8 +31,8 @@ public class DiscGame extends Game {
     /*
     TODO: SHOW STAMMERING DIALOG OR FX
     TODO: DONE - IMPLEMENT PENALTY FOR SWITCHING BEFORE ALL SQUARES CONSUMED
-    TODO: IMPLEMENT STAMMER PENALTY FOR NEGATIVE BAR
-    TODO: IMPLEMENT BOARD AND DIALOG NAMES
+    TODO: DONE - IMPLEMENT STAMMER PENALTY FOR NEGATIVE BAR
+    TODO: IMPLEMENT BOARD AND DIALOG TEXT
     TODO: IMPLEMENT SCORING PER BOARD
 
 
@@ -194,9 +194,6 @@ public class DiscGame extends Game {
         screen_height = Gdx.graphics.getHeight();
         resize(screen_width, screen_height);
 
-        //Load dialog
-        loadDialog();
-
         manager.load("cell/tint.png", Texture.class);
 
         manager.load("img/confucius.png", Texture.class);
@@ -251,6 +248,9 @@ public class DiscGame extends Game {
 
         setupPlayer();
         setupOpponent();
+
+        //Load dialog
+        loadDialog();
 
         // Setup a 3x3 board set.
         // TODO: Move out into constants, but I don't foresee being anything other than 3 x 3

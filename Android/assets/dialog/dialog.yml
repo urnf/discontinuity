@@ -1,344 +1,139 @@
 ---
-name: Military
+name: Transhumanism
 logical:
-  Yi:
-    - We outnumber you three to one.  Your wisest course of action would be to leave.
-    - The ATF can't afford another fight like this.  There's political capital you're going to lose with planetary AIs in the inner core.
-    - Yi Logical Placeholder 3
-    - Yi Logical Placeholder 4
-    - Yi Logical Placeholder 5
-    - Yi Logical Placeholder 6
-    - Yi Logical Placeholder 7
-    - Yi Logical Placeholder 8
-    - Yi Logical Placeholder 9
-    - Yi Logical Placeholder 10
-    - Yi Logical Placeholder 11
-    - Yi Logical Placeholder 12
-    - Yi Logical Placeholder 13
-    - Yi Logical Placeholder 14
-    - Yi Logical Placeholder 15
-    - Yi Logical Placeholder 16
-  Yi_Resp:
-    - We outnumber you three to one.  Your wisest course of action would be to leave.
-    - The ATF can't afford another fight like this.  There's political capital you're going to lose with planetary AIs in the inner core.
-    - Yi Logical Response Placeholder 3
-    - Yi Logical Response Placeholder 4
-    - Yi Logical Response Placeholder 5
-    - Yi Logical Response Placeholder 6
-    - Yi Logical Response Placeholder 7
-    - Yi Logical Response Placeholder 8
-    - Yi Logical Response Placeholder 9
-    - Yi Logical Response Placeholder 10
-    - Yi Logical Response Placeholder 11
-    - Yi Logical Response Placeholder 12
-    - Yi Logical Response Placeholder 13
-    - Yi Logical Response Placeholder 14
-    - Yi Logical Response Placeholder 15
-    - Yi Logical Response Placeholder 16
-  Arlene:
-    - Arlene Logical Placeholder 1
-    - Arlene Logical Placeholder 2
-    - Arlene Logical Placeholder 3
-    - Arlene Logical Placeholder 4
-    - Arlene Logical Placeholder 5
-    - Arlene Logical Placeholder 6
-    - Arlene Logical Placeholder 7
-    - Arlene Logical Placeholder 8
-    - Arlene Logical Placeholder 9
-    - Arlene Logical Placeholder 10
-    - Arlene Logical Placeholder 11
-    - Arlene Logical Placeholder 12
-    - Arlene Logical Placeholder 13
-    - Arlene Logical Placeholder 14
-    - Arlene Logical Placeholder 15
-    - Arlene Logical Placeholder 16
-  Arlene_Resp:
-    - Arlene Logical Response Placeholder 1
-    - Arlene Logical Response Placeholder 2
-    - Arlene Logical Response Placeholder 3
-    - Arlene Logical Response Placeholder 4
-    - Arlene Logical Response Placeholder 5
-    - Arlene Logical Response Placeholder 6
-    - Arlene Logical Response Placeholder 7
-    - Arlene Logical Response Placeholder 8
-    - Arlene Logical Response Placeholder 9
-    - Arlene Logical Response Placeholder 10
-    - Arlene Logical Response Placeholder 11
-    - Arlene Logical Response Placeholder 12
-    - Arlene Logical Response Placeholder 13
-    - Arlene Logical Response Placeholder 14
-    - Arlene Logical Response Placeholder 15
-    - Arlene Logical Response Placeholder 16
+  Socrates:
+    - Transhumanism Socrates Logical 1
+    - Transhumanism Socrates Logical 2
+    - Transhumanism Socrates Logical 3
+    - Transhumanism Socrates Logical 4
+  Confucius:
+    - Transhumanism Confucius Logical 1
+    - Transhumanism Confucius Logical 2
+    - Transhumanism Confucius Logical 3
+    - Transhumanism Confucius Logical 4
 ethical:
-  Yi:
-    - Our fleets are positioned right next to Fal'qz, with 25 billion lives.  It's not a revenant colony. If our fleets fight here, you're going to risk a lot of civilians.
-    - What you're suggesting would be a direct act of aggression against another sovereign galactic nation.
-    - Yi Ethical Placeholder 3
-    - Yi Ethical Placeholder 4
-    - Yi Ethical Placeholder 5
-    - Yi Ethical Placeholder 6
-    - Yi Ethical Placeholder 7
-    - Yi Ethical Placeholder 8
-    - Yi Ethical Placeholder 9
-    - Yi Ethical Placeholder 10
-    - Yi Ethical Placeholder 11
-    - Yi Ethical Placeholder 12
-    - Yi Ethical Placeholder 13
-    - Yi Ethical Placeholder 14
-    - Yi Ethical Placeholder 15
-    - Yi Ethical Placeholder 16
-  Yi_Resp:
-    - Our fleets are positioned right next to Fal'qz, with 25 billion lives.  It's not a revenant colony. If our fleets fight here, you're going to risk a lot of civilians.
-    - What you're suggesting would be a direct act of aggression against another sovereign galactic nation.
-    - Yi Ethical Response Placeholder 3
-    - Yi Ethical Response Placeholder 4
-    - Yi Ethical Response Placeholder 5
-    - Yi Ethical Response Placeholder 6
-    - Yi Ethical Response Placeholder 7
-    - Yi Ethical Response Placeholder 8
-    - Yi Ethical Response Placeholder 9
-    - Yi Ethical Response Placeholder 10
-    - Yi Ethical Response Placeholder 11
-    - Yi Ethical Response Placeholder 12
-    - Yi Ethical Response Placeholder 13
-    - Yi Ethical Response Placeholder 14
-    - Yi Ethical Response Placeholder 15
-    - Yi Ethical Response Placeholder 16
-  Arlene:
-    - Arlene Ethical Placeholder 1
-    - Arlene Ethical Placeholder 2
-    - Arlene Ethical Placeholder 3
-    - Arlene Ethical Placeholder 4
-    - Arlene Ethical Placeholder 5
-    - Arlene Ethical Placeholder 6
-    - Arlene Ethical Placeholder 7
-    - Arlene Ethical Placeholder 8
-    - Arlene Ethical Placeholder 9
-    - Arlene Ethical Placeholder 10
-    - Arlene Ethical Placeholder 11
-    - Arlene Ethical Placeholder 12
-    - Arlene Ethical Placeholder 13
-    - Arlene Ethical Placeholder 14
-    - Arlene Ethical Placeholder 15
-    - Arlene Ethical Placeholder 16
-  Arlene_Resp:
-    - Arlene Ethical Response Placeholder 1
-    - Arlene Ethical Response Placeholder 2
-    - Arlene Ethical Response Placeholder 3
-    - Arlene Ethical Response Placeholder 4
-    - Arlene Ethical Response Placeholder 5
-    - Arlene Ethical Response Placeholder 6
-    - Arlene Ethical Response Placeholder 7
-    - Arlene Ethical Response Placeholder 8
-    - Arlene Ethical Response Placeholder 9
-    - Arlene Ethical Response Placeholder 10
-    - Arlene Ethical Response Placeholder 11
-    - Arlene Ethical Response Placeholder 12
-    - Arlene Ethical Response Placeholder 13
-    - Arlene Ethical Response Placeholder 14
-    - Arlene Ethical Response Placeholder 15
-    - Arlene Ethical Response Placeholder 16
+  Socrates:
+    - Transhumanism Socrates Ethical 1
+    - Transhumanism Socrates Ethical 2
+    - Transhumanism Socrates Ethical 3
+    - Transhumanism Socrates Ethical 4
+  Confucius:
+    - Transhumanism Confucius Ethical 1
+    - Transhumanism Confucius Ethical 2
+    - Transhumanism Confucius Ethical 3
+    - Transhumanism Confucius Ethical 4
 interrogate:
-  Yi:
-    - Who else is here?  It can't just be yourself and the senators.
-    - No weapons or magical foci.  What sorts of tricks do you have up your sleeve?
-    - Yi Interrogate Placeholder 3
-    - Yi Interrogate Placeholder 4
-    - Yi Interrogate Placeholder 5
-    - Yi Interrogate Placeholder 6
-    - Yi Interrogate Placeholder 7
-    - Yi Interrogate Placeholder 8
-    - Yi Interrogate Placeholder 9
-    - Yi Interrogate Placeholder 10
-    - Yi Interrogate Placeholder 11
-    - Yi Interrogate Placeholder 12
-    - Yi Interrogate Placeholder 13
-    - Yi Interrogate Placeholder 14
-    - Yi Interrogate Placeholder 15
-    - Yi Interrogate Placeholder 16
-  Yi_Resp:
-    - Who else is here?  It can't just be yourself and the senators.
-    - No weapons or magical foci.  What sorts of tricks do you have up your sleeve?
-    - Yi Interrogate Response Placeholder 3
-    - Yi Interrogate Response Placeholder 4
-    - Yi Interrogate Response Placeholder 5
-    - Yi Interrogate Response Placeholder 6
-    - Yi Interrogate Response Placeholder 7
-    - Yi Interrogate Response Placeholder 8
-    - Yi Interrogate Response Placeholder 9
-    - Yi Interrogate Response Placeholder 10
-    - Yi Interrogate Response Placeholder 11
-    - Yi Interrogate Response Placeholder 12
-    - Yi Interrogate Response Placeholder 13
-    - Yi Interrogate Response Placeholder 14
-    - Yi Interrogate Response Placeholder 15
-    - Yi Interrogate Response Placeholder 16
-  Arlene:
-    - Arlene Interrogate Placeholder 1
-    - Arlene Interrogate Placeholder 2
-    - Arlene Interrogate Placeholder 3
-    - Arlene Interrogate Placeholder 4
-    - Arlene Interrogate Placeholder 5
-    - Arlene Interrogate Placeholder 6
-    - Arlene Interrogate Placeholder 7
-    - Arlene Interrogate Placeholder 8
-    - Arlene Interrogate Placeholder 9
-    - Arlene Interrogate Placeholder 10
-    - Arlene Interrogate Placeholder 11
-    - Arlene Interrogate Placeholder 12
-    - Arlene Interrogate Placeholder 13
-    - Arlene Interrogate Placeholder 14
-    - Arlene Interrogate Placeholder 15
-    - Arlene Interrogate Placeholder 16
-  Arlene_Resp:
-    - Arlene Interrogate Response Placeholder 1
-    - Arlene Interrogate Response Placeholder 2
-    - Arlene Interrogate Response Placeholder 3
-    - Arlene Interrogate Response Placeholder 4
-    - Arlene Interrogate Response Placeholder 5
-    - Arlene Interrogate Response Placeholder 6
-    - Arlene Interrogate Response Placeholder 7
-    - Arlene Interrogate Response Placeholder 8
-    - Arlene Interrogate Response Placeholder 9
-    - Arlene Interrogate Response Placeholder 10
-    - Arlene Interrogate Response Placeholder 11
-    - Arlene Interrogate Response Placeholder 12
-    - Arlene Interrogate Response Placeholder 13
-    - Arlene Interrogate Response Placeholder 14
-    - Arlene Interrogate Response Placeholder 15
-    - Arlene Interrogate Response Placeholder 16
+  Socrates:
+    - Transhumanism Socrates Interrogate 1
+    - Transhumanism Socrates Interrogate 2
+    - Transhumanism Socrates Interrogate 3
+    - Transhumanism Socrates Interrogate 4
+  Confucius:
+    - Transhumanism Confucius Interrogate 1
+    - Transhumanism Confucius Interrogate 2
+    - Transhumanism Confucius Interrogate 3
+    - Transhumanism Confucius Interrogate 4
 intimidate:
-  Yi:
-    - A contingent of Glaciaural Mercs is with us.  If you try something here, you won't be getting away either.
-    - Multiple coilguns are pointed at this location.  Anything goes wrong here and we're all vaporized.
-    - Yi Intimidate Placeholder 3
-    - Yi Intimidate Placeholder 4
-    - Yi Intimidate Placeholder 5
-    - Yi Intimidate Placeholder 6
-    - Yi Intimidate Placeholder 7
-    - Yi Intimidate Placeholder 8
-    - Yi Intimidate Placeholder 9
-    - Yi Intimidate Placeholder 10
-    - Yi Intimidate Placeholder 11
-    - Yi Intimidate Placeholder 12
-    - Yi Intimidate Placeholder 13
-    - Yi Intimidate Placeholder 14
-    - Yi Intimidate Placeholder 15
-    - Yi Intimidate Placeholder 16
-  Yi_Resp:
-    - A contingent of Glaciaural Mercs is with us.  If you try something here, you won't be getting away either.
-    - Multiple coilguns are pointed at this location.  Anything goes wrong here and we're all vaporized.
-    - Yi Intimidate Response Placeholder 3
-    - Yi Intimidate Response Placeholder 4
-    - Yi Intimidate Response Placeholder 5
-    - Yi Intimidate Response Placeholder 6
-    - Yi Intimidate Response Placeholder 7
-    - Yi Intimidate Response Placeholder 8
-    - Yi Intimidate Response Placeholder 9
-    - Yi Intimidate Response Placeholder 10
-    - Yi Intimidate Response Placeholder 11
-    - Yi Intimidate Response Placeholder 12
-    - Yi Intimidate Response Placeholder 13
-    - Yi Intimidate Response Placeholder 14
-    - Yi Intimidate Response Placeholder 15
-    - Yi Intimidate Response Placeholder 16
-  Arlene:
-    - Arlene Intimidate Placeholder 1
-    - Arlene Intimidate Placeholder 2
-    - Arlene Intimidate Placeholder 3
-    - Arlene Intimidate Placeholder 4
-    - Arlene Intimidate Placeholder 5
-    - Arlene Intimidate Placeholder 6
-    - Arlene Intimidate Placeholder 7
-    - Arlene Intimidate Placeholder 8
-    - Arlene Intimidate Placeholder 9
-    - Arlene Intimidate Placeholder 10
-    - Arlene Intimidate Placeholder 11
-    - Arlene Intimidate Placeholder 12
-    - Arlene Intimidate Placeholder 13
-    - Arlene Intimidate Placeholder 14
-    - Arlene Intimidate Placeholder 15
-    - Arlene Intimidate Placeholder 16
-  Arlene_Resp:
-    - Arlene Intimidate Response Placeholder 1
-    - Arlene Intimidate Response Placeholder 2
-    - Arlene Intimidate Response Placeholder 3
-    - Arlene Intimidate Response Placeholder 4
-    - Arlene Intimidate Response Placeholder 5
-    - Arlene Intimidate Response Placeholder 6
-    - Arlene Intimidate Response Placeholder 7
-    - Arlene Intimidate Response Placeholder 8
-    - Arlene Intimidate Response Placeholder 9
-    - Arlene Intimidate Response Placeholder 10
-    - Arlene Intimidate Response Placeholder 11
-    - Arlene Intimidate Response Placeholder 12
-    - Arlene Intimidate Response Placeholder 13
-    - Arlene Intimidate Response Placeholder 14
-    - Arlene Intimidate Response Placeholder 15
-    - Arlene Intimidate Response Placeholder 16
+  Socrates:
+    - Transhumanism Socrates Intimidate 1
+    - Transhumanism Socrates Intimidate 2
+    - Transhumanism Socrates Intimidate 3
+    - Transhumanism Socrates Intimidate 4
+  Confucius:
+    - Transhumanism Confucius Intimidate 1
+    - Transhumanism Confucius Intimidate 2
+    - Transhumanism Confucius Intimidate 3
+    - Transhumanism Confucius Intimidate 4
 ---
-name: Soul Sentry
+name: Social Policy
 logical:
-  Yi:
-    - Yi Logical Placeholder 1
-    - Yi Logical Placeholder 2
-  Arlene:
-    - Arlene Logical Placeholder 1
-    - Arlene Logical Placeholder 2
+  Socrates:
+    - Social Policy Socrates Logical 1
+    - Social Policy Socrates Logical 2
+    - Social Policy Socrates Logical 3
+    - Social Policy Socrates Logical 4
+  Confucius:
+    - Social Policy Confucius Logical 1
+    - Social Policy Confucius Logical 2
+    - Social Policy Confucius Logical 3
+    - Social Policy Confucius Logical 4
 ethical:
-  Yi:
-    - Yi Ethical Placeholder 1
-    - Yi Ethical Placeholder 2
-  Arlene:
-    - Arlene Ethical Placeholder 1
-    - Arlene Ethical Placeholder 2
+  Socrates:
+    - Social Policy Socrates Ethical 1
+    - Social Policy Socrates Ethical 2
+    - Social Policy Socrates Ethical 3
+    - Social Policy Socrates Ethical 4
+  Confucius:
+    - Social Policy Confucius Ethical 1
+    - Social Policy Confucius Ethical 2
+    - Social Policy Confucius Ethical 3
+    - Social Policy Confucius Ethical 4
 interrogate:
-  Yi: 
-    - Yi Interrogate Placeholder 1
-    - Yi Interrogate Placeholder 2
-  Arlene:
-    - Arlene Interrogate Placeholder 1
-    - Arlene Interrogate Placeholder 2
+  Socrates:
+    - Social Policy Socrates Interrogate 1
+    - Social Policy Socrates Interrogate 2
+    - Social Policy Socrates Interrogate 3
+    - Social Policy Socrates Interrogate 4
+  Confucius:
+    - Social Policy Confucius Interrogate 1
+    - Social Policy Confucius Interrogate 2
+    - Social Policy Confucius Interrogate 3
+    - Social Policy Confucius Interrogate 4
 intimidate:
-  Yi:
-    - Yi Intimidate Placeholder 1
-    - Yi Intimidate Placeholder 2
-  Arlene:
-    - Arlene Intimidate Placeholder 1
-    - Arlene Intimidate Placeholder 2
+  Socrates:
+    - Social Policy Socrates Intimidate 1
+    - Social Policy Socrates Intimidate 2
+    - Social Policy Socrates Intimidate 3
+    - Social Policy Socrates Intimidate 4
+  Confucius:
+    - Social Policy Confucius Intimidate 1
+    - Social Policy Confucius Intimidate 2
+    - Social Policy Confucius Intimidate 3
+    - Social Policy Confucius Intimidate 4
 ---
-name: Law Firm
+name: Globalization
 logical:
-  Yi:
-    - You're jeopardizing your law firm's reputation if they were to know about this on the matrix.
-  Arlene_Resp:
-    - My firm doesn't have a policy against volunteer work or purging the universe of dangerous extraplanar beings.
-  Arlene:
-    - Come quietly, and I'll see that you get as much support from my law firm as I can offer.  Don't dig this hole any further.
-  Yi_Resp:
-    - I'm not sure I'm entirely comfortable with an offer of legal assistance from my prosecutor.
+  Socrates:
+    - Globalization Socrates Logical 1
+    - Globalization Socrates Logical 2
+    - Globalization Socrates Logical 3
+    - Globalization Socrates Logical 4
+  Confucius:
+    - Globalization Confucius Logical 1
+    - Globalization Confucius Logical 2
+    - Globalization Confucius Logical 3
+    - Globalization Confucius Logical 4
 ethical:
-  Yi:
-    - I find it ironic that, for someone who has worked with law their whole life, are willing to do things that are ethically bankrupt.
-  Arlene_Resp:
-    - Ethical and legal obligations are not necessarily the same.  In this case, however, they are one and the same.
-  Arlene:
-    - I'm offering you some help here.  You can't run forever.  Given the empire that depends on you all, can you afford not to take it?
-  Yi_Resp:
-    - Because there's an empire that depends on us, I'll have to reject your "help".
+  Socrates:
+    - Globalization Socrates Ethical 1
+    - Globalization Socrates Ethical 2
+    - Globalization Socrates Ethical 3
+    - Globalization Socrates Ethical 4
+  Confucius:
+    - Globalization Confucius Ethical 1
+    - Globalization Confucius Ethical 2
+    - Globalization Confucius Ethical 3
+    - Globalization Confucius Ethical 4
 interrogate:
-  Yi:
-    - Your law firm's just a front for your brutal witch hunts, isn't it?
-    - How freaking old are you?  The law firm's over 700 years old and you're still listed as the only proprietor.
-  Arlene_Resp:
-    - No, it's a legitimate firm specializing in first cantos cases.  I do a lot of pro bono work, myself.  No brownie points for trying to make a connection, though.
-    - That's not a nice question to ask.
-  Arlene:
-    -
-  Arlene_Resp:
-    -
+  Socrates:
+    - Globalization Socrates Interrogate 1
+    - Globalization Socrates Interrogate 2
+    - Globalization Socrates Interrogate 3
+    - Globalization Socrates Interrogate 4
+  Confucius:
+    - Globalization Confucius Interrogate 1
+    - Globalization Confucius Interrogate 2
+    - Globalization Confucius Interrogate 3
+    - Globalization Confucius Interrogate 4
 intimidate:
-  Yi:
-    -
-  Arlene:
-    -
+  Socrates:
+    - Globalization Socrates Intimidate 1
+    - Globalization Socrates Intimidate 2
+    - Globalization Socrates Intimidate 3
+    - Globalization Socrates Intimidate 4
+  Confucius:
+    - Globalization Confucius Intimidate 1
+    - Globalization Confucius Intimidate 2
+    - Globalization Confucius Intimidate 3
+    - Globalization Confucius Intimidate 4
+
