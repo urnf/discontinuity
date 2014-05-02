@@ -151,35 +151,33 @@ public class StateHandling {
     }
 
     public static void advanceDialog(){
-        if (currentSpeaker.player) { DiscGame.current_board.move_computer(); }
-        else {
-            // For player character: update the new cells considered adjacent
-            DiscGame.player.adjacent = DiscGame.player.cell.unoccupied_cells();
-            DiscGame.player.update_dialog_options();
-            DiscGame.player.update_abilities();
-
-            /*
-// TODO: Need new game over code
-            // Check to see if it's game over
-            if (DiscGame.computer.confidence <= 0) {
-                DiscGame.dealpower.dp += 1000;
-                set_yi_offset(player_text);
-                set_arlene_offset(computer_text);
-                currentState = State.PostGameDialog;
+        if (currentSpeaker.player) {
+            if (DiscGame.computer.stammering) {
+                // Computer is stammering, allow player to move twice
+                DiscGame.computer.stammering = false;
+            }
+            else {
+                DiscGame.current_board.move_computer();
                 return;
             }
-            if (DiscGame.player.confidence <= 0) {
-                DiscGame.dealpower.dp -= 1000;
-                set_yi_offset(player_text);
-                set_arlene_offset(computer_text);
-                currentState = State.PostGameDialog;
-                return;
-            }
-            */
-
-            // Otherwise back to select dialog
-            currentState = State.SelectDialog;
         }
+        else {
+            if (DiscGame.player.stammering) {
+                // Player is stammering, move computer twice before returning control
+                DiscGame.player.stammering = false;
+                DiscGame.current_board.move_computer();
+            }
+        }
+
+        // For player character: update the new cells considered adjacent
+        DiscGame.player.adjacent = DiscGame.player.cell.unoccupied_cells();
+        DiscGame.player.update_dialog_options();
+        DiscGame.player.update_abilities();
+
+        // TODO: Need new game over code
+
+        // Otherwise back to select dialog
+        currentState = State.SelectDialog;
     }
 
     public static boolean checkState(State checkThis){
