@@ -28,8 +28,8 @@ public class Board {
     static final int WIDTH_OFFSET = DiscGame.DESIRED_WIDTH/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2);
     static final int HEIGHT_OFFSET = DiscGame.DESIRED_HEIGHT/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_HEIGHT/2);
 
-    int[] player_position;
-    int[] opponent_position;
+    int player_score = 0;
+    int computer_score = 0;
 
     Direction relative_to_current;
 
@@ -319,7 +319,11 @@ public class Board {
         checkDrawContestants(batch, this);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, topic.name, screen_width/2 - DiscGame.header_font.getBounds(topic.name).width/2, screen_height - 12);
+        DiscGame.header_font.draw(batch, topic.name, screen_width/2 - DiscGame.header_font.getBounds(topic.name).width/2, screen_height/2 + 112);
+        // Draw player score
+        DiscGame.deal_font.draw(batch, String.valueOf(player_score), screen_width/2 - DiscGame.header_font.getBounds(topic.name).width/2 - 95, screen_height/2 - 90);
+        // Draw computer score
+        DiscGame.deal_font.draw(batch, String.valueOf(computer_score), screen_width/2 - DiscGame.header_font.getBounds(topic.name).width/2 + 170, screen_height/2 - 90);
     }
 
     public void draw_left(SpriteBatch batch) {
@@ -334,7 +338,7 @@ public class Board {
         checkDrawContestants(batch, left);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, left.topic.name, left.cells[0][0].img.getX() - DiscGame.header_font.getBounds(left.topic.name).width/2, screen_height - 12);
+        DiscGame.header_font.draw(batch, left.topic.name, left.cells[0][0].img.getX() - DiscGame.header_font.getBounds(left.topic.name).width/2 - 10, screen_height/2 + 65);
     }
 
     public void draw_right(SpriteBatch batch) {
@@ -348,7 +352,7 @@ public class Board {
         checkDrawContestants(batch, right);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, right.topic.name, right.cells[0][0].img.getX() - DiscGame.header_font.getBounds(right.topic.name).width/2, screen_height - 12);
+        DiscGame.header_font.draw(batch, right.topic.name, right.cells[0][0].img.getX() - DiscGame.header_font.getBounds(right.topic.name).width/2 - 10, screen_height/2 + 65);
     }
 
     public void draw_up(SpriteBatch batch) {
@@ -360,6 +364,9 @@ public class Board {
             }
         }
         checkDrawContestants(batch, up);
+
+        // Draw topic
+        DiscGame.header_font.draw(batch, up.topic.name, screen_width/2 - DiscGame.header_font.getBounds(up.topic.name).width/2 + 4, screen_height/2 + 225);
     }
 
     public void draw_down(SpriteBatch batch) {
@@ -371,6 +378,9 @@ public class Board {
             }
         }
         checkDrawContestants(batch, down);
+
+        // Draw topic
+        DiscGame.header_font.draw(batch, down.topic.name, screen_width/2 - DiscGame.header_font.getBounds(down.topic.name).width/2 + 4, screen_height/2 - 100);
     }
 
     public void draw_upper_left(SpriteBatch batch) {

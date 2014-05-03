@@ -350,6 +350,7 @@ public class Contestant extends Entity {
     }
 
     public void update_stats(Cell cell, boolean combo) {
+        /*
         Hashtable<String, Integer> temp_stats;
         switch (cell.type) {
             case Logical: temp_stats = log_stats; break;
@@ -359,9 +360,26 @@ public class Contestant extends Entity {
             // Will lead to exceptions - intentional
             default: temp_stats = null; break;
         }
+        */
 
         // No DP gain with combos
         if (!combo) {
+            int gain = 0;
+            switch (cell.type) {
+                case Logical: gain = logical_bar; break;
+                case Ethical: gain = ethical_bar; break;
+                case Interrogate: gain = interrogate_bar; break;
+                case Intimidate: gain = intimidate_bar; break;
+            }
+
+            // Update score on the board
+            if (player) {
+                cell.board.player_score += gain;
+            }
+            else {
+                cell.board.computer_score += gain;
+            }
+
             // Update Deal Power Gain/Loss
             // THIS IS NO LONGER RELEVANT AS PART OF SYMPOSIUM
             //DiscGame.dealpower.update(temp_stats.get("power"), player, cell.consumed);
