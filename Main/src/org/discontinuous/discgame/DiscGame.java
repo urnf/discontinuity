@@ -452,6 +452,10 @@ public class DiscGame extends Game {
         computer.draw_interrogate(batch);
         computer.draw_intimidate(batch);
 
+        // Draw boards won
+        player.draw_boards_won(batch);
+        computer.draw_boards_won(batch);
+
         // TOPIC FOR DEBATE
         //header_font.draw(batch, "Resolved: That Prof. Elecantos should not horribly murder us and obliterate our souls.", screen_width/2 - 300, screen_height - 12);
 

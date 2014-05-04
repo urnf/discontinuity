@@ -32,6 +32,7 @@ public class Contestant extends Entity {
     int intimidate_max;
     int interrogate_max;
 
+    int boards_won;
 
     Hashtable<String, Integer> log_stats;
     Hashtable<String, Integer> eth_stats;
@@ -176,6 +177,17 @@ public class Contestant extends Entity {
 
     public void set_portrait(Portrait portrait) { this.portrait = portrait; }
 
+    public void update_boards_won() {
+        boards_won = 0;
+        for (int i = 0; i < DiscGame.boards.length; i++) {
+            for (int j = 0; j < DiscGame.boards[i].length; j++) {
+                if (DiscGame.boards[i][j].current_winner() == this && DiscGame.boards[i][j] != DiscGame.current_board) {
+                    boards_won++;
+                }
+            }
+        }
+    }
+
     public void draw(SpriteBatch batch) {
         if (cell.board.relative_to_current != Board.Direction.UPPER_LEFT ||
                 cell.board.relative_to_current != Board.Direction.LOWER_LEFT ||
@@ -184,6 +196,10 @@ public class Contestant extends Entity {
             animate();
             img.draw(batch);
         }
+    }
+
+    public void draw_boards_won(SpriteBatch batch) {
+        DiscGame.header_font.draw(batch, "Boards Won: " + String.valueOf(boards_won), logical_x_coord + 30, DiscGame.screen_height/2 + 60);
     }
 
     public void draw_logical(SpriteBatch batch) {
@@ -325,6 +341,8 @@ public class Contestant extends Entity {
         cell.occupied = true;
 
         update_stats(cell, false);
+        update_boards_won();
+        opponent.update_boards_won();
 
         // Trigger dialog
         StateHandling.currentSpeaker = this;

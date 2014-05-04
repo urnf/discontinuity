@@ -94,6 +94,16 @@ public class Board {
         }
     }
 
+    public Contestant current_winner() {
+        if (player_score > computer_score) {
+            return DiscGame.player;
+        }
+        if (computer_score > player_score) {
+            return DiscGame.computer;
+        }
+        return null;
+    }
+
     private void setup_graph(Cell[][] cells) {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
