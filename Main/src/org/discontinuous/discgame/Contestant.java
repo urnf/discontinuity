@@ -199,11 +199,11 @@ public class Contestant extends Entity {
     }
 
     public void draw_moves_left(SpriteBatch batch) {
-        DiscGame.header_font.draw(batch, "Arguments Left: " + String.valueOf(moves_left), logical_x_coord + 20, DiscGame.screen_height/2 + 40);
+        DiscGame.header_font.draw(batch, "Arguments Left: " + String.valueOf(moves_left), logical_x_coord + 20, DiscGame.DESIRED_HEIGHT/2 + 40);
     }
 
     public void draw_boards_won(SpriteBatch batch) {
-        DiscGame.header_font.draw(batch, "Boards Won: " + String.valueOf(boards_won), logical_x_coord + 30, DiscGame.screen_height/2 + 60);
+        DiscGame.header_font.draw(batch, "Boards Won: " + String.valueOf(boards_won), logical_x_coord + 30, DiscGame.DESIRED_HEIGHT/2 + 60);
     }
 
     public void draw_logical(SpriteBatch batch) {

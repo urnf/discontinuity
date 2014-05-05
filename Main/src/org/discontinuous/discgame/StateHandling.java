@@ -58,7 +58,7 @@ public class StateHandling {
 
     public static int player_dialog_height_offset;
     public static int computer_dialog_height_offset;
-    public static int dialog_width_offset =  DiscGame.screen_width/2 - 190;
+    public static int dialog_width_offset =  DiscGame.DESIRED_WIDTH/2 - 190;
 
     private static String player_text;
     private static String computer_text;
@@ -75,10 +75,10 @@ public class StateHandling {
                 break;
             case InDialog:
                 if (currentSpeaker.player) {
-                    InDialog.drawShapes(shapes, true, DiscGame.screen_width);
+                    InDialog.drawShapes(shapes, true, DiscGame.DESIRED_WIDTH);
                 }
                 else {
-                    InDialog.drawShapes(shapes, false, DiscGame.screen_width);
+                    InDialog.drawShapes(shapes, false, DiscGame.DESIRED_WIDTH);
                 }
                 break;
             case SelectAbility:
@@ -92,17 +92,17 @@ public class StateHandling {
                 break;
             case PostGameDialog:
                 if (DiscGame.dealpower.dp >= 0) {
-                    PostGameDialog.drawShapes(shapes, true, DiscGame.screen_width);
+                    PostGameDialog.drawShapes(shapes, true, DiscGame.DESIRED_WIDTH);
                 }
                 else {
-                    PostGameDialog.drawShapes(shapes, false, DiscGame.screen_width);
+                    PostGameDialog.drawShapes(shapes, false, DiscGame.DESIRED_WIDTH);
                 }
                 break;
             case PostGameSelect:
-                PostGameSelect.drawShapes(shapes, DiscGame.endgame_options.size(), DiscGame.screen_width);
+                PostGameSelect.drawShapes(shapes, DiscGame.endgame_options.size(), DiscGame.DESIRED_WIDTH);
                 break;
             case PostGameResult:
-                PostGameResult.drawShapes(shapes, DiscGame.screen_width);
+                PostGameResult.drawShapes(shapes, DiscGame.DESIRED_WIDTH);
                 break;
         }
     }
@@ -110,7 +110,7 @@ public class StateHandling {
     public static void drawStateBatch(SpriteBatch batch) {
         switch(currentState) {
             case SelectDialog:
-                SelectDialog.drawBatch(batch, DiscGame.dialog_options, DiscGame.screen_width);
+                SelectDialog.drawBatch(batch, DiscGame.dialog_options, DiscGame.DESIRED_WIDTH);
                 break;
             case InDialog:
                 if (currentSpeaker.player) {
