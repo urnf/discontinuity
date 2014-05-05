@@ -33,6 +33,7 @@ public class Contestant extends Entity {
     int interrogate_max;
 
     int boards_won;
+    int moves_left = 40;
 
     Hashtable<String, Integer> log_stats;
     Hashtable<String, Integer> eth_stats;
@@ -74,7 +75,6 @@ public class Contestant extends Entity {
                 DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (board_y)),
                 Board.TEXTURE_EDGE,
                 Board.TEXTURE_EDGE);
-        this.cell = cell;
 
         this.logical_max = logical_max;
         this.ethical_max = ethical_max;
@@ -198,6 +198,10 @@ public class Contestant extends Entity {
         }
     }
 
+    public void draw_moves_left(SpriteBatch batch) {
+        DiscGame.header_font.draw(batch, "Arguments Left: " + String.valueOf(moves_left), logical_x_coord + 20, DiscGame.screen_height/2 + 40);
+    }
+
     public void draw_boards_won(SpriteBatch batch) {
         DiscGame.header_font.draw(batch, "Boards Won: " + String.valueOf(boards_won), logical_x_coord + 30, DiscGame.screen_height/2 + 60);
     }
@@ -298,6 +302,8 @@ public class Contestant extends Entity {
     }
 
     public void update_position(Cell cell) {
+        moves_left--;
+
         record_previous_stats();
 
         this.cell.consume();
@@ -356,6 +362,12 @@ public class Contestant extends Entity {
         }
         StateHandling.currentState = State.InDialog;
 
+        // End game this if we're at 5 boards won for a player or 0 moves left
+        if (boards_won >= 5 || moves_left == 0) {
+            // TODO: PROPERLY End game this
+            StateHandling.setState(State.PostGameSelect);
+        }
+
         // Show bonus
         StateHandling.animation_counter = 0;
         StateHandling.animation_max = 30;
@@ -382,22 +394,6 @@ public class Contestant extends Entity {
 
         // No DP gain with combos
         if (!combo) {
-            int gain = 0;
-            switch (cell.type) {
-                case Logical: gain = logical_bar; break;
-                case Ethical: gain = ethical_bar; break;
-                case Interrogate: gain = interrogate_bar; break;
-                case Intimidate: gain = intimidate_bar; break;
-            }
-
-            // Update score on the board
-            if (player) {
-                cell.board.player_score += gain;
-            }
-            else {
-                cell.board.computer_score += gain;
-            }
-
             // Update Deal Power Gain/Loss
             // THIS IS NO LONGER RELEVANT AS PART OF SYMPOSIUM
             //DiscGame.dealpower.update(temp_stats.get("power"), player, cell.consumed);
@@ -427,6 +423,32 @@ public class Contestant extends Entity {
             inspiration = Math.min(inspiration + temp_stats.get("ins_plus"), insp_max);
             opponent.inspiration = Math.max(opponent.inspiration - temp_stats.get("ins_minus"), 0);
             */
+
+            int gain = 0;
+            switch (cell.type) {
+                case Logical: gain = logical_bar; break;
+                case Ethical: gain = ethical_bar; break;
+                case Interrogate: gain = interrogate_bar; break;
+                case Intimidate: gain = intimidate_bar; break;
+            }
+
+            // Update score on the board
+            if (player) {
+                // Round down then add gain in case it's been tiebreak boosted
+                cell.board.player_score = (int) cell.board.player_score + gain;
+                // Tiebreaking, opponent got there first so add 0.5 to opponent so that it evaluates to larger than this player
+                if (cell.board.player_score == cell.board.computer_score) {
+                    cell.board.computer_score += 0.5;
+                }
+                cell.board.player_score_string = "~ " + String.valueOf((int) cell.board.player_score) + " ~";
+            }
+            else {
+                cell.board.computer_score = (int) cell.board.computer_score + gain;
+                if (cell.board.computer_score == cell.board.player_score) {
+                    cell.board.player_score += 0.5;
+                }
+                cell.board.computer_score_string = "~ " + String.valueOf((int) cell.board.computer_score) + " ~";
+            }
         }
         // lose one of each type if consumed
         else {
@@ -443,24 +465,28 @@ public class Contestant extends Entity {
         }
         else {
             stammering = true;
+            moves_left--;
         }
         if (logical_bar > 0) {
             logical_bar -= amount;
         }
         else {
             stammering = true;
+            moves_left--;
         }
         if (interrogate_bar > 0) {
             interrogate_bar -= amount;
         }
         else {
             stammering = true;
+            moves_left--;
         }
         if (intimidate_bar > 0) {
             intimidate_bar -= amount;
         }
         else {
             stammering = true;
+            moves_left--;
         }
     }
 

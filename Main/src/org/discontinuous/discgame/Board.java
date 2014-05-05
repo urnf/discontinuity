@@ -1,5 +1,6 @@
 package org.discontinuous.discgame;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.Random;
@@ -8,6 +9,15 @@ import java.util.Random;
  * Created by Urk on 12/17/13.
  */
 public class Board {
+    static Sprite left_player;
+    static Sprite left_computer;
+    static Sprite up_player;
+    static Sprite up_computer;
+    static Sprite right_player;
+    static Sprite right_computer;
+    static Sprite down_player;
+    static Sprite down_computer;
+
     int width;
     int height;
     int screen_width;
@@ -28,8 +38,10 @@ public class Board {
     static final int WIDTH_OFFSET = DiscGame.DESIRED_WIDTH/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2);
     static final int HEIGHT_OFFSET = DiscGame.DESIRED_HEIGHT/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_HEIGHT/2);
 
-    int player_score = 0;
-    int computer_score = 0;
+    float player_score = 0;
+    float computer_score = 0;
+    String player_score_string = "~ 0 ~";
+    String computer_score_string = "~ 0 ~";
 
     Direction relative_to_current;
 
@@ -331,9 +343,9 @@ public class Board {
         // Draw topic
         DiscGame.header_font.draw(batch, topic.name, screen_width/2 - DiscGame.header_font.getBounds(topic.name).width/2, screen_height/2 + 112);
         // Draw player score
-        DiscGame.deal_font.draw(batch, String.valueOf(player_score), screen_width/2 - DiscGame.header_font.getBounds(topic.name).width/2 - 95, screen_height/2 - 90);
+        DiscGame.deal_font.draw(batch, player_score_string, screen_width/2 - DiscGame.header_font.getBounds(player_score_string).width/2 - 140, screen_height/2 - 90);
         // Draw computer score
-        DiscGame.deal_font.draw(batch, String.valueOf(computer_score), screen_width/2 - DiscGame.header_font.getBounds(topic.name).width/2 + 170, screen_height/2 - 90);
+        DiscGame.deal_font.draw(batch, computer_score_string, screen_width/2 - DiscGame.header_font.getBounds(computer_score_string).width/2 + 130, screen_height/2 - 90);
     }
 
     public void draw_left(SpriteBatch batch) {
@@ -349,6 +361,15 @@ public class Board {
 
         // Draw topic
         DiscGame.header_font.draw(batch, left.topic.name, left.cells[0][0].img.getX() - DiscGame.header_font.getBounds(left.topic.name).width/2 - 10, screen_height/2 + 65);
+
+        // Draw player that is ahead
+        Contestant winner = left.current_winner();
+        if (null != winner) {
+            if (winner == DiscGame.player) {
+                left_player.draw(batch);
+            }
+            else left_computer.draw(batch);
+        }
     }
 
     public void draw_right(SpriteBatch batch) {
@@ -363,6 +384,15 @@ public class Board {
 
         // Draw topic
         DiscGame.header_font.draw(batch, right.topic.name, right.cells[0][0].img.getX() - DiscGame.header_font.getBounds(right.topic.name).width/2 - 10, screen_height/2 + 65);
+
+        // Draw player that is ahead
+        Contestant winner = right.current_winner();
+        if (null != winner) {
+            if (winner == DiscGame.player) {
+                right_player.draw(batch);
+            }
+            else right_computer.draw(batch);
+        }
     }
 
     public void draw_up(SpriteBatch batch) {
@@ -377,6 +407,15 @@ public class Board {
 
         // Draw topic
         DiscGame.header_font.draw(batch, up.topic.name, screen_width/2 - DiscGame.header_font.getBounds(up.topic.name).width/2 + 4, screen_height/2 + 225);
+
+        // Draw player that is ahead
+        Contestant winner = up.current_winner();
+        if (null != winner) {
+            if (winner == DiscGame.player) {
+                up_player.draw(batch);
+            }
+            else up_computer.draw(batch);
+        }
     }
 
     public void draw_down(SpriteBatch batch) {
@@ -391,6 +430,15 @@ public class Board {
 
         // Draw topic
         DiscGame.header_font.draw(batch, down.topic.name, screen_width/2 - DiscGame.header_font.getBounds(down.topic.name).width/2 + 4, screen_height/2 - 100);
+
+        // Draw player that is ahead
+        Contestant winner = down.current_winner();
+        if (null != winner) {
+            if (winner == DiscGame.player) {
+                down_player.draw(batch);
+            }
+            else down_computer.draw(batch);
+        }
     }
 
     public void draw_upper_left(SpriteBatch batch) {

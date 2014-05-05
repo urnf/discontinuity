@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -31,15 +32,21 @@ public class DiscGame extends Game {
     /*
     TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO SAY "X" WEREN'T YOU?  RESPOND - !!!! SWEAT)
     TODO: SHOW STAMMERING DIALOG OR FX
+    TODO: FIX ABILITY DISPLAY
+    TODO: IMPLEMENT ENDGAME AT 5 WON BOARDS OR 60 MOVES
+    TODO: IMPLEMENT CHARACTER SELECT
+    TODO: IMPLEMENT MAIN MENU
+
+    TODO: DONE - IMPLEMENT TIEBREAKER ON BOARDS
     TODO: DONE - IMPLEMENT PENALTY FOR SWITCHING BEFORE ALL SQUARES CONSUMED
     TODO: DONE - IMPLEMENT STAMMER PENALTY FOR NEGATIVE BAR
     TODO: DONE - IMPLEMENT BOARD AND DIALOG TEXT
-    TODO: IMPLEMENT SCORING PER BOARD
+    TODO: DONE - IMPLEMENT SCORING PER BOARD
 
-
+    TODO: SHOW STAMMERING DIALOG OR FX
     TODO: BONUS TILES IN CENTER - EXAMPLE, CORINTHIAN COLUMN, CHINESE MEDICINE, ETC.
     TODO: FIX SCALED INPUT AREA FOR SMALLER SUB BOARDS
-    TODO: ANIMATE BOARD TRANSITIONS
+    TODO: DONE - ANIMATE BOARD TRANSITIONS
 
      */
 
@@ -250,6 +257,35 @@ public class DiscGame extends Game {
         setupPlayer();
         setupOpponent();
 
+        // Set up boards sprite to show who is ahead on each board
+        Board.left_player = new Sprite(player.img.getTexture(), 48, 48);
+        Board.left_player.setPosition(DESIRED_WIDTH/2 - 242, 280);
+        Board.left_player.setScale(0.6f);
+        Board.left_computer = new Sprite(computer.img.getTexture(), 48, 48);
+        Board.left_computer.setPosition(DESIRED_WIDTH/2 - 130, 280);
+        Board.left_computer.setScale(0.6f);
+
+        Board.right_player = new Sprite(player.img.getTexture(), 48, 48);
+        Board.right_player.setPosition(DESIRED_WIDTH/2 + 82, 280);
+        Board.right_player.setScale(0.6f);
+        Board.right_computer = new Sprite(computer.img.getTexture(), 48, 48);
+        Board.right_computer.setPosition(DESIRED_WIDTH/2 + 196, 280);
+        Board.right_computer.setScale(0.6f);
+
+        Board.up_player = new Sprite(player.img.getTexture(), 48, 48);
+        Board.up_player.setPosition(DESIRED_WIDTH/2 - 77, 442);
+        Board.up_player.setScale(0.6f);
+        Board.up_computer = new Sprite(computer.img.getTexture(), 48, 48);
+        Board.up_computer.setPosition(DESIRED_WIDTH/2 + 37, 442);
+        Board.up_computer.setScale(0.6f);
+
+        Board.down_player = new Sprite(player.img.getTexture(), 48, 48);
+        Board.down_player.setPosition(DESIRED_WIDTH/2 - 77, 115);
+        Board.down_player.setScale(0.6f);
+        Board.down_computer = new Sprite(computer.img.getTexture(), 48, 48);
+        Board.down_computer.setPosition(DESIRED_WIDTH/2 + 37, 115);
+        Board.down_computer.setScale(0.6f);
+
         //Load dialog
         loadDialog();
 
@@ -353,7 +389,7 @@ public class DiscGame extends Game {
         */
 
         // debug for mouse
-        //header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y + "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
+        header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y + "Hovering over: " + DiscGame.hover.getClass(), 400, 520);
         //header_font.draw(batch, "View Width: " + view_width + " View Height: " + view_height + " View X: " + view_x + " View Y: " + view_y, 400, 400);
         //header_font.draw(batch, "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
 
@@ -452,9 +488,11 @@ public class DiscGame extends Game {
         computer.draw_interrogate(batch);
         computer.draw_intimidate(batch);
 
-        // Draw boards won
+        // Draw boards won and moves left
         player.draw_boards_won(batch);
         computer.draw_boards_won(batch);
+        player.draw_moves_left(batch);
+        computer.draw_moves_left(batch);
 
         // TOPIC FOR DEBATE
         //header_font.draw(batch, "Resolved: That Prof. Elecantos should not horribly murder us and obliterate our souls.", screen_width/2 - 300, screen_height - 12);
