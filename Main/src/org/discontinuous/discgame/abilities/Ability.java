@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class Ability extends Entity {
     int tooltip_x = 30;
     int tooltip_y = 120;
-    int tooltip_width = 300;
-    int tooltip_height = 80;
+    int tooltip_width = 350;
+    int tooltip_height = 120;
     String tooltip;
     String dialog;
     Color dark_grey = new Color(0.15f, 0.15f, 0.15f, 1);
@@ -84,12 +84,13 @@ public class Ability extends Entity {
         contestant.ability_click(this, effect, target, tooltip, dialog);
     }
 
+    // Positions the ability list on the screen when ability button is clicked
     public static void setup_ability_display(ArrayList<Ability> abilities, int screen_width) {
         int i = 0;
         for (Ability ability : abilities) {
-            ability.x = screen_width/2 - 230 + i * 68;
-            ability.y = 190;
-            ability.img.setPosition(screen_width/2 - 230 + i * 68, 190);
+            ability.x = 30 + i * 68;
+            ability.y = 30;
+            ability.img.setPosition(ability.x, ability.y);
             i++;
         }
     }

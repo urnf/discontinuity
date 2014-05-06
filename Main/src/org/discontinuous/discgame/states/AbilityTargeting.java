@@ -14,9 +14,9 @@ import org.discontinuous.discgame.Colors;
 public class AbilityTargeting extends State {
 
     public static void drawShapes(ShapeRenderer shapes, int screen_width) {
-        Tooltip.newTip(screen_width / 2 - 200, 200, 400, 100, screen_width / 2 - 180, 250, inner_color, outer_color, false, shapes);
+        Tooltip.newTip(30, 30, 400, 50, 30, 30, inner_color, outer_color, false, shapes);
     }
     public static void drawBatch(SpriteBatch batch, BitmapFont font, String player_text, int dialog_width_offset, int player_dialog_height_offset) {
-        font.drawWrapped(batch, player_text, dialog_width_offset, 200 + player_dialog_height_offset, 380);
+        font.drawWrapped(batch, player_text, 30, 10 + player_dialog_height_offset, 380);
     }
 }

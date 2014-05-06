@@ -85,10 +85,10 @@ public class StateHandling {
                 SelectAbility.drawShapes(shapes);
                 break;
             case AbilityTargeting:
-                AbilityTargeting.drawShapes(shapes, DiscGame.screen_width);
+                AbilityTargeting.drawShapes(shapes, DiscGame.DESIRED_WIDTH);
                 break;
             case AbilityDialog:
-                AbilityDialog.drawShapes(shapes, DiscGame.screen_width);
+                AbilityDialog.drawShapes(shapes, DiscGame.DESIRED_WIDTH);
                 break;
             case PostGameDialog:
                 if (DiscGame.dealpower.dp >= 0) {

@@ -15,8 +15,8 @@ public class AbilityList {
     public static void init_abilities(Contestant contestant, ArrayList<Ability> abilities, BitmapFont font) {
     Ability strawman = new Ability(contestant, font, 64, 64, 1, 1, 0, 0,
             AbilityTarget.targets.adjacent_square_fresh,
-            new AbilityEffect(AbilityEffect.effects.multiply, 4, true),
-            "~ Strawman ~ (Cost 1 logical, 1 ethical)\nConsume an unconsumed adjacent argument for 4x the bonus.",
+            new AbilityEffect(AbilityEffect.effects.multiply, 2, true),
+            "~ Strawman ~ (Cost 1 log, 1 eth)\nConsume an unconsumed adjacent argument for 2x the points and gain.",
             "That's a horrible example.  What you failed to consider is the following situation...");
     strawman.setImg(DiscGame.manager.get("img/strawman.png", Texture.class));
     abilities.add(strawman);
@@ -25,8 +25,8 @@ public class AbilityList {
     Ability tableflip = new Ability(contestant, font, 64, 64, 0, 0, 1, 1,
             AbilityTarget.targets.self,
             new AbilityEffect(AbilityEffect.effects.damage, 3, false),
-            "~ Tableflip ~ (Cost 1 interrogate, 1 intimidate)\nFlip a table at your opponent, damaging your opponent's argument by 3x type you are on.",
-            "Special case generated in Ability class, you should never see this.");
+            "~ Tableflip ~ (Cost 1 ing, 1 int)\nFlip a table at your opponent, damaging your opponent's argument by 3x type you are on.",
+            "I will now proceed to flip the everlasting shit out of this table here.");
     tableflip.setImg(DiscGame.manager.get("img/tableflip.png", Texture.class));
     abilities.add(tableflip);
 
@@ -52,7 +52,7 @@ public class AbilityList {
     Ability double_down = new Ability(contestant,  font,64, 64, 1, 0, 0, 1,
             AbilityTarget.targets.adjacent_square_consumed,
             new AbilityEffect(AbilityEffect.effects.refresh_consume, 1, true),
-            "~ Double Down ~ (Cost 1 logical, 1 intimidate)\nRefuse to be wrong and repeat an adjacent, consumed square without penalties.",
+            "~ Double Down ~ (Cost 1 log, 1 int)\nRefuse to be wrong and repeat an adjacent, consumed square without penalties.",
             "No.  Let me repeat it again, just slower and louder, until you understand.");
     double_down.setImg(DiscGame.manager.get("img/doubledown.png", Texture.class));
     abilities.add(double_down);

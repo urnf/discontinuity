@@ -29,7 +29,8 @@ public class AbilityEffect {
         this.move_to_cell = move_to_cell;
     }
 
-    public HashMap<String, Integer> apply_effect(Contestant contestant,
+    public HashMap<String, Integer> apply_effect(Contestant player,
+                              Contestant opponent,
                               Ability ability_selected,
                               Cell.concepts type,
                               int player_logical_bar,
@@ -52,7 +53,7 @@ public class AbilityEffect {
                               Cell new_cell){
         // Null protect, though I'm tempted to pull out to expose bugs
         if (null != new_cell && move_to_cell) {
-            contestant.update_only_position(new_cell);
+            player.update_only_position(new_cell);
         }
 
         // Deduct the ability cost
@@ -69,15 +70,19 @@ public class AbilityEffect {
                 switch (type) {
                     case Logical:
                         player_logical_bar = Math.min(player_logical_bar + magnitude, logical_max);
+                        player.update_board_score(player_logical_bar * magnitude);
                         break;
                     case Ethical:
                         player_ethical_bar = Math.min(player_ethical_bar + magnitude, ethical_max);
+                        player.update_board_score(player_ethical_bar * magnitude);
                         break;
                     case Interrogate:
                         player_interrogate_bar = Math.min(player_interrogate_bar + magnitude, interrogate_max);
+                        player.update_board_score(player_interrogate_bar * magnitude);
                         break;
                     case Intimidate:
                         player_intimidate_bar = Math.min(player_intimidate_bar + magnitude, intimidate_max);
+                        player.update_board_score(player_intimidate_bar * magnitude);
                         break;
                     /*
                     case Logical: stats = log_stats; break;
@@ -98,19 +103,22 @@ public class AbilityEffect {
                 */
                 break;
             case damage:
-                // TODO: Implement stammer mechanic, lose turn for sub zero
                 switch (type) {
                     case Logical:
-                        opponent_logical_bar = Math.max(opponent_logical_bar - magnitude, 0);
+                        opponent.minus_all_arguments(magnitude, 0, 0, 0);
+                        //opponent_logical_bar = Math.max(opponent_logical_bar - magnitude, 0);
                         break;
                     case Ethical:
-                        opponent_ethical_bar = Math.max(opponent_ethical_bar - magnitude, 0);
+                        opponent.minus_all_arguments(0, magnitude, 0, 0);
+                        //opponent_ethical_bar = Math.max(opponent_ethical_bar - magnitude, 0);
                         break;
                     case Interrogate:
-                        opponent_interrogate_bar = Math.max(opponent_interrogate_bar - magnitude, 0);
+                        opponent.minus_all_arguments(0, 0, magnitude, 0);
+                        //opponent_interrogate_bar = Math.max(opponent_interrogate_bar - magnitude, 0);
                         break;
                     case Intimidate:
-                        opponent_intimidate_bar = Math.max(opponent_intimidate_bar - magnitude, 0);
+                        opponent.minus_all_arguments(0, 0, 0, magnitude);
+                        //opponent_intimidate_bar = Math.max(opponent_intimidate_bar - magnitude, 0);
                         break;
                 }
                 //opponent_confidence = Math.max(opponent_confidence - magnitude, 0);
@@ -122,7 +130,7 @@ public class AbilityEffect {
                 }
                 break;
             case refresh_consume:
-                contestant.refresh_consume_effect(new_cell);
+                player.refresh_consume_effect(new_cell);
                 break;
             default:
         }
@@ -133,10 +141,10 @@ public class AbilityEffect {
         return_hash.put("player_interrogate_bar", player_interrogate_bar);
         return_hash.put("player_intimidate_bar", player_intimidate_bar);
 
-        return_hash.put("opponent_logical_bar", opponent_logical_bar);
-        return_hash.put("opponent_ethical_bar", opponent_ethical_bar);
-        return_hash.put("opponent_interrogate_bar", opponent_interrogate_bar);
-        return_hash.put("opponent_intimidate_bar", opponent_intimidate_bar);
+        //return_hash.put("opponent_logical_bar", opponent_logical_bar);
+        //return_hash.put("opponent_ethical_bar", opponent_ethical_bar);
+        //return_hash.put("opponent_interrogate_bar", opponent_interrogate_bar);
+        //return_hash.put("opponent_intimidate_bar", opponent_intimidate_bar);
         return return_hash;
     }
 }

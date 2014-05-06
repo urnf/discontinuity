@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class AbilitiesButton extends Entity {
     int tooltip_x = 130;
     int tooltip_y = 100;
-    int tooltip_width = 110;
-    int tooltip_height = 30;
+    int tooltip_width = 140;
+    int tooltip_height = 20;
     BitmapFont font;
     ArrayList<Entity> hover_list;
     ArrayList<Entity> click_list;
@@ -42,7 +42,7 @@ public class AbilitiesButton extends Entity {
     public void drawShapeHover(ShapeRenderer shapes) {
         Tooltip.newTip(x + tooltip_x, y + tooltip_y,
                 tooltip_width, tooltip_height,
-                x + width / 2 + 20, y + height - 10,
+                x + width / 2 + 40, y + height - 10,
                 inner_color, outer_color, false, shapes);
     }
 

@@ -323,7 +323,7 @@ public class Contestant extends Entity {
         if (this.cell.board != cell.board) {
             // If current board is not completely consumed, institute a -1 to all penalty
             if (!this.cell.board.is_consumed()) {
-                minus_all_arguments(1);
+                minus_all_arguments(1, 1, 1, 1);
             }
 
             // Update both player and opponent positions
@@ -432,61 +432,62 @@ public class Contestant extends Entity {
                 case Intimidate: gain = intimidate_bar; break;
             }
 
-            // Update score on the board
-            if (player) {
-                // Round down then add gain in case it's been tiebreak boosted
-                cell.board.player_score = (int) cell.board.player_score + gain;
-                // Tiebreaking, opponent got there first so add 0.5 to opponent so that it evaluates to larger than this player
-                if (cell.board.player_score == cell.board.computer_score) {
-                    cell.board.computer_score += 0.5;
-                }
-                cell.board.player_score_string = "~ " + String.valueOf((int) cell.board.player_score) + " ~";
-            }
-            else {
-                cell.board.computer_score = (int) cell.board.computer_score + gain;
-                if (cell.board.computer_score == cell.board.player_score) {
-                    cell.board.player_score += 0.5;
-                }
-                cell.board.computer_score_string = "~ " + String.valueOf((int) cell.board.computer_score) + " ~";
-            }
+            update_board_score(gain);
         }
         // lose one of each type if consumed
         else {
-            minus_all_arguments(1);
+            minus_all_arguments(1, 1, 1, 1);
             //confidence = Math.max(confidence - 50, 0);
             //inspiration = Math.max(inspiration - 50, 0);
         }
         refresh_argument_bars();
     }
 
-    private void minus_all_arguments(int amount) {
-        if (ethical_bar > 0) {
-            ethical_bar -= amount;
+    public void update_board_score(int gain) {
+        // Update score on the board
+        if (player) {
+            // Round down then add gain in case it's been tiebreak boosted
+            cell.board.player_score = (int) cell.board.player_score + gain;
+            // Tiebreaking, opponent got there first so add 0.5 to opponent so that it evaluates to larger than this player
+            if (cell.board.player_score == cell.board.computer_score) {
+                cell.board.computer_score += 0.5;
+            }
+            cell.board.player_score_string = "~ " + String.valueOf((int) cell.board.player_score) + " ~";
         }
         else {
+            cell.board.computer_score = (int) cell.board.computer_score + gain;
+            if (cell.board.computer_score == cell.board.player_score) {
+                cell.board.player_score += 0.5;
+            }
+            cell.board.computer_score_string = "~ " + String.valueOf((int) cell.board.computer_score) + " ~";
+        }
+    }
+
+    public void minus_all_arguments(int log_amount, int eth_amount, int ing_amount, int int_amount) {
+        ethical_bar -= eth_amount;
+        logical_bar -= log_amount;
+        interrogate_bar -= ing_amount;
+        intimidate_bar -= int_amount;
+
+        if (ethical_bar < 0) {
             stammering = true;
             moves_left--;
+            ethical_bar = 0;
         }
-        if (logical_bar > 0) {
-            logical_bar -= amount;
-        }
-        else {
+        if (logical_bar < 0) {
             stammering = true;
             moves_left--;
+            logical_bar = 0;
         }
-        if (interrogate_bar > 0) {
-            interrogate_bar -= amount;
-        }
-        else {
+        if (interrogate_bar < 0) {
             stammering = true;
             moves_left--;
+            interrogate_bar = 0;
         }
-        if (intimidate_bar > 0) {
-            intimidate_bar -= amount;
-        }
-        else {
+        if (intimidate_bar < 0) {
             stammering = true;
             moves_left--;
+            intimidate_bar = 0;
         }
     }
 
@@ -550,11 +551,12 @@ public class Contestant extends Entity {
 
     public void apply_effect(AbilityEffect effect, Cell new_cell) {
         // Record current values of stats - player and opponent before effects
-        record_previous_stats();
+        //record_previous_stats();
 
         // TODO: Ugly.  Pass arguments in as a hash, maybe break apart.
         HashMap<String, Integer> effects = effect.apply_effect(
                 this,
+                this.opponent,
                 ability_selected,
                 cell.type,
                 logical_bar,
@@ -583,10 +585,13 @@ public class Contestant extends Entity {
         interrogate_bar = effects.get("player_interrogate_bar");
         intimidate_bar = effects.get("player_intimidate_bar");
 
-        opponent.logical_bar = effects.get("opponent_logical_bar");
-        opponent.ethical_bar = effects.get("opponent_ethical_bar");
-        opponent.interrogate_bar = effects.get("opponent_interrogate_bar");
-        opponent.intimidate_bar = effects.get("opponent_intimidate_bar");
+        //opponent.logical_bar = effects.get("opponent_logical_bar");
+        //opponent.ethical_bar = effects.get("opponent_ethical_bar");
+        //opponent.interrogate_bar = effects.get("opponent_interrogate_bar");
+        //opponent.intimidate_bar = effects.get("opponent_intimidate_bar");
+
+        refresh_argument_bars();
+        opponent.refresh_argument_bars();
 
         /*
         confidence = effects.get("player_confidence");
@@ -596,8 +601,8 @@ public class Contestant extends Entity {
         */
 
         // Show bonus
-        StateHandling.animation_counter = 0;
-        StateHandling.animation_max = 30;
+        //StateHandling.animation_counter = 0;
+        //StateHandling.animation_max = 30;
 
     }
 
