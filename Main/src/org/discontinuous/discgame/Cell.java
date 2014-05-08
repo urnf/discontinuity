@@ -166,6 +166,7 @@ public class Cell extends Entity {
         // If in ability targeting selection
         if (StateHandling.checkState(State.AbilityTargeting)) {
             AbilityTarget.target_cell_hover(DiscGame.player, DiscGame.player.ability_selected, this, consumed, batch);
+            return;
         }
         // If the cell is adjacent to the player, scale it up and redraw on top
         if (DiscGame.player.is_adjacent_to(this)&& StateHandling.checkState(State.SelectDialog)) {
@@ -264,7 +265,10 @@ public class Cell extends Entity {
         ArrayList<Cell> return_list = new ArrayList<Cell>(adjacent);
         for (Cell adjacent_cell: adjacent) {
             // Keep only if opponent is not on it
-            if( adjacent_cell.occupied == true) { return_list.remove(adjacent_cell); break;}
+            if( adjacent_cell.occupied == true) {
+                return_list.remove(adjacent_cell);
+                break;
+            }
         }
         return return_list;
     }

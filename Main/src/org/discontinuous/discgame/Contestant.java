@@ -281,10 +281,24 @@ public class Contestant extends Entity {
         this.cell = cell;
         cell.occupied = true;
 
+        // if opponent is on a different board
+        if (opponent.cell.board != cell.board) {
+            // Update opponent positions
+            opponent.cell.consume();
+            opponent.cell.occupied = false;
+            opponent.cell = cell.board.cells[opponent.cell.board_x][opponent.cell.board_y];
+            opponent.cell.occupied = true;
+            opponent.cell.board.position_board_entity(null, opponent, opponent.cell, opponent.cell.board_x, opponent.cell.board_y);
+        }
+
+        if (DiscGame.current_board != cell.board) {
+            // Make sure we move onto the new board (if computer decides to swap)
+            DiscGame.current_board.reset_board_positions();
+            cell.board.set_current_board();
+        }
+
         // update image position
-        x = DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
-        y = DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
-        img.setPosition(x, y);
+        cell.board.position_board_entity(null, this, cell, cell.board_x, cell.board_y);
     }
 
     private void record_previous_stats() {
@@ -327,8 +341,9 @@ public class Contestant extends Entity {
             }
 
             // Update both player and opponent positions
-            opponent.update_only_position(cell.board.cells[opponent.cell.board_x][opponent.cell.board_y]);
             this.cell = cell;
+            opponent.update_only_position(cell.board.cells[opponent.cell.board_x][opponent.cell.board_y]);
+
             // Make sure we move onto the new board (if computer decides to swap)
             DiscGame.current_board.reset_board_positions();
             cell.board.set_current_board();
