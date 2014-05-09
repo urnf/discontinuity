@@ -238,7 +238,7 @@ public class Board {
     public boolean is_consumed() {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                if (!cells[i][j].consumed) return false;
+                if (!(cells[i][j].consumed || cells[i][j].occupied)) return false;
             }
         }
         return true;

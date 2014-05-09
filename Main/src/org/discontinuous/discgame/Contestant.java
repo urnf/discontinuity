@@ -569,11 +569,14 @@ public class Contestant extends Entity {
         //record_previous_stats();
 
         // TODO: Ugly.  Pass arguments in as a hash, maybe break apart.
-        HashMap<String, Integer> effects = effect.apply_effect(
+        effect.apply_effect(
                 this,
+                /*
                 this.opponent,
                 ability_selected,
-                cell.type,
+                */
+                new_cell.type,
+                /*
                 logical_bar,
                 ethical_bar,
                 interrogate_bar,
@@ -590,15 +593,22 @@ public class Contestant extends Entity {
                 ethical_max,
                 interrogate_max,
                 intimidate_max,
+                */
                 opponent.cell,
                 new_cell);
 
+        // Deduct the ability cost
+        logical_bar -= ability_selected.logical_cost;
+        ethical_bar -= ability_selected.ethical_cost;
+        interrogate_bar -= ability_selected.interrogate_cost;
+        intimidate_bar -= ability_selected.intimidate_cost;
+
         //DiscGame.dealpower.update(effects.get("power"), player, cell.consumed);
 
-        logical_bar = effects.get("player_logical_bar");
-        ethical_bar = effects.get("player_ethical_bar");
-        interrogate_bar = effects.get("player_interrogate_bar");
-        intimidate_bar = effects.get("player_intimidate_bar");
+        //logical_bar = effects.get("player_logical_bar");
+        //ethical_bar = effects.get("player_ethical_bar");
+        //interrogate_bar = effects.get("player_interrogate_bar");
+        //intimidate_bar = effects.get("player_intimidate_bar");
 
         //opponent.logical_bar = effects.get("opponent_logical_bar");
         //opponent.ethical_bar = effects.get("opponent_ethical_bar");
@@ -621,6 +631,56 @@ public class Contestant extends Entity {
 
     }
 
+    public void multiply_effect(Cell.concepts type, int magnitude) {
+        switch (type) {
+            case Logical:
+                logical_bar = Math.min(logical_bar + magnitude, logical_max);
+                update_board_score(logical_bar * magnitude);
+                break;
+            case Ethical:
+                ethical_bar = Math.min(ethical_bar + magnitude, ethical_max);
+                update_board_score(ethical_bar * magnitude);
+                break;
+            case Interrogate:
+                interrogate_bar = Math.min(interrogate_bar + magnitude, interrogate_max);
+                update_board_score(interrogate_bar * magnitude);
+                break;
+            case Intimidate:
+                intimidate_bar = Math.min(intimidate_bar + magnitude, intimidate_max);
+                update_board_score(intimidate_bar * magnitude);
+                break;
+                    /*
+                    case Logical: stats = log_stats; break;
+                    case Ethical: stats = eth_stats; break;
+                    case Interrogate: stats = ing_stats; break;
+                    case Intimidate: stats = inm_stats; break;
+                    // Will lead to exceptions - intentional
+                    default: stats = null; break;
+                    */
+        }
+    }
+
+    public void damage_effect(Cell.concepts type, int magnitude) {
+        switch (type) {
+            case Logical:
+                opponent.minus_all_arguments(magnitude, 0, 0, 0);
+                //opponent_logical_bar = Math.max(opponent_logical_bar - magnitude, 0);
+                break;
+            case Ethical:
+                opponent.minus_all_arguments(0, magnitude, 0, 0);
+                //opponent_ethical_bar = Math.max(opponent_ethical_bar - magnitude, 0);
+                break;
+            case Interrogate:
+                opponent.minus_all_arguments(0, 0, magnitude, 0);
+                //opponent_interrogate_bar = Math.max(opponent_interrogate_bar - magnitude, 0);
+                break;
+            case Intimidate:
+                opponent.minus_all_arguments(0, 0, 0, magnitude);
+                //opponent_intimidate_bar = Math.max(opponent_intimidate_bar - magnitude, 0);
+                break;
+        }
+    }
+
     public void refresh_consume_effect(Cell new_cell) {
         cell.consumed = false;
 
@@ -635,5 +695,7 @@ public class Contestant extends Entity {
         }
 
         update_stats(new_cell, false);
+        update_boards_won();
+        opponent.update_boards_won();
     }
 }

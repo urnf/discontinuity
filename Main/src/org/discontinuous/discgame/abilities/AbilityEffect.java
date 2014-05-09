@@ -29,10 +29,11 @@ public class AbilityEffect {
         this.move_to_cell = move_to_cell;
     }
 
-    public HashMap<String, Integer> apply_effect(Contestant player,
-                              Contestant opponent,
-                              Ability ability_selected,
+    public void apply_effect(Contestant player,
+                              //Contestant opponent,
+                              //Ability ability_selected,
                               Cell.concepts type,
+                              /*
                               int player_logical_bar,
                               int player_ethical_bar,
                               int player_interrogate_bar,
@@ -41,6 +42,7 @@ public class AbilityEffect {
                               int opponent_ethical_bar,
                               int opponent_interrogate_bar,
                               int opponent_intimidate_bar,
+
                               //Hashtable<String, Integer> log_stats,
                               //Hashtable<String, Integer> eth_stats,
                               //Hashtable<String, Integer> ing_stats,
@@ -49,6 +51,7 @@ public class AbilityEffect {
                               int ethical_max,
                               int interrogate_max,
                               int intimidate_max,
+                              */
                               Cell opponent_cell,
                               Cell new_cell){
         // Null protect, though I'm tempted to pull out to expose bugs
@@ -57,16 +60,18 @@ public class AbilityEffect {
         }
 
         // Deduct the ability cost
-        player_logical_bar -= ability_selected.logical_cost;
-        player_ethical_bar -= ability_selected.ethical_cost;
-        player_interrogate_bar -= ability_selected.interrogate_cost;
-        player_intimidate_bar -= ability_selected.intimidate_cost;
+        //player_logical_bar -= ability_selected.logical_cost;
+        //player_ethical_bar -= ability_selected.ethical_cost;
+        //player_interrogate_bar -= ability_selected.interrogate_cost;
+        //player_intimidate_bar -= ability_selected.intimidate_cost;
 
         int dp = 0;
         // Apply the effect
         switch (effect) {
             case multiply:
-                Hashtable<String, Integer> stats;
+                player.multiply_effect(type, magnitude);
+                //Hashtable<String, Integer> stats;
+                /*
                 switch (type) {
                     case Logical:
                         player_logical_bar = Math.min(player_logical_bar + magnitude, logical_max);
@@ -84,15 +89,16 @@ public class AbilityEffect {
                         player_intimidate_bar = Math.min(player_intimidate_bar + magnitude, intimidate_max);
                         player.update_board_score(player_intimidate_bar * magnitude);
                         break;
-                    /*
+
                     case Logical: stats = log_stats; break;
                     case Ethical: stats = eth_stats; break;
                     case Interrogate: stats = ing_stats; break;
                     case Intimidate: stats = inm_stats; break;
                     // Will lead to exceptions - intentional
                     default: stats = null; break;
-                    */
+
                 }
+                */
                 // dp = stats.get("power") * magnitude;
 
                 /*
@@ -103,6 +109,8 @@ public class AbilityEffect {
                 */
                 break;
             case damage:
+                player.damage_effect(type, magnitude);
+                /*
                 switch (type) {
                     case Logical:
                         opponent.minus_all_arguments(magnitude, 0, 0, 0);
@@ -120,7 +128,7 @@ public class AbilityEffect {
                         opponent.minus_all_arguments(0, 0, 0, magnitude);
                         //opponent_intimidate_bar = Math.max(opponent_intimidate_bar - magnitude, 0);
                         break;
-                }
+                }*/
                 //opponent_confidence = Math.max(opponent_confidence - magnitude, 0);
                 break;
             case aoe_consume:
@@ -134,17 +142,19 @@ public class AbilityEffect {
                 break;
             default:
         }
-        HashMap<String, Integer> return_hash = new HashMap<String, Integer>();
+        //HashMap<String, Integer> return_hash = new HashMap<String, Integer>();
         //return_hash.put("dp", dp);
-        return_hash.put("player_logical_bar", player_logical_bar);
-        return_hash.put("player_ethical_bar", player_ethical_bar);
-        return_hash.put("player_interrogate_bar", player_interrogate_bar);
-        return_hash.put("player_intimidate_bar", player_intimidate_bar);
+        //return_hash.put("player_logical_bar", player_logical_bar);
+        //return_hash.put("player_ethical_bar", player_ethical_bar);
+        //return_hash.put("player_interrogate_bar", player_interrogate_bar);
+        //return_hash.put("player_intimidate_bar", player_intimidate_bar);
 
         //return_hash.put("opponent_logical_bar", opponent_logical_bar);
         //return_hash.put("opponent_ethical_bar", opponent_ethical_bar);
         //return_hash.put("opponent_interrogate_bar", opponent_interrogate_bar);
         //return_hash.put("opponent_intimidate_bar", opponent_intimidate_bar);
-        return return_hash;
+        //return return_hash;
+
+        return;
     }
 }
