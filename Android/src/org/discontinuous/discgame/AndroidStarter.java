@@ -19,7 +19,7 @@ public class AndroidStarter extends AndroidApplication
         cfg.useCompass = false;
         cfg.useWakelock = true;
         cfg.useGL20 = true;
-        initialize(new DiscGame(), cfg);
+        initialize(new SympGame(), cfg);
         // TODO: Fix the gesture detection values here later
         GestureDetector inputProcessor = new GestureDetector(new GestureListener());
         Gdx.input.setInputProcessor(inputProcessor);

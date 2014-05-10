@@ -2,21 +2,20 @@ package org.discontinuous.discgame;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import java.util.Random;
+import org.discontinuous.discgame.states.game.GameState;
 
 /**
  * Created by Urk on 12/17/13.
  */
 public class Board {
-    static Sprite left_player;
-    static Sprite left_computer;
-    static Sprite up_player;
-    static Sprite up_computer;
-    static Sprite right_player;
-    static Sprite right_computer;
-    static Sprite down_player;
-    static Sprite down_computer;
+    public static Sprite left_player;
+    public static Sprite left_computer;
+    public static Sprite up_player;
+    public static Sprite up_computer;
+    public static Sprite right_player;
+    public static Sprite right_computer;
+    public static Sprite down_player;
+    public static Sprite down_computer;
 
     int width;
     int height;
@@ -35,8 +34,8 @@ public class Board {
     // Asset texture size, independent of how large we want it
     static final int TEXTURE_EDGE = 48;
 
-    static final int WIDTH_OFFSET = DiscGame.DESIRED_WIDTH/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_WIDTH/2);
-    static final int HEIGHT_OFFSET = DiscGame.DESIRED_HEIGHT/2 - (CELL_EDGE_SIZE * DiscGame.BOARD_HEIGHT/2);
+    static final int WIDTH_OFFSET = SympGame.DESIRED_WIDTH/2 - (CELL_EDGE_SIZE * GameState.BOARD_WIDTH/2);
+    static final int HEIGHT_OFFSET = SympGame.DESIRED_HEIGHT/2 - (CELL_EDGE_SIZE * GameState.BOARD_HEIGHT/2);
 
     float player_score = 0;
     float computer_score = 0;
@@ -59,8 +58,8 @@ public class Board {
     public Board (int board_height, int board_width, Topic topic){
         width = board_width;
         height = board_height;
-        screen_width = DiscGame.DESIRED_WIDTH;
-        screen_height = DiscGame.DESIRED_HEIGHT;
+        screen_width = SympGame.DESIRED_WIDTH;
+        screen_height = SympGame.DESIRED_HEIGHT;
         this.topic = topic;
 
         // Multiply width by height
@@ -108,10 +107,10 @@ public class Board {
 
     public Contestant current_winner() {
         if (player_score > computer_score) {
-            return DiscGame.player;
+            return GameState.player;
         }
         if (computer_score > player_score) {
-            return DiscGame.computer;
+            return GameState.computer;
         }
         return null;
     }
@@ -145,8 +144,8 @@ public class Board {
         reset_board(lower_left);
         reset_board(lower_right);
         // Reset character sizes
-        //DiscGame.player.img.setScale(1);
-        //DiscGame.computer.img.setScale(1);
+        //SympGame.player.img.setScale(1);
+        //SympGame.computer.img.setScale(1);
     }
 
     private void reset_board(Board board) {
@@ -158,15 +157,15 @@ public class Board {
                 //cell.y = cell.center_y;
                 //cell.img.setPosition(cell.x, cell.y);
                 //cell.img.setScale(1);
-                DiscGame.hover_list.remove(cell);
-                DiscGame.click_list.remove(cell);
+                SympGame.hover_list.remove(cell);
+                SympGame.click_list.remove(cell);
             }
         }
     }
 
     public void set_current_board() {
         resize_board(null);
-        DiscGame.current_board = this;
+        GameState.current_board = this;
         this.relative_to_current = null;
 
         // Move the other boards
@@ -187,21 +186,21 @@ public class Board {
         lower_right.resize_board(Direction.LOWER_RIGHT);
 
         // Player/Computer not yet set up
-        if (null == DiscGame.player || null == DiscGame.computer) return;
+        if (null == GameState.player || null == GameState.computer) return;
 
         // Move the player and computer to appropriate board
         position_board_entity(
-                DiscGame.player.cell.board.relative_to_current,
-                DiscGame.player,
-                DiscGame.player.cell,
-                DiscGame.player.cell.board_x,
-                DiscGame.player.cell.board_y);
+                GameState.player.cell.board.relative_to_current,
+                GameState.player,
+                GameState.player.cell,
+                GameState.player.cell.board_x,
+                GameState.player.cell.board_y);
         position_board_entity(
-                DiscGame.computer.cell.board.relative_to_current,
-                DiscGame.computer,
-                DiscGame.computer.cell,
-                DiscGame.computer.cell.board_x,
-                DiscGame.computer.cell.board_y);
+                GameState.computer.cell.board.relative_to_current,
+                GameState.computer,
+                GameState.computer.cell,
+                GameState.computer.cell.board_x,
+                GameState.computer.cell.board_y);
     }
 
     private void resize_board(Direction new_direction) {
@@ -230,8 +229,8 @@ public class Board {
     private void handler_setup() {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                DiscGame.hover_list.add(cells[i][j]);
-                DiscGame.click_list.add(cells[i][j]);
+                SympGame.hover_list.add(cells[i][j]);
+                SympGame.click_list.add(cells[i][j]);
             }
         }
     }
@@ -323,9 +322,9 @@ public class Board {
 
     private void checkDrawContestants(SpriteBatch batch, Board board) {
         // Draw contestants
-        if (DiscGame.player.cell.board == board) {
-            DiscGame.player.draw(batch);
-            DiscGame.computer.draw(batch);
+        if (GameState.player.cell.board == board) {
+            GameState.player.draw(batch);
+            GameState.computer.draw(batch);
         }
     }
 
@@ -341,11 +340,11 @@ public class Board {
         checkDrawContestants(batch, this);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, topic.name, screen_width/2 - DiscGame.header_font.getBounds(topic.name).width/2, screen_height/2 + 112);
+        SympGame.header_font.draw(batch, topic.name, screen_width/2 - SympGame.header_font.getBounds(topic.name).width/2, screen_height/2 + 112);
         // Draw player score
-        DiscGame.deal_font.draw(batch, player_score_string, screen_width/2 - DiscGame.header_font.getBounds(player_score_string).width/2 - 140, screen_height/2 - 90);
+        SympGame.deal_font.draw(batch, player_score_string, screen_width/2 - SympGame.header_font.getBounds(player_score_string).width/2 - 140, screen_height/2 - 90);
         // Draw computer score
-        DiscGame.deal_font.draw(batch, computer_score_string, screen_width/2 - DiscGame.header_font.getBounds(computer_score_string).width/2 + 130, screen_height/2 - 90);
+        SympGame.deal_font.draw(batch, computer_score_string, screen_width/2 - SympGame.header_font.getBounds(computer_score_string).width/2 + 130, screen_height/2 - 90);
     }
 
     public void draw_left(SpriteBatch batch) {
@@ -360,12 +359,12 @@ public class Board {
         checkDrawContestants(batch, left);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, left.topic.name, left.cells[0][0].img.getX() - DiscGame.header_font.getBounds(left.topic.name).width/2 - 10, screen_height/2 + 65);
+        SympGame.header_font.draw(batch, left.topic.name, left.cells[0][0].img.getX() - SympGame.header_font.getBounds(left.topic.name).width/2 - 10, screen_height/2 + 65);
 
         // Draw player that is ahead
         Contestant winner = left.current_winner();
         if (null != winner) {
-            if (winner == DiscGame.player) {
+            if (winner == GameState.player) {
                 left_player.draw(batch);
             }
             else left_computer.draw(batch);
@@ -383,12 +382,12 @@ public class Board {
         checkDrawContestants(batch, right);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, right.topic.name, right.cells[0][0].img.getX() - DiscGame.header_font.getBounds(right.topic.name).width/2 - 10, screen_height/2 + 65);
+        SympGame.header_font.draw(batch, right.topic.name, right.cells[0][0].img.getX() - SympGame.header_font.getBounds(right.topic.name).width/2 - 10, screen_height/2 + 65);
 
         // Draw player that is ahead
         Contestant winner = right.current_winner();
         if (null != winner) {
-            if (winner == DiscGame.player) {
+            if (winner == GameState.player) {
                 right_player.draw(batch);
             }
             else right_computer.draw(batch);
@@ -406,12 +405,12 @@ public class Board {
         checkDrawContestants(batch, up);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, up.topic.name, screen_width/2 - DiscGame.header_font.getBounds(up.topic.name).width/2 + 4, screen_height/2 + 225);
+        SympGame.header_font.draw(batch, up.topic.name, screen_width/2 - SympGame.header_font.getBounds(up.topic.name).width/2 + 4, screen_height/2 + 225);
 
         // Draw player that is ahead
         Contestant winner = up.current_winner();
         if (null != winner) {
-            if (winner == DiscGame.player) {
+            if (winner == GameState.player) {
                 up_player.draw(batch);
             }
             else up_computer.draw(batch);
@@ -429,12 +428,12 @@ public class Board {
         checkDrawContestants(batch, down);
 
         // Draw topic
-        DiscGame.header_font.draw(batch, down.topic.name, screen_width/2 - DiscGame.header_font.getBounds(down.topic.name).width/2 + 4, screen_height/2 - 100);
+        SympGame.header_font.draw(batch, down.topic.name, screen_width/2 - SympGame.header_font.getBounds(down.topic.name).width/2 + 4, screen_height/2 - 100);
 
         // Draw player that is ahead
         Contestant winner = down.current_winner();
         if (null != winner) {
-            if (winner == DiscGame.player) {
+            if (winner == GameState.player) {
                 down_player.draw(batch);
             }
             else down_computer.draw(batch);
@@ -485,7 +484,11 @@ public class Board {
         checkDrawContestants(batch, lower_right);
     }
 
+    public Cell get_sample_cell() {
+        return cells[0][0];
+    }
+
     public void move_computer() {
-        DiscGame.computer.update_position(DiscGame.computer_ai.find_next_move());
+        GameState.computer.update_position(GameState.computer_ai.find_next_move());
     }
 }

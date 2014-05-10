@@ -23,8 +23,8 @@ public class DialogOption extends Entity {
 
     public DialogOption (int x, int y, int width, int height){
         super(x, y, width, height);
-        //DiscGame.hover_list.add(this);
-        //DiscGame.click_list.add(this);
+        //SympGame.hover_list.add(this);
+        //SympGame.click_list.add(this);
         y_offset = y + height;
         // Note - cell isn't initialized here since that's the purview of Contestant
     }
@@ -33,7 +33,7 @@ public class DialogOption extends Entity {
     // TODO: Stubbed these out, need a full sheet for options
 
         if (null != cell){
-            DiscGame.dialog_font.drawWrapped(batch, cell.player_dialog, x, y_offset, width);
+            SympGame.dialog_font.drawWrapped(batch, cell.player_dialog, x, y_offset, width);
             //setup_dialog_hover(cell);
             //setup_dialog_click(cell);
         }
@@ -64,9 +64,9 @@ public class DialogOption extends Entity {
     }
 
     public void drawHover(SpriteBatch batch) {
-        //DiscGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + DiscGame.hover.toString(), x, y + 30);
+        //SympGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + SympGame.hover.toString(), x, y + 30);
         /*
-        if (null != cell && StateHandling.checkState(State.SelectDialog)) {
+        if (null != cell && StateHandling.checkState(GameState.SelectDialog)) {
             cell.drawHover(batch);
             //Redraw so that hover shape doesn't cover
             drawDialogOption(batch);
@@ -76,7 +76,7 @@ public class DialogOption extends Entity {
 
     public void clickHandler() {
         /*
-        if (null != cell && StateHandling.checkState(State.SelectDialog)){
+        if (null != cell && StateHandling.checkState(GameState.SelectDialog)){
             cell.clickHandler();
         }
         */

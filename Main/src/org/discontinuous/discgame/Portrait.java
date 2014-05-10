@@ -1,11 +1,10 @@
 package org.discontinuous.discgame;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.Color;
+import org.discontinuous.discgame.states.game.GameState;
 
 /**
  * Created by Urk on 1/8/14.
@@ -28,7 +27,7 @@ public class Portrait extends Entity {
         this.hover_x = hover_x;
         this.hover_y = hover_y;
         this.hover_text = hover_text;
-        BitmapFont.TextBounds bounds = DiscGame.text_font.getWrappedBounds(hover_text, wrap_size);
+        BitmapFont.TextBounds bounds = SympGame.text_font.getWrappedBounds(hover_text, wrap_size);
         text_height = bounds.height + 150;
         text_width = bounds.width;
         this.wrap_size = wrap_size;
@@ -36,14 +35,14 @@ public class Portrait extends Entity {
         this.pointer_y_offset = pointer_y_offset;
 
         // set up combo and movestats image position
-        combos = new Entity(DiscGame.DESIRED_WIDTH/2 - 250, (int) (hover_y - text_height - 5), 113, 143);
+        combos = new Entity(SympGame.DESIRED_WIDTH/2 - 250, (int) (hover_y - text_height - 5), 113, 143);
         combos.setImg(combo_img);
-        movestats = new Entity(DiscGame.DESIRED_WIDTH/2 - 20, (int) (hover_y - text_height + 105), 256, 32);
-        movestats.setImg(DiscGame.movestats);
+        movestats = new Entity(SympGame.DESIRED_WIDTH/2 - 20, (int) (hover_y - text_height + 105), 256, 32);
+        movestats.setImg(GameState.movestats);
 
         // Entity has action on hover, add to hover list
-        DiscGame.hover_list.add(this);
-        DiscGame.shape_hover_list.add(this);
+        SympGame.hover_list.add(this);
+        SympGame.shape_hover_list.add(this);
 
         this.contestant = contestant;
     }
@@ -54,12 +53,12 @@ public class Portrait extends Entity {
     //}
 
     public void drawHover(SpriteBatch batch) {
-        //DiscGame.text_font.drawWrapped(batch, hover_text, hover_x, hover_y, wrap_size);
+        //SympGame.text_font.drawWrapped(batch, hover_text, hover_x, hover_y, wrap_size);
         //contestant.draw_stats(batch, hover_x + 125, (int) (hover_y - text_height + 95));
         //combos.draw(batch);
         //movestats.draw(batch);
         //Tooltip.drawDialogWidgets(hover_x, (int) (hover_y - text_height), (int) text_width, (int) text_height, batch);
-        if (contestant.player) { DiscGame.abilities_button.draw(batch);}
+        if (contestant.player) { GameState.abilities_button.draw(batch);}
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {

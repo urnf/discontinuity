@@ -14,17 +14,17 @@ public class DealPower extends Entity {
     static Color light_grey = new Color(0.8f, 0.8f, 0.8f, 1);
 
     public DealPower () {
-        super(0, DiscGame.screen_height/2 - 60, 60, 30);
+        super(0, SympGame.screen_height/2 - 60, 60, 30);
         dp = 0;
-        DiscGame.hover_list.add(this);
+        SympGame.hover_list.add(this);
     }
     public void draw(SpriteBatch batch) {
         // Deal Power and Deal Power Counter
-        if (dp < 0) DiscGame.deal_font.setColor(1, 0, 0, 1);
-        if (dp > 0) DiscGame.deal_font.setColor(0, 1, 0, 1);
-        width = (int)DiscGame.deal_font.getBounds(String.valueOf(dp)).width;
-        x =  (DiscGame.screen_width - width)/2;
-        DiscGame.deal_font.draw(batch, String.valueOf(dp), x, y + 20);
+        if (dp < 0) SympGame.deal_font.setColor(1, 0, 0, 1);
+        if (dp > 0) SympGame.deal_font.setColor(0, 1, 0, 1);
+        width = (int) SympGame.deal_font.getBounds(String.valueOf(dp)).width;
+        x =  (SympGame.screen_width - width)/2;
+        SympGame.deal_font.draw(batch, String.valueOf(dp), x, y + 20);
     }
 
     public void update(int dp_change, boolean isPlayer, boolean isConsumed) {
@@ -44,7 +44,7 @@ public class DealPower extends Entity {
     }
 
     public void drawHover(SpriteBatch batch) {
-        DiscGame.text_font.drawWrapped(batch, "Deal Power\n" +
+        SympGame.text_font.drawWrapped(batch, "Deal Power\n" +
                 "This determines what you'll be able to bargain for after this debate.  " +
                 "You'll gain deal power by making arguments, and lose it to opponent arguments.  " +
                 "Some abilities also grant deal power.", x + 50, y + 160, 300);

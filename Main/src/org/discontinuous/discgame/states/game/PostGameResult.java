@@ -1,19 +1,14 @@
-package org.discontinuous.discgame.states;
+package org.discontinuous.discgame.states.game;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import org.discontinuous.discgame.Colors;
-import org.discontinuous.discgame.DiscGame;
 import org.discontinuous.discgame.EndGameOption;
 import org.discontinuous.discgame.Tooltip;
-
-import java.util.ArrayList;
 
 /**
  * Created by Urk on 4/3/14.
  */
-public class PostGameResult extends State {
+public class PostGameResult extends GameState {
 
     public static void drawShapes(ShapeRenderer shapes, int screen_width)  {
         Tooltip.newTip(screen_width/2 - 200, 200, 400, 100, 260, 260, inner_color, outer_color, false, shapes);

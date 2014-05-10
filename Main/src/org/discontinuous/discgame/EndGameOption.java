@@ -31,34 +31,39 @@ public class EndGameOption extends Entity {
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
+        // TODO: THIS ALL NEEDS TO BE REDONE
+        /*
             // if backtracking, highlight red
-            if (DiscGame.dealpower.dp < dp_cost) { shapes.setColor(dark_red); }
+            if (SympGame.dealpower.dp < dp_cost) { shapes.setColor(dark_red); }
             // if can combo into this option, highlight green
-            else if (DiscGame.dealpower.dp > dp_cost) { shapes.setColor(dark_green); }
+            else if (SympGame.dealpower.dp > dp_cost) { shapes.setColor(dark_green); }
             shapes.rect(x - 6, y - 6, width + 12, height + 12);
             shapes.setColor(dark_grey);
             shapes.rect(x, y, width, height);
+            */
     }
 
     public void drawHover(SpriteBatch batch) {
-        DiscGame.movestats_font.drawWrapped(batch, Integer.toString(dp_cost), x + 10, y + 75, width - 40);
+        SympGame.movestats_font.drawWrapped(batch, Integer.toString(dp_cost), x + 10, y + 75, width - 40);
         font.drawWrapped(batch, option_text, x + 70, y + 75, width - 70);
     }
 
     public void clickHandler() {
-        if (DiscGame.dealpower.dp > dp_cost) {
+        // TODO: THIS ALL NEEDS TO BE REDONE
+        /*
+        if (SympGame.dealpower.dp > dp_cost) {
             StateHandling.set_player_offset(yi_text);
             StateHandling.set_computer_offset(arlene_text);
             StateHandling.selected_endgame_option = this;
 
-            for (EndGameOption option: DiscGame.endgame_options) {
+            for (EndGameOption option: SympGame.endgame_options) {
                 // Entity has action on hover, add to hover list
-                DiscGame.hover_list.remove(option);
+                SympGame.hover_list.remove(option);
                 // Entity may have action on click, add to click list
-                DiscGame.click_list.remove(option);
+                SympGame.click_list.remove(option);
             }
-            DiscGame.hover_list.remove(DiscGame.player.portrait);
-            DiscGame.hover_list.remove(DiscGame.computer.portrait);
+            SympGame.hover_list.remove(SympGame.player.portrait);
+            SympGame.hover_list.remove(SympGame.computer.portrait);
 
             // Refresh mouse moved to get rid of annoying mouseover
             // TODO: Hacky as heck, fix
@@ -66,19 +71,21 @@ public class EndGameOption extends Entity {
 
             // TODO: Also hacky, image change for -9999 option
             if (dp_cost == -9999) {
-                DiscGame.computer.portrait.x = DiscGame.screen_width - 382;
-                DiscGame.computer.portrait.width = 382;
-                DiscGame.computer.portrait.height = 700;
-                DiscGame.player.portrait.x = 0;
-                DiscGame.player.portrait.width = 382;
-                DiscGame.player.portrait.height = 700;
-                DiscGame.player.portrait.setImg(DiscGame.manager.get("img/YiDemonResize.png", Texture.class));
-                DiscGame.computer.portrait.setImg(DiscGame.manager.get("img/ArleneLichResize.png", Texture.class));
+                SympGame.computer.portrait.x = SympGame.screen_width - 382;
+                SympGame.computer.portrait.width = 382;
+                SympGame.computer.portrait.height = 700;
+                SympGame.player.portrait.x = 0;
+                SympGame.player.portrait.width = 382;
+                SympGame.player.portrait.height = 700;
+                SympGame.player.portrait.setImg(SympGame.manager.get("img/YiDemonResize.png", Texture.class));
+                SympGame.computer.portrait.setImg(SympGame.manager.get("img/ArleneLichResize.png", Texture.class));
 
 
             }
 
             StateHandling.currentState = State.PostGameResult;
+
         }
+        */
     }
 }

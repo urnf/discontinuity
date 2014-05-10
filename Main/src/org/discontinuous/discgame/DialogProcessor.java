@@ -1,8 +1,6 @@
 package org.discontinuous.discgame;
 
 import com.badlogic.gdx.InputProcessor;
-import org.discontinuous.discgame.StateHandling.State;
-import org.discontinuous.discgame.abilities.Ability;
 
 /**
  * Created by Urk on 12/19/13.
@@ -37,13 +35,14 @@ public class DialogProcessor implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        for (Entity e : DiscGame.hover_list) {
+        for (Entity e : SympGame.hover_list) {
             if (e.checkHover(screenX, screenY)) {hovered = true;}
         }
-        if (!hovered) {DiscGame.hover = DiscGame.empty_hover; DiscGame.shape_hover = DiscGame.empty_hover;}
+        if (!hovered) {
+            SympGame.hover = SympGame.empty_hover; SympGame.shape_hover = SympGame.empty_hover;}
         hovered = false;
-        DiscGame.mouse_x = screenX;
-        DiscGame.mouse_y = screenY;
+        SympGame.mouse_x = screenX;
+        SympGame.mouse_y = screenY;
         return false;
     }
 

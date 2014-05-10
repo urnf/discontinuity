@@ -14,13 +14,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.abilities.*;
 import org.discontinuous.discgame.contestants.Confucius;
 import org.discontinuous.discgame.contestants.Socrates;
-import org.discontinuous.discgame.states.InDialog;
-import org.discontinuous.discgame.states.SelectDialog;
+import org.discontinuous.discgame.states.game.GameState;
+import org.discontinuous.discgame.states.game.InDialog;
+import org.discontinuous.discgame.states.game.SelectDialog;
 import org.yaml.snakeyaml.Yaml;
 import org.discontinuous.discgame.StateHandling.State;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.LinkedHashMap;
 
 /**
@@ -28,14 +28,12 @@ import java.util.LinkedHashMap;
  * the drawing to a higher level than OpenGL rendering, which will
  * be adequate given that I'm planning on working on a purely 2D plane
  */
-public class DiscGame extends Game {
+public class SympGame extends Game {
     /*
-    TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO SAY "X" WEREN'T YOU?  RESPOND - !!!! SWEAT)
-
     TODO: IMPLEMENT CHARACTER SELECT
     TODO: IMPLEMENT MAIN MENU
 
-TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO SAY "X" WEREN'T YOU?  RESPOND - !!!! SWEAT)
+    TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO SAY "X" WEREN'T YOU?  RESPOND - !!!! SWEAT)
     TODO: RETURN TO DEAL POWER PER BOARD- DO NOT TRACK TWO VALUES
     TODO: SHOW STAMMERING DIALOG OR FX
     TODO: BONUS TILES IN CENTER - EXAMPLE, CORINTHIAN COLUMN, CHINESE MEDICINE, ETC.
@@ -118,10 +116,10 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
     // TODO: - Move from yml to JSON
 
     // TODO: Giant pile of static variables.  OK for prototype, terrible design.
-    static Board[][] boards;
-    static Board current_board;
-    static Contestant player;
-    static Contestant computer;
+    //static Board[][] boards;
+    //static Board current_board;
+    //static Contestant player;
+    //static Contestant computer;
     OrthographicCamera camera;
     SpriteBatch batch;
     ShapeRenderer shapes;
@@ -131,45 +129,45 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
     //Icon confidence_icon_opponent;
     //Icon inspiration_icon_player;
     //Icon inspiration_icon_opponent;
-    static AbilitiesButton abilities_button;
-    static AI computer_ai;
+//    static AbilitiesButton abilities_button;
+//    static AI computer_ai;
 
     public static AssetManager manager = new AssetManager();
 
-    static DialogOption[] dialog_options;
+    //static DialogOption[] dialog_options;
 
-    static DealPower dealpower;
+    //static DealPower dealpower;
 
     static Entity empty_hover = new Entity(0, 0, 0, 0);
-    static Entity hover = empty_hover; //removes the need for a null check later
-    static Entity shape_hover = empty_hover;
-    static BitmapFont header_font;
-    static BitmapFont deal_font;
-    static BitmapFont text_font;
-    static BitmapFont movestats_font;
-    static BitmapFont nightmare_font;
-    static BitmapFont animation_font;
-    static BitmapFont dialog_font;
-    static BitmapFont text_font_small;
+    public static Entity hover = empty_hover; //removes the need for a null check later
+    public static Entity shape_hover = empty_hover;
+    public static BitmapFont header_font;
+    public static BitmapFont deal_font;
+    public static BitmapFont text_font;
+    public static BitmapFont movestats_font;
+    public static BitmapFont nightmare_font;
+    public static BitmapFont animation_font;
+    public static BitmapFont dialog_font;
+    public static BitmapFont text_font_small;
     static int screen_width;
     static int screen_height;
 
     static ArrayList<Entity> click_list;
     static ArrayList<Entity> hover_list;
     static ArrayList<Entity> shape_hover_list;
-    static ArrayList<Topic> topics;
-    static ArrayList<EndGameOption> endgame_options;
+    //static ArrayList<Topic> topics;
+    //static ArrayList<EndGameOption> endgame_options;
 
-    static Texture movestats;
+    //static Texture movestats;
 
-    static final int BOARD_WIDTH = 4;
-    static final int BOARD_HEIGHT = 4;
+    //static final int BOARD_WIDTH = 4;
+    //static final int BOARD_HEIGHT = 4;
 
     static final int DESIRED_WIDTH = 960;
     static final int DESIRED_HEIGHT = 540;
 
-    static final int DIALOG_X = 20;
-    static final int DIALOG_Y = 20;
+    //static final int DIALOG_X = 20;
+    //static final int DIALOG_Y = 20;
 
     static int view_x = 0;
     static int view_y = 0;
@@ -178,8 +176,8 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
     static float scale;
 
     //debug
-    static int mouse_x;
-    static int mouse_y;
+    public static int mouse_x;
+    public static int mouse_y;
 
     @Override
     // Overriding resize to make it keep aspect ratio
@@ -235,6 +233,11 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
         manager.load("img/YiDemonResize.png", Texture.class);
         manager.load("img/ArleneLichResize.png", Texture.class);
 
+        // MANAGER DOESN'T HAVE FREETYPE FONT SUPPORT YET
+        //manager.load("fonts/SinaNovaReg.otf", FreeTypeFontGenerator.class);
+        //manager.load("fonts/PTSans.ttf", FreeTypeFontGenerator.class);
+        //manager.load("fonts/Cinzel-Regular.ttf", FreeTypeFontGenerator.class);
+
         manager.finishLoading();
 
         // Setup list of entities which have an action on hover/click
@@ -252,6 +255,8 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
         batch = new SpriteBatch();
         shapes = new ShapeRenderer();
 
+        GameState.create(DESIRED_WIDTH, DESIRED_HEIGHT, hover_list, click_list);
+        /*
         // Setup confidence/inspiration icons
         setupIcons();
 
@@ -319,7 +324,7 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
         // TODO: Move out to its own method when it gets unwieldly
         //InDialog.setTooltipX(DESIRED_WIDTH / 2 - 200);
         InDialog.setTooltipX(DESIRED_WIDTH / 2 - 355/2);
-        //SelectDialog.setTooltipX(DiscGame.DESIRED_WIDTH/2 - 120);
+        //SelectDialog.setTooltipX(SympGame.DESIRED_WIDTH/2 - 120);
         SelectDialog.setTooltipX(DIALOG_X);
         //setTooltipY(dialog_height);
         SelectDialog.setTooltipY(DIALOG_Y);
@@ -337,13 +342,15 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
         // Setup ability button
         abilities_button = new AbilitiesButton(110, 300, 64, 64, hover_list, click_list, player.abilities, movestats_font);
         abilities_button.setImg( manager.get("img/abilities.png", Texture.class));
-
+*/
         //DialogProcessor inputProcessor = new DialogProcessor();
         //Gdx.input.setInputProcessor(inputProcessor);
 
+ /*
         // Setup end game options
         endgame_options = new ArrayList();
         setupEndgameOptions(endgame_options);
+        */
     }
     // Dialog:
     /*
@@ -375,27 +382,31 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-        // Now we're doing the sprite batch
         batch.setProjectionMatrix(camera.combined);
+        shapes.setProjectionMatrix(camera.combined);
+
+        GameState.render(batch, shapes);
+/*
+        // Now we're doing the sprite batch
         batch.begin();
         drawBatchCore();
 
         // debug for AI
-        /*
-        if (!arlene_ai.possible_moves.isEmpty()) {
-            int i = 0;
-            for (Map.Entry<Cell, Float> entry: arlene_ai.possible_moves.entrySet()) {
-                header_font.draw(batch, entry.getKey().type + ": " + entry.getValue(), 700, 500 + i * 30);
-                i++;
-            }
-            header_font.draw(batch, "Max value there was: " + arlene_ai.max_value, 600, 700);
-        }
-        */
+
+        //if (!arlene_ai.possible_moves.isEmpty()) {
+        //    int i = 0;
+        //    for (Map.Entry<Cell, Float> entry: arlene_ai.possible_moves.entrySet()) {
+        //        header_font.draw(batch, entry.getKey().type + ": " + entry.getValue(), 700, 500 + i * 30);
+        //        i++;
+        //    }
+        //    header_font.draw(batch, "Max value there was: " + arlene_ai.max_value, 600, 700);
+        //}
+
 
         // debug for mouse
-        header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y + "Hovering over: " + DiscGame.hover.getClass(), 400, 520);
+        header_font.draw(batch, "Mouse X: " + mouse_x + " Mouse Y: " + mouse_y + "Hovering over: " + SympGame.hover.getClass(), 400, 520);
         //header_font.draw(batch, "View Width: " + view_width + " View Height: " + view_height + " View X: " + view_x + " View Y: " + view_y, 400, 400);
-        //header_font.draw(batch, "Hovering over: " + DiscGame.hover.getClass(), 400, 500);
+        //header_font.draw(batch, "Hovering over: " + SympGame.hover.getClass(), 400, 500);
 
         // debug for phone resolution
 
@@ -424,6 +435,7 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
         // Assumption is that only one entity is allowed to be hovered over at any given moment
         hover.drawHover(batch);
         batch.end();
+        */
     }
 
     public void dispose() {
@@ -444,6 +456,7 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
         */
     }
 
+    /*
     public void drawBatchCore() {
         // Draw characters - order matters since hover states are affected
         player.portrait.draw(batch);
@@ -452,7 +465,7 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
         // Draw the board & Board topics
 
         // Adjust the order so that those transitioning underneath are below
-        Cell sample_cell = DiscGame.current_board.cells[0][0];
+        Cell sample_cell = SympGame.current_board.cells[0][0];
 
 
         current_board.draw_upper_left(batch);
@@ -518,11 +531,14 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
     public void setupOpponent() {
         computer = new Confucius(false, 1, 1, DESIRED_WIDTH, movestats_font, manager.get("img/confucius.png", Texture.class), manager.get("img/arlenemini.png", Texture.class));
     }
-
-    public void setupFonts() {
+*/
+    public static void setupFonts() {
         FreeTypeFontGenerator sinanova = new FreeTypeFontGenerator(Gdx.files.internal("fonts/SinaNovaReg.otf"));
+                //DOESN'T WORK SympGame.manager.get("fonts/SinaNovaReg.otf", FreeTypeFontGenerator.class);
         FreeTypeFontGenerator ptsans = new FreeTypeFontGenerator(Gdx.files.internal("fonts/PTSans.ttf"));
+                //SympGame.manager.get("fonts/PTSans.ttf", FreeTypeFontGenerator.class);
         FreeTypeFontGenerator nightmare = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Cinzel-Regular.ttf"));
+                //SympGame.manager.get("fonts/Cinzel-Regular.ttf", FreeTypeFontGenerator.class);
         header_font = sinanova.generateFont(18);
         deal_font = sinanova.generateFont(24);
         animation_font = sinanova.generateFont(24);
@@ -534,7 +550,7 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
         sinanova.dispose();
         ptsans.dispose();
     }
-
+/*
     public void loadDialog() {
         Yaml yaml = new Yaml();
         // TODO: Needs a try catch to pick up file read exceptions, including someone messing with the structure
@@ -544,7 +560,7 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
             topics.add(new Topic(topic.get("name"), topic.get("logical"), topic.get("ethical"), topic.get("interrogate"), topic.get("intimidate")));
         }
     }
-
+*/
     public void setupIcons() {
         /*
         String confidence = "Confidence \n At zero confidence, your opponent forces you to concede the match.  This results in the end of the game along with a 1000 DP penalty.";
@@ -562,9 +578,10 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
         inspiration_icon_opponent.setImg(inspiration_icon);
         */
         // Assign the movestats texture to be used generally in portraits
-        movestats = manager.get("img/movestats.png", Texture.class);
+        //movestats = manager.get("img/movestats.png", Texture.class);
     }
 
+    /*
     // Create four new entities for dialog options whose role is solely to be a hover over/click handler and draw a bounding box
     public void setupDialogEntities() {
         dialog_options = new DialogOption[4];
@@ -595,9 +612,6 @@ TODO: +1 ALL WHEN DRAG PLAYER OVER AND COLLIDE - SUBVERSION (YOU WERE GOING TO S
                 "THE NIGHTMARES OF THE PAST CANNOT BE SO EASILY DEFEATED. (Initiate Squad Combat)",
                 "THE NIGHTMARES OF THE PAST CANNOT BE SO EASILY DEFEATED.",
                 "SO BE IT.  RETURN TO THE VOID, ABOMINATION."));
-
-
-
-
     }
+    */
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Created by Urk on 2/3/14.
  */
 public class Ability extends Entity {
-    static Texture tintable = DiscGame.manager.get("cell/tint.png", Texture.class);
+    static Texture tintable = SympGame.manager.get("cell/tint.png", Texture.class);
     Sprite[][] costgrid;
     int tooltip_x = 30;
     int tooltip_y = 120;
@@ -98,7 +98,7 @@ public class Ability extends Entity {
                 if (null != costgrid[i][j]) costgrid[i][j].draw(batch);
             }
         }
-        //DiscGame.text_font
+        //SympGame.text_font
         font.drawWrapped(batch, tooltip, x + tooltip_x, y + tooltip_y + tooltip_height, tooltip_width);
         font.draw(batch, "Cost:", 220 + x + tooltip_x, y + tooltip_y + tooltip_height);
         /*

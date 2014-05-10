@@ -56,8 +56,8 @@ public class Entity {
         // Check to see if the mouse is hovered over this element
         // If so, assign the static hover to this element
         if (checkArea(mousex, mousey)) {
-            DiscGame.hover = this;
-            DiscGame.shape_hover = this;
+            SympGame.hover = this;
+            SympGame.shape_hover = this;
             return true;
         }
         return false;
@@ -66,10 +66,10 @@ public class Entity {
     public boolean checkArea(int mousex, int mousey){
         // Check if it's inside, fire the element's hover if so
         // Siiiiiiiigh.  Libgdx's input are zero'd at top left, instead of gfx bottom right.
-        if (mousex > DiscGame.view_x + (x) * DiscGame.scale &&
-                mousex < DiscGame.view_x + (x + width) * DiscGame.scale &&
-                mousey < DiscGame.view_y + (DiscGame.DESIRED_HEIGHT - y) * DiscGame.scale &&
-                mousey > DiscGame.view_y + (DiscGame.DESIRED_HEIGHT - y - height) * DiscGame.scale) {
+        if (mousex > SympGame.view_x + (x) * SympGame.scale &&
+                mousex < SympGame.view_x + (x + width) * SympGame.scale &&
+                mousey < SympGame.view_y + (SympGame.DESIRED_HEIGHT - y) * SympGame.scale &&
+                mousey > SympGame.view_y + (SympGame.DESIRED_HEIGHT - y - height) * SympGame.scale) {
             return true;
         }
         return false;
@@ -94,7 +94,7 @@ public class Entity {
     }
 
     public void drawHover(SpriteBatch batch) {
-        //DiscGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + DiscGame.hover.toString(), x, y + 30);
+        //SympGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + SympGame.hover.toString(), x, y + 30);
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {

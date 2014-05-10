@@ -15,7 +15,7 @@ public class DesktopStarter {
         cfg.width = 960;
         cfg.height = 540;
         cfg.resizable = true;
-        new LwjglApplication(new DiscGame(), cfg);
+        new LwjglApplication(new SympGame(), cfg);
         DialogProcessor inputProcessor = new DialogProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
     }

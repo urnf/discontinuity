@@ -1,13 +1,10 @@
 package org.discontinuous.discgame.contestants;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import org.discontinuous.discgame.*;
 import org.discontinuous.discgame.abilities.Ability;
-import org.discontinuous.discgame.abilities.AbilityEffect;
 import org.discontinuous.discgame.abilities.AbilityList;
-import org.discontinuous.discgame.abilities.AbilityTarget;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -71,7 +68,7 @@ public class Socrates extends Contestant {
         // Set up Socrates' combos
         this.set_combo(new Combo(combo_list));
 
-        Portrait portrait = new Portrait(this, DiscGame.manager.get("img/yi-combos.png", Texture.class), -60, 0, 400, 292, screen_width/2 - 250, 700, 220, 250, 500, "Socrates\n" +
+        Portrait portrait = new Portrait(this, SympGame.manager.get("img/yi-combos.png", Texture.class), -60, 0, 400, 292, screen_width/2 - 250, 700, 220, 250, 500, "Socrates\n" +
                 "Nobody fucks with Socrates and gets away with it.\n" +
                 "\n" +
                 "Nobody.\n" +

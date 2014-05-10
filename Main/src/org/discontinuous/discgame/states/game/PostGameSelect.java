@@ -1,11 +1,8 @@
-package org.discontinuous.discgame.states;
+package org.discontinuous.discgame.states.game;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import org.discontinuous.discgame.Colors;
-import org.discontinuous.discgame.DiscGame;
 import org.discontinuous.discgame.EndGameOption;
 import org.discontinuous.discgame.Tooltip;
 
@@ -14,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by Urk on 4/3/14.
  */
-public class PostGameSelect extends State {
+public class PostGameSelect extends GameState {
 
     public static void drawShapes(ShapeRenderer shapes, int options_size, int screen_width)  {
         for (int i = 0; i < options_size; i++) {

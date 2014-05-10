@@ -1,14 +1,12 @@
 package org.discontinuous.discgame;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.StateHandling.State;
 import org.discontinuous.discgame.abilities.AbilityTarget;
-import org.discontinuous.discgame.Colors;
+import org.discontinuous.discgame.states.game.GameState;
 
 import java.util.ArrayList;
 
@@ -17,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Cell extends Entity {
     // Set up our static textures
-    static Texture tintable = DiscGame.manager.get("cell/tint.png", Texture.class);
+    static Texture tintable = SympGame.manager.get("cell/tint.png", Texture.class);
     /*
     static Texture logical = new Texture(Gdx.files.internal("cell/logical.jpg"));
     static Texture ethical = new Texture(Gdx.files.internal("cell/ethical.jpg"));
@@ -103,9 +101,9 @@ public class Cell extends Entity {
         this.board = board;
 
         // Entity has action on hover, add to hover list
-        //DiscGame.hover_list.add(this);
+        //SympGame.hover_list.add(this);
         // Entity may have action on click, add to click list
-        //DiscGame.click_list.add(this);
+        //SympGame.click_list.add(this);
 
         //Grab a line of dialog for each character involved
         player_dialog = board.topic.getPlayerDialog(this)[0];
@@ -114,7 +112,7 @@ public class Cell extends Entity {
 
     public void createAdjacentList(Cell[][] cells) {
         adjacent = new ArrayList();
-        if (board_x + 1 < DiscGame.BOARD_WIDTH) {
+        if (board_x + 1 < GameState.BOARD_WIDTH) {
             adjacent.add(cells[board_x + 1][board_y]);
         }
         else {
@@ -124,9 +122,9 @@ public class Cell extends Entity {
             adjacent.add(cells[board_x - 1][board_y]);
         }
         else {
-            adjacent.add(board.right.cells[DiscGame.BOARD_WIDTH - 1][board_y]);
+            adjacent.add(board.right.cells[GameState.BOARD_WIDTH - 1][board_y]);
         }
-        if (board_y + 1 < DiscGame.BOARD_HEIGHT) {
+        if (board_y + 1 < GameState.BOARD_HEIGHT) {
             adjacent.add(cells[board_x][board_y + 1]);
         }
         else {
@@ -136,7 +134,7 @@ public class Cell extends Entity {
             adjacent.add(cells[board_x][board_y - 1]);
         }
         else {
-            adjacent.add(board.up.cells[board_x][DiscGame.BOARD_HEIGHT - 1]);
+            adjacent.add(board.up.cells[board_x][GameState.BOARD_HEIGHT - 1]);
         }
     }
 
@@ -156,7 +154,7 @@ public class Cell extends Entity {
     }
 
     public void drawShapeHover(ShapeRenderer shapes) {
-        if (DiscGame.player.is_adjacent_to(this) && StateHandling.checkState(State.SelectDialog)) {
+        if (GameState.player.is_adjacent_to(this) && StateHandling.checkState(State.SelectDialog)) {
             dialog_option.drawShapeHover(shapes);
         }
     }
@@ -165,11 +163,11 @@ public class Cell extends Entity {
         if (StateHandling.checkState(State.PostGameSelect)) { return; }
         // If in ability targeting selection
         if (StateHandling.checkState(State.AbilityTargeting)) {
-            AbilityTarget.target_cell_hover(DiscGame.player, DiscGame.player.ability_selected, this, consumed, batch);
+            AbilityTarget.target_cell_hover(GameState.player, GameState.player.ability_selected, this, consumed, batch);
             return;
         }
         // If the cell is adjacent to the player, scale it up and redraw on top
-        if (DiscGame.player.is_adjacent_to(this)&& StateHandling.checkState(State.SelectDialog)) {
+        if (GameState.player.is_adjacent_to(this)&& StateHandling.checkState(State.SelectDialog)) {
             enlargeCell(batch);
             //Redraw so that the shape doesn't cover text
             dialog_option.drawDialogOption(batch);
@@ -197,50 +195,50 @@ public class Cell extends Entity {
             img.draw(batch);
             // Redraw char on top
             // Use img.draw instead of draw otherwise player/computer animate twice as fast.
-            if (this == DiscGame.player.cell) DiscGame.player.img.draw(batch);
-            if (this == DiscGame.computer.cell) DiscGame.computer.img.draw(batch);
+            if (this == GameState.player.cell) GameState.player.img.draw(batch);
+            if (this == GameState.computer.cell) GameState.computer.img.draw(batch);
             // Return image to original color/scale
             //img.setColor(tempColor);
             switch (type) {
                 case Logical:
                     img.setColor(Colors.ColorMap.get("logical_color"));
-                    DiscGame.text_font.draw(batch, type.toString(), x + 3, y + 33);
+                    SympGame.text_font.draw(batch, type.toString(), x + 3, y + 33);
                     break;
                 case Ethical:
                     img.setColor(Colors.ColorMap.get("ethical_color"));
-                    DiscGame.text_font.draw(batch, type.toString(), x + 5, y + 33);
+                    SympGame.text_font.draw(batch, type.toString(), x + 5, y + 33);
                     break;
                 case Interrogate:
                     img.setColor(Colors.ColorMap.get("interrogate_color"));
-                    DiscGame.text_font_small.draw(batch, type.toString(), x - 3, y + 33);
+                    SympGame.text_font_small.draw(batch, type.toString(), x - 3, y + 33);
                     break;
                 case Intimidate:
                     img.setColor(Colors.ColorMap.get("intimidate_color"));
-                    DiscGame.text_font_small.draw(batch, type.toString(), x - 2, y + 33);
+                    SympGame.text_font_small.draw(batch, type.toString(), x - 2, y + 33);
                     break;
             }
             if(consumed) img.setColor(Colors.ColorMap.get("consumed"));
         }
-        //DiscGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + DiscGame.hover.toString(), x, y + 30);
-        //DiscGame.text_font_small.draw(batch, "Board X: " + board_x + " Board Y: " + board_y, x, y + 25);
+        //SympGame.text_font_small.draw(batch, "X: " + Gdx.input.getX() + " Y: " + Gdx.input.getY() + " Hover item: " + SympGame.hover.toString(), x, y + 30);
+        //SympGame.text_font_small.draw(batch, "Board X: " + board_x + " Board Y: " + board_y, x, y + 25);
     }
 
     public void clickHandler (){
         // if not current board, swap in this board
-        if (DiscGame.current_board != board) {
-            DiscGame.current_board.reset_board_positions();
+        if (GameState.current_board != board) {
+            GameState.current_board.reset_board_positions();
             board.set_current_board();
             return;
         }
 
         // player can't travel otherwise if not adjacent
-        if (DiscGame.player.is_adjacent_to(this) && StateHandling.checkState(State.SelectDialog)) {
-            DiscGame.player.update_position(this);
+        if (GameState.player.is_adjacent_to(this) && StateHandling.checkState(State.SelectDialog)) {
+            GameState.player.update_position(this);
         }
 
         // If in ability targeting selection
         if (StateHandling.checkState(State.AbilityTargeting)) {
-            AbilityTarget.target_cell_click(DiscGame.player, DiscGame.player.ability_selected, this, consumed);
+            AbilityTarget.target_cell_click(GameState.player, GameState.player.ability_selected, this, consumed);
         }
     }
 
@@ -278,10 +276,10 @@ public class Cell extends Entity {
         img.draw(batch);
         img.scale(-0.3f);
         switch (type) {
-            case Logical: DiscGame.text_font.draw(batch, type.toString(), x + 8, y + 38); break;
-            case Ethical: DiscGame.text_font.draw(batch, type.toString(), x + 10, y + 38); break;
-            case Interrogate: DiscGame.text_font_small.draw(batch, type.toString(), x + 2, y + 38); break;
-            case Intimidate: DiscGame.text_font_small.draw(batch, type.toString(), x + 3, y + 38); break;
+            case Logical: SympGame.text_font.draw(batch, type.toString(), x + 8, y + 38); break;
+            case Ethical: SympGame.text_font.draw(batch, type.toString(), x + 10, y + 38); break;
+            case Interrogate: SympGame.text_font_small.draw(batch, type.toString(), x + 2, y + 38); break;
+            case Intimidate: SympGame.text_font_small.draw(batch, type.toString(), x + 3, y + 38); break;
         }
     }
 }

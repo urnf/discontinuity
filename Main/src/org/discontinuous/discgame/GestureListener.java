@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 public class GestureListener implements GestureDetector.GestureListener {
     final int sensitivity_x = 3000;
     final int sensitivity_y = 3000;
-    //Object selectedObject = DiscGame.player.cell;
+    //Object selectedObject = SympGame.player.cell;
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
@@ -19,8 +19,8 @@ public class GestureListener implements GestureDetector.GestureListener {
 
     @Override
     public boolean tap (float x, float y, int count, int button) {
-        DiscGame.mouse_x = (int) x;
-        DiscGame.mouse_y = (int) y;
+        SympGame.mouse_x = (int) x;
+        SympGame.mouse_y = (int) y;
         InputHandling.tapClickHandle((int) x, (int) y);
         return false;
     }
@@ -48,8 +48,8 @@ public class GestureListener implements GestureDetector.GestureListener {
 
 
 
-        DiscGame.mouse_x = 111111111;
-        DiscGame.mouse_y = 222222222;
+        SympGame.mouse_x = 111111111;
+        SympGame.mouse_y = 222222222;
         return false;
     }
 
@@ -80,8 +80,8 @@ public class GestureListener implements GestureDetector.GestureListener {
     // TODO: BOTH PAN AND FLING WILL NEED TO HAVE HANDLING LOGIC
     // - HOW TO DETERMINE DIFFERENCE BETWEEN PAN AND FLING?
     public boolean pan(float x, float y, float xdiff, float ydiff) {
-        DiscGame.mouse_x = 333333333;
-        DiscGame.mouse_y = 222222222;
+        SympGame.mouse_x = 333333333;
+        SympGame.mouse_y = 222222222;
         return false;
     }
 

@@ -1,5 +1,7 @@
 package org.discontinuous.discgame;
 
+import org.discontinuous.discgame.states.game.GameState;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Random;
@@ -33,8 +35,8 @@ public class Topic {
 
     public Topic (Object name, Object logical, Object ethical, Object interrogate, Object intimidate) {
         this.name = (String) name;
-        String player = DiscGame.player.getClass().getSimpleName();
-        String computer = DiscGame.computer.getClass().getSimpleName();
+        String player = GameState.player.getClass().getSimpleName();
+        String computer = GameState.computer.getClass().getSimpleName();
         player_log_options = (ArrayList) (((LinkedHashMap) logical).get(player));
         player_eth_options = (ArrayList) (((LinkedHashMap) ethical).get(player));
         player_ing_options = (ArrayList) (((LinkedHashMap) interrogate).get(player));

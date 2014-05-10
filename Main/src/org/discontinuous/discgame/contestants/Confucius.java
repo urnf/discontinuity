@@ -1,10 +1,8 @@
 package org.discontinuous.discgame.contestants;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import org.discontinuous.discgame.*;
-import org.discontinuous.discgame.Board;
 import org.discontinuous.discgame.Combo;
 import org.discontinuous.discgame.abilities.Ability;
 import org.discontinuous.discgame.abilities.AbilityList;
@@ -70,7 +68,7 @@ public class Confucius extends Contestant {
         // Set up Arlene's combos
         this.set_combo(new Combo(combo_list));
 
-        Portrait portrait = new Portrait(this, DiscGame.manager.get("img/arlene-combos.png", Texture.class), screen_width - 290,0, 400, 270, screen_width/2 - 250, 700, screen_width - 280, 250, 520, "Confucius\n" +
+        Portrait portrait = new Portrait(this, SympGame.manager.get("img/arlene-combos.png", Texture.class), screen_width - 290,0, 400, 270, screen_width/2 - 250, 700, screen_width - 280, 250, 520, "Confucius\n" +
                 "It's motherfuggin Confucius\n");
         portrait.setImg(portrait_tex);
         portrait.img.flip(true, false);

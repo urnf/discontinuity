@@ -1,14 +1,13 @@
-package org.discontinuous.discgame.states;
+package org.discontinuous.discgame.states.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.DialogOption;
-import org.discontinuous.discgame.Tooltip;
 
 /**
  * Created by Urk on 4/2/14.
  */
-public class SelectDialog extends State {
+public class SelectDialog extends GameState {
 
     static int x;
     static int y;

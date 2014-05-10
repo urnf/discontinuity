@@ -2,14 +2,13 @@ package org.discontinuous.discgame;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.discontinuous.discgame.StateHandling.State;
 import org.discontinuous.discgame.abilities.Ability;
 import org.discontinuous.discgame.abilities.AbilityEffect;
 import org.discontinuous.discgame.abilities.AbilityTarget;
+import org.discontinuous.discgame.states.game.GameState;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 
 /**
@@ -50,7 +49,7 @@ public class Contestant extends Entity {
     ArrayList<Ability> abilities;
     Ability ability_selected;
     Combo combo;
-    Portrait portrait;
+    public Portrait portrait;
     ArrayList<Sprite> logical_imgs;
     ArrayList<Sprite> ethical_imgs;
     ArrayList<Sprite> interrogate_imgs;
@@ -71,8 +70,8 @@ public class Contestant extends Entity {
                       int intimidate_max,
                       int interrogate_max,
                       boolean isPlayer) {
-        super(DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (board_x)),
-                DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (board_y)),
+        super(SympGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (board_x)),
+                SympGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (board_y)),
                 Board.TEXTURE_EDGE,
                 Board.TEXTURE_EDGE);
 
@@ -94,13 +93,13 @@ public class Contestant extends Entity {
         int coordinate;
         if (isPlayer) {
             coordinate = 50;
-            //coordinate = DiscGame.DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * board_x/2) - 330;
+            //coordinate = SympGame.DESIRED_WIDTH/2 - (Board.CELL_EDGE_SIZE * board_x/2) - 330;
         }
         else {
-            coordinate = DiscGame.DESIRED_WIDTH - (SCALED_ARG_TEXTURE * 4) - 70;
-            //coordinate = DiscGame.DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * board_x/2) + 270;
+            coordinate = SympGame.DESIRED_WIDTH - (SCALED_ARG_TEXTURE * 4) - 70;
+            //coordinate = SympGame.DESIRED_WIDTH/2 + (Board.CELL_EDGE_SIZE * board_x/2) + 270;
         }
-        bars_y_coord = DiscGame.DESIRED_HEIGHT/2 + 60;
+        bars_y_coord = SympGame.DESIRED_HEIGHT/2 + 60;
         logical_x_coord = coordinate;
         ethical_x_coord = coordinate + SCALED_ARG_TEXTURE;
         interrogate_x_coord = coordinate + SCALED_ARG_TEXTURE * 2;
@@ -175,13 +174,25 @@ public class Contestant extends Entity {
         this.combo = combo;
     }
 
+    public void set_cell(Board board, int cell_x, int cell_y) {
+        cell = board.cells[cell_x][cell_y];
+    }
+
+    public void set_opponent(Contestant contestant) {
+        opponent = contestant;
+    }
+
+    public void setup_adjacent() {
+        adjacent = cell.unoccupied_cells();
+    }
+
     public void set_portrait(Portrait portrait) { this.portrait = portrait; }
 
     public void update_boards_won() {
         boards_won = 0;
-        for (int i = 0; i < DiscGame.boards.length; i++) {
-            for (int j = 0; j < DiscGame.boards[i].length; j++) {
-                if (DiscGame.boards[i][j].current_winner() == this && DiscGame.boards[i][j] != DiscGame.current_board) {
+        for (int i = 0; i < GameState.boards.length; i++) {
+            for (int j = 0; j < GameState.boards[i].length; j++) {
+                if (GameState.boards[i][j].current_winner() == this && GameState.boards[i][j] != GameState.current_board) {
                     boards_won++;
                 }
             }
@@ -199,11 +210,11 @@ public class Contestant extends Entity {
     }
 
     public void draw_moves_left(SpriteBatch batch) {
-        DiscGame.header_font.draw(batch, "Arguments Left: " + String.valueOf(moves_left), logical_x_coord + 20, DiscGame.DESIRED_HEIGHT/2 + 40);
+        SympGame.header_font.draw(batch, "Arguments Left: " + String.valueOf(moves_left), logical_x_coord + 20, SympGame.DESIRED_HEIGHT/2 + 40);
     }
 
     public void draw_boards_won(SpriteBatch batch) {
-        DiscGame.header_font.draw(batch, "Boards Won: " + String.valueOf(boards_won), logical_x_coord + 30, DiscGame.DESIRED_HEIGHT/2 + 60);
+        SympGame.header_font.draw(batch, "Boards Won: " + String.valueOf(boards_won), logical_x_coord + 30, SympGame.DESIRED_HEIGHT/2 + 60);
     }
 
     public void draw_logical(SpriteBatch batch) {
@@ -231,28 +242,28 @@ public class Contestant extends Entity {
     }
 
     public void draw_stats(SpriteBatch batch, int hover_x, int hover_y) {
-        DiscGame.movestats_font.drawMultiLine(batch, "    Logical" + "\n" + "    Ethical" + "\n" + "Interrogate" + "\n" + " Intimidate", hover_x, hover_y);
-        DiscGame.movestats_font.drawMultiLine(batch, log_stats.get("power") + "\n" + eth_stats.get("power") + "\n" + ing_stats.get("power") + "\n" + inm_stats.get("power"),
+        SympGame.movestats_font.drawMultiLine(batch, "    Logical" + "\n" + "    Ethical" + "\n" + "Interrogate" + "\n" + " Intimidate", hover_x, hover_y);
+        SympGame.movestats_font.drawMultiLine(batch, log_stats.get("power") + "\n" + eth_stats.get("power") + "\n" + ing_stats.get("power") + "\n" + inm_stats.get("power"),
                 hover_x + 105, hover_y);
-        DiscGame.movestats_font.drawMultiLine(batch, log_stats.get("conf_plus") + "\n" + eth_stats.get("conf_plus") + "\n" + ing_stats.get("conf_plus") + "\n" + inm_stats.get("conf_plus"),
+        SympGame.movestats_font.drawMultiLine(batch, log_stats.get("conf_plus") + "\n" + eth_stats.get("conf_plus") + "\n" + ing_stats.get("conf_plus") + "\n" + inm_stats.get("conf_plus"),
                 hover_x + 160, hover_y);
-        DiscGame.movestats_font.drawMultiLine(batch, log_stats.get("conf_minus") + "\n" + eth_stats.get("conf_minus") + "\n" + ing_stats.get("conf_minus") + "\n" + inm_stats.get("conf_minus"),
+        SympGame.movestats_font.drawMultiLine(batch, log_stats.get("conf_minus") + "\n" + eth_stats.get("conf_minus") + "\n" + ing_stats.get("conf_minus") + "\n" + inm_stats.get("conf_minus"),
                 hover_x + 210, hover_y);
-        DiscGame.movestats_font.drawMultiLine(batch, log_stats.get("ins_plus") + "\n" + eth_stats.get("ins_plus") + "\n" + ing_stats.get("ins_plus") + "\n" + inm_stats.get("ins_plus"),
+        SympGame.movestats_font.drawMultiLine(batch, log_stats.get("ins_plus") + "\n" + eth_stats.get("ins_plus") + "\n" + ing_stats.get("ins_plus") + "\n" + inm_stats.get("ins_plus"),
                 hover_x + 270, hover_y);
-        DiscGame.movestats_font.drawMultiLine(batch, log_stats.get("ins_minus") + "\n" + eth_stats.get("ins_minus") + "\n" + ing_stats.get("ins_minus") + "\n" + inm_stats.get("ins_minus"),
+        SympGame.movestats_font.drawMultiLine(batch, log_stats.get("ins_minus") + "\n" + eth_stats.get("ins_minus") + "\n" + ing_stats.get("ins_minus") + "\n" + inm_stats.get("ins_minus"),
                 hover_x + 320, hover_y);
     }
 
     public void draw_bar_counters(SpriteBatch batch) {
         // Commenting out for now - may need later if unclear
-        //DiscGame.header_font.draw(batch, String.valueOf(confidence), confidence_x_coord + 5, 400);
-        //DiscGame.header_font.draw(batch, String.valueOf(inspiration), inspiration_x_coord + 5, 400);
+        //SympGame.header_font.draw(batch, String.valueOf(confidence), confidence_x_coord + 5, 400);
+        //SympGame.header_font.draw(batch, String.valueOf(inspiration), inspiration_x_coord + 5, 400);
     }
 
     public void update_dialog_options() {
         // Clear all cells that dialog options are associated with
-        for (DialogOption option : DiscGame.dialog_options) {
+        for (DialogOption option : GameState.dialog_options) {
             option.cell = null;
         }
         // lazy and shitty as fuck but I'm sick so fuckitol
@@ -260,10 +271,10 @@ public class Contestant extends Entity {
         for (Cell adjacent_cell : adjacent) {
             // Note: this will go out of bounds with a non-rectangular grid (hexes, etc) since it then becomes possible
             // for this to be adjacent to more than 4 cells
-            DiscGame.dialog_options[i].cell = adjacent_cell;
+            GameState.dialog_options[i].cell = adjacent_cell;
             // Update combo status
-            DiscGame.dialog_options[i].will_combo = DiscGame.player.combo.checkCombo(DiscGame.player.cell, adjacent_cell);
-            adjacent_cell.dialog_option = DiscGame.dialog_options[i];
+            GameState.dialog_options[i].will_combo = GameState.player.combo.checkCombo(GameState.player.cell, adjacent_cell);
+            adjacent_cell.dialog_option = GameState.dialog_options[i];
             i++;
         }
     }
@@ -291,9 +302,9 @@ public class Contestant extends Entity {
             opponent.cell.board.position_board_entity(null, opponent, opponent.cell, opponent.cell.board_x, opponent.cell.board_y);
         }
 
-        if (DiscGame.current_board != cell.board) {
+        if (GameState.current_board != cell.board) {
             // Make sure we move onto the new board (if computer decides to swap)
-            DiscGame.current_board.reset_board_positions();
+            GameState.current_board.reset_board_positions();
             cell.board.set_current_board();
         }
 
@@ -303,16 +314,16 @@ public class Contestant extends Entity {
 
     private void record_previous_stats() {
         // Record current values of stats - player and opponent before effects
-        //StateHandling.previousPower = DiscGame.dealpower.dp;
-        StateHandling.previousPlayerLog = DiscGame.player.logical_bar;
-        StateHandling.previousPlayerEth = DiscGame.player.ethical_bar;
-        StateHandling.previousPlayerIng = DiscGame.player.interrogate_bar;
-        StateHandling.previousPlayerInt = DiscGame.player.intimidate_bar;
+        //StateHandling.previousPower = SympGame.dealpower.dp;
+        StateHandling.previousPlayerLog = GameState.player.logical_bar;
+        StateHandling.previousPlayerEth = GameState.player.ethical_bar;
+        StateHandling.previousPlayerIng = GameState.player.interrogate_bar;
+        StateHandling.previousPlayerInt = GameState.player.intimidate_bar;
 
-        StateHandling.previousComputerLog = DiscGame.computer.logical_bar;
-        StateHandling.previousComputerEth = DiscGame.computer.ethical_bar;
-        StateHandling.previousComputerIng = DiscGame.computer.interrogate_bar;
-        StateHandling.previousComputerInt = DiscGame.computer.intimidate_bar;
+        StateHandling.previousComputerLog = GameState.computer.logical_bar;
+        StateHandling.previousComputerEth = GameState.computer.ethical_bar;
+        StateHandling.previousComputerIng = GameState.computer.interrogate_bar;
+        StateHandling.previousComputerInt = GameState.computer.intimidate_bar;
     }
 
     public void update_position(Cell cell) {
@@ -345,7 +356,7 @@ public class Contestant extends Entity {
             opponent.update_only_position(cell.board.cells[opponent.cell.board_x][opponent.cell.board_y]);
 
             // Make sure we move onto the new board (if computer decides to swap)
-            DiscGame.current_board.reset_board_positions();
+            GameState.current_board.reset_board_positions();
             cell.board.set_current_board();
         }
         else {
@@ -354,8 +365,8 @@ public class Contestant extends Entity {
             // update image position
             cell.board.position_board_entity(null, this, cell, cell.board_x, cell.board_y);
 
-            //x = DiscGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
-            //y = DiscGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
+            //x = SympGame.DESIRED_WIDTH - Board.WIDTH_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_x + 1));
+            //y = SympGame.DESIRED_HEIGHT - Board.HEIGHT_OFFSET - (Board.CELL_EDGE_SIZE * (cell.board_y + 1));
             //img.setPosition(x, y);
         }
 
@@ -368,12 +379,12 @@ public class Contestant extends Entity {
         // Trigger dialog
         StateHandling.currentSpeaker = this;
         if (StateHandling.currentSpeaker.player) {
-            StateHandling.set_player_offset(DiscGame.player.cell.player_dialog);
-            //StateHandling.set_computer_offset(DiscGame.player.cell.computer_resp_dialog);
+            StateHandling.set_player_offset(GameState.player.cell.player_dialog);
+            //StateHandling.set_computer_offset(SympGame.player.cell.computer_resp_dialog);
         }
         else {
-            //StateHandling.set_player_offset(DiscGame.computer.cell.player_resp_dialog);
-            StateHandling.set_computer_offset(DiscGame.computer.cell.computer_dialog);
+            //StateHandling.set_player_offset(SympGame.computer.cell.player_resp_dialog);
+            StateHandling.set_computer_offset(GameState.computer.cell.computer_dialog);
         }
         StateHandling.currentState = State.InDialog;
 
@@ -411,7 +422,7 @@ public class Contestant extends Entity {
         if (!combo) {
             // Update Deal Power Gain/Loss
             // THIS IS NO LONGER RELEVANT AS PART OF SYMPOSIUM
-            //DiscGame.dealpower.update(temp_stats.get("power"), player, cell.consumed);
+            //SympGame.dealpower.update(temp_stats.get("power"), player, cell.consumed);
         }
         // TODO: Update this so that combos can continue past one
         // No bonuses for a consumed cell, but ok if it's a combo
@@ -561,7 +572,7 @@ public class Contestant extends Entity {
             StateHandling.setState(State.AbilityTargeting);
         }
         // Remove abilities from hover and click handling
-        Ability.remove_ability_response(DiscGame.hover_list, DiscGame.click_list, abilities);
+        Ability.remove_ability_response(SympGame.hover_list, SympGame.click_list, abilities);
     }
 
     public void apply_effect(AbilityEffect effect, Cell new_cell) {
@@ -603,7 +614,7 @@ public class Contestant extends Entity {
         interrogate_bar -= ability_selected.interrogate_cost;
         intimidate_bar -= ability_selected.intimidate_cost;
 
-        //DiscGame.dealpower.update(effects.get("power"), player, cell.consumed);
+        //SympGame.dealpower.update(effects.get("power"), player, cell.consumed);
 
         //logical_bar = effects.get("player_logical_bar");
         //ethical_bar = effects.get("player_ethical_bar");

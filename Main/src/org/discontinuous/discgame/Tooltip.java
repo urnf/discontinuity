@@ -1,6 +1,5 @@
 package org.discontinuous.discgame;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -11,10 +10,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  * Created by Urk on 1/8/14.
  */
 public class Tooltip {
-    static Sprite upper_left = new Sprite(DiscGame.manager.get("img/upper-left.png", Texture.class), 64, 64);
-    static Sprite upper_right = new Sprite(DiscGame.manager.get("img/upper-right.png", Texture.class), 64, 64);
-    static Sprite lower_left = new Sprite(DiscGame.manager.get("img/lower-left.png", Texture.class), 64, 64);
-    static Sprite lower_right = new Sprite(DiscGame.manager.get("img/lower-right.png", Texture.class), 64, 64);
+    static Sprite upper_left = new Sprite(SympGame.manager.get("img/upper-left.png", Texture.class), 64, 64);
+    static Sprite upper_right = new Sprite(SympGame.manager.get("img/upper-right.png", Texture.class), 64, 64);
+    static Sprite lower_left = new Sprite(SympGame.manager.get("img/lower-left.png", Texture.class), 64, 64);
+    static Sprite lower_right = new Sprite(SympGame.manager.get("img/lower-right.png", Texture.class), 64, 64);
     static int dialog_height = 50;
     static Color inner_color = Colors.ColorMap.get("dark_grey");
     static Color outer_color = Colors.ColorMap.get("light_grey");
